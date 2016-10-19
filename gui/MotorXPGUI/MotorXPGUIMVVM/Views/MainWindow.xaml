@@ -6,8 +6,8 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:local="clr-namespace:MotorXPGUIMVVM.Views"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
+        Height="600"
+        Width="900"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     
@@ -18,8 +18,19 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-    <Grid x:Name="LayoutRoot">
-        <local:MainView/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <local:Header Grid.ColumnSpan="2" Grid.Row="0"/>
+        <local:MainView Grid.Column="2" Grid.Row="1"/>
     </Grid>
+
+    <!--<Grid x:Name="LayoutRoot">
+    </Grid>-->
 </Window>
