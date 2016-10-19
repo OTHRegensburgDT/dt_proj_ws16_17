@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="template for motorx header file" enabled="true" name="templateHeader">/*&#13;
+ * ${file}&#13;
+ *&#13;
+ *  Created on: ${date}&#13;
+ *      Author: ${user}&#13;
+ */&#13;
+&#13;
+#ifndef ${INCLUDE_GUARD}&#13;
+#define ${INCLUDE_GUARD}&#13;
+&#13;
+&#13;
+#endif /* ${INCLUDE_GUARD} */</template><template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="template for motorx source file" enabled="true" name="templateSource">/*&#13;
+ * ${file}&#13;
+ *&#13;
+ *  Created on: ${date}&#13;
+ *      Author: ${author}&#13;
+ */</template></templates>
