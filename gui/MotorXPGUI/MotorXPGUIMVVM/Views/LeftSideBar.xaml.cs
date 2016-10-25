@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MotorXPGUIMVVM.Views
 {
     /// <summary>
-    /// Interaction logic for Header.xaml
+    /// Interaction logic for LeftSideBar.xaml
     /// </summary>
-    public partial class Header : UserControl
+    public partial class LeftSideBar : UserControl
     {
-        public Header()
+        public LeftSideBar()
         {
             InitializeComponent();
         }
