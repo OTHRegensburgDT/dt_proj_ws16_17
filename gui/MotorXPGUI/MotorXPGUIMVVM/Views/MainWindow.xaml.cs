@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using MotorXPGUIMVVM.ViewModel;
-using MahApps.Metro.Controls;
 
 namespace MotorXPGUIMVVM.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : Window
     {
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
