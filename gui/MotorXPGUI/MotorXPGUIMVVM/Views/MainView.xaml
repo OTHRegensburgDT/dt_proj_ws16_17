@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         mc:Ignorable="d ignore"
-        Background="LightGray"
+        Background="WhiteSmoke"
         DataContext="{Binding MainView, Source={StaticResource Locator}}">
 
     <Grid>
