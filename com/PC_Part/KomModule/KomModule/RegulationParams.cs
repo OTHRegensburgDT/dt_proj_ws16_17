@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KomModule
 {
-    class RegulationParams
+    public class RegulationParams
     {
         private UInt64 timestamp;
         private KeyValuePair<UInt16, UInt64> paramTable;

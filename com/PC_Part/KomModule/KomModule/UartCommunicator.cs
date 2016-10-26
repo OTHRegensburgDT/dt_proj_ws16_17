@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 
+
 namespace KomModule
 {
     public class UartCommunicator : ICommunicator
@@ -14,6 +15,12 @@ namespace KomModule
         private RegulationParams regPara;
         private Action _dataArrived;
         private SerialPort uart;
+        private bool isInit;
+
+        public bool isInitialized()
+        {
+            return isInit;
+        }
 
         public event Action newSensordata
         {
@@ -22,11 +29,13 @@ namespace KomModule
         }
         public UartCommunicator(String portName)
         {
+            isInit = false;
             uart = new SerialPort(portName);
             port_Init();
         }
         public UartCommunicator(SerialPort port)
 	    {
+            isInit = false;
             uart = port;
             port_Init();
         }
@@ -38,6 +47,31 @@ namespace KomModule
         {
             bool retVal;
             retVal = false;
+            byte[] buf = new byte[1024];
+            //TODO: parse Parameter struct to intermediate byte[]
+
+            //TODO: parse intermediate byte[] to final byte[] for sending
+            try
+            {
+                uart.Write(buf, 0, buf.Length);
+                retVal = true;
+            }
+            catch (Exception e)
+            {
+                throw new SystemException("Could not send Params! Error: " + e.ToString());
+            }
+            return retVal;
+        }
+        public bool SetParams(RegulationParams para)
+        {
+            bool retVal;
+            retVal = false;
+
+            if (para != null)
+            {
+                retVal = true;
+                regPara = para;
+            }
 
             return retVal;
         }
@@ -46,42 +80,51 @@ namespace KomModule
         {
             return recData;
         }
-
-        private void port_DataRcv(object sender, SerialDataReceivedEventArgs e)
-        {
-            String InputData;
-            InputData = uart.ReadExisting();
-            if (InputData != String.Empty)
-            {
-                recData = Parser.StrtoSData(InputData);
-                new Task(_dataArrived).Start();
-            }
-        }
-
         private void port_Init()
         {
-            if (uart.IsOpen == false)
+            try
             {
-                uart.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(port_DataRcv);
-                uart.BaudRate = 9600;
+                uart.BaudRate = 19200;
                 uart.DataBits = 8;
                 uart.StopBits = StopBits.One;
                 uart.Handshake = Handshake.None;
                 uart.Parity = Parity.Even;
+                uart.DtrEnable = false;
+                uart.RtsEnable = false;
+                uart.DataReceived += uart_DataReceived;
                 uart.Open();
+                isInit = true;
+            }
+            catch(Exception e)
+            {
+                throw new SystemException("Uart init failed! Message: "+ e.ToString());
+            }
+        }
+        private void port_Deinit()
+        {
+            try
+            {
+                uart.Close();
+                isInit = false;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
             }
         }
 
-        private void port_Deinit()
+        private void uart_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (uart.IsOpen)
-            {
-                uart.Close();
-            }
-            else
-            {
-                throw new SystemException("UART is closed???");
-            }
+            //read serial port
+            SerialPort spL = (SerialPort)sender;
+            const int bufSize = 1024;
+            byte[] buf = new byte[bufSize];
+            spL.Read(buf, 0, bufSize);
+            //parse message
+            buf = Frameparser.DecapsuleFrame(buf);
+            recData = Protoparser.ByArrtoSData(buf);
+
+            _dataArrived();
         }
     }
 }

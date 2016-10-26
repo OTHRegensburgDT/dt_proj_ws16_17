@@ -29,5 +29,15 @@ namespace UnitTests
         {
             getDataFlag = true;
         }
+
+        [TestMethod]
+        public void TestFrameParsing()
+        {
+            byte[] buf = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+            byte[] output, frame;
+            frame = KomModule.Frameparser.EncapsuleFrame(buf);
+            output = KomModule.Frameparser.DecapsuleFrame(frame);
+            Assert.AreEqual(buf,output);
+        }
     }
 }
