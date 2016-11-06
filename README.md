@@ -1,4 +1,4 @@
-Datenverarbeitung in der Technik Wintersemester 2016/2017 MotorXP
+Datenverarbeitung in der Technik OTH Regensburg WS 16/17 MotorXP
 ================================================================
 
 Ziele
