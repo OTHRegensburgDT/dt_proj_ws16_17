@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace MotorXPGUIMVVM.Model
 {
-    class SensorData
+    public class SensorData
     {
+        private UInt64 timestamp;
+        private SortedList<UInt16, UInt64> dataTable;
+
+        public UInt64 Timestamp
+        {
+            get { return timestamp; }
+            set { timestamp = value; }
+        }
+
+        public SortedList<UInt16, UInt64> DataTable
+        {
+            get { return dataTable; }
+            set { dataTable = value; }
+        }
     }
 }
