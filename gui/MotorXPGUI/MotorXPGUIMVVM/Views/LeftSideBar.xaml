@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MotorXPGUIMVVM.Views"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:fa ="http://schemas.fontawesome.io/icons/"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"    
              Background="LightGray"
              d:DesignHeight="600" d:DesignWidth="50">
     <Grid>
@@ -16,19 +16,21 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-       <!--Style="{DynamicResource MetroCircleButtonStyle}"-->
-        <Button Name="Devices" Grid.Row="0" Style="{DynamicResource MetroCircleButtonStyle}"
+
+        <Button Name="Devices" Grid.Row="0" Style="{StaticResource MenuButton}"
                 ToolTip="Conneted Devices" Command="{Binding DevicesClick}">
-            <fa:ImageAwesome Icon="SignIn" Rotation="180" VerticalAlignment="Center" HorizontalAlignment="Center" ></fa:ImageAwesome>
+            <fa:ImageAwesome Icon="SignIn" Rotation="180" Style="{StaticResource MenuIconStyle}"/>
+
+
         </Button>
-        <Button Grid.Row="1" Background="LightGray" BorderThickness="0" Margin="8">
-            <fa:ImageAwesome Icon="Cog" VerticalAlignment="Center" HorizontalAlignment="Center" ></fa:ImageAwesome>
+        <Button Grid.Row="1" Style="{StaticResource MenuButton}">
+            <fa:ImageAwesome Icon="Cog" Style="{StaticResource MenuIconStyle}"></fa:ImageAwesome>
         </Button>
-        <Button Grid.Row="2" Background="LightGray" BorderThickness="0" Margin="8">
-            <fa:ImageAwesome Icon="Search" VerticalAlignment="Center" HorizontalAlignment="Center" ></fa:ImageAwesome>
+        <Button Grid.Row="2" Style="{StaticResource MenuButton}">
+            <fa:ImageAwesome Icon="Search" Style="{StaticResource MenuIconStyle}"></fa:ImageAwesome>
         </Button>
-        <Button Grid.Row="3" Background="LightGray" BorderThickness="0" Margin="8">
-            <fa:ImageAwesome Icon="Taxi" VerticalAlignment="Center" HorizontalAlignment="Center" ></fa:ImageAwesome>
+        <Button Grid.Row="3" Style="{StaticResource MenuButton}">
+            <fa:ImageAwesome Icon="Taxi" Style="{StaticResource MenuIconStyle}"></fa:ImageAwesome>
         </Button>
     </Grid>
 </UserControl>
