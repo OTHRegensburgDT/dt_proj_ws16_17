@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using MotorXPGUIMVVM.Model;
+using System.Diagnostics;
 
 namespace MotorXPGUIMVVM.ViewModel
 {
@@ -25,6 +26,8 @@ namespace MotorXPGUIMVVM.ViewModel
                     if (error != null)
                     {
                         // Report error here
+                        Debug.WriteLine(""+ error.Message);
+
                         return;
                     }
                 });

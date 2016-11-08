@@ -16,8 +16,10 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Background="LightGray" BorderThickness="0" Margin="8">
-            <fa:ImageAwesome Icon="Gear" VerticalAlignment="Center" HorizontalAlignment="Center" ></fa:ImageAwesome>
+       <!--Style="{DynamicResource MetroCircleButtonStyle}"-->
+        <Button Name="Devices" Grid.Row="0" 
+                ToolTip="Conneted Devices" Command="{Binding DevicesClick}">
+            <fa:ImageAwesome Icon="SignIn" Rotation="180" VerticalAlignment="Center" HorizontalAlignment="Center" ></fa:ImageAwesome>
         </Button>
         <Button Grid.Row="1" Background="LightGray" BorderThickness="0" Margin="8">
             <fa:ImageAwesome Icon="Cog" VerticalAlignment="Center" HorizontalAlignment="Center" ></fa:ImageAwesome>

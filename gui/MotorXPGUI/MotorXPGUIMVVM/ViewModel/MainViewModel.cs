@@ -16,7 +16,7 @@ namespace MotorXPGUIMVVM.ViewModel
         /// <summary>
         /// The <see cref="WelcomeTitle" /> property's name.
         /// </summary>
-        public const string WelcomeTitlePropertyName = "WelcomeTitle";
+        public const string WelcomeTitlePropertyName = "MotorXP";
 
         private string _welcomeTitle = string.Empty;
 
