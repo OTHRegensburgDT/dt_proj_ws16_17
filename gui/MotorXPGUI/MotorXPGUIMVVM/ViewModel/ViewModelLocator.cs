@@ -10,8 +10,8 @@
 */
 
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
 using MotorXPGUIMVVM.Model;
 
 namespace MotorXPGUIMVVM.ViewModel
@@ -27,19 +27,11 @@ namespace MotorXPGUIMVVM.ViewModel
     {
         static ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            
+            ServiceLocator.SetLocatorProvider(() => new Bootstrapper());
 
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
-            }
-            else
-            {
-                SimpleIoc.Default.Register<IDataService, DataService>();
-            }
 
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<MainViewViewModel>();
+
         }
 
         /// <summary>

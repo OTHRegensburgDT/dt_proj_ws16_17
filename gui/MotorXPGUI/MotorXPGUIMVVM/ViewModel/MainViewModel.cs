@@ -42,17 +42,7 @@ namespace MotorXPGUIMVVM.ViewModel
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService;
-            _dataService.GetData(
-                (item, error) =>
-                {
-                    if (error != null)
-                    {
-                        // Report error here
-                        return;
-                    }
-
-                    WelcomeTitle = item.Title;
-                });
+           // _dataService.GetData();
         }
 
         ////public override void Cleanup()

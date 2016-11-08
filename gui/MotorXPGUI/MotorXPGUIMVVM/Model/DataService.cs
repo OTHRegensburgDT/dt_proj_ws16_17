@@ -1,15 +1,17 @@
-﻿using System;
+﻿using AutoMapper;
+using KomModule;
+using System;
 
 namespace MotorXPGUIMVVM.Model
 {
     public class DataService : IDataService
     {
-        public void GetData(Action<DataItem, Exception> callback)
+        private SensorData _data;
+        private ICommunicator _com;
+       
+        public SensorData Test()
         {
-            // Use this to connect to the actual data service
-
-            var item = new DataItem("Welcome to MVVM Light");
-            callback(item, null);
+            throw new NotImplementedException();
         }
     }
 }

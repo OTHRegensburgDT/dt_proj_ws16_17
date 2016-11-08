@@ -17,7 +17,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
        <!--Style="{DynamicResource MetroCircleButtonStyle}"-->
-        <Button Name="Devices" Grid.Row="0" 
+        <Button Name="Devices" Grid.Row="0" Style="{DynamicResource MetroCircleButtonStyle}"
                 ToolTip="Conneted Devices" Command="{Binding DevicesClick}">
             <fa:ImageAwesome Icon="SignIn" Rotation="180" VerticalAlignment="Center" HorizontalAlignment="Center" ></fa:ImageAwesome>
         </Button>
