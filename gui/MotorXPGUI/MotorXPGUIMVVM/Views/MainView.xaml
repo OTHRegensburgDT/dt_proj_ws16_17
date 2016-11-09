@@ -11,18 +11,18 @@
 
     <Grid HorizontalAlignment="Left">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <gauge:Gauge Grid.Column="1"
-                    FontSize="12" AutoScale="False" Value="1250"
+        <!--<gauge:Gauge Grid.Row="0"
+                    FontSize="12" AutoScale="False" Value="{Binding GaugeValue}"
                     x:Name="TGauge" MajorTickCount="10" MinorTickCount="5" MinValue="0" MaxValue="5000" 
-                    HorizontalAlignment="Left"  StartAngle="-65" EndAngle="247" MajorTickMarkColor="LightYellow" Margin="0" Grid.Row="1" VerticalAlignment="Top" Height="200" Width="200">
-            <gauge:Gauge.GoalMarkers>
+                    HorizontalAlignment="Left"  StartAngle="-65" EndAngle="247" MajorTickMarkColor="LightYellow" Margin="0" VerticalAlignment="Top" Height="200" Width="200">
+            --><!--<gauge:Gauge.GoalMarkers>
                 <gauge:GoalMarker MarkerColor="Red" Value="2000" />
-            </gauge:Gauge.GoalMarkers>
+            </gauge:Gauge.GoalMarkers>--><!--
             <gauge:Gauge.ValueTextStyle>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Foreground" Value="White"/>
@@ -38,7 +38,7 @@
                 </Style>
             </gauge:Gauge.TickLabelStyle>
 
-        </gauge:Gauge>
+        </gauge:Gauge>-->
 
 
 
@@ -46,6 +46,6 @@
 
         </Grid>
     </Grid>
-       
-    
+
+
 </UserControl>

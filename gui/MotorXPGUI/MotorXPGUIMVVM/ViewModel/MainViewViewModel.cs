@@ -23,6 +23,10 @@ namespace MotorXPGUIMVVM.ViewModel
             
         }
 
+        public int GaugeValue
+        {
+            get {return 2344; }            
+        }
         ////public override void Cleanup()
         ////{
         ////    // Clean up if needed

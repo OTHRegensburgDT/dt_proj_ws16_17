@@ -1,4 +1,6 @@
-﻿using Microsoft.Practices.ServiceLocation;
+﻿using AutoMapper;
+using KomModule;
+using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using MotorXPGUIMVVM.Model;
 using MotorXPGUIMVVM.ViewModel;
@@ -25,6 +27,13 @@ namespace MotorXPGUIMVVM
             Container.RegisterType<IDataService, DataService>();
             Container.RegisterType<MainViewModel>();
             Container.RegisterType<MainViewViewModel>();
+            Container.RegisterType<ICommunicator, UartCommunicator>();
+            var config = new MapperConfiguration(cfg =>
+            { 
+                cfg.CreateMap<SensorData, Sensordata>();
+            });
+            var mapper = config.CreateMapper();
+            Container.RegisterInstance(mapper);
         }
 
         public object GetInstance(Type serviceType)
