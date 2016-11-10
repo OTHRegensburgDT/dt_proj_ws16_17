@@ -13,10 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\com">
+      <UniqueIdentifier>{f46670d6-b24a-4f0e-b3f8-acb655d26f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\motor">
+      <UniqueIdentifier>{d6106723-7562-431c-b963-504bc5f6ee82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sensor">
+      <UniqueIdentifier>{ab791fd8-3e83-4aad-a1ba-5c881cc1eb73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sensorHandler.h">
+      <Filter>Header Files\sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="motorHandler.h">
+      <Filter>Header Files\motor</Filter>
+    </ClInclude>
+    <ClInclude Include="comHandler.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
