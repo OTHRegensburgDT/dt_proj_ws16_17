@@ -22,21 +22,42 @@
     <Filter Include="Header Files\sensor">
       <UniqueIdentifier>{ab791fd8-3e83-4aad-a1ba-5c881cc1eb73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\sensor">
+      <UniqueIdentifier>{20a4cf09-b4e9-4844-a32c-4194219d0ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\motor">
+      <UniqueIdentifier>{19e83f24-bd82-44f9-8dae-a0ab1edbfc6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\com">
+      <UniqueIdentifier>{54a1291b-5c75-4962-8e22-48e66ff4f9e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="sensorHandler.h">
+    <ClInclude Include="Sensor.h">
       <Filter>Header Files\sensor</Filter>
     </ClInclude>
-    <ClInclude Include="motorHandler.h">
-      <Filter>Header Files\motor</Filter>
-    </ClInclude>
-    <ClInclude Include="comHandler.h">
+    <ClInclude Include="ComHandler.h">
       <Filter>Header Files\com</Filter>
     </ClInclude>
+    <ClInclude Include="MotorHandler.h">
+      <Filter>Header Files\motor</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorHandler.h">
+      <Filter>Header Files\sensor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorHandler.c">
+      <Filter>Source Files\sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="ComHandler.c">
+      <Filter>Source Files\com</Filter>
+    </ClCompile>
+    <ClCompile Include="MotorHandler.c">
+      <Filter>Source Files\motor</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

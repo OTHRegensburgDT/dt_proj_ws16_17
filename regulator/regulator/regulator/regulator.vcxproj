@@ -110,12 +110,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.c" />
+    <ClCompile Include="ComHandler.c" />
+    <ClCompile Include="Main.c" />
+    <ClCompile Include="MotorHandler.c" />
+    <ClCompile Include="SensorHandler.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="comHandler.h" />
-    <ClInclude Include="motorHandler.h" />
-    <ClInclude Include="sensorHandler.h" />
+    <ClInclude Include="ComHandler.h" />
+    <ClInclude Include="MotorHandler.h" />
+    <ClInclude Include="Sensor.h" />
+    <ClInclude Include="SensorHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
