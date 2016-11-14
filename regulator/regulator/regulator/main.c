@@ -7,7 +7,9 @@
 int main()
 {
 	// initialize
-
+	ComHandler_Initialize();
+	MotorHandler_Initialize();
+	SensorHandler_Initialize();
 
 	// main loop
 	while(1)
