@@ -31,6 +31,12 @@
     <Filter Include="Source Files\com">
       <UniqueIdentifier>{54a1291b-5c75-4962-8e22-48e66ff4f9e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\regulation">
+      <UniqueIdentifier>{2da43745-2979-4179-959c-15a600e4dbdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\regulation">
+      <UniqueIdentifier>{2b2f7c55-6776-4f18-9ddb-4b08eaf8eca9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sensor.h">
@@ -45,6 +51,9 @@
     <ClInclude Include="SensorHandler.h">
       <Filter>Header Files\sensor</Filter>
     </ClInclude>
+    <ClInclude Include="RegulationHandler.h">
+      <Filter>Header Files\regulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.c">
@@ -58,6 +67,12 @@
     </ClCompile>
     <ClCompile Include="MotorHandler.c">
       <Filter>Source Files\motor</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorStubs.c">
+      <Filter>Source Files\sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="RegulationHandler.c">
+      <Filter>Source Files\regulation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

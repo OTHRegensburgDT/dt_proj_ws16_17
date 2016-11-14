@@ -6,6 +6,6 @@
 * Initializes the motor interface.
 * </summary>
 */
-void MotorHandler_Initialize();
+#define MOTORHANDLER_INITIALIZE() ;
 
 #endif

@@ -7,9 +7,16 @@
 
 #ifndef SENSOR_H
 #define SENSOR_H
-
+/*
 #include "Std_Types.h"
 #include "Sensor_Types.h"
+*/
+
+// STUBS FOR INCLUDES ABOVE
+#define Std_ReturnType int
+#define Sensor_HallCallbackType int
+#define Sensor_TemperatureType int
+#define uint16_t int
 
 /*
 * <summary>

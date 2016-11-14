@@ -113,11 +113,14 @@
     <ClCompile Include="ComHandler.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="MotorHandler.c" />
+    <ClCompile Include="RegulationHandler.c" />
     <ClCompile Include="SensorHandler.c" />
+    <ClCompile Include="SensorStubs.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComHandler.h" />
     <ClInclude Include="MotorHandler.h" />
+    <ClInclude Include="RegulationHandler.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="SensorHandler.h" />
   </ItemGroup>

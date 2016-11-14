@@ -6,6 +6,6 @@
 * Initializes the communication interface.
 * </summary>
 */
-void ComHandler_Initialize();
+#define COMHANDLER_INITIALIZE() ;
 
 #endif
