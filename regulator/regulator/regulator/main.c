@@ -3,8 +3,8 @@
 #include "comHandler.h"
 #include "sensorHandler.h"
 #include "motorHandler.h"
+#include "RegulationHandler.h"
 #include <stdio.h>
-
 
 
 int main()
@@ -13,21 +13,16 @@ int main()
 	COMHANDLER_INITIALIZE();
 	MOTORHANDLER_INITIALIZE();
 	SENSORHANDLER_INITIALIZE();
-	int a = 5;
-	int* b = &a;
-
-	printf("%d", *b = 3);
 
 	// main loop
 	while(1)
 	{
+		// wait a bit
+
 		// com
 
 		// read sensor
 
 		// regulate
-
 	}
-
-	return 0;
 }
