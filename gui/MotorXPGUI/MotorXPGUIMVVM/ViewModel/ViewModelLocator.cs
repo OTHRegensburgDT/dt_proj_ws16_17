@@ -61,6 +61,20 @@ namespace MotorXPGUIMVVM.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewViewModel>();
             }
         }
+        /// <summary>
+        /// Gets the Gauge property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public GaugeViewModel Gauge
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<GaugeViewModel>();
+            }
+
+        }
 
         /// <summary>
         /// Cleans up all the resources.
