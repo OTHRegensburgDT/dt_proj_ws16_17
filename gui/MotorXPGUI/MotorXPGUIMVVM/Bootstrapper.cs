@@ -24,10 +24,13 @@ namespace MotorXPGUIMVVM
 
         private void ConfigurationContainer()
         {
-            Container.RegisterType<IDataService, DataService>();
             Container.RegisterType<MainViewModel>();
             Container.RegisterType<MainViewViewModel>();
+            Container.RegisterType<GaugeViewModel>();
+            Container.RegisterType<LineChartViewModel>();
             Container.RegisterType<ICommunicator, UartCommunicator>();
+
+
             var config = new MapperConfiguration(cfg =>
             { 
                 cfg.CreateMap<SensorData, Sensordata>();

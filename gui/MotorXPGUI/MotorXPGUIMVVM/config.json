@@ -1,0 +1,12 @@
+﻿{
+  "Speed": {
+    "MinValue": "0",
+    "MaxValue": "4000"
+  },
+
+  "Temp": {
+    "MinValue": "0",
+    "MaxValue": "150"
+  }
+
+}
