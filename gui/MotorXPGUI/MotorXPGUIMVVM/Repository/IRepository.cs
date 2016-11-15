@@ -8,25 +8,25 @@ namespace MotorXPGUIMVVM.Repository
         /// get torque in nm as double
         /// </summary>
         /// <returns>double value</returns>
-        double GetElectroMagneticTorque();
+        ulong GetElectroMagneticTorque();
        
         /// <summary>
         /// Get hall effect true or false
         /// </summary>
         /// <returns>boolean value</returns>
         bool GetHallEffect();
-        
+
         /// <summary>
         /// get rotor speed in rad/sec
         /// </summary>
         /// <returns>double value</returns>
-        double GetRotorSpeed();
-        
+        ulong GetRotorSpeed();
+
         /// <summary>
         /// get current stator voltage (V) as double
         /// </summary>
         /// <returns>double value</returns>
-        double GetStatorCurrent();
+        ulong GetStatorCurrent();
 
         /// <summary>
         /// Get timestamp from object

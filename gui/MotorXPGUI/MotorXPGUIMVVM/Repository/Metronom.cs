@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Threading;
 
 namespace MotorXPGUIMVVM.Repository
-{
-
+{ 
     public class Metronom
     {
         private Action _tick;

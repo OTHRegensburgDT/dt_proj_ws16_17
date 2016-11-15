@@ -17,9 +17,9 @@ namespace MotorXPGUIMVVM.Repository
         /// <summary>
         /// Strom der durch Spule fließt
         /// </summary>
-        public double GetStatorCurrent()
+        public ulong GetStatorCurrent()
         {
-            return rand.Next(0, 24);
+            return (ulong)rand.Next(0, 24);
         }
 
         /// <summary>
@@ -33,17 +33,17 @@ namespace MotorXPGUIMVVM.Repository
         /// <summary>
         /// Drehgeschwindigkeit in Rad/Sec
         /// </summary>
-        public double GetRotorSpeed()
+        public ulong GetRotorSpeed()
         {
-            return rand.Next(1, 3500);
+            return (ulong)rand.Next(1, 3500);
         }
 
         /// <summary>
         /// Drehmoment in Nm
         /// </summary>
-        public double GetElectroMagneticTorque()
+        public ulong GetElectroMagneticTorque()
         {
-            return rand.Next(0, 5);
+            return  (ulong)rand.Next(0, 5);
         }
 
         public DateTime GetTimeStamp()

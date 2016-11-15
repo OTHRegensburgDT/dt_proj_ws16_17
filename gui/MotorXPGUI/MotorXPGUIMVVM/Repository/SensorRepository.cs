@@ -1,4 +1,5 @@
-﻿using MotorXPGUIMVVM.Model;
+﻿using KomModule;
+using MotorXPGUIMVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,10 +12,28 @@ namespace MotorXPGUIMVVM.Repository
 {
     public class SensorRepository : IRepository
     {
+        private ICommunicator _com;
+        private ulong _timeStamp;
 
-        public double GetElectroMagneticTorque()
+        public ulong GetElectroMagneticTorque()
         {
-            throw new NotImplementedException();
+            if(CheckTimeStampAndInit())
+            {
+                return _com.getData().DataTable.FirstOrDefault(v => (v.Key >= Properties.Settings.Default.ElectroMagneticTorqueKeyMin && v.Key < Properties.Settings.Default.ElectroMagneticTorqueKeyMax)).Value;
+            }
+            return 0;
+        }
+
+        private bool CheckTimeStampAndInit()
+        {
+            var newStamp = _com.getData().Timestamp;
+            if(_com.isInitialized() && newStamp > _timeStamp)
+            {
+                _timeStamp = newStamp;
+                return true;
+            }
+            return false;
+
         }
 
         public bool GetHallEffect()
@@ -22,12 +41,12 @@ namespace MotorXPGUIMVVM.Repository
             throw new NotImplementedException();
         }
 
-        public double GetRotorSpeed()
+        public ulong GetRotorSpeed()
         {
             throw new NotImplementedException();
         }
 
-        public double GetStatorCurrent()
+        public ulong GetStatorCurrent()
         {
             throw new NotImplementedException();
         }
