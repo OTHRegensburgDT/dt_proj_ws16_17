@@ -4,48 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
-        xmlns:gauge="clr-namespace:WpfGauge;assembly=WpfGauge"
+        xmlns:uc="clr-namespace:MotorXPGUIMVVM.UserControls"
         mc:Ignorable="d ignore"
         Background="WhiteSmoke"
         DataContext="{Binding MainView, Source={StaticResource Locator}}">
 
     <Grid HorizontalAlignment="Left">
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="300"/>
         </Grid.RowDefinitions>
-        <!--<gauge:Gauge Grid.Row="0"
-                    FontSize="12" AutoScale="False" Value="{Binding GaugeValue}"
-                    x:Name="TGauge" MajorTickCount="10" MinorTickCount="5" MinValue="0" MaxValue="5000" 
-                    HorizontalAlignment="Left"  StartAngle="-65" EndAngle="247" MajorTickMarkColor="LightYellow" Margin="0" VerticalAlignment="Top" Height="200" Width="200">
-            --><!--<gauge:Gauge.GoalMarkers>
-                <gauge:GoalMarker MarkerColor="Red" Value="2000" />
-            </gauge:Gauge.GoalMarkers>--><!--
-            <gauge:Gauge.ValueTextStyle>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Margin" Value="0,60,0,0" />
-                    <Setter Property="FontSize" Value="12"/>
-                </Style>
-            </gauge:Gauge.ValueTextStyle>
-
-            <gauge:Gauge.TickLabelStyle>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="FontSize" Value="12"/>
-                </Style>
-            </gauge:Gauge.TickLabelStyle>
-
-        </gauge:Gauge>-->
-
-
-
-        <Grid Grid.Row="1" Width="100">
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="600"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" >
+            <uc:GaugeControl DataContext="{Binding TempViewModel}"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <uc:GaugeControl DataContext="{Binding SpeedViewModel}"/>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1" >
+            <uc:LineChartControl/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <uc:LineChartControl/>
         </Grid>
     </Grid>
-
-
 </UserControl>
