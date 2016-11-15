@@ -1,7 +1,36 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MotorXPGUIMVVM.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SpeedMinValue" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SpeedMaxValue" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4000</Value>
+    </Setting>
+    <Setting Name="TempMinValue" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="TempMaxValue" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">150</Value>
+    </Setting>
+    <Setting Name="SpeedTitle" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Speed</Value>
+    </Setting>
+    <Setting Name="TempTitle" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Temp</Value>
+    </Setting>
+    <Setting Name="SpeedUnit" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">rpm</Value>
+    </Setting>
+    <Setting Name="TempUnit" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C°</Value>
+    </Setting>
+    <Setting Name="ElectroMagneticTorqueKeyMin" Type="System.UInt16" Scope="Application">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ElectroMagneticTorqueKeyMax" Type="System.UInt16" Scope="Application">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
