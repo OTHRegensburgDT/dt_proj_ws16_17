@@ -31,6 +31,11 @@ void Sensor_StopAll()
 	Sensor_Hall_Stop();
 }
 
+void Sensor_SetDirection(MotorDirection_t direction)
+{
+	Sensor_Hall_SetDirection(direction);
+}
+
 Std_ReturnType Sensor_RegisterHallCallback(Sensor_HallCallbackType callback)
 {
 	SensorHallCallback = callback;

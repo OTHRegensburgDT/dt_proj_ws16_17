@@ -189,7 +189,6 @@ void POSIF0_0_IRQHandler(void)
 	SensorHallCallback();
 }
 
-
 void Sensor_Hall_Init()
 {
 	XMC_GPIO_Init(HALL_PORT_A, &HALL_POSIF_0_Hall_PadConfig);
@@ -261,4 +260,9 @@ void Sensor_Hall_Stop()
 
 	/* Start the POSIF module*/
 	XMC_POSIF_Stop(POSIF_PTR);
+}
+
+void Sensor_Hall_SetDirection(MotorDirection_t direction)
+{
+	motorDirection = direction;
 }

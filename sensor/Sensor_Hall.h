@@ -31,4 +31,6 @@ void Sensor_Hall_Start(void);
 
 void Sensor_Hall_Stop(void);
 
+void Sensor_Hall_SetDirection(MotorDirection_t direction);
+
 #endif /* SENSOR_HALL_H */

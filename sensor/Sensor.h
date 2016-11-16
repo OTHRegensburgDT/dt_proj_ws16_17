@@ -42,7 +42,14 @@ void Sensor_StopAll(void);
 
 /*
  * <summary>
- * Registers a callack function that is invoked if a correct hall event is detected.
+ *	Sets the direction that the motor is turning.
+ * </summary>
+ */
+void Sensor_SetDirection(MotorDirection_t direction);
+
+/*
+ * <summary>
+ * Registers a callback function that is invoked if a correct hall event is detected.
  * </summary>
  * <param name="callback">Callback function pointer</param>
  * <returns>E_OK if the registration was successful.</returns>
