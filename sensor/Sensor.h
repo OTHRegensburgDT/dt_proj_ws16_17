@@ -71,7 +71,7 @@ Std_ReturnType Sensor_GetVelocity(double* velocity);
  * The value is measured in degrees.
  * </summary>
  * <param name="angle">Pointer to memory location where the angle is stored.</param>
- * <returns>E_OK if the angle was read sucessfull.</returns>
+ * <returns>E_OK if the angle was read successful.</returns>
  */
 Std_ReturnType Sensor_GetAngle(double* angle);
 
@@ -84,6 +84,6 @@ Std_ReturnType Sensor_GetAngle(double* angle);
  * <param name="temperature">Pointer to the memory location where the temperature is stored.</param>
  * <returns>E_OK if the temperature was read successful.</returns>
  */
-Std_ReturnType Sensor_GetTemperature(Sensor_TemperatureType sensor, uint16_t* temperature);
+Std_ReturnType Sensor_GetTemperature(Sensor_TemperatureType sensor, int* temperature);
 
 #endif /* SENSOR_H */

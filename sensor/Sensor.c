@@ -11,6 +11,7 @@
 
 #include "Sensor.h"
 #include "Sensor_Hall.h"
+#include "Sensor_Temperature.h"
 
 /*********************************************************************************
  * Global function definitions
@@ -18,7 +19,8 @@
 
 void Sensor_Init()
 {
-	Sensor_Hall_Init();
+	//Sensor_Hall_Init();
+	Sensor_Temperature_Init();
 }
 
 void Sensor_StartAll()
@@ -52,7 +54,8 @@ Std_ReturnType Sensor_GetAngle(double* angle)
 	return E_OK;
 }
 
-Std_ReturnType Sensor_GetTemperature(Sensor_TemperatureType sensor, uint16_t* temperature)
+Std_ReturnType Sensor_GetTemperature(Sensor_TemperatureType sensor, int* temperature)
 {
+	*temperature = Sensor_Temperature_Calculate(sensor);
 	return E_OK;
 }

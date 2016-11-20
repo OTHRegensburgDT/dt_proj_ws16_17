@@ -8,6 +8,9 @@
 #ifndef SENSOR_TYPES_H
 #define SENSOR_TYPES_H
 
+#define TEMPERATURE_SENSOR_A (0U)
+#define TEMPERATURE_SENSOR_B (1U)
+
 typedef uint8_t Sensor_TemperatureType;
 typedef void(*Sensor_HallCallbackType)();
 
