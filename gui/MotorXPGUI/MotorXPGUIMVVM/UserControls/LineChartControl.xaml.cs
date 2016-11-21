@@ -22,7 +22,8 @@ namespace MotorXPGUIMVVM.UserControls
     {
         public LineChartControl()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
+
     }
 }

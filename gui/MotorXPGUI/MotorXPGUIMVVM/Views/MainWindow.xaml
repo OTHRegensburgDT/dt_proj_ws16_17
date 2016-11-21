@@ -12,7 +12,7 @@
         Title="MotorXP"
         ShowIconOnTitleBar="True"
         Icon="../Resources/MotorXP.png"
-        WindowTitleBrush="#03A9F4"
+        GlowBrush="{DynamicResource AccentColorBrush}"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     
     <Window.Resources>

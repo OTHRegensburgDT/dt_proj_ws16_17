@@ -5,30 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:uc="clr-namespace:MotorXPGUIMVVM.UserControls"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:MotorXPGUIMVVM" 
         mc:Ignorable="d ignore"
-        Background="WhiteSmoke"
         DataContext="{Binding MainView, Source={StaticResource Locator}}">
+    <TabControl>
+        <TabItem Header="Data">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel HorizontalAlignment="Left">
+                    <Expander Width="900" Header="Temp" IsExpanded="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="600"/>
+                            </Grid.ColumnDefinitions>
+                            <uc:GaugeControl DataContext="{Binding TempViewModel}"  Grid.Row="0" Grid.Column="0"/>
+                            <uc:LineChartControl Grid.Row="0" Grid.Column="1" DataContext="{Binding TempLineVM}"/>
+                        </Grid>
+                    </Expander>
+                    <Expander Header="Speed">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="600"/>
+                            </Grid.ColumnDefinitions>
+                            <uc:GaugeControl DataContext="{Binding SpeedViewModel}"/>
+                            <uc:LineChartControl Grid.Column="1" DataContext="{Binding SpeedLineVM}"/>
+                        </Grid>
+                    </Expander>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Inputs">
+            <Label Content="Content here..."/>
+            
+        </TabItem>
+        <TabItem Header="Settings">
 
-    <Grid HorizontalAlignment="Left">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="300"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="600"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" >
-            <uc:GaugeControl DataContext="{Binding TempViewModel}"/>
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="0">
-            <uc:GaugeControl DataContext="{Binding SpeedViewModel}"/>
-        </Grid>
-        <Grid Grid.Row="0" Grid.Column="1" >
-            <uc:LineChartControl/>
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="1">
-            <uc:LineChartControl/>
-        </Grid>
-    </Grid>
+        </TabItem>
+
+
+    </TabControl>
+
 </UserControl>

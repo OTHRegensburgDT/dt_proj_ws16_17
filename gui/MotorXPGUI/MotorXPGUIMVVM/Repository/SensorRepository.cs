@@ -19,7 +19,9 @@ namespace MotorXPGUIMVVM.Repository
         {
             if(CheckTimeStampAndInit())
             {
-                return _com.getData().DataTable.FirstOrDefault(v => (v.Key >= Properties.Settings.Default.ElectroMagneticTorqueKeyMin && v.Key < Properties.Settings.Default.ElectroMagneticTorqueKeyMax)).Value;
+                return _com.getData().DataTable.FirstOrDefault(v => 
+                                                                (v.Key >= Properties.Settings.Default.ElectroMagneticTorqueKeyMin &&
+                                                                 v.Key < Properties.Settings.Default.ElectroMagneticTorqueKeyMax)).Value;
             }
             return 0;
         }
