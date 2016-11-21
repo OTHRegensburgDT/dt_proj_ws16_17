@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,8 +12,10 @@ namespace MotorXPGUIMVVM.Views {
     public partial class GaugeAndLineChartTest : UserControl {
         public GaugeAndLineChartTest() {
             InitializeComponent();
-
-            Task.Run(() => {
+            
+            // only run this test code when not in the designer.
+            if (DesignerProperties.GetIsInDesignMode(this) == false) 
+                Task.Run(() => {
                 var i = 500;
                 while (i-- > 0 ) {
                     var j = i;

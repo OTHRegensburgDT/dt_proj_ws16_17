@@ -61,7 +61,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
                     asLineChart.DrawGraph();
                     break;
                 case nameof(AutoMinMax):
-                    if((bool)dependencyPropertyChangedEventArgs.NewValue) asLineChart.CalcMinMax();
+                    if ((bool)dependencyPropertyChangedEventArgs.NewValue) asLineChart.CalcMinMax();
                     break;
                 case nameof(MaxValue):
                 case nameof(MinValue):
@@ -150,9 +150,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
         /// <value>
         /// <c>true</c> if [minValue and maxValue is automatically set]; otherwise, <c>false</c>.
         /// </value>
-        public bool AutoMinMax
-        {
-            get { return (bool) GetValue(AutoMinMaxProperty); }
+        public bool AutoMinMax {
+            get { return (bool)GetValue(AutoMinMaxProperty); }
             set { SetValue(AutoMinMaxProperty, value); }
         }
 
@@ -187,52 +186,47 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
         public static readonly DependencyProperty ShowIndicatorsProperty = DependencyProperty.Register(
             "ShowIndicators", typeof(bool), typeof(LineChart), new PropertyMetadata(true));
 
-        public bool ShowIndicators
-        {
-            get { return (bool) GetValue(ShowIndicatorsProperty); }
+        public bool ShowIndicators {
+            get { return (bool)GetValue(ShowIndicatorsProperty); }
             set { SetValue(ShowIndicatorsProperty, value); }
         }
 
         public static readonly DependencyProperty VerticalLinesProperty = DependencyProperty.Register(
             "VerticalLines", typeof(int), typeof(LineChart), new PropertyMetadata(10, PropertyChangedCallback));
 
-        public int VerticalLines
-        {
-            get { return (int) GetValue(VerticalLinesProperty); }
+        public int VerticalLines {
+            get { return (int)GetValue(VerticalLinesProperty); }
             set { SetValue(VerticalLinesProperty, value); }
         }
 
         public static readonly DependencyProperty HorizontalLinesProperty = DependencyProperty.Register(
             "HorizontalLines", typeof(int), typeof(LineChart), new PropertyMetadata(10, PropertyChangedCallback));
 
-        public int HorizontalLines
-        {
-            get { return (int) GetValue(HorizontalLinesProperty); }
+        public int HorizontalLines {
+            get { return (int)GetValue(HorizontalLinesProperty); }
             set { SetValue(HorizontalLinesProperty, value); }
         }
 
         public static readonly DependencyProperty GridLinesColorProperty = DependencyProperty.Register(
             "GridLinesColor", typeof(Brush), typeof(LineChart), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(78, 0, 0, 0)), PropertyChangedCallback));
 
-        public Brush GridLinesColor
-        {
-            get { return (Brush) GetValue(GridLinesColorProperty); }
+        public Brush GridLinesColor {
+            get { return (Brush)GetValue(GridLinesColorProperty); }
             set { SetValue(GridLinesColorProperty, value); }
         }
 
         public static readonly DependencyProperty AxisColorProperty = DependencyProperty.Register(
             "AxisColor", typeof(Brush), typeof(LineChart), new PropertyMetadata(new SolidColorBrush(Colors.Black), PropertyChangedCallback));
 
-        public Brush AxisColor
-        {
-            get { return (Brush) GetValue(AxisColorProperty); }
+        public Brush AxisColor {
+            get { return (Brush)GetValue(AxisColorProperty); }
             set { SetValue(AxisColorProperty, value); }
         }
         #endregion
 
         #region Properties
 
-        public double MiddleValue => MinValue + (MaxValue - MinValue)/2;
+        public double MiddleValue => MinValue + (MaxValue - MinValue) / 2;
         #endregion
 
         #region Fields
@@ -278,7 +272,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
         /// <param name="to">To.</param>
         public void SetValues(List<double> to) {
             _values = to;
-            if(AutoMinMax) CalcMinMax();
+            if (AutoMinMax) CalcMinMax();
             DrawGraph();
         }
 
@@ -290,7 +284,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
             if (AutoMinMax) CheckMinMaxValue(value);
             _values.Add(value);
             DrawGraph();
-            if(_values.Count == 1) DrawGrid(); // if the values were zero before (are now 1) Redraw the grid. (which has some problems with the max. width for some reason)
+            if (_values.Count == 1) DrawGrid(); // if the values were zero before (are now 1) Redraw the grid. (which has some problems with the max. width for some reason)
         }
 
         /// <summary>
@@ -305,11 +299,10 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
         /// <summary>
         /// Draws the grid.
         /// </summary>
-        private void DrawGrid()
-        {
+        private void DrawGrid() {
             if (_gridCanvas == null) return;
             _gridCanvas.Children.Clear();
-            
+
 
             var availableWidth = _chartCanvas.ActualWidth;
             var lowerY = 0.0;
@@ -344,15 +337,13 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
             // horizontal lines
             // we dont want a line at the bottom and on the top. Therefore we start with i = 1. To still have the required amount HorizontalLines, we have to add one
             var horizontalLines = HorizontalLines + 1;
-            for (var i = 1; i < horizontalLines; i++)
-            {
+            for (var i = 1; i < horizontalLines; i++) {
                 // only the y position of the lines change.
-                var yPos = lowerY + (upperY - lowerY)/HorizontalLines*i;
-                line = new Line()
-                {
+                var yPos = lowerY + (upperY - lowerY) / HorizontalLines * i;
+                line = new Line() {
                     X1 = lowerX, // from left
                     X2 = upperX, // to right
-                    Y1 =  yPos,
+                    Y1 = yPos,
                     Y2 = yPos,
                     Stroke = GridLinesColor
                 };
@@ -380,7 +371,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
         private void DrawGraph() {
             // check if OnApplyTemplate received a canvas, check if we have at least one sample
             if (_chartCanvas == null) return;
-            if (_values.Count == 0) return; 
+            if (_values.Count == 0) return;
             // clear the canvas
             _chartCanvas.Children.Clear();
 
@@ -392,7 +383,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
 
             // if we have more samples than we show in our window AND IsShowingAll is false, set the first sample and the amount
             if (samples > SampleWindow && !IsShowingAll) {
-                firstSample = Convert.ToInt32(Convert.ToDouble(_values.Count - SampleWindow-1) * WindowPosition); // if the slider is most to the right (WindowPosition = 1), we want to show the last SampleWindow samples. Therefore our biggest first sample is _values.Count - SampleWindow.
+                firstSample = Convert.ToInt32(Convert.ToDouble(_values.Count - SampleWindow - 1) * WindowPosition); // if the slider is most to the right (WindowPosition = 1), we want to show the last SampleWindow samples. Therefore our biggest first sample is _values.Count - SampleWindow.
                 lastSample = firstSample + SampleWindow;
                 // check if last sample went out of bounds
                 if (lastSample >= _values.Count) lastSample = _values.Count - 1;
@@ -427,14 +418,14 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
                     var maxValueInPercent = 1.0 - (values[1] - MinValue) / (MaxValue - MinValue);
 
                     // translate it to points on the canvas
-                    points.Add(new Point(lowerX + i, lowerY + (upperY - lowerY) * minValueInPercent)); 
-                    points.Add(new Point(lowerX + i + 1, lowerY + (upperY - lowerY) * maxValueInPercent)); 
+                    points.Add(new Point(lowerX + i, lowerY + (upperY - lowerY) * minValueInPercent));
+                    points.Add(new Point(lowerX + i + 1, lowerY + (upperY - lowerY) * maxValueInPercent));
                 }
             } else {
                 // we have more pixel than samples. One Sample = multiple pixel
                 var sampleNo = 0; // count at which no of sample we currently are
                 for (var sampleIndex = firstSample; sampleIndex <= lastSample; sampleIndex++) { // iterate through each sample we want to show
-                    
+
                     var value = _values[sampleIndex]; // get the value for the sample index
                     var valueInPercent = 1.0 - (value - MinValue) / (MaxValue - MinValue); // calculate it in percent
 
@@ -462,12 +453,24 @@ namespace MotorXPGUIMVVM.Controls.LineChart {
         private List<double> GetBiggestAndSmallesValue(int fromIndex, int toIndex) {
             var localMinValue = Double.MaxValue;
             var localMaxValue = Double.MinValue;
+            // track where the local min and max occured as index
+            var minIndex = -1;
+            var maxIndex = -1;
+
             for (var i = fromIndex; i <= toIndex; i++) {
                 var val = _values[i];
-                if (val < localMinValue) localMinValue = val;
-                if (val > localMaxValue) localMaxValue = val;
+                if (val < localMinValue) {
+                    localMinValue = val;
+                    minIndex = i;
+                }
+                if (val > localMaxValue) {
+                    localMaxValue = val;
+                    maxIndex = i;
+                }
             }
-            return new List<double> { localMinValue, localMaxValue };
+            // return either first the min then the max or vice versa. If we would always return the min (or max) first, we might distort our data. 
+            // E.g. for a sample window like this: 10, 5, 2. Which would return 2 as min and 10 as max. However 2 came AFTER the 10. So a distortion would appear
+            return minIndex < maxIndex ? new List<double> { localMinValue, localMaxValue } : new List<double> { localMaxValue, localMinValue };
         }
 
 
