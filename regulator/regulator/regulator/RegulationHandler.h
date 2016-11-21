@@ -26,7 +26,7 @@
 
 struct Regulation_PidValues
 {
-	int targetValue; // the desired target value
+	float targetValue; // the desired target value
 	float Kp; // degree in how much the p regulator affects the output.
 	float Ki; // degree in how much the i regulator affects the output.
 	float Kd; // degree in how much the d regulator affects the output.
