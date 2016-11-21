@@ -155,7 +155,14 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converter\Date2AxisConverter.cs" />
+    <Compile Include="Controls\Gauge\Gauge.cs" />
+    <Compile Include="Controls\LineChart\LineChart.cs" />
+    <Compile Include="Converter\BooleanToVisibilityHiddenConverter.cs" />
+    <Compile Include="Converter\DoubleInHalfConverter.cs" />
+    <Compile Include="Converter\DoubleToIntConverter.cs" />
+    <Compile Include="Converter\RadianToDegreeConverter.cs" />
     <Compile Include="Model\SensorData.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Repository\DemoRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Metronom.cs" />
@@ -171,12 +178,23 @@
     <Compile Include="ViewModel\MainViewViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\GaugeAndLineChartTest.xaml.cs">
+      <DependentUpon>GaugeAndLineChartTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LeftSideBar.xaml.cs">
       <DependentUpon>LeftSideBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\Gauge\GaugeResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\LineChart\LineChartResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -194,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\LineChartControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GaugeAndLineChartTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
