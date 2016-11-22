@@ -173,11 +173,15 @@
     <Compile Include="UserControls\LineChartControl.xaml.cs">
       <DependentUpon>LineChartControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\DataDisplay.cs" />
     <Compile Include="ViewModel\GaugeViewModel.cs" />
     <Compile Include="ViewModel\LineChartViewModel.cs" />
     <Compile Include="ViewModel\MainViewViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="UserControls\DataDisplay.xaml.cs">
+      <DependentUpon>DataDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GaugeAndLineChartTest.xaml.cs">
       <DependentUpon>GaugeAndLineChartTest.xaml</DependentUpon>
     </Compile>
@@ -212,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\LineChartControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DataDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

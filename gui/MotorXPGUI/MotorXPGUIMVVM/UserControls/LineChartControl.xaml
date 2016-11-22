@@ -30,7 +30,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <DVC:Chart Name="mcChart"
+        <!--<DVC:Chart Name="mcChart"
            Width="600" Height="300" BorderThickness="0"
            Background="Transparent"
            Foreground="#FF484D5F"  FontFamily="Segoe UI"         
@@ -43,7 +43,7 @@
                     
                 </DVC:LineSeries>
             </DVC:Chart.Series>
-        </DVC:Chart>
+        </DVC:Chart>-->
     </Grid>
     <!--<Grid MaxHeight="260">
         <Grid.RowDefinitions>

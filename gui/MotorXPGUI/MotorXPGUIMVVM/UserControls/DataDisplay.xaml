@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="MotorXPGUIMVVM.UserControls.DataDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MotorXPGUIMVVM.Views"
+             xmlns:gauge="clr-namespace:MotorXPGUIMVVM.Controls.Gauge"
+             xmlns:line="clr-namespace:MotorXPGUIMVVM.Controls.LineChart"
+             mc:Ignorable="d" 
+             Background="{DynamicResource ControlBackgroundBrush}"
+             d:DesignHeight="200" d:DesignWidth="600" DataContext="">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/Gauge/GaugeResources.xaml"/>
+                <ResourceDictionary Source="../Controls/LineChart/LineChartResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <gauge:Gauge GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" Height="150" Width="150" MinAngle="-2" MaxAngle="2"
+                     Margin="4" StrokeColor="DeepSkyBlue" x:Name="Gauge" MinMaxValueIndicatorBrush="Black" 
+                     FontSize="18" GaugeFill="#EBEBEB" ValueIndicatorSize="30" StrokeLength="1" StrokeThickness="4"/>
+        <line:LineChart Grid.Column="1" x:Name="LineChart" Margin="5"  StrokeColor="GreenYellow" FillColor="#7EADFF2F" 
+                        AutoMinMax="False" MinValue="0" MaxValue="100" />
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <!--Here slider area-->
+            
+            
+        </StackPanel>
+    </Grid>
+</UserControl>
