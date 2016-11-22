@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
         <!--<local:LeftSideBar Grid.Column="0" Grid.RowSpan="2"/>-->
         <local:MainView Grid.Column="1" Grid.RowSpan="2"/>
-        <local:GaugeAndLineChartTest Grid.Column="1" Grid.RowSpan="2"/>
+        
     </Grid>
 
     <!--<Grid x:Name="LayoutRoot">

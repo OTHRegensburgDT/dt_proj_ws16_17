@@ -6,7 +6,7 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:uc="clr-namespace:MotorXPGUIMVVM.UserControls"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:local="clr-namespace:MotorXPGUIMVVM" 
+        xmlns:local="clr-namespace:MotorXPGUIMVVM.Views" 
         mc:Ignorable="d ignore"
         DataContext="{Binding MainView, Source={StaticResource Locator}}">
     <TabControl>
@@ -19,8 +19,7 @@
                                 <ColumnDefinition Width="250"/>
                                 <ColumnDefinition Width="600"/>
                             </Grid.ColumnDefinitions>
-                            <uc:GaugeControl DataContext="{Binding TempViewModel}"  Grid.Row="0" Grid.Column="0"/>
-                            <uc:LineChartControl Grid.Row="0" Grid.Column="1" DataContext="{Binding TempLineVM}"/>
+                            <local:GaugeAndLineChartTest Grid.ColumnSpan="2"/>
                         </Grid>
                     </Expander>
                     <Expander Header="Speed">
