@@ -23,7 +23,7 @@ namespace MotorXP.Protobuf.SensorMSg {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cg9TZW5zb3JNc2cucHJvdG8SCUtvbU1vZHVsZSIrCglEYXRhRW50cnkSEAoI",
-            "U2Vuc29ySWQYASABKA0SDAoERGF0YRgCIAEoBCJICglTZW5zb3JNc2cSEgoK",
+            "U2Vuc29ySWQYASABKA0SDAoERGF0YRgCIAEoASJICglTZW5zb3JNc2cSEgoK",
             "U2VxdWVuY2VOchgBIAEoBBInCglEYXRhVGFibGUYAiADKAsyFC5Lb21Nb2R1",
             "bGUuRGF0YUVudHJ5Qh2qAhpNb3RvclhQLlByb3RvYnVmLlNlbnNvck1TZ2IG",
             "cHJvdG8z"));
@@ -87,9 +87,9 @@ namespace MotorXP.Protobuf.SensorMSg {
 
     /// <summary>Field number for the "Data" field.</summary>
     public const int DataFieldNumber = 2;
-    private ulong data_;
+    private double data_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ulong Data {
+    public double Data {
       get { return data_; }
       set {
         data_ = value;
@@ -118,7 +118,7 @@ namespace MotorXP.Protobuf.SensorMSg {
     public override int GetHashCode() {
       int hash = 1;
       if (SensorId != 0) hash ^= SensorId.GetHashCode();
-      if (Data != 0UL) hash ^= Data.GetHashCode();
+      if (Data != 0D) hash ^= Data.GetHashCode();
       return hash;
     }
 
@@ -133,9 +133,9 @@ namespace MotorXP.Protobuf.SensorMSg {
         output.WriteRawTag(8);
         output.WriteUInt32(SensorId);
       }
-      if (Data != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(Data);
+      if (Data != 0D) {
+        output.WriteRawTag(17);
+        output.WriteDouble(Data);
       }
     }
 
@@ -145,8 +145,8 @@ namespace MotorXP.Protobuf.SensorMSg {
       if (SensorId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(SensorId);
       }
-      if (Data != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Data);
+      if (Data != 0D) {
+        size += 1 + 8;
       }
       return size;
     }
@@ -159,7 +159,7 @@ namespace MotorXP.Protobuf.SensorMSg {
       if (other.SensorId != 0) {
         SensorId = other.SensorId;
       }
-      if (other.Data != 0UL) {
+      if (other.Data != 0D) {
         Data = other.Data;
       }
     }
@@ -176,8 +176,8 @@ namespace MotorXP.Protobuf.SensorMSg {
             SensorId = input.ReadUInt32();
             break;
           }
-          case 16: {
-            Data = input.ReadUInt64();
+          case 17: {
+            Data = input.ReadDouble();
             break;
           }
         }

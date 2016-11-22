@@ -8,16 +8,16 @@ namespace KomModule
 {
     public class Sensordata
     {
-        private UInt64 timestamp;
-        private SortedList<UInt16, UInt64> dataTable;
+        private UInt64 seqNr;
+        private SortedList<UInt16, Double> dataTable;
 
-        public UInt64 Timestamp
+        public UInt64 SeqNr
         {
-            get { return timestamp; }
-            set { timestamp = value; }
+            get { return seqNr; }
+            set { seqNr = value; }
         }
 
-        public SortedList<UInt16, UInt64> DataTable
+        public SortedList<UInt16, Double> DataTable
         {
             get { return dataTable; }
             set { dataTable = value; }

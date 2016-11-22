@@ -9,17 +9,19 @@ using MotorXP.Protobuf.SensorMSg;
 
 namespace KomModule
 {
-    class Protoparser
+    public class Protoparser
     {
-        internal static Sensordata ByArrtoSData(byte[] InputData)
+        public static Sensordata ByArrtoSData(byte[] InputData)
         {
             Sensordata retVal = new Sensordata();
             SensorMsg protoMsg;
 
+            retVal.DataTable = new SortedList<ushort, Double>();
+
             //create ProtoBuf Message from byteArray
             protoMsg = SensorMsg.Parser.ParseFrom(InputData);
             //build Sensordata object
-            retVal.Timestamp = protoMsg.SequenceNr;
+            retVal.SeqNr = protoMsg.SequenceNr;
             for(int i = 0; i < protoMsg.DataTable.Count; i++)
             {
                 retVal.DataTable.Add((UInt16)protoMsg.DataTable[i].SensorId, protoMsg.DataTable[i].Data);
@@ -27,14 +29,12 @@ namespace KomModule
             return retVal;
         }
 
-        internal static string SDatatoString(Sensordata InputData)
+        public static byte[] SDatatoByArrr(Sensordata InputData)
         {
-            string retval;
             SensorMsg protoMsg = new SensorMsg();
-            UnicodeEncoding enc = new UnicodeEncoding();
 
             //build ProtoBuf Message
-            protoMsg.SequenceNr = InputData.Timestamp;
+            protoMsg.SequenceNr = InputData.SeqNr;
             foreach (var tabRow in InputData.DataTable)
             {
                 DataEntry entry = new DataEntry();
@@ -44,10 +44,7 @@ namespace KomModule
             }
 
             //create string from message
-            byte[] bArr = protoMsg.ToByteArray();
-            retval = System.Text.Encoding.Unicode.GetString(bArr);
-
-            return retval;
+            return protoMsg.ToByteArray();
         }
     }
 }

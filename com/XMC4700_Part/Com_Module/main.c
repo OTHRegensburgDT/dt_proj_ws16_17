@@ -10,9 +10,7 @@
 
 #include <DAVE.h>                 //Declarations from DAVE Code Generation (includes SFR declaration)
 #include <malloc.h>
-#include "communication.h"
-#include "protobuf/SensorMsg.pb.h"
-#include "parser.h"
+#include "Paramsparser.h"
 /**
 
  * @brief main() - Application entry point
@@ -27,14 +25,8 @@ int main(void)
 {
   DAVE_STATUS_t status;
   status = DAVE_Init();           /* Initialization of DAVE APPs  */
-
-  Sensordata testData;
-
-  testData.hallpattern = 4;
-  testData.velocity =  6000.7;
-  testData.angle = 360;
-  testData.temperature0 = 77.3;
-  testData.temperature1 = 77.9;
+  uint8_t buffer[256];
+  int size = 256;
 
   if(status != DAVE_STATUS_SUCCESS)
   {
@@ -46,7 +38,19 @@ int main(void)
 
     }
   }
-  sendSensorData(&testData);
+  param_p = 1.1;
+  param_i = 2.2;
+  param_d = 3.3;
+  angle_aim = 45;
+
+  ParamToProto(buffer, &size);
+
+  param_p = 6.6;
+  param_i = 7.7;
+  param_d = 8.8;
+  angle_aim = 90;
+
+  ProtoToParam(buffer, size);
 
   /* Placeholder for user application code. The while loop below can be replaced with user application code. */
   while(1U)

@@ -46,7 +46,6 @@
     <Compile Include="Crc16ccitt.cs" />
     <Compile Include="FrameParser.cs" />
     <Compile Include="Protoparser.cs" />
-    <Compile Include="protoWrapper.cs" />
     <Compile Include="SensorMsg.cs" />
     <Compile Include="UartCommunicator.cs" />
     <Compile Include="ICommunicator.cs" />

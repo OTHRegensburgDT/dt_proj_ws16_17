@@ -16,7 +16,7 @@ namespace KomModule
         private Action _dataArrived;
         private SerialPort uart;
         private bool isInit;
-
+        private const short SENSORDATALENGTH = 43;
         public bool isInitialized()
         {
             return isInit;
@@ -92,6 +92,7 @@ namespace KomModule
                 uart.DtrEnable = false;
                 uart.RtsEnable = false;
                 uart.DataReceived += uart_DataReceived;
+                uart.ReceivedBytesThreshold = 10;
                 uart.Open();
                 isInit = true;
             }
@@ -117,9 +118,20 @@ namespace KomModule
         {
             //read serial port
             SerialPort spL = (SerialPort)sender;
-            const int bufSize = 1024;
-            byte[] buf = new byte[bufSize];
-            spL.Read(buf, 0, bufSize);
+            byte[] inLength = new byte[1];
+            byte[] buf;
+            Task.Delay(100);
+            //read Framelength
+            spL.Read(inLength, 0, 1);
+            //subtract length field, as it was already read
+            inLength[0]--;
+            while(spL.BytesToRead < inLength[0])
+            { //no op
+            }
+            //read Frame
+            buf = new byte[inLength[0]];
+            spL.Read(buf, 0, inLength[0]);
+                
             //parse message
             buf = Frameparser.DecapsuleFrame(buf);
             recData = Protoparser.ByArrtoSData(buf);

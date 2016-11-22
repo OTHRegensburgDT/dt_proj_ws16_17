@@ -5,8 +5,17 @@
  *      Author: Michael
  */
 
-#include "parser.h"
 #include <malloc.h>
+#include <protobuf/pb_encode.h>
+#include <protobuf/pb_decode.h>
+#include "Sensorparser.h"
+#include "protobuf/SensorMsg.pb.h"
+#include "SensorIDs.h"
+
+#define PROTO_SENSORDATA Com_Module_SensorMsg
+#define PROTO_SENSORDATA_FIELDS Com_Module_SensorMsg_fields
+#define PROTO_DATAENTRY Com_Module_DataEntry
+#define PROTO_DATAENTRY_FIELDS Com_Module_DataEntry_fields
 
 /*----------- local functions -----------*/
 
@@ -93,11 +102,7 @@ bool ProtoToSensor(Sensordata* outData, uint8_t* protoMsg,int size){
 	protoData.DataTable.arg = outData;
 
 	status = pb_decode(&stream, PROTO_SENSORDATA_FIELDS, &protoData);
-	if(true == status){
 
-	}
-	free(protoMsg);
-	protoMsg = NULL;
 	return status;
 }
 
@@ -118,47 +123,10 @@ bool SensorToProto(uint8_t* protoMsg, int* size, Sensordata* inData){
 		status = pb_encode(&stream, PROTO_SENSORDATA_FIELDS, &protoData);
 		*size = stream.bytes_written;
 		protoMsg = realloc(protoMsg, *size);
-
-		free(inData);
-		inData = NULL;
 	}
 
 	seqnr++;
 	return status;
 }
 
-bool FrameToProto(uint8_t* buffer, int* size){
-	bool status = false;
-	uint32_t CRCResult;
-	CRC_SW_CalculateCRC(&CRC_SW_0, buffer, *size);
-	CRCResult = CRC_SW_GetCRCResult(&CRC_SW_0);
 
-	//check if Message was transferred correctly overall-crc == 0
-	if(CRCResult == 0){
-		buffer = realloc(buffer, (*size)-2);
-		*size = (*size) -2;
-		status = true;
-	}
-
-	return status;
-}
-
-bool ProtoToFrame(uint8_t* buffer, int* size){
-	bool status = false;
-	uint16_t CRCResult;
-	//calculate crc to protobuf message
-	CRC_SW_CalculateCRC(&CRC_SW_0, buffer+1, *size);
-	CRCResult = CRC_SW_GetCRCResult(&CRC_SW_0);
-	//increase buffer
-	buffer = realloc(buffer, (*size)+3);
-	*size = (*size)+3;
-
-	//insert framelength at beginning
-	buffer[0] = *size;
-	//add calculcated crc
-	buffer[*size-2] = (uint16_t)(CRCResult >> 8);
-	buffer[*size-1] = (uint16_t)CRCResult;
-
-	status = true;
-	return status;
-}

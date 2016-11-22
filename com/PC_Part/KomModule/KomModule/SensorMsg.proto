@@ -1,4 +1,4 @@
-﻿//Message description sensorData
+//Message description sensorData
 
 
 syntax = "proto3";
@@ -9,7 +9,7 @@ option csharp_namespace = "MotorXP.Protobuf.SensorMSg";
 //defining an entry of the data table
 message DataEntry{
 	uint32 SensorId = 1;
-	uint64 Data = 2;
+	double Data = 2;
 }
 
 //defining the real message

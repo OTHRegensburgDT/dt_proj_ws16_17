@@ -8,8 +8,18 @@
 #ifndef COMMUNICATION_H_
 #define COMMUNICATION_H_
 
-#include "protobuf/SensorMsg.pb.h"
+#include <stdbool.h>
 #include "com_structs.h"
+/*
+ * bool initCom()
+ * Function:
+ * initializes Com module by wiping all regulation params
+ * Params:
+ * none
+ * Return:
+ * boolean value indicating if the operation was successful (always true)
+ */
+bool initCom(void);
 
 /*
  * bool sendSensorData(Sensordata* data)
