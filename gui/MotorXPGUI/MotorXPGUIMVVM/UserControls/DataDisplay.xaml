@@ -22,11 +22,23 @@
         <ItemsControl ItemsSource="{Binding Repository.SensorDataCollections}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel>
-                        <Slider Minimum="0" Maximum="1" Value="{Binding ElementName=LineChart, Path=WindowPosition}" DockPanel.Dock="Bottom"/>
-                        <lineChart:LineChart Values="{Binding Values}" AutoMinMax="True" Margin="5" IsShowingAll="False" SampleWindow="10" 
-                                             x:Name="LineChart" Background="White" StrokeColor="DarkTurquoise" AxisColor="DarkGray"/>
-                    </DockPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <DockPanel Grid.Column="0">
+                            <Slider Minimum="0" Maximum="1" Value="{Binding ElementName=Gauge, Mode=OneWay}" DockPanel.Dock="Bottom" Margin="8"/>
+                            <gauge:Gauge MaxAngle="1.6" MinAngle="-1.6" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" 
+                             Margin="3 3 3 -10" StrokeColor="DeepSkyBlue" x:Name="Gauge" MinMaxValueIndicatorBrush="Black" 
+                             FontSize="10" GaugeFill="#EBEBEB" ValueIndicatorSize="20" Strokes="10" StrokeLength="0.6" StrokeThickness="3"/>
+                        </DockPanel>
+                        <DockPanel Grid.Column="1">
+                            <Slider Minimum="0" Maximum="1" Value="{Binding ElementName=LineChart, Path=Values}" DockPanel.Dock="Bottom"/>
+                            <lineChart:LineChart Values="{Binding Values}" AutoMinMax="True" Margin="5" IsShowingAll="False" SampleWindow="10" 
+                                             x:Name="LineChart" Background="White" StrokeColor="LightPink" AxisColor="DarkGray"/>
+                        </DockPanel>
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
