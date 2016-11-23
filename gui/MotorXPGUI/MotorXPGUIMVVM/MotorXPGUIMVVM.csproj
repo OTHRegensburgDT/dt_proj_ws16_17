@@ -171,12 +171,6 @@
     <Compile Include="Repository\Metronom.cs" />
     <Compile Include="Repository\MockSensorRepository.cs" />
     <Compile Include="Repository\SensorRepository.cs" />
-    <Compile Include="UserControls\GaugeControl.xaml.cs">
-      <DependentUpon>GaugeControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\LineChartControl.xaml.cs">
-      <DependentUpon>LineChartControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\DataDisplayViewModel.cs" />
     <Compile Include="ViewModel\GaugeViewModel.cs" />
     <Compile Include="ViewModel\LineChartViewModel.cs" />
@@ -214,14 +208,6 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\GaugeControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\LineChartControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DataDisplay.xaml">
       <SubType>Designer</SubType>
