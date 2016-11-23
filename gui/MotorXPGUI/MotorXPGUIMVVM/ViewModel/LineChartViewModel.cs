@@ -14,7 +14,7 @@ namespace MotorXPGUIMVVM.ViewModel
 
         public LineChartViewModel()
         {
-            Items = GetSample();
+           
         }
 
         private ObservableCollection<KeyValuePair<ulong, ulong>> GetSample()

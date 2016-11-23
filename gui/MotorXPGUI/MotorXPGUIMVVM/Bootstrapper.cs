@@ -3,9 +3,11 @@ using KomModule;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using MotorXPGUIMVVM.Model;
+using MotorXPGUIMVVM.Repository;
 using MotorXPGUIMVVM.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +28,11 @@ namespace MotorXPGUIMVVM
         {
             Container.RegisterType<MainViewModel>();
             Container.RegisterType<MainViewViewModel>();
-            Container.RegisterType<GaugeViewModel>();
-            Container.RegisterType<LineChartViewModel>();
+            Container.RegisterType<DataDisplayViewModel>();
             Container.RegisterType<ICommunicator, UartCommunicator>();
+            //Container.RegisterType<ISensorRepository, SensorRepository>();
+            Container.RegisterType<ISensorRepository, MockSensorRepository>();
+  
 
 
             var config = new MapperConfiguration(cfg =>

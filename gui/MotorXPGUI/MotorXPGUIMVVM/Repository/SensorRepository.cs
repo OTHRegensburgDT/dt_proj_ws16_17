@@ -1,8 +1,8 @@
 ﻿using KomModule;
 using MotorXPGUIMVVM.Model;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -10,57 +10,50 @@ using System.Threading.Tasks;
 
 namespace MotorXPGUIMVVM.Repository
 {
-    public class SensorRepository : IRepository
+    public class SensorRepository : INotifyPropertyChanged, ISensorRepository
     {
         private ICommunicator _com;
-        private ulong _timeStamp;
-
-        public ulong GetElectroMagneticTorque()
+        private BindingList<SensorDataCollection> _sensorDataCollections;
+        
+        public SensorRepository(ICommunicator com)
         {
-            if(CheckTimeStampAndInit())
+            _com = com;
+            _com.newSensordata += OnNewSensorData;
+            _sensorDataCollections = new BindingList<SensorDataCollection>();
+        }
+
+        public BindingList<SensorDataCollection> SensorDataCollections
+        {
+            get { return _sensorDataCollections; }
+            set
             {
-                return _com.getData().DataTable.FirstOrDefault(v => 
-                                                                (v.Key >= Properties.Settings.Default.ElectroMagneticTorqueKeyMin &&
-                                                                 v.Key < Properties.Settings.Default.ElectroMagneticTorqueKeyMax)).Value;
+                _sensorDataCollections = value;
+                OnPropertyChanged(nameof(SensorDataCollections));
             }
-            return 0;
         }
 
-        private bool CheckTimeStampAndInit()
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnNewSensorData()
         {
-            var newStamp = _com.getData().Timestamp;
-            if(_com.isInitialized() && newStamp > _timeStamp)
+            var dataTable = _com.getData().DataTable;
+
+            foreach (var data in dataTable)
             {
-                _timeStamp = newStamp;
-                return true;
+                var sensorDataCollection = SensorDataCollections.FirstOrDefault(x => x.SensorDataType == (SensorDataType)data.Key);
+                if ( sensorDataCollection == null)
+                {
+                    sensorDataCollection = new SensorDataCollection((SensorDataType)data.Key);
+                    SensorDataCollections.Add(sensorDataCollection);
+                }
+                sensorDataCollection.Values.Add(data.Value);
             }
-            return false;
-
         }
 
-        public bool GetHallEffect()
+        private void OnPropertyChanged(string propertyName)
         {
-            throw new NotImplementedException();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public ulong GetRotorSpeed()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ulong GetStatorCurrent()
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime GetTimeStamp()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Action NewValueArrived()
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

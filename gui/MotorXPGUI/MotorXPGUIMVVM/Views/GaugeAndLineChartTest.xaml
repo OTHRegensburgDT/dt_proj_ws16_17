@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MotorXPGUIMVVM.Views"
              xmlns:gauge="clr-namespace:MotorXPGUIMVVM.Controls.Gauge"
              xmlns:lineChart="clr-namespace:MotorXPGUIMVVM.Controls.LineChart"
-             mc:Ignorable="d" Background="{DynamicResource ControlBackgroundBrush}"
+             mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="500">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -54,12 +54,12 @@
 
                 </DockPanel>
                 <Grid DockPanel.Dock="Bottom">
-                    <lineChart:LineChart x:Name="LineChart2" Margin="5" StrokeColor="DeepSkyBlue" FillColor="#8100BFFF" AutoMinMax="False" 
-                                         MaxValue="100" ShowIndicators="False" WindowPosition="{Binding ElementName=LineChart, Path=WindowPosition, Mode=OneWay}" 
+                    <!--<lineChart:LineChart x:Name="LineChart2" Margin="5" StrokeColor="DeepSkyBlue" FillColor="#8100BFFF" AutoMinMax="true" 
+                                         MaxValue="20" ShowIndicators="False" WindowPosition="{Binding ElementName=LineChart, Path=WindowPosition, Mode=OneWay}" 
                                          IsShowingAll="{Binding ElementName=LineChart, Path=IsShowingAll, Mode=OneWay}"
-                                         GridLinesColor="Transparent" AxisColor="Transparent"/>
+                                         GridLinesColor="Transparent" AxisColor="Transparent"/>-->
 
-                    <lineChart:LineChart x:Name="LineChart" Margin="5" StrokeColor="GreenYellow" FillColor="#7EADFF2F" AutoMinMax="False" MinValue="0" MaxValue="100"/>
+                    <lineChart:LineChart x:Name="LineChart" Margin="5" StrokeColor="GreenYellow" FillColor="#7EADFF2F" AutoMinMax="True" MinValue="0" MaxValue="20"/>
                 </Grid>
             </DockPanel>
         </Grid>

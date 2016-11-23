@@ -62,31 +62,16 @@ namespace MotorXPGUIMVVM.ViewModel
             }
         }
         /// <summary>
-        /// Gets the Gauge property.
+        /// Gets the DataDisplayViewModel property.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public GaugeViewModel Gauge
+        public DataDisplayViewModel DataDisplayViewModel
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<GaugeViewModel>();
-            }
-
-        }
-
-        /// <summary>
-        /// Gets the Gauge property.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-        public LineChartViewModel LineChart
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<LineChartViewModel>();
+                return ServiceLocator.Current.GetInstance<DataDisplayViewModel>();
             }
 
         }

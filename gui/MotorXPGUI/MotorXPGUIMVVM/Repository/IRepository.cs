@@ -32,7 +32,7 @@ namespace MotorXPGUIMVVM.Repository
         /// Get timestamp from object
         /// </summary>
         /// <returns>datetime value</returns>
-        DateTime GetTimeStamp();
+        UInt64 GetTimeStamp();
 
         /// <summary>
         /// Triggers 

@@ -55,5 +55,20 @@ namespace MotorXPGUIMVVM.Repository
         {
             throw new NotImplementedException();
         }
+
+        ulong IRepository.GetTimeStamp()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+     public class DemoData
+    {
+        private SortedList<ushort, ulong> values;
+
+        public DemoData()
+        {
+            values = new SortedList<ushort, ulong>();
+        }
     }
 }

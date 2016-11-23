@@ -162,10 +162,14 @@
     <Compile Include="Converter\DoubleToIntConverter.cs" />
     <Compile Include="Converter\RadianToDegreeConverter.cs" />
     <Compile Include="Model\SensorData.cs" />
+    <Compile Include="Model\SensorDataCollection.cs" />
+    <Compile Include="Model\SensorDataType.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Repository\DemoRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\ISensorRepository.cs" />
     <Compile Include="Repository\Metronom.cs" />
+    <Compile Include="Repository\MockSensorRepository.cs" />
     <Compile Include="Repository\SensorRepository.cs" />
     <Compile Include="UserControls\GaugeControl.xaml.cs">
       <DependentUpon>GaugeControl.xaml</DependentUpon>
@@ -173,7 +177,7 @@
     <Compile Include="UserControls\LineChartControl.xaml.cs">
       <DependentUpon>LineChartControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\DataDisplay.cs" />
+    <Compile Include="ViewModel\DataDisplayViewModel.cs" />
     <Compile Include="ViewModel\GaugeViewModel.cs" />
     <Compile Include="ViewModel\LineChartViewModel.cs" />
     <Compile Include="ViewModel\MainViewViewModel.cs" />

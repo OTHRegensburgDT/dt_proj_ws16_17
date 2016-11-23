@@ -9,29 +9,12 @@
         xmlns:local="clr-namespace:MotorXPGUIMVVM.Views" 
         mc:Ignorable="d ignore"
         DataContext="{Binding MainView, Source={StaticResource Locator}}">
-    <TabControl>
+    <!--<TabControl>
         <TabItem Header="Data">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel HorizontalAlignment="Left">
-                    <Expander Width="900" Header="Temp" IsExpanded="True">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="250"/>
-                                <ColumnDefinition Width="600"/>
-                            </Grid.ColumnDefinitions>
-                            <local:GaugeAndLineChartTest Grid.ColumnSpan="2"/>
-                        </Grid>
-                    </Expander>
-                    <Expander Header="Speed">
-                        <Grid >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="250"/>
-                                <ColumnDefinition Width="600"/>
-                            </Grid.ColumnDefinitions>
-                            <uc:GaugeControl DataContext="{Binding SpeedViewModel}"/>
-                            <uc:LineChartControl Grid.Column="1" DataContext="{Binding SpeedLineVM}"/>
-                        </Grid>
-                    </Expander>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                    </ScrollViewer>
                 </StackPanel>
             </ScrollViewer>
         </TabItem>
@@ -44,6 +27,9 @@
         </TabItem>
 
 
-    </TabControl>
+    </TabControl>-->
+
+
+    <uc:DataDisplay/>
 
 </UserControl>
