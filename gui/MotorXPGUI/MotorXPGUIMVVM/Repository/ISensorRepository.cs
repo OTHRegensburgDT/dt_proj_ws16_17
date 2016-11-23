@@ -7,5 +7,7 @@ namespace MotorXPGUIMVVM.Repository
     {
         BindingList<SensorDataCollection> SensorDataCollections { get; set; }
         event PropertyChangedEventHandler PropertyChanged;
+
+
     }
 }

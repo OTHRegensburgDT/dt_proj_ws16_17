@@ -28,15 +28,19 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <DockPanel Grid.Column="0">
-                            <Slider Minimum="0" Maximum="1" Value="{Binding ElementName=Gauge, Mode=OneWay}" DockPanel.Dock="Bottom" Margin="8"/>
-                            <gauge:Gauge MaxAngle="1.6" MinAngle="-1.6" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" 
-                             Margin="3 3 3 -10" StrokeColor="DeepSkyBlue" x:Name="Gauge" MinMaxValueIndicatorBrush="Black" 
-                             FontSize="10" GaugeFill="#EBEBEB" ValueIndicatorSize="20" Strokes="10" StrokeLength="0.6" StrokeThickness="3"/>
+                            <Slider Minimum="0" Maximum="1" Value="{Binding ElementName=Gauge, Mode=OneWay}" DockPanel.Dock="Bottom" 
+                                    Margin="8"/>
+                            <gauge:Gauge MaxAngle="1.6" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" MinAngle="-1.6" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" 
+                                         NeedleColor="White" Margin="3 3 3 -10" StrokeColor="DeepSkyBlue" x:Name="Gauge" 
+                                         MinMaxValueIndicatorBrush="Black" FontSize="10" GaugeFill="#EBEBEB" ValueIndicatorSize="20" 
+                                         Strokes="10" StrokeLength="0.6" StrokeThickness="3" Value="{Binding LastValue}"/>
                         </DockPanel>
                         <DockPanel Grid.Column="1">
+                            <CheckBox DockPanel.Dock="Top" Content="Show All" IsChecked="{Binding ElementName=LineChart, Path=IsShowingAll}"/>
                             <Slider Minimum="0" Maximum="1" Value="{Binding ElementName=LineChart, Path=Values}" DockPanel.Dock="Bottom"/>
-                            <lineChart:LineChart Values="{Binding Values}" AutoMinMax="True" Margin="5" IsShowingAll="False" SampleWindow="10" 
-                                             x:Name="LineChart" Background="White" StrokeColor="LightPink" AxisColor="DarkGray"/>
+                            <lineChart:LineChart Values="{Binding Values}" AutoMinMax="True" Margin="5"  SampleWindow="10" 
+                                                 IsShowingAll="{Binding ElementName=LineChart, Path=IsShowingAll, Mode=OneWay}"
+                                                 x:Name="LineChart" Background="White" StrokeColor="LightPink" AxisColor="DarkGray"/>
                         </DockPanel>
                     </Grid>
                 </DataTemplate>

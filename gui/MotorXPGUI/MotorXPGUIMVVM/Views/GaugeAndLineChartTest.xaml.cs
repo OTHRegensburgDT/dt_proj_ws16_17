@@ -18,11 +18,13 @@ namespace MotorXPGUIMVVM.Views
         {
             rand = new Random();
             InitializeComponent();
-            
+
             // only run this test code when not in the designer.
-            if (DesignerProperties.GetIsInDesignMode(this) == false) 
-                Task.Run(() => {
+            if (DesignerProperties.GetIsInDesignMode(this) == false)
+            {
+                Task.Run(() =>
                 {
+                    {
                         while (true)
                         {
                             while (_counter++ < 500)
@@ -30,7 +32,7 @@ namespace MotorXPGUIMVVM.Views
                                 var j = _counter;
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    Gauge2.Value =  Convert.ToDouble(rand.Next(j-20,j+20)) / 500 * 100;
+                                    Gauge2.Value = Convert.ToDouble(rand.Next(j - 20, j + 20)) / 500 * 100;
                                     //LineChart.AddValue(Gauge.Value);
                                     LineChart.AddValue(Gauge2.Value);
                                 });
@@ -48,12 +50,9 @@ namespace MotorXPGUIMVVM.Views
                                 Thread.Sleep(50);
                             }
                         }
-                   
-
-                }
-
-
-            });
+                    }
+                });
+            }
         }
     }
 }

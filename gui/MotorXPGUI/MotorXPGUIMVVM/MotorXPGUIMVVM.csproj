@@ -165,8 +165,6 @@
     <Compile Include="Model\SensorDataCollection.cs" />
     <Compile Include="Model\SensorDataType.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Repository\DemoRepository.cs" />
-    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ISensorRepository.cs" />
     <Compile Include="Repository\Metronom.cs" />
     <Compile Include="Repository\MockSensorRepository.cs" />
@@ -260,7 +258,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="config.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

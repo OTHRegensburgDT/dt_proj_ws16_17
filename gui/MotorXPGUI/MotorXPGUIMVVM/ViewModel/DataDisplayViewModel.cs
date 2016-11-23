@@ -19,7 +19,6 @@ namespace MotorXPGUIMVVM.ViewModel
             _repository = repository;
         }
 
-
         public ISensorRepository Repository
         {
             get { return _repository; }
