@@ -13,8 +13,9 @@ namespace MotorXPGUIMVVM.Repository
     public class SensorRepository : INotifyPropertyChanged, ISensorRepository
     {
         private ICommunicator _com;
+
         private BindingList<SensorDataCollection> _sensorDataCollections;
-        
+
         public SensorRepository(ICommunicator com)
         {
             _com = com;
@@ -31,7 +32,7 @@ namespace MotorXPGUIMVVM.Repository
                 OnPropertyChanged(nameof(SensorDataCollections));
             }
         }
-
+       
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnNewSensorData()
@@ -47,6 +48,7 @@ namespace MotorXPGUIMVVM.Repository
                     SensorDataCollections.Add(sensorDataCollection);
                 }
                 sensorDataCollection.Values.Add(data.Value);
+                sensorDataCollection.LastValue = data.Value;
             }
         }
 
