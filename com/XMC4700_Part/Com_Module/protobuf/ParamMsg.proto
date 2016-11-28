@@ -1,0 +1,13 @@
+//Message description sensorData
+
+syntax = "proto2";
+package Com_Module;
+
+//defining the parameter message
+message RegParams{
+	optional double paraP = 1;
+	optional double paraI = 2;
+	optional double paraD = 3;
+	optional double paraVelo = 4;
+	optional double paraAng = 5;
+}
