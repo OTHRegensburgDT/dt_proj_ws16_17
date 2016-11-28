@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MotorXPGUIMVVM.Model;
+using System;
 using System.ComponentModel;
-using MotorXPGUIMVVM.Model;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace MotorXPGUIMVVM.Repository

@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MotorXPGUIMVVM.Annotations;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using MotorXPGUIMVVM.Annotations;
 
-namespace MotorXPGUIMVVM.Controls.Gauge {
+namespace MotorXPGUIMVVM.Controls.Gauge
+{
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
     ///

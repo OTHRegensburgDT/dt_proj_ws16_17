@@ -2,7 +2,8 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace MotorXPGUIMVVM.Converter {
+namespace MotorXPGUIMVVM.Converter
+{
     /// <summary>
     /// Converts radian to degree and subtracts 90 degree.
     /// </summary>

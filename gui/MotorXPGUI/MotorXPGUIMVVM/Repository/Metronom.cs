@@ -1,15 +1,9 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using MotorXPGUIMVVM.Model;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MotorXPGUIMVVM.Repository
-{ 
+{
     public class Metronom
     {
         private Action _tick;

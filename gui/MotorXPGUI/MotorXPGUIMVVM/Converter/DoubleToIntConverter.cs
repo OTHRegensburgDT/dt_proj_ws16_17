@@ -2,7 +2,8 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace MotorXPGUIMVVM.Converter {
+namespace MotorXPGUIMVVM.Converter
+{
     /// <summary>
     /// Converts a double to an integer.
     /// </summary>

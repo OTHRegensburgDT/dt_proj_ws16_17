@@ -1,6 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using MotorXPGUIMVVM.Model;
-using MotorXPGUIMVVM.Repository;
 
 namespace MotorXPGUIMVVM.ViewModel
 {

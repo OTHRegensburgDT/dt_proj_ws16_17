@@ -1,15 +1,14 @@
 ﻿using MotorXPGUIMVVM.Annotations;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System;
 
 namespace MotorXPGUIMVVM.Model
 {
     public class SensorDataCollection : INotifyPropertyChanged
     {
         private BindingList<double> _values;
-        private double _lastValue = 0.0;
-        private double _currentValue = 0.0;
+        private double _lastValue;
+        private double _currentValue;
         private int _maxValue;
         private int _minValue;
 

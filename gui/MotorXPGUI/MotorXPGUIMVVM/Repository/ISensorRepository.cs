@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using MotorXPGUIMVVM.Model;
+﻿using MotorXPGUIMVVM.Model;
+using System.ComponentModel;
 
 namespace MotorXPGUIMVVM.Repository
 {

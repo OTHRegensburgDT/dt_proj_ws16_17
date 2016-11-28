@@ -1,26 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MotorXPGUIMVVM.Model
 {
     public class SensorData
     {
-        private UInt64 timestamp;
-        private SortedList<UInt16, UInt64> dataTable;
-
-        public UInt64 Timestamp
-        {
-            get { return timestamp; }
-            set { timestamp = value; }
-        }
-
-        public SortedList<UInt16, UInt64> DataTable
-        {
-            get { return dataTable; }
-            set { dataTable = value; }
-        }
+        public UInt64 Timestamp { get; set; }
+        public SortedList<UInt16, UInt64> DataTable { get; set; }
     }
 }

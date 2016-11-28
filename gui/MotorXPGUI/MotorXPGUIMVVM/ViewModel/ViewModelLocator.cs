@@ -9,10 +9,7 @@
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
 
-using GalaSoft.MvvmLight;
 using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-using MotorXPGUIMVVM.Model;
 
 namespace MotorXPGUIMVVM.ViewModel
 {

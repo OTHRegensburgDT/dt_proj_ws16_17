@@ -1,12 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using MotorXPGUIMVVM.Controls.Gauge;
-using MotorXPGUIMVVM.Controls.LineChart;
 using MotorXPGUIMVVM.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MotorXPGUIMVVM.ViewModel
 {

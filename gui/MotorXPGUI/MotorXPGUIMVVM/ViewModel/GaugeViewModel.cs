@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using Light.GuardClauses;
 using System;
 
 namespace MotorXPGUIMVVM.ViewModel
