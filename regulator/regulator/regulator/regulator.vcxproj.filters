@@ -54,6 +54,24 @@
     <ClInclude Include="RegulationHandler.h">
       <Filter>Header Files\regulation</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\com_structs.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\communication.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\Frameparser.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\Paramsparser.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\SensorIDs.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\Sensorparser.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.c">
@@ -73,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="RegulationHandler.c">
       <Filter>Source Files\regulation</Filter>
+    </ClCompile>
+    <ClCompile Include="ComStubs.c">
+      <Filter>Source Files\com</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
