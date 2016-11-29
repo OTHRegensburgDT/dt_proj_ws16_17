@@ -66,7 +66,9 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 case nameof(SampleWindow):
                 case nameof(WindowPosition):
                     asLineChart.DrawGraph();
+                    // ReSharper disable once ExplicitCallerInfoArgument
                     asLineChart.OnPropertyChanged(nameof(FirstSample));
+                    // ReSharper disable once ExplicitCallerInfoArgument
                     asLineChart.OnPropertyChanged(nameof(LastSample));
                     break;
                 case nameof(AutoMinMax):
@@ -74,6 +76,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                     break;
                 case nameof(MaxValue):
                 case nameof(MinValue):
+                    // ReSharper disable once ExplicitCallerInfoArgument
                     asLineChart.OnPropertyChanged(nameof(MiddleValue));
                     asLineChart.DrawGraph();
                     asLineChart.DrawGrid();
@@ -285,6 +288,11 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         private Canvas _gridCanvas;
         private Canvas _chartCanvas;
+        //trigger for mouse over event
+#pragma warning disable 414
+        private bool _displayMouseInfo;
+#pragma warning restore 414
+
 
         private static Random _rnd; // RNG for in design mode value generation. See OnLoaded
         #endregion
@@ -364,7 +372,6 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             if (_gridCanvas == null) return;
             _gridCanvas.Children.Clear();
 
-
             var availableWidth = _chartCanvas.ActualWidth;
             var lowerY = 0.0;
             var upperY = _gridCanvas.ActualHeight;
@@ -372,11 +379,11 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             var upperX = availableWidth;
 
             // axis
-
             #region Axis
 
-            var line = new Line // Y axis
+            var line = new Line 
             {
+                // Y axis
                 X1 = lowerX,
                 X2 = lowerX,
                 Y1 = upperY,
@@ -385,7 +392,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             };
             _gridCanvas.Children.Add(line);
             line = new Line
-            { // X axis
+            { 
+                // X axis
                 X1 = lowerX,
                 X2 = upperX,
                 Y1 = upperY,
@@ -566,8 +574,22 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             var dp = GetTemplateChild("PART_DockPanel") as DockPanel;
 
             if (dp != null)
+            {
                 dp.MouseWheel += ChartCanvasOnMouseWheel;
+                dp.MouseEnter += DpOnMouseEnter;
+                dp.MouseLeave += DpOnMouseLeave;
+            }
             base.OnApplyTemplate();
+        }
+
+        private void DpOnMouseEnter(object sender, MouseEventArgs e)
+        {
+            _displayMouseInfo = true;
+        }
+
+        private void DpOnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
+        {
+            _displayMouseInfo = false;
         }
 
         private void ChartCanvasOnMouseWheel(object sender, MouseWheelEventArgs mouseWheelEventArgs)
