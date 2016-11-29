@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MotorXPGUIMVVM.Properties;
 
 namespace MotorXPGUIMVVM.Repository
 {
@@ -11,7 +12,11 @@ namespace MotorXPGUIMVVM.Repository
         public event Action Tick
         {
             add { _tick += value; }
-            remove { _tick -= value; }
+            remove
+            {
+                // ReSharper disable once DelegateSubtraction
+                if (_tick != null) _tick -= value;
+            }
         }
         private bool _shouldStop;
         private int _beatsPerMinute = 120;
@@ -55,7 +60,7 @@ namespace MotorXPGUIMVVM.Repository
             {
                 if(value <1)
                 {
-                    throw new ArgumentOutOfRangeException("value", "BPM must be grather than 0 seconds");
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.Metronom_BeatsPerMinute_BPM_must_be_grather_than_0_seconds);
                 }
                 _beatsPerMinute = value;
             }

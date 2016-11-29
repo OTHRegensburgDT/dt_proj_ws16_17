@@ -1,14 +1,13 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Globalization;
 
 namespace MotorXPGUIMVVM.ViewModel
 {
     public class GaugeViewModel : ViewModelBase
     {       
-        private double _gaugeValue = 0.0;
+        private double _gaugeValue;
 
-        public GaugeViewModel()
-        { }
 
         public string Unit { get; set; } = "rpm";
         public string Title { get; set; } = "Demo";
@@ -19,7 +18,8 @@ namespace MotorXPGUIMVVM.ViewModel
                 // ToDo put into function and make it better :D 
     
                 double targetRange = (Math.Abs(MaxValue) - Math.Abs(MinValue));
-                double targetNormalized = targetRange == 0 ? 1.0 : targetRange;
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                double targetNormalized = targetRange == 0.0 ? 1.0 : targetRange;
                 double retValue = -120 + 240 * (_gaugeValue / targetNormalized);
 
                 return retValue;
@@ -27,13 +27,14 @@ namespace MotorXPGUIMVVM.ViewModel
             set
             {
                 _gaugeValue = value;
-                RaisePropertyChanged("Value");
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(GaugeValue));
             }
         }
 
         public string GaugValueText
         {
-            get { return _gaugeValue.ToString(); }
+            get { return _gaugeValue.ToString(CultureInfo.InvariantCulture); }
         }
 
         public int MinValue { get; set; }

@@ -22,7 +22,6 @@
                 <!--Material Icons-->
                 <ResourceDictionary Source="pack://application:,,,/Resources/Icons.xaml" />
                 <!-- Custom Styles-->
-                <ResourceDictionary Source="pack://application:,,,/Resources/Styles.xaml" />
 
                 <ResourceDictionary>
                     <!--Global View Model Locator-->

@@ -10,19 +10,16 @@ namespace MotorXPGUIMVVM.ViewModel
         private string _title;
 
         private ObservableCollection<KeyValuePair<ulong, ulong>> _items;
-
-        public LineChartViewModel()
-        {
-           
-        }
-
+        // ReSharper disable once UnusedMember.Local
         private ObservableCollection<KeyValuePair<ulong, ulong>> GetSample()
         {
-            var items = new ObservableCollection<KeyValuePair<ulong, ulong>>();
-            items.Add(new KeyValuePair<ulong, ulong>(key: 4122, value: 12));
-            items.Add(new KeyValuePair<ulong, ulong>(key: 4123, value: 15));
-            items.Add(new KeyValuePair<ulong, ulong>(key: 4124, value: 19));
-            items.Add(new KeyValuePair<ulong, ulong>(key: 4125, value: 25));
+            var items = new ObservableCollection<KeyValuePair<ulong, ulong>>
+            {
+                new KeyValuePair<ulong, ulong>(key: 4122, value: 12),
+                new KeyValuePair<ulong, ulong>(key: 4123, value: 15),
+                new KeyValuePair<ulong, ulong>(key: 4124, value: 19),
+                new KeyValuePair<ulong, ulong>(key: 4125, value: 25)
+            };
             return items;
         }
 
@@ -33,7 +30,8 @@ namespace MotorXPGUIMVVM.ViewModel
             set
             {
                 _unit = value;
-                RaisePropertyChanged("Unit");
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(Unit));
             }
         }
 
@@ -44,7 +42,8 @@ namespace MotorXPGUIMVVM.ViewModel
             set
             {
                 _title = value;
-                RaisePropertyChanged("Title");
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(Title));
             }
         }
 
@@ -59,7 +58,8 @@ namespace MotorXPGUIMVVM.ViewModel
             set
             {
                 _items = value;
-                RaisePropertyChanged("Items");
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged(nameof(Items));
             }
         }
     }

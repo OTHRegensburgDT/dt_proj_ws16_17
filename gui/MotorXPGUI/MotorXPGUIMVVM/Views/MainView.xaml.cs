@@ -5,6 +5,7 @@ namespace MotorXPGUIMVVM.Views
     /// <summary>
     /// Description for MainView.
     /// </summary>
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class MainView : UserControl
     {
         /// <summary>

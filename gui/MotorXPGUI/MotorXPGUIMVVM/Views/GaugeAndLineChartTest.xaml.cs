@@ -10,6 +10,7 @@ namespace MotorXPGUIMVVM.Views
     /// <summary>
     /// Interaction logic for GaugeAndLineChartTest.xaml
     /// </summary>
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class GaugeAndLineChartTest : UserControl
     {
         private int _counter = 20;
@@ -51,6 +52,7 @@ namespace MotorXPGUIMVVM.Views
                             }
                         }
                     }
+                    // ReSharper disable once FunctionNeverReturns
                 });
             }
         }

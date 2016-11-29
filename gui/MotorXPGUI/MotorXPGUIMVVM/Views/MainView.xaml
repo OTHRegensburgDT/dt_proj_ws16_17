@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:uc="clr-namespace:MotorXPGUIMVVM.UserControls"
-        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:local="clr-namespace:MotorXPGUIMVVM.Views" 
         mc:Ignorable="d ignore"
+        Name="MainViewControl"
         DataContext="{Binding MainView, Source={StaticResource Locator}}">
     <!--<TabControl>
         <TabItem Header="Data">
@@ -28,8 +27,6 @@
 
 
     </TabControl>-->
-
-
-    <uc:DataDisplay/>
+    <uc:DataDisplay Width="{Binding ElementName= MainViewControl, Path=Width}"/>
 
 </UserControl>
