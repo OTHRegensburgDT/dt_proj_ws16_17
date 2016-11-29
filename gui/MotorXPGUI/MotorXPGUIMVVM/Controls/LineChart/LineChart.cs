@@ -156,7 +156,6 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             set { SetValue(FillColorProperty, value); }
         }
 
-
         public static readonly DependencyProperty WindowPositionProperty = DependencyProperty.Register(
             "WindowPosition", typeof(double), typeof(LineChart), new PropertyMetadata(default(double), PropertyChangedCallback));
 
@@ -244,7 +243,6 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             set { SetValue(HorizontalLinesProperty, value); }
         }
 
-
         public static readonly DependencyProperty ValuesProperty = DependencyProperty.Register(
             "Values", typeof(BindingList<double>), typeof(LineChart), new PropertyMetadata(new BindingList<double>(), PropertyChangedCallback));
 
@@ -253,8 +251,6 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             get { return (BindingList<double>)GetValue(ValuesProperty); }
             set { SetValue(ValuesProperty, value); }
         }
-
-
 
         public static readonly DependencyProperty GridLinesColorProperty = DependencyProperty.Register(
             "GridLinesColor", typeof(Brush), typeof(LineChart), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(78, 0, 0, 0)), PropertyChangedCallback));
@@ -544,6 +540,14 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             for (var i = fromIndex; i <= toIndex; i++)
             {
                 if (i < 0)
+                {
+                    i = 0;
+                }
+                if (i >= Values.Count)
+                {
+                    i = Values.Count-1;
+                }
+                else if (i < 0)
                 {
                     i = 0;
                 }
