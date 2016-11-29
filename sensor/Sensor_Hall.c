@@ -10,6 +10,7 @@
  *********************************************************************************/
 
 #include "Sensor_Hall.h"
+#include "Posif_Control.h"
 
 #include <xmc_ccu4.h>
 #include <xmc_posif.h>
@@ -19,7 +20,6 @@
  * Local macros
  *********************************************************************************/
 
-#define POSIF_PTR		POSIF0
 #define HALL_CCU		CCU40
 #define HALL_CCU_NUM	(0U)
 
@@ -40,6 +40,8 @@
 
 uint32_t hall[3] = { 0,0,0 };
 MotorDirection_t motorDirection = 0;
+extern XMC_POSIF_CONFIG_t POSIF_HALL_config;
+extern XMC_POSIF_HSC_CONFIG_t POSIF_HSC_config;
 
 /* Hall pattern of the motor. This depends on the type and make of the motor selected */
 uint8_t hall_pattern_cw[] =
@@ -108,22 +110,6 @@ XMC_CCU4_SLICE_EVENT_CONFIG_t capture_event0_config = //off time capture
 	.duration = XMC_CCU4_SLICE_EVENT_FILTER_DISABLED
 };
 
-XMC_POSIF_CONFIG_t POSIF_HALL_config =
-{
-	.mode = XMC_POSIF_MODE_HALL_SENSOR, /**< POSIF Operational mode */
-	.input0 = XMC_POSIF_INPUT_PORT_A, /**< Choice of input for Input-1 */
-	.input1 = XMC_POSIF_INPUT_PORT_A, /**< Choice of input for Input-2 */
-	.input2 = XMC_POSIF_INPUT_PORT_A, /**< Choice of input for Input-3 */
-	.filter = XMC_POSIF_FILTER_DISABLED /**< Input filter configuration */
-};
-
-XMC_POSIF_HSC_CONFIG_t POSIF_HSC_config =
-{
-	.disable_idle_signal = 1,
-	.sampling_trigger = 0, //HSDA
-	.sampling_trigger_edge = 0 //Rising edge
-};
-
 XMC_GPIO_CONFIG_t HALL_POSIF_0_Hall_PadConfig =
 {
 	.mode = (XMC_GPIO_MODE_t)XMC_GPIO_MODE_INPUT_TRISTATE,
@@ -177,17 +163,6 @@ uint8_t Sensor_Hall_GetPattern(uint8_t currentPattern)
 /*********************************************************************************
  * Global function definitions
  *********************************************************************************/
-
-void POSIF0_0_IRQHandler(void)
-{
-	uint8_t hallposition;
-
-	/* Set the new Hall pattern */
-	hallposition = XMC_POSIF_HSC_GetExpectedPattern(POSIF_PTR);
-	XMC_POSIF_HSC_SetHallPatterns(POSIF_PTR, Sensor_Hall_GetPattern(hallposition));
-
-	SensorHallCallback();
-}
 
 void Sensor_Hall_Init()
 {
