@@ -202,7 +202,6 @@ void Sensor_Hall_Init()
 	XMC_CCU4_EnableClock(HALL_CCU, CAPTURE_SLICE_NUMBER);
 
 	/* POSIF Configuration */
-	XMC_POSIF_Init(POSIF_PTR, &POSIF_HALL_config);
 	XMC_POSIF_HSC_Init(POSIF_PTR, &POSIF_HSC_config);
 	XMC_POSIF_EnableEvent(POSIF_PTR, XMC_POSIF_IRQ_EVENT_CHE);
 

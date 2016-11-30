@@ -36,3 +36,10 @@ void POSIF0_0_IRQHandler(void)
 
 	SensorHallCallback();
 }
+
+void POSIF_Init(void)
+{
+
+	/* POSIF Configuration */
+	XMC_POSIF_Init(POSIF_PTR, &POSIF_HALL_config);
+}
