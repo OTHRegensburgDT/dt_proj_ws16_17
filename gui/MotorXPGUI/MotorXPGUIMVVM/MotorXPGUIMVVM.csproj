@@ -177,7 +177,7 @@
     <Compile Include="UserControls\DataDisplay.xaml.cs">
       <DependentUpon>DataDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GaugeAndLineChartTest.xaml.cs">
+    <Compile Include="UserControls\GaugeAndLineChartTest.xaml.cs">
       <DependentUpon>GaugeAndLineChartTest.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\Gauge\GaugeResources.xaml">
@@ -200,7 +200,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GaugeAndLineChartTest.xaml">
+    <Page Include="UserControls\GaugeAndLineChartTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

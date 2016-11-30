@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MotorXPGUIMVVM.Views
+namespace MotorXPGUIMVVM.UserControls
 {
     /// <summary>
     /// Interaction logic for GaugeAndLineChartTest.xaml

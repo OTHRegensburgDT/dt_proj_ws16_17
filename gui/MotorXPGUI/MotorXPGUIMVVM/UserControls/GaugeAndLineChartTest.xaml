@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MotorXPGUIMVVM.Views.GaugeAndLineChartTest"
+﻿<UserControl x:Class="MotorXPGUIMVVM.UserControls.GaugeAndLineChartTest"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -59,7 +59,7 @@
                                          IsShowingAll="{Binding ElementName=LineChart, Path=IsShowingAll, Mode=OneWay}"
                                          GridLinesColor="Transparent" AxisColor="Transparent"/>-->
 
-                    <lineChart:LineChart x:Name="LineChart" Margin="5" StrokeColor="GreenYellow" FillColor="#7EADFF2F" AutoMinMax="True" MinValue="0" MaxValue="20"/>
+                    <lineChart:LineChart x:Name="LineChart" Margin="5,1,5,9" StrokeColor="GreenYellow" FillColor="#7EADFF2F" AutoMinMax="True" MinValue="0" MaxValue="20"/>
                 </Grid>
             </DockPanel>
         </Grid>
