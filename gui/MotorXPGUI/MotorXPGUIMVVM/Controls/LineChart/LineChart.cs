@@ -273,7 +273,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         #endregion
 
         #region Properties
-
+        //Todo Error handling!!
         public double MiddleValue => MinValue + (MaxValue - MinValue) / 2;
         public int FirstSample => Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1) * WindowPosition);
         public int LastSample => FirstSample + SampleWindow;
