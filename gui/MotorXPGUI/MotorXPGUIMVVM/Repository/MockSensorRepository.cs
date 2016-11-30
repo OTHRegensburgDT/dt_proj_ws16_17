@@ -27,38 +27,35 @@ namespace MotorXPGUIMVVM.Repository
             {
                 while (true)
                 {
-
-                    if (Application.Current != null)
+                    if (Application.Current == null) continue;
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        Application.Current.Dispatcher.Invoke(() =>
+                        foreach (var col in _sensorDataCollections)
                         {
-                            foreach (var col in _sensorDataCollections)
+                            var newValue = 0;
+                            switch (col.SensorDataType)
                             {
-                                var newValue = 0;
-                                switch (col.SensorDataType)
-                                {
-                                    case SensorDataType.Velocity:
+                                case SensorDataType.Velocity:
 
-                                        newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);
-                                        break;
-                                    case SensorDataType.Angle:
-                                        newValue = _rnd.Next(-360, 360);
-                                        break;
-                                    case SensorDataType.Temp:
-                                        newValue = _rnd.Next(0, 150);
-                                        break;
-                                    case SensorDataType.HallPattern:
-                                        break;
-                                    default:
-                                        throw new ArgumentOutOfRangeException();
-                                }
-                                col.Values.Add(newValue);
-                                col.LastValue = newValue;
-                                col.SampleList.Add(_counter++);
+                                    newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);
+                                    break;
+                                case SensorDataType.Angle:
+                                    newValue = _rnd.Next(-360, 360);
+                                    break;
+                                case SensorDataType.Temp:
+                                    newValue = _rnd.Next(0, 150);
+                                    break;
+                                case SensorDataType.HallPattern:
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
                             }
-                        });
-                        Thread.Sleep(300);
-                    }
+                            col.Values.Add(newValue);
+                            col.LastValue = newValue;
+                            col.SampleList.Add(_counter++);
+                        }
+                    });
+                    Thread.Sleep(300);
                 }
                 // ReSharper disable once FunctionNeverReturns
             });
@@ -73,8 +70,8 @@ namespace MotorXPGUIMVVM.Repository
             for (var i = 0; i < 100; i++)
             {
                 dataCollection1.Values.Add(_rnd.NextDouble() * 6000.0);
-                dataCollection2.Values.Add(_rnd.NextDouble() * 150.0);
-                dataCollection3.Values.Add(_rnd.NextDouble() * 50.00);
+                //dataCollection2.Values.Add(_rnd.NextDouble() * 150.0);
+                //dataCollection3.Values.Add(_rnd.NextDouble() * 50.00);
             }
 
             return new BindingList<SensorDataCollection> { dataCollection1, dataCollection2, dataCollection3 };

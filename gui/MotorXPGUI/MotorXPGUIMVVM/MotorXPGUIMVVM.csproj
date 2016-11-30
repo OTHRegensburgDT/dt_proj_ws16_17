@@ -157,6 +157,7 @@
     <Compile Include="Converter\BooleanToVisibilityHiddenConverter.cs" />
     <Compile Include="Converter\DoubleInHalfConverter.cs" />
     <Compile Include="Converter\DoubleToIntConverter.cs" />
+    <Compile Include="Converter\InverseBooleanConverter.cs" />
     <Compile Include="Converter\RadianToDegreeConverter.cs" />
     <Compile Include="Converter\StringToIntConverter.cs" />
     <Compile Include="Model\RingBuffer.cs" />

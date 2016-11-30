@@ -31,6 +31,7 @@ namespace MotorXPGUIMVVM.UserControls
                             while (_counter++ < 500)
                             {
                                 var j = _counter;
+                                if (Application.Current == null) continue;
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
                                     Gauge2.Value = Convert.ToDouble(rand.Next(j - 20, j + 20)) / 500 * 100;
@@ -42,9 +43,10 @@ namespace MotorXPGUIMVVM.UserControls
                             while (_counter-- > 20)
                             {
                                 var j = _counter;
+                                if (Application.Current == null) continue;
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    Gauge2.Value = Convert.ToDouble(rand.Next(j - 20, j + 20)) / 500 * 100;
+                                    Gauge2.Value = Convert.ToDouble(rand.Next(j - 20, j + 20))/500*100;
                                     LineChart.AddValue(Gauge2.Value);
                                     //LineChart2.AddValue(Gauge2.Value);
                                 });
