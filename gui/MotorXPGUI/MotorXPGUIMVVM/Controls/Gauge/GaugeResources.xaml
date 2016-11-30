@@ -47,10 +47,17 @@
                             </TextBlock>
                         </Grid>
                     </Border>
-
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="MyGaugeStyle" TargetType="{x:Type local:Gauge}">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="80"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="MinAngle" Value="-1.6"/>
+        <Setter Property="MaxAngle" Value="1.6"/>
+        <Setter Property="Margin" Value="0 0 0 -10"/>
     </Style>
 </ResourceDictionary>
