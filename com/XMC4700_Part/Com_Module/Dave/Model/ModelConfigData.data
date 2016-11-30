@@ -80,11 +80,11 @@
   <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.19"/>
   <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.20"/>
   <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.21"/>
-  <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.15"/>
-  <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.12"/>
-  <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.17"/>
-  <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.13"/>
   <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.14"/>
   <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.11"/>
   <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.16"/>
+  <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.15"/>
+  <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.12"/>
+  <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.13"/>
+  <hwConnections href="APPS/UART/v4_1_8/UART_0.app#//@connections.17"/>
 </ApplicationModel:ApplicationData>

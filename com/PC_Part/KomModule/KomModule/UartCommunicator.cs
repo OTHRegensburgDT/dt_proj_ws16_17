@@ -46,14 +46,21 @@ namespace KomModule
         public bool SendParams()
         {
             bool retVal;
+            int i = 0;
             retVal = false;
             byte[] buf = new byte[1024];
             //TODO: parse Parameter struct to intermediate byte[]
-
+            buf = Protoparser.RParatoByArr(regPara);
             //TODO: parse intermediate byte[] to final byte[] for sending
+            buf = Frameparser.EncapsuleFrame(buf);
             try
             {
-                uart.Write(buf, 0, buf.Length);
+                foreach (byte elem in buf)
+                {
+                    uart.Write(buf, i, 1);
+                    i++;
+                    System.Threading.Thread.Sleep(30);
+                }
                 retVal = true;
             }
             catch (Exception e)
@@ -69,8 +76,8 @@ namespace KomModule
 
             if (para != null)
             {
-                retVal = true;
                 regPara = para;
+                retVal = true;
             }
 
             return retVal;
@@ -84,7 +91,7 @@ namespace KomModule
         {
             try
             {
-                uart.BaudRate = 19200;
+                uart.BaudRate = 9600;
                 uart.DataBits = 8;
                 uart.StopBits = StopBits.One;
                 uart.Handshake = Handshake.None;
@@ -126,11 +133,14 @@ namespace KomModule
             //subtract length field, as it was already read
             inLength[0]--;
             while(spL.BytesToRead < inLength[0])
-            { //no op
+            { //wait for Message end
             }
             //read Frame
-            buf = new byte[inLength[0]];
-            spL.Read(buf, 0, inLength[0]);
+            buf = new byte[inLength[0]+1];
+            //write full framesize in first element
+            buf[0] = (byte)(inLength[0] + 1);
+            //read rest of frame
+            spL.Read(buf, 1, buf[0]-1);
                 
             //parse message
             buf = Frameparser.DecapsuleFrame(buf);

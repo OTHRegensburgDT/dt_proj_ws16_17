@@ -6,21 +6,40 @@ using System.Threading.Tasks;
 
 namespace KomModule
 {
+    public enum reguTarget { ANGLE, TEMPERATURE, VELOCITY };
     public class RegulationParams
     {
-        private UInt64 timestamp;
-        private KeyValuePair<UInt16, UInt64> paramTable;
+        private float paramP;
+        private float paramI;
+        private float paramD;
+        private float targetVal;
+        private reguTarget regTarget;
 
-        public KeyValuePair<UInt16, UInt64> ParamTable
+        public reguTarget RegTarget
         {
-            get { return paramTable; }
-            set { paramTable = value; }
+            get { return regTarget; }
+            set { regTarget = value; }
+        }
+        public float TargetVal
+        {
+            get { return targetVal; }
+            set { targetVal = value; }
         }
 
-        public UInt64 Timestamp
+        public float ParamD
         {
-            get { return timestamp; }
-            set { timestamp = value; }
+            get { return paramD; }
+            set { paramD = value; }
+        }
+        public float ParamI
+        {
+            get { return paramI; }
+            set { paramI = value; }
+        }
+        public float ParamP
+        {
+            get { return paramP; }
+            set { paramP = value; }
         }
     }
 }

@@ -10,20 +10,28 @@ namespace UnitTests
     {
         bool getDataFlag;
         [TestMethod]
-        public void TestMethod1()
+        public void TestRcvData()
         {
+            int assertVal = 0;
             getDataFlag = false;
-            KomModule.Sensordata data;
+            KomModule.Sensordata data = new KomModule.Sensordata();
             SortedList<ushort, ulong> list = new SortedList<ushort,ulong>();
             list.Add(73, 65555);
             KomModule.ICommunicator com = new KomModule.UartCommunicator("Com5");
             com.newSensordata += cbGetData;
 
-            while (getDataFlag == false) { };
+            for (int i = 0; i < 3; i++)
+            {
+                while (getDataFlag == false){ };
+                getDataFlag = false;
+                data = com.getData();
+            }
 
-            data = com.getData();
-
-            Assert.AreEqual(data.DataTable, list);
+            if (data.DataTable.Count == 4)
+            {
+                assertVal = 1;
+            }
+            Assert.AreEqual(assertVal, 1);
         }
 
         public void cbGetData()
@@ -34,11 +42,16 @@ namespace UnitTests
         [TestMethod]
         public void TestFrameParsing()
         {
+            int i = 0;
             byte[] buf = {1, 2, 3, 4, 5, 6, 7, 8, 9};
             byte[] output, frame;
             frame = KomModule.Frameparser.EncapsuleFrame(buf);
             output = KomModule.Frameparser.DecapsuleFrame(frame);
-            Assert.AreEqual(buf,output);
+            foreach (var element in output)
+            {
+                Assert.AreEqual(buf[i], element);
+                i++;
+            }
         }
 
         [TestMethod]
@@ -72,6 +85,48 @@ namespace UnitTests
             arr = KomModule.Protoparser.SDatatoByArrr(data);
             dataout = KomModule.Protoparser.ByArrtoSData(arr);
             Assert.AreEqual(1, 1);
+        }
+        [TestMethod]
+        public void TestRegPara_EnDecaps()
+        {
+            KomModule.RegulationParams paraIn = new KomModule.RegulationParams();
+            KomModule.RegulationParams paraOut;
+            byte[] buf;
+            paraIn.ParamD = 1.1f;
+            paraIn.ParamI = 2.2f;
+            paraIn.ParamP = 3.3f;
+            paraIn.TargetVal = 4400f;
+            paraIn.RegTarget = KomModule.reguTarget.VELOCITY;
+
+            buf = KomModule.Protoparser.RParatoByArr(paraIn);
+            paraOut = KomModule.Protoparser.ByArrtoRPara(buf);
+
+            Assert.AreEqual(1, 1);
+        }
+        [TestMethod]
+        public void TestSendPara()
+        {
+            KomModule.ICommunicator com = new KomModule.UartCommunicator("Com5");
+            KomModule.RegulationParams paraIn = new KomModule.RegulationParams();
+
+            paraIn.ParamD = 1.1f;
+            paraIn.ParamI = 2.2f;
+            paraIn.ParamP = 3.3f;
+            paraIn.TargetVal = 4400f;
+            paraIn.RegTarget = KomModule.reguTarget.VELOCITY;
+
+            com.SetParams(paraIn);
+            com.SendParams();
+
+            paraIn.ParamD = 9.9f;
+            paraIn.ParamI = 8.8f;
+            paraIn.ParamP = 7.7f;
+            paraIn.TargetVal = 44f;
+            paraIn.RegTarget = KomModule.reguTarget.TEMPERATURE;
+
+            com.SendParams();
+
+            Assert.IsTrue(true);
         }
     }
 }

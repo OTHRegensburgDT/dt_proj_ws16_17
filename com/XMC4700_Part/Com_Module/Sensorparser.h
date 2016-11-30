@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "com_structs.h"
+#include "com_types.h"
 
 /*
  * bool ProtoToSensor(Sensordata* outData, uint8_t* protoMsg,int size)

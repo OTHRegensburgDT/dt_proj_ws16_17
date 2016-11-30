@@ -5,7 +5,7 @@
  *      Author: Michael
  */
 
-#define BUFFERSIZE 256
+#define OUT_BUFFSIZE 256
 
 #include "communication.h"
 #include "Sensorparser.h"
@@ -15,33 +15,67 @@
 #include <Dave/Generated/UART/uart.h>
 
 /*--------global Variables -----------*/
-bool newParams;
-double param_p;
-double param_i;
-double param_d;
-double velo_aim;
-short angle_aim;
+float param_p;
+float param_i;
+float param_d;
+float target_val;
+reguTarget regulationTarget;
+/*-------local Variables ------------*/
+static uint8_t buffersize;
+static uint8_t* inBuffer;
+static bool newParams;
+
+/*--------local functions ------------*/
+
+bool restartRcv(void){
+	bool retVal = false;
+	UART_STATUS_t uStat;
+	free(inBuffer);
+	inBuffer = NULL;
+	buffersize = 0;
+	newParams = false;
+	uStat = UART_AbortReceive(&UART_0);
+	if(UART_STATUS_SUCCESS == uStat){
+		uStat = UART_Receive(&UART_0, &buffersize, 1);
+		if(UART_STATUS_SUCCESS == uStat){
+			retVal = true;
+		}
+	}
+	return retVal;
+}
 
 /*--------public functions -----------*/
 
+bool getParamFlag(void){
+	return newParams;
+}
+
 bool initCom(void){
+	UART_STATUS_t uStat;
 	newParams = false;
 	param_p = 0.0;
 	param_i = 0.0;
 	param_d = 0.0;
-	velo_aim = 0.0;
-	angle_aim = 0;
-	return true;
+	target_val = 0.0;
+	buffersize = 0;
+	UART_AbortReceive(&UART_0); //just in case
+	//wait in background until framelength is known
+	uStat = UART_Receive(&UART_0, &buffersize, 1);
+	if(UART_STATUS_SUCCESS == uStat){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 bool sendSensorData(Sensordata* data){
 	bool retVal = false;
-	uint8_t* outBuffer = malloc(BUFFERSIZE);
-	int bufsize = BUFFERSIZE -1;
+	uint8_t* outBuffer = malloc(OUT_BUFFSIZE);
+	int bufsize = OUT_BUFFSIZE-1;
 	UART_STATUS_t retStat;
 	//parse to protobuf
 	//first buffer-element is reserved for framesize
-	retVal = SensorToProto(&outBuffer[1], &bufsize, data);
+	retVal = SensorToProto(outBuffer, &bufsize, data);
 
 	if(retVal){
 		//parse to frame if successful
@@ -61,30 +95,44 @@ bool sendSensorData(Sensordata* data){
 }
 
 bool processRegulationData(){
-	UART_STATUS_t retStat;
 	bool retVal = false;
-	int inSize;
-	uint8_t* inBuffer = malloc(BUFFERSIZE);
-	//read framelength
-	retStat = UART_Receive(&UART_0, inBuffer, 1);
-	if(UART_STATUS_SUCCESS == retStat){
-		inSize = inBuffer[0];
-		//decrease framelength as first field was already read
-		inSize--;
-		//read rest of frame
-		retStat = UART_Receive(&UART_0, &(inBuffer[1]), inSize);
-		if(UART_STATUS_SUCCESS == retStat){
-			retVal = FrameToProto(&(inBuffer[1]), &inSize);
-			if(retVal){
-				retVal = ProtoToParam(&(inBuffer[1]), inSize);
-			}
-		}
+	int inSize = buffersize;
+
+	retVal = FrameToProto(inBuffer, &inSize);
+	if(retVal){
+		retVal = ProtoToParams(inBuffer+1, inSize);
 	}
 
-	free(inBuffer);
+	restartRcv();
+
 	return retVal;
 }
 
 void DataRcvICR(){
-	newParams = true;
+	UART_STATUS_t retStat;
+	static uint8_t restctr = 0;
+	if(NULL == inBuffer){
+		//Frame size was received
+		inBuffer = malloc(buffersize);
+		//receive rest of frame
+		inBuffer[0] = buffersize;
+		restctr = buffersize -1;
+		retStat = UART_Receive(&UART_0, inBuffer+1, 1);
+		//check if receive will succeed
+
+	}else{
+		//receive rest
+		restctr--;
+		retStat = UART_Receive(&UART_0, inBuffer+(buffersize-restctr),1);
+	}
+	if(restctr == 0){
+		newParams = true;
+	}else{
+		if(UART_STATUS_SUCCESS != retStat){
+			free(inBuffer);
+			inBuffer = NULL;
+			buffersize = 0;
+			initCom();
+		}
+	}
 }

@@ -4,7 +4,7 @@
  *  Created on: Oct 29, 2016
  *      Author: Michael
  */
-
+#include <math.h>
 #include <malloc.h>
 #include <protobuf/pb_encode.h>
 #include <protobuf/pb_decode.h>
@@ -36,16 +36,12 @@ bool encodeData_cb(pb_ostream_t *stream, const pb_field_t *field, void * const *
 	/*angle*/
 	entries[1].SensorId = ANGLEID;
 	entries[1].Data = data->angle;
-	/*first temp sensor*/
-	entries[2].SensorId = TEMP_1ID;
+	/*temp sensor*/
+	entries[2].SensorId = TEMP_ID;
 	entries[2].Data = data->temperature0;
-	/*second temp sensor*/
-	entries[3].SensorId = TEMP_2ID;
-	entries[3].Data = data->temperature1;
 	/*hall sensor pattern*/
-	entries[4].SensorId = HALLID;
-	entries[4].Data = data->hallpattern;
-
+	entries[3].SensorId = HALLID;
+	entries[3].Data = data->hallpattern;
 
 	for(i = 0; i < SENSORDATA_COUNT && retval; i++){
 		if(pb_encode_tag_for_field(stream, field)){
@@ -70,11 +66,8 @@ bool decodeData_cb(pb_istream_t *stream, const pb_field_t *field, void **arg)
 
 	if(retval == true){
 		switch(entry.SensorId){
-		case TEMP_1ID:
+		case TEMP_ID:
 			(*data)->temperature0 = entry.Data;
-			break;
-		case TEMP_2ID:
-			(*data)->temperature1 = entry.Data;
 			break;
 		case HALLID:
 			(*data)->hallpattern = entry.Data;
@@ -119,10 +112,10 @@ bool SensorToProto(uint8_t* protoMsg, int* size, Sensordata* inData){
 
 	//serialize protobuf message
 	if((*size) >= 128){
-		pb_ostream_t stream = pb_ostream_from_buffer(protoMsg, *size);
+		pb_ostream_t stream = pb_ostream_from_buffer(protoMsg+1, *size);
 		status = pb_encode(&stream, PROTO_SENSORDATA_FIELDS, &protoData);
 		*size = stream.bytes_written;
-		protoMsg = realloc(protoMsg, *size);
+		protoMsg = realloc(protoMsg, (*size)+1);
 	}
 
 	seqnr++;

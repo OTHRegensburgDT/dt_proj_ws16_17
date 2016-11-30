@@ -12,14 +12,19 @@ namespace KomModule
         public static byte[] DecapsuleFrame(byte[] InputData)
         {
             byte[] corrCrc = { 0, 0 };
-            byte[] retVal = new byte[InputData.Length - 2];
-            byte[] crc = crcGen.ComputeChecksumBytes(InputData);
+            byte[] tmp = new byte[InputData.Length - 1];
+            byte[] retVal = new byte[InputData.Length - 3];
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                tmp[i] = InputData[i + 1];
+            }
+            byte[] crc = crcGen.ComputeChecksumBytes(tmp);
             if(crc[0] == corrCrc[0] && crc[1] == corrCrc[1])
             {
                 //correct crc
                 for (int i = 0; i < retVal.Length; i++)
                 {
-                    retVal[i] = InputData[i];
+                    retVal[i] = tmp[i];
                 }
             }
             else
@@ -31,16 +36,16 @@ namespace KomModule
         }
         public static byte[] EncapsuleFrame(byte[] OutputData)
         {
-            Int32 length = OutputData.Length;
-            byte[] retVal = new byte[length + 2];
+            byte length = (byte)OutputData.Length;
+            byte[] retVal = new byte[length + 3];
             UInt16 crc = crcGen.ComputeChecksum(OutputData);
             for (int i = 0; i < length; i++)
             {
-                retVal[i] = OutputData[i];
+                retVal[i+1] = OutputData[i];
             }
-            retVal[length] = (byte)(crc >> 8);
-            retVal[length + 1] = (byte)crc;
-
+            retVal[length + 1] = (byte)(crc >> 8);
+            retVal[length + 2] = (byte)crc;
+            retVal[0] = (byte)(length + 3);
             return retVal;
         }
     }

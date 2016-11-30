@@ -15,7 +15,7 @@
 #define PROTO_REGPARAMS_FIELDS Com_Module_RegParams_fields
 
 /*----------- global functions ----------*/
-bool ProtoToParam(uint8_t* protoMsg,int size){
+bool ProtoToParams(uint8_t* protoMsg,int size){
 	bool status = false;
 	PROTO_REGPARAMS message;
 
@@ -24,22 +24,28 @@ bool ProtoToParam(uint8_t* protoMsg,int size){
 	status = pb_decode(&stream, PROTO_REGPARAMS_FIELDS, &message);
 	if(true == status){
 		//a fixed angle is not possible with velocity != 0
-		if(message.has_paraAng && !(message.has_paraVelo)){
-			angle_aim = message.paraAng;
+		switch(message.target){
+		case ANGLE:
+			regulationTarget = ANGLE;
+			break;
+		case VELOCITY:
+			regulationTarget = VELOCITY;
+			break;
+		case TEMPERATURE:
+			regulationTarget = TEMPERATURE;
+			break;
+		default:
+			status = false;
+			break;
 		}
-		//velocity != 0 is not possible with a fixed angle
-		if(message.has_paraVelo && !(message.has_paraAng)){
-			velo_aim = message.paraVelo;
-		}
-		if(message.has_paraP){
-			param_p = message.paraP;
-		}
-		if(message.has_paraI){
-			param_i = message.paraI;
-		}
-		if(message.has_paraD){
-			param_d = message.paraD;
-		}
+
+		target_val = message.tgtVal;
+
+		param_p = message.paraP;
+
+		param_i = message.paraI;
+
+		param_d = message.paraD;
 	}
 	return status;
 }
@@ -50,37 +56,41 @@ bool ParamToProto(uint8_t* protoMsg, int* size){
 	PROTO_REGPARAMS message;
 
 	//add paramter p
-	if(param_p > 0.0001 || param_p < -0.0001){
-		message.has_paraP = true;
-		message.paraP = param_p;
-	}
+	message.paraP = param_p;
+
 	//add parameter i
-	if(param_i > 0.0001 || param_i < -0.0001){
-		message.has_paraI = true;
-		message.paraI = param_i;
-	}
+	message.paraI = param_i;
+
 	//add parameter d
-	if(param_d > 0.0001 || param_d < -0.0001){
-		message.has_paraD = true;
-		message.paraD = param_d;
-	}
-	//add target velocity
-	if(velo_aim > 0.0001 || velo_aim < -0.0001){
-		message.has_paraVelo = true;
-		message.paraVelo = velo_aim;
-	}
-	//add target angle
-	if(angle_aim != 0){
-		message.has_paraAng = true;
-		message.paraAng = angle_aim;
+	message.paraD = param_d;
+
+	//add target value
+	switch(regulationTarget){
+	case ANGLE:
+		message.target = ANGLE;
+		message.tgtVal = target_val;
+		status = true;
+		break;
+	case TEMPERATURE:
+		message.target = TEMPERATURE;
+		message.tgtVal = target_val;
+		status = true;
+		break;
+	case VELOCITY:
+		message.target = VELOCITY;
+		message.tgtVal = target_val;
+		status = true;
+		break;
+	default:
+		status = false;
 	}
 
 	//serialize protobuf message
-	if((*size) >= 128){
+	if(status && ((*size) >= 128)){
 		pb_ostream_t stream = pb_ostream_from_buffer(protoMsg, *size);
 		status = pb_encode(&stream, PROTO_REGPARAMS_FIELDS, &message);
 		*size = stream.bytes_written;
-		protoMsg = realloc(protoMsg, *size);
+		protoMsg = realloc(protoMsg, (*size)+1);
 	}
 
 	return status;

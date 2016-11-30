@@ -5,9 +5,9 @@ package Com_Module;
 
 //defining the parameter message
 message RegParams{
-	optional double paraP = 1;
-	optional double paraI = 2;
-	optional double paraD = 3;
-	optional double paraVelo = 4;
-	optional double paraAng = 5;
+	required uint32 target = 1;
+	required float paraP = 2;
+	required float paraI = 3;
+	required float paraD = 4;
+	required float tgtVal = 5;
 }
