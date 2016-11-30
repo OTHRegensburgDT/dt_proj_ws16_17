@@ -27,35 +27,39 @@ namespace MotorXPGUIMVVM.Repository
             {
                 while (true)
                 {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        foreach (var col in _sensorDataCollections)
-                        {
-                            var newValue = 0;
-                            switch (col.SensorDataType)
-                            {
-                                case SensorDataType.Velocity:
 
-                                    newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);
-                                    break;
-                                case SensorDataType.Angle:
-                                    newValue = _rnd.Next(-360, 360);
-                                    break;
-                                case SensorDataType.Temp:
-                                    newValue = _rnd.Next(0, 150);
-                                    break;
-                                case SensorDataType.HallPattern:
-                                    break;
-                                default:
-                                    throw new ArgumentOutOfRangeException();
+                    if (Application.Current != null)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            foreach (var col in _sensorDataCollections)
+                            {
+                                var newValue = 0;
+                                switch (col.SensorDataType)
+                                {
+                                    case SensorDataType.Velocity:
+
+                                        newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);
+                                        break;
+                                    case SensorDataType.Angle:
+                                        newValue = _rnd.Next(-360, 360);
+                                        break;
+                                    case SensorDataType.Temp:
+                                        newValue = _rnd.Next(0, 150);
+                                        break;
+                                    case SensorDataType.HallPattern:
+                                        break;
+                                    default:
+                                        throw new ArgumentOutOfRangeException();
+                                }
+                                col.Values.Add(newValue);
+                                col.LastValue = newValue;
+                                col.SampleList.Add(_counter++);
                             }
-                            col.Values.Add(newValue);
-                            col.LastValue = newValue;
-                            col.SampleList.Add(_counter++);
-                        }
-                    });
-                    Thread.Sleep(300);
-                }              
+                        });
+                        Thread.Sleep(300);
+                    }
+                }
                 // ReSharper disable once FunctionNeverReturns
             });
         }
