@@ -5,6 +5,10 @@
  *      Author: MotorXP
  */
 
+#include <xmc_posif.h>
+
+#include "Posif_Control.h"
+
 XMC_POSIF_CONFIG_t POSIF_HALL_config =
 {
 	.mode = XMC_POSIF_MODE_HALL_SENSOR, /**< POSIF Operational mode */
