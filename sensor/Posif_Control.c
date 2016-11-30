@@ -7,6 +7,7 @@
 
 #include <xmc_posif.h>
 
+#include "Sensor_Hall.h"
 #include "Posif_Control.h"
 
 XMC_POSIF_CONFIG_t POSIF_HALL_config =

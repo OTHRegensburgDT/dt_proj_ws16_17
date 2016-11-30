@@ -33,4 +33,6 @@ void Sensor_Hall_Stop(void);
 
 void Sensor_Hall_SetDirection(MotorDirection_t direction);
 
+uint8_t Sensor_Hall_GetPattern(uint8_t currentPattern);
+
 #endif /* SENSOR_HALL_H */
