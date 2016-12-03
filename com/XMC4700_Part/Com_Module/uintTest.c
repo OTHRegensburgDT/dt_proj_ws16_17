@@ -5,7 +5,6 @@
  *      Author: Michael
  */
 
-#include <unistd.h>
 #include <malloc.h>
 #include "unitTest.h"
 #include "Paramsparser.h"
@@ -67,18 +66,26 @@ bool comTest_rcvParams(){
 	if((param_d > 9.89f && param_d < 9.91f) && (param_i > 8.79f && param_i < 8.81f) && (param_p > 7.69f && param_p < 7.71f)){
 		retVal = true;
 	}
+	return retVal;
 }
 
 bool comTest_sendData(){
 	bool retVal;
 	Sensordata data;
+	uint32_t j;
 	data.angle = 45.6;
 	data.hallpattern = 3;
 	data.temperature0 = 21;
 	data.velocity = 4000;
 	for(int i = 0; i < 3; i++){
 		retVal = sendSensorData(&data);
-		sleep(1);
+
+		/*----delay ~10ms---*/
+		  for(j = 0UL; j < 720000 ;++j)
+		  {
+			  //asm("nop");
+		  }
+		/*---delay end---*/
 		data.angle+=2;
 		data.hallpattern += 2;
 		data.temperature0 += 2;

@@ -363,5 +363,11 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="#0" description="interrupt disabled"/>
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="#1" description="interrupt enabled."/>
   </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="SYSTICK" URI="http://resources/48.0.0/peripheral/cpu/0/systick">
+    <resourcesList name="csr" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/syst_csr"/>
+    <resourcesList name="rvr" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/syst_rvr"/>
+    <resourcesList name="cvr" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/syst_cvr"/>
+    <resourcesList name="calib" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/syst_calib"/>
+  </provided>
   <addressBlock offset="0x0" size="0x1000" usage="registers"/>
 </ResourceModel:Peripheral>
