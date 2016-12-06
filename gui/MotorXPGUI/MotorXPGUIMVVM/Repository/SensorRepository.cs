@@ -8,7 +8,7 @@ namespace MotorXPGUIMVVM.Repository
 {
     public class SensorRepository : INotifyPropertyChanged, ISensorRepository
     {
-        private ICommunicator _com;
+        private readonly ICommunicator _com;
 
         private BindingList<SensorDataCollection> _sensorDataCollections;
 
@@ -32,9 +32,10 @@ namespace MotorXPGUIMVVM.Repository
         public ICommand SubmitPIDCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void SendPID()
+        // ReSharper disable once InconsistentNaming
+        public void SendPID(RegulationParams @params)
         {
-            throw new System.NotImplementedException();
+            if (_com.SetParams(@params)) _com.SendParams();
         }
 
         private void OnNewSensorData()

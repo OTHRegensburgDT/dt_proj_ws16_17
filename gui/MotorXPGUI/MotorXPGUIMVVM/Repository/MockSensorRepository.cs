@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using KomModule;
 
 namespace MotorXPGUIMVVM.Repository
 {
@@ -21,42 +22,41 @@ namespace MotorXPGUIMVVM.Repository
 
         private void StrartMockTask()
         {
-            Task.Run(() =>
-            {
-                while (true)
-                {
-                    if (Application.Current == null) continue;
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        foreach (var col in _sensorDataCollections)
+            var task =  Task.Run(() =>
                         {
-                            var newValue = 0;
-                            switch (col.SensorDataType)
+                            while (true)
                             {
-                                case SensorDataType.Velocity:
-
-                                    newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);
-                                    break;
-                                case SensorDataType.Angle:
-                                    newValue = _rnd.Next(-360, 360);
-                                    break;
-                                case SensorDataType.Temp:
-                                    newValue = _rnd.Next(0, 150);
-                                    break;
-                                case SensorDataType.HallPattern:
-                                    break;
-                                default:
-                                    throw new ArgumentOutOfRangeException();
+                                if (Application.Current == null) continue;
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    foreach (var col in _sensorDataCollections)
+                                    {
+                                        var newValue = 0;
+                                        switch (col.SensorDataType)
+                                        {
+                                            case SensorDataType.Velocity:
+                                                newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);          
+                                                break;
+                                            case SensorDataType.Angle:
+                                                newValue = _rnd.Next(-43, 43);
+                                                break;
+                                            case SensorDataType.Temp:
+                                                newValue = _rnd.Next(36, 46);
+                                                break;
+                                            case SensorDataType.HallPattern:
+                                                break;
+                                            default:
+                                                throw new ArgumentOutOfRangeException();
+                                        }
+                                        col.Values.Add(newValue);
+                                        col.LastValue = newValue;
+                                        col.LastTimeStamp++;
+                                    }
+                                });
+                                Thread.Sleep(300);
                             }
-                            col.Values.Add(newValue);
-                            col.LastValue = newValue;
-                            col.Samples++;
-                        }
-                    });
-                    Thread.Sleep(300);
-                }
-                // ReSharper disable once FunctionNeverReturns
-            });
+                            // ReSharper disable once FunctionNeverReturns
+                        });            
         }
 
         private BindingList<SensorDataCollection> GetStartSensorData()
@@ -88,9 +88,9 @@ namespace MotorXPGUIMVVM.Repository
         public ICommand SubmitPIDCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void SendPID()
+        public void SendPID( RegulationParams @params)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnPropertyChanged(string propertyName)

@@ -72,11 +72,13 @@
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Google.Protobuf">
-      <HintPath>..\..\Com\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.1.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Desktop\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="KomModule">
-      <HintPath>..\..\Com\KomModule.dll</HintPath>
+    <Reference Include="KomModule, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Desktop\KomModule.dll</HintPath>
     </Reference>
     <Reference Include="Light.GuardClauses, Version=1.2.0.0, Culture=neutral, PublicKeyToken=573727035c45e5b3, processorArchitecture=MSIL">
       <HintPath>..\packages\Light.GuardClauses.1.2.0\lib\portable-net45+netcore45+wpa81+wp8\Light.GuardClauses.dll</HintPath>

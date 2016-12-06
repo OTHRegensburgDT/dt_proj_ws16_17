@@ -6,7 +6,7 @@
              xmlns:gauge="clr-namespace:MotorXPGUIMVVM.Controls.Gauge"
              xmlns:lineChart="clr-namespace:MotorXPGUIMVVM.Controls.LineChart"
              xmlns:converter="clr-namespace:MotorXPGUIMVVM.Converter"
-              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              Name="UcContainer"
              d:DesignHeight="800" d:DesignWidth="900" 
@@ -16,104 +16,110 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Controls/Gauge/GaugeResources.xaml"/>
                 <ResourceDictionary Source="../Controls/LineChart/LineChartResources.xaml"/>
-                <ResourceDictionary Source="../Resources/Style.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <converter:BooleanToVisibilityHiddenConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    <DockPanel>
-        <DockPanel DockPanel.Dock="Top" Margin="8" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" >
-                <Label Content="P: "/>
-                <TextBox Text="{Binding ValueP}" Width="40" TextAlignment="Right"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
-                <Label Content="I: "/>
-                <TextBox Text="{Binding ValueI}" Width="40" TextAlignment="Right"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
-                <Label Content="D: "/>
-                <TextBox Text="{Binding ValueD}" Width="40" TextAlignment="Right"/>
-            </StackPanel>
-            <Button Content="Submit" Margin="8 0 0 0" Command="{Binding SubmitCommand}"/>
-        </DockPanel>
-        <ItemsControl DockPanel.Dock="Bottom" HorizontalAlignment="Stretch"  ItemsSource="{Binding Repository.SensorDataCollections}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Expander Name="Expander" Header="{Binding Unit}" IsExpanded="True" Padding="8" Height="300" Width="800">
-                        <Expander.Content>
-                            <DockPanel>
-                                <Viewbox DockPanel.Dock="Left" Name="GaugeViewBox" StretchDirection="Both" Margin="4" Stretch="Uniform">
-                                    <Border BorderBrush="LightGray"  BorderThickness="1" CornerRadius="2">
-                                        <Border.Effect>
-                                            <DropShadowEffect BlurRadius="4" Color="LightGray"/>
-                                        </Border.Effect>
-                                        <StackPanel  Name="GaugeGrid" Background="White">
-                                            <Grid>
-                                                <gauge:Gauge x:Name="TargetGauge" Width="150" Height="100" VerticalAlignment="Top" HorizontalAlignment="Stretch" MaxAngle="7.85" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" MinAngle="4.7" NeedleColor="Transparent" GaugeBorderBrush="Transparent" NeedleBorderBrush="Red" Value="{Binding TargetValue}" Margin="0 8 0 0" StrokeColor="Transparent" MinMaxValueIndicatorBrush="Transparent" Foreground="Transparent" GaugeFill="Transparent"/>
-                                                <gauge:Gauge x:Name="CurrentValueGauge" Width="150" Height="100" VerticalAlignment="Top" HorizontalAlignment="Stretch"  MaxAngle="7.85" MaxValue="{Binding MaxValue}" MinAngle="4.7" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" Margin="0 8 0 0" StrokeColor="PowderBlue"  FontSize="8" MinMaxValueIndicatorBrush="Black" GaugeFill="Transparent" ValueIndicatorSize="16" Strokes="20" StrokeLength="0.5" StrokeThickness="2" Value="{Binding LastValue}" MinValue="{Binding MinValue}"/>
-                                            </Grid>
-                                            <!--Gauge slider-->
-                                            <Slider Name="SliderGauge" Margin="8 -8 8 4" Minimum="{Binding MinValue}" Width="100" Maximum="{Binding MaxValue}" Value="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSnapToTickEnabled="True"/>
-                                            <!--Gauge Text area-->
-                                            <StackPanel Orientation="Horizontal" Margin="8 0 8 8" HorizontalAlignment="Center">
-                                                <Label FontSize="12" Content="Target: " VerticalContentAlignment="Top" VerticalAlignment="Top"></Label>
-                                                <TextBox FontSize="12" Width="40" Height="26" Text="{Binding ElementName=SliderGauge, Path=Value, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Border>
-                                </Viewbox>
-                                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="2" Margin="4">
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="4" Color="LightGray"/>
-                                    </Border.Effect>
-                                    <DockPanel  Name="LineChartGrid" Background="White">
-                                        <DockPanel DockPanel.Dock="Top" >
-                                            <!--LineChart Column-->
-                                            <!--Value LineChart-->
+    <DockPanel LastChildFill="True">
+        <Viewbox MaxHeight="50" DockPanel.Dock="Top">
+            <DockPanel Margin="8" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="P: "/>
+                    <TextBox Text="{Binding ValueP}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                    <Label Content="I: "/>
+                    <TextBox Text="{Binding ValueI}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                    <Label Content="D: "/>
+                    <TextBox Text="{Binding ValueD}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <Button Content="Submit" Margin="8 0 0 0" Command="{Binding Repository.SubmitPIDCommand}"/>
+            </DockPanel>
+        </Viewbox>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Viewbox DockPanel.Dock="Bottom">
+                <ItemsControl HorizontalAlignment="Stretch"  ItemsSource="{Binding Repository.SensorDataCollections}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Viewbox>
+                                <Expander Name="Expander" Header="{Binding Unit}" IsExpanded="True" Padding="8"  Width="800">
+                                    <Expander.Content>
+                                        <Viewbox Height="300">
+                                            <DockPanel LastChildFill="True">
+                                                <Viewbox DockPanel.Dock="Left" Name="GaugeViewBox" StretchDirection="Both" Margin="4" Stretch="Uniform">
+                                                    <Border BorderBrush="LightGray"  BorderThickness="1" CornerRadius="2">
+                                                        <Border.Effect>
+                                                            <DropShadowEffect BlurRadius="4" Color="LightGray"/>
+                                                        </Border.Effect>
+                                                        <StackPanel  Name="GaugeGrid" Background="White">
+                                                            <Grid>
+                                                                <gauge:Gauge Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" x:Name="TargetGauge" Width="150" Height="100" VerticalAlignment="Top" HorizontalAlignment="Stretch" MaxAngle="7.85" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" MinAngle="4.7" NeedleColor="Transparent" GaugeBorderBrush="Transparent" NeedleBorderBrush="Red" Value="{Binding TargetValue}" Margin="0 8 0 0" StrokeColor="Transparent" MinMaxValueIndicatorBrush="Transparent" Foreground="Transparent" GaugeFill="Transparent"/>
+                                                                <gauge:Gauge x:Name="CurrentValueGauge" Width="150" Height="100" VerticalAlignment="Top" HorizontalAlignment="Stretch"  MaxAngle="7.85" MaxValue="{Binding MaxValue}" MinAngle="4.7" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" Margin="0 8 0 0" StrokeColor="PowderBlue"  FontSize="8" MinMaxValueIndicatorBrush="Black" GaugeFill="Transparent" ValueIndicatorSize="16" Strokes="20" StrokeLength="0.5" StrokeThickness="2" Value="{Binding LastValue}" MinValue="{Binding MinValue}"/>
+                                                            </Grid>
+                                                            <!--Gauge slider-->
+                                                            <Slider Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" Name="SliderGauge" Margin="8 -8 8 4" Minimum="{Binding MinValue}" Width="100" Maximum="{Binding MaxValue}" Value="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSnapToTickEnabled="True"/>
+                                                            <!--Gauge Text area-->
+                                                            <StackPanel Visibility="{Binding HasTargetValue , Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal" Margin="8 0 8 8" HorizontalAlignment="Center">
+                                                                <Label FontSize="12" Content="Target: " VerticalContentAlignment="Top" VerticalAlignment="Top"></Label>
+                                                                <TextBox FontSize="12" Width="40" Height="26" Text="{Binding ElementName=SliderGauge, Path=Value, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </Viewbox>
+                                                <Viewbox DockPanel.Dock="Right" Stretch="Fill" >
+                                                    <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="2" Margin="4">
+                                                        <Border.Effect>
+                                                            <DropShadowEffect BlurRadius="4" Color="LightGray"/>
+                                                        </Border.Effect>
+                                                        <DockPanel  Name="LineChartGrid" Background="White">
+                                                            <DockPanel DockPanel.Dock="Top" >
+                                                                <!--LineChart Column-->
+                                                                <!--Value LineChart-->
 
-                                            <DockPanel LastChildFill="True" Margin="8 8 0 0">
-                                                <DockPanel DockPanel.Dock="Right" LastChildFill="True" Margin="8 8 8 16 ">
-                                                    <fa:ImageAwesome DockPanel.Dock="Top" Icon="Plus" Foreground="Gray" Width="15"/>
-                                                    <fa:ImageAwesome DockPanel.Dock="Bottom" Icon="Minus" Foreground="Gray" Width="15"/>
-                                                    <Slider Margin="0 8"  Orientation="Vertical" Value="{Binding SampleWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                </DockPanel>
-                                                <lineChart:LineChart DockPanel.Dock="Left" Margin="0 0 10 0" HorizontalAlignment="Stretch"  Values="{Binding Values}" MinHeight="147" AutoMinMax="False" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}"  SampleWindow="{Binding SampleWindow}" IsShowingAll="{Binding ShowAll, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="LineChart" Background="White" StrokeColor="Blue" FillColor="MintCream" AxisColor="DarkGray"/>
-                                            </DockPanel>
-
-
-                                        </DockPanel>
-                                        <!--Target LineChart-->
-                                        <!--
+                                                                <DockPanel LastChildFill="True" Margin="8 8 0 0">
+                                                                    <DockPanel DockPanel.Dock="Right" LastChildFill="True" Margin="8 8 8 16 ">
+                                                                        <fa:ImageAwesome DockPanel.Dock="Top" Icon="Plus" Foreground="Gray" Width="15"/>
+                                                                        <fa:ImageAwesome DockPanel.Dock="Bottom" Icon="Minus" Foreground="Gray" Width="15"/>
+                                                                        <Slider Margin="0 8"  Orientation="Vertical" Value="{Binding SampleWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                    </DockPanel>
+                                                                    <lineChart:LineChart MinWidth="500" DockPanel.Dock="Left" Margin="0 0 10 0" HorizontalAlignment="Stretch"  Values="{Binding Values}" MinHeight="147" AutoMinMax="False" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}"  SampleWindow="{Binding SampleWindow}" IsShowingAll="{Binding ShowAll, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="LineChart" Background="White" StrokeColor="Blue" FillColor="MintCream" AxisColor="DarkGray"/>
+                                                                </DockPanel>
+                                                            </DockPanel>
+                                                            <!--Target LineChart-->
+                                                            <!--
                             <lineChart:LineChart Grid.Column="1" Grid.Row="0" MinWidth="200" Values="{Binding TargetValue}" AutoMinMax="False" Margin="5 0"  
                                                      SampleWindow="10" IsShowingAll="{Binding ShowAll, Mode=TwoWay}" x:Name="LineChartTarget" Background="Transparent" 
                                                      StrokeColor="Red" FillColor="Transparent" FontSize="10" AxisColor="Transparent"/>-->
 
-                                        <!--LineChart slider-->
+                                                            <!--LineChart slider-->
 
-                                        <DockPanel DockPanel.Dock="Bottom">
-                                            <Slider DockPanel.Dock="Top"  Name="SliderLineChart" Minimum="{Binding ElementName=LineChart, Path=FirstSample}" Margin="48 8 8 0" Maximum="{Binding ElementName=LineChart, Path=LastSample}" Width="{Binding ElementName=LineChart, Path=Width}" Value="{Binding ElementName=LineChart, Path=WindowPosition}" ToolTip="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
-
-                                            <StackPanel DockPanel.Dock="Bottom" Margin="48 8 8 8">
-                                                <CheckBox FontSize="16" Content="Show All" Height="30" Command="{Binding ShowAllCommand}" IsChecked="{Binding ShowAll}"/>
-                                                <Label FontSize="16" Content="{Binding CurrentValueText, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="-5" />
-
-                                            </StackPanel>
-
-                                        </DockPanel>
-                                    </DockPanel>
-                                </Border>
-                            </DockPanel>
-                        </Expander.Content>
-                    </Expander>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+                                                            <DockPanel DockPanel.Dock="Bottom">
+                                                                <Slider DockPanel.Dock="Top"  Name="SliderLineChart" Minimum="{Binding ElementName=LineChart, Path=FirstSample}" Margin="48 8 8 0" Maximum="{Binding ElementName=LineChart, Path=LastSample}" Width="{Binding ElementName=LineChart, Path=Width}" Value="{Binding ElementName=LineChart, Path=WindowPosition}" ToolTip="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+                                                                <StackPanel DockPanel.Dock="Bottom" Margin="48 8 8 8">
+                                                                    <CheckBox FontSize="16" Content="Show All" Height="30" Command="{Binding ShowAllCommand}" IsChecked="{Binding ShowAll}"/>
+                                                                    <Label FontSize="16" Content="{Binding CurrentValueText, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="-5" />
+                                                                </StackPanel>
+                                                            </DockPanel>
+                                                        </DockPanel>
+                                                    </Border>
+                                                </Viewbox>
+                                            </DockPanel>
+                                        </Viewbox>
+                                    </Expander.Content>
+                                </Expander>
+                            </Viewbox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Viewbox>
+        </ScrollViewer>
     </DockPanel>
-
 </UserControl>
 

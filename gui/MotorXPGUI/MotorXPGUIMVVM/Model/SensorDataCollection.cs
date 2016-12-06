@@ -15,7 +15,6 @@ namespace MotorXPGUIMVVM.Model
         private bool _expanderCollapsed;
         private int _targetValue;
         private int _trashValue;
-        private ulong _samples;
         private ulong _currentSample;
         private ulong _sampleWindow = 10;
 
@@ -24,6 +23,7 @@ namespace MotorXPGUIMVVM.Model
             SensorDataType = type;
             Unit = type.ToString();
             InitSensorSettings();
+
         }
 
         private void InitSensorSettings()
@@ -35,6 +35,7 @@ namespace MotorXPGUIMVVM.Model
                     MinValue = 0;
                     MaxValue = 6000;
                     TargetValue = 1500;
+                    HasTargetValue = true;
                     break;
                 case SensorDataType.Angle:
                     MinValue = -360;
@@ -56,15 +57,8 @@ namespace MotorXPGUIMVVM.Model
             }
         }
 
-        public ulong Samples
-        {
-            get { return _samples; }
-            set
-            {
-                _samples = value;
-                OnPropertyChanged(nameof(Samples));
-            }
-        }
+
+        public ulong LastTimeStamp { get; set; }
 
         public ulong CurrentSample
         {
@@ -81,13 +75,13 @@ namespace MotorXPGUIMVVM.Model
             get { return _sampleWindow; }
             set
             {
-                if (value > _samples)
+                if (value > LastTimeStamp)
                 {
-                    _sampleWindow = _samples;
+                    _sampleWindow = LastTimeStamp;
                 }
-                else if (value <= 1)
+                else if (value <= 10)
                 {
-                    _sampleWindow = 1;
+                    _sampleWindow = 10;
                 }
                 _sampleWindow = value;
                 OnPropertyChanged(nameof(SampleWindow));
@@ -152,7 +146,7 @@ namespace MotorXPGUIMVVM.Model
                 _showAll = value;
                 if (_showAll)
                 {
-                    SampleWindow = _samples;
+                    SampleWindow = _lastTimeStamp;
                 }
                 OnPropertyChanged(nameof(ShowAll));
             }
@@ -192,6 +186,8 @@ namespace MotorXPGUIMVVM.Model
         public ICommand ShowAllCommand { get; set; }
 
         public int GaugeTickFrequency => MaxValue/10;
+
+        public bool HasTargetValue { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

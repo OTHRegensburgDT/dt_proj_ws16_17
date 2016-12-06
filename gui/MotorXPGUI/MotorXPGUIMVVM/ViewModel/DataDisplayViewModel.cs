@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using KomModule;
 using MotorXPGUIMVVM.Model;
 using MotorXPGUIMVVM.Repository;
 
@@ -66,21 +67,25 @@ namespace MotorXPGUIMVVM.ViewModel
             }
         }
 
-        private void OnSensorDataCollectionShowAll(object o)
+        private static void OnSensorDataCollectionShowAll(object o)
         {
             var asCollection = o as SensorDataCollection;
             if (asCollection != null) asCollection.ShowAll = !asCollection.ShowAll;
         }
 
+        // ReSharper disable once InconsistentNaming
         private void OnSubmitPIDCommand(object o)
         {
             if (_repository.SubmitPIDCommand == null)
             {
                 _repository.SubmitPIDCommand = new RelayCommand<object>(OnSubmitPIDCommand);
             }
-            _repository.SendPID();
+            var regParams = new RegulationParams
+            {
+                //ToDo parse parameter to object
+            };
+            _repository.SendPID(regParams);
         }
-
 
         public ISensorRepository Repository
         {

@@ -8,18 +8,14 @@
         mc:Ignorable="d ignore"
         Name="MainViewControl"
         DataContext="{Binding MainView, Source={StaticResource Locator}}">
-    <TabControl>
+    <!--<TabControl>
         <TabItem Header="Test1">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <StackPanel HorizontalAlignment="Left">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                        <uc:DataDisplay Width="{Binding ElementName= MainViewControl, Path=Width}"/>
-                    </ScrollViewer>
-                </StackPanel>
-            </ScrollViewer>
+
         </TabItem>
         <TabItem Header="Test2">
             <uc:GaugeAndLineChartTest/>
         </TabItem>
-    </TabControl>
+    </TabControl>-->
+    <uc:DataDisplay Width="{Binding ElementName= MainViewControl, Path=Width}"/>
+
 </UserControl>
