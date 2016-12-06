@@ -76,10 +76,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Desktop\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="KomModule, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\com\PC_Part\KomModule\KomModule\bin\Debug\KomModule.dll</HintPath>
-    </Reference>
     <Reference Include="Light.GuardClauses, Version=1.2.0.0, Culture=neutral, PublicKeyToken=573727035c45e5b3, processorArchitecture=MSIL">
       <HintPath>..\packages\Light.GuardClauses.1.2.0\lib\portable-net45+netcore45+wpa81+wp8\Light.GuardClauses.dll</HintPath>
       <Private>True</Private>
@@ -275,7 +271,12 @@
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\com\PC_Part\KomModule\KomModule\KomModule.csproj">
+      <Project>{a921da7d-d911-4161-a7ac-a09ff9de2c8b}</Project>
+      <Name>KomModule</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
