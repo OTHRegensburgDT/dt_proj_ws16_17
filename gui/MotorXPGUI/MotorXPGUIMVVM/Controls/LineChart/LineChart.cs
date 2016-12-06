@@ -59,11 +59,11 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             if (asLineChart == null) return;
             switch (dependencyPropertyChangedEventArgs.Property.Name)
             {
-                case nameof(IsShowingAll):
                 case nameof(StrokeColor):
                 case nameof(FillColor):
                     asLineChart.DrawGraph();
                     break;
+                case nameof(IsShowingAll):
                 case nameof(SampleWindow):
                 case nameof(WindowPosition):
                     asLineChart.DrawGraph();
@@ -105,6 +105,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         {
             CalcMinMax();
             DrawGraph();
+            OnPropertyChanged(nameof(FirstSample));
+            OnPropertyChanged(nameof(LastSample));
         }
 
 
@@ -172,7 +174,14 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         public double WindowPosition
         {
             get { return (double) GetValue(WindowPositionProperty); }
-            set { SetValue(WindowPositionProperty, value); }
+            set
+            {
+                // check if value is in bounds
+                if (value > 1.0) value = 1;
+                else if (value < 0) value = 0;
+
+                SetValue(WindowPositionProperty, value);
+            }
         }
 
         public static readonly DependencyProperty AutoMinMaxProperty = DependencyProperty.Register(
@@ -285,26 +294,9 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         //Todo Error handling!!
         public double MiddleValue => MinValue + (MaxValue - MinValue)/2;
 
-        public int FirstSample
-        {
-            get
-            {
-                int result;
-                try
-                {
-                    result = Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1)*WindowPosition);
-                }
-                catch (OverflowException)
-                {
+        public int FirstSample => IsShowingAll ? 0: Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1)*WindowPosition);
 
-                    result = int.MaxValue;
-                }
-
-                return result;
-            }
-        }
-
-        public int LastSample => FirstSample + SampleWindow;
+        public int LastSample => IsShowingAll? Values.Count : FirstSample + SampleWindow;
 
         #endregion
 
@@ -378,6 +370,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             DrawGraph();
             if (Values.Count == 1)
                 DrawGrid();
+            OnPropertyChanged(nameof(FirstSample));
+            OnPropertyChanged(nameof(LastSample));
             // if the values were zero before (are now 1) Redraw the grid. (which has some problems with the max. width for some reason)
         }
 
