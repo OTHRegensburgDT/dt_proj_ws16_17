@@ -4,15 +4,13 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MotorXPGUIMVVM.Repository
 {
     public class MockSensorRepository : INotifyPropertyChanged, ISensorRepository
     {
         private BindingList<SensorDataCollection> _sensorDataCollections;
-
-        private ulong _counter;
-
         private readonly Random _rnd = new Random();
 
         public MockSensorRepository()
@@ -52,7 +50,7 @@ namespace MotorXPGUIMVVM.Repository
                             }
                             col.Values.Add(newValue);
                             col.LastValue = newValue;
-                            col.SampleList.Add(_counter++);
+                            col.Samples++;
                         }
                     });
                     Thread.Sleep(300);
@@ -67,12 +65,12 @@ namespace MotorXPGUIMVVM.Repository
             var dataCollection2 = new SensorDataCollection(SensorDataType.Temp);
             var dataCollection3 = new SensorDataCollection(SensorDataType.Angle);
 
-            for (var i = 0; i < 100; i++)
-            {
-                dataCollection1.Values.Add(_rnd.NextDouble() * 6000.0);
-                //dataCollection2.Values.Add(_rnd.NextDouble() * 150.0);
-                //dataCollection3.Values.Add(_rnd.NextDouble() * 50.00);
-            }
+            //for (var i = 0; i < 100; i++)
+            //{
+            //    dataCollection1.Values.Add(_rnd.NextDouble() * 6000.0);
+            //    dataCollection2.Values.Add(_rnd.NextDouble() * 150.0);
+            //    dataCollection3.Values.Add(_rnd.NextDouble() * 50.00);
+            //}
 
             return new BindingList<SensorDataCollection> { dataCollection1, dataCollection2, dataCollection3 };
         }
@@ -87,7 +85,13 @@ namespace MotorXPGUIMVVM.Repository
             }
         }
 
+        public ICommand SubmitPIDCommand { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
+        public void SendPID()
+        {
+            throw new NotImplementedException();
+        }
 
         private void OnPropertyChanged(string propertyName)
         {

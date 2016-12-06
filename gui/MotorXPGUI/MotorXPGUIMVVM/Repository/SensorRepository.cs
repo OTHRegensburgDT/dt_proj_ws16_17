@@ -2,6 +2,7 @@
 using MotorXPGUIMVVM.Model;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace MotorXPGUIMVVM.Repository
 {
@@ -27,8 +28,14 @@ namespace MotorXPGUIMVVM.Repository
                 OnPropertyChanged(nameof(SensorDataCollections));
             }
         }
-       
+
+        public ICommand SubmitPIDCommand { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
+        public void SendPID()
+        {
+            throw new System.NotImplementedException();
+        }
 
         private void OnNewSensorData()
         {
