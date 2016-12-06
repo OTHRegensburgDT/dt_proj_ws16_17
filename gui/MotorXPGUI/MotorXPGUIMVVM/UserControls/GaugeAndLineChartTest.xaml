@@ -22,9 +22,9 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Column="0">
             <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                <Slider Minimum="-8" Maximum="8" Value="{Binding MinAngle, ElementName=Gauge}"/>
-                <Slider Minimum="-8" Maximum="8" Value="{Binding MaxAngle, ElementName=Gauge}"/>
-                <Slider Minimum="0" Maximum="1" Value="{Binding InnerRadius, ElementName=Gauge}"/>
+                <Slider Minimum="-8" Maximum="8" x:Name="Slider1" ToolTip="{Binding ElementName=Slider1, Path=Value}" Value="{Binding MinAngle, ElementName=Gauge}" />
+                <Slider Minimum="-8" Maximum="8" x:Name="Slider2" ToolTip="{Binding ElementName=Slider2, Path=Value}" Value="{Binding MaxAngle, ElementName=Gauge}"/>
+                <Slider Minimum="0" Maximum="1" x:Name="Slider3" ToolTip="{Binding ElementName=Slider3, Path=Value}" Value="{Binding InnerRadius, ElementName=Gauge}"/>
                 <Slider Minimum="0" Maximum="100" Value="{Binding Value, ElementName=Gauge}"/>
             </StackPanel>
             <UniformGrid Rows="2">

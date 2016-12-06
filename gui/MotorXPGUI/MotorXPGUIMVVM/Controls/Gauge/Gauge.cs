@@ -42,8 +42,6 @@ namespace MotorXPGUIMVVM.Controls.Gauge
     [TemplatePart(Name = "PART_NeedleCanvas", Type = typeof(Canvas))]
     public class Gauge : Control, INotifyPropertyChanged {
 
-
-
         #region DependencyProperties
         /// <summary>
         /// Property changed callback for dependency properties.

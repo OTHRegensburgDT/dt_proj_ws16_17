@@ -52,7 +52,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// <param name="dependencyObject">The dependency object.</param>
         /// <param name="dependencyPropertyChangedEventArgs">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         /// <exception cref="Exception">Property changed callback was called without a handling switch case.</exception>
-        private static void PropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        private static void PropertyChangedCallback(DependencyObject dependencyObject,
+            DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
             var asLineChart = dependencyObject as LineChart;
             if (asLineChart == null) return;
@@ -72,7 +73,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                     asLineChart.OnPropertyChanged(nameof(LastSample));
                     break;
                 case nameof(AutoMinMax):
-                    if ((bool)dependencyPropertyChangedEventArgs.NewValue) asLineChart.CalcMinMax();
+                    if ((bool) dependencyPropertyChangedEventArgs.NewValue) asLineChart.CalcMinMax();
                     break;
                 case nameof(MaxValue):
                 case nameof(MinValue):
@@ -119,7 +120,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public bool IsShowingAll
         {
-            get { return (bool)GetValue(IsShowingAllProperty); }
+            get { return (bool) GetValue(IsShowingAllProperty); }
             set { SetValue(IsShowingAllProperty, value); }
         }
 
@@ -134,30 +135,33 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public int SampleWindow
         {
-            get { return (int)GetValue(SampleWindowProperty); }
+            get { return (int) GetValue(SampleWindowProperty); }
             set { SetValue(SampleWindowProperty, value); }
         }
 
         public static readonly DependencyProperty StrokeColorProperty = DependencyProperty.Register(
-            "StrokeColor", typeof(Brush), typeof(LineChart), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 0, 207, 29)), PropertyChangedCallback));
+            "StrokeColor", typeof(Brush), typeof(LineChart),
+            new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 0, 207, 29)), PropertyChangedCallback));
 
         public Brush StrokeColor
         {
-            get { return (Brush)GetValue(StrokeColorProperty); }
+            get { return (Brush) GetValue(StrokeColorProperty); }
             set { SetValue(StrokeColorProperty, value); }
         }
 
         public static readonly DependencyProperty FillColorProperty = DependencyProperty.Register(
-            "FillColor", typeof(Brush), typeof(LineChart), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(126, 120, 255, 139)), PropertyChangedCallback));
+            "FillColor", typeof(Brush), typeof(LineChart),
+            new PropertyMetadata(new SolidColorBrush(Color.FromArgb(126, 120, 255, 139)), PropertyChangedCallback));
 
         public Brush FillColor
         {
-            get { return (Brush)GetValue(FillColorProperty); }
+            get { return (Brush) GetValue(FillColorProperty); }
             set { SetValue(FillColorProperty, value); }
         }
 
         public static readonly DependencyProperty WindowPositionProperty = DependencyProperty.Register(
-            "WindowPosition", typeof(double), typeof(LineChart), new PropertyMetadata(default(double), PropertyChangedCallback));
+            "WindowPosition", typeof(double), typeof(LineChart),
+            new PropertyMetadata(default(double), PropertyChangedCallback));
 
         /// <summary>
         /// Gets or sets the window position of the displayed samples in percent. 1 = 100%
@@ -167,7 +171,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public double WindowPosition
         {
-            get { return (double)GetValue(WindowPositionProperty); }
+            get { return (double) GetValue(WindowPositionProperty); }
             set { SetValue(WindowPositionProperty, value); }
         }
 
@@ -182,12 +186,13 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public bool AutoMinMax
         {
-            get { return (bool)GetValue(AutoMinMaxProperty); }
+            get { return (bool) GetValue(AutoMinMaxProperty); }
             set { SetValue(AutoMinMaxProperty, value); }
         }
 
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
-            "MinValue", typeof(double), typeof(LineChart), new PropertyMetadata(default(double), PropertyChangedCallback));
+            "MinValue", typeof(double), typeof(LineChart),
+            new PropertyMetadata(default(double), PropertyChangedCallback));
 
         /// <summary>
         /// Gets or sets the minimum value. If AutoMinMax is set to true, this value gets updated automatically.
@@ -197,7 +202,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public double MinValue
         {
-            get { return (double)GetValue(MinValueProperty); }
+            get { return (double) GetValue(MinValueProperty); }
             set { SetValue(MinValueProperty, value); }
         }
 
@@ -212,7 +217,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public double MaxValue
         {
-            get { return (double)GetValue(MaxValueProperty); }
+            get { return (double) GetValue(MaxValueProperty); }
             set { SetValue(MaxValueProperty, value); }
         }
 
@@ -221,7 +226,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public bool ShowIndicators
         {
-            get { return (bool)GetValue(ShowIndicatorsProperty); }
+            get { return (bool) GetValue(ShowIndicatorsProperty); }
             set { SetValue(ShowIndicatorsProperty, value); }
         }
 
@@ -230,7 +235,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public int VerticalLines
         {
-            get { return (int)GetValue(VerticalLinesProperty); }
+            get { return (int) GetValue(VerticalLinesProperty); }
             set { SetValue(VerticalLinesProperty, value); }
         }
 
@@ -239,43 +244,66 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public int HorizontalLines
         {
-            get { return (int)GetValue(HorizontalLinesProperty); }
+            get { return (int) GetValue(HorizontalLinesProperty); }
             set { SetValue(HorizontalLinesProperty, value); }
         }
 
         public static readonly DependencyProperty ValuesProperty = DependencyProperty.Register(
-            "Values", typeof(BindingList<double>), typeof(LineChart), new PropertyMetadata(new BindingList<double>(), PropertyChangedCallback));
+            "Values", typeof(BindingList<double>), typeof(LineChart),
+            new PropertyMetadata(new BindingList<double>(), PropertyChangedCallback));
 
         public BindingList<double> Values
         {
-            get { return (BindingList<double>)GetValue(ValuesProperty); }
+            get { return (BindingList<double>) GetValue(ValuesProperty); }
             set { SetValue(ValuesProperty, value); }
         }
 
         public static readonly DependencyProperty GridLinesColorProperty = DependencyProperty.Register(
-            "GridLinesColor", typeof(Brush), typeof(LineChart), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(78, 0, 0, 0)), PropertyChangedCallback));
+            "GridLinesColor", typeof(Brush), typeof(LineChart),
+            new PropertyMetadata(new SolidColorBrush(Color.FromArgb(78, 0, 0, 0)), PropertyChangedCallback));
 
         public Brush GridLinesColor
         {
-            get { return (Brush)GetValue(GridLinesColorProperty); }
+            get { return (Brush) GetValue(GridLinesColorProperty); }
             set { SetValue(GridLinesColorProperty, value); }
         }
 
         public static readonly DependencyProperty AxisColorProperty = DependencyProperty.Register(
-            "AxisColor", typeof(Brush), typeof(LineChart), new PropertyMetadata(new SolidColorBrush(Colors.Black), PropertyChangedCallback));
+            "AxisColor", typeof(Brush), typeof(LineChart),
+            new PropertyMetadata(new SolidColorBrush(Colors.Black), PropertyChangedCallback));
 
         public Brush AxisColor
         {
-            get { return (Brush)GetValue(AxisColorProperty); }
+            get { return (Brush) GetValue(AxisColorProperty); }
             set { SetValue(AxisColorProperty, value); }
         }
 
         #endregion
 
         #region Properties
+
         //Todo Error handling!!
-        public double MiddleValue => MinValue + (MaxValue - MinValue) / 2;
-        public int FirstSample => Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1) * WindowPosition);
+        public double MiddleValue => MinValue + (MaxValue - MinValue)/2;
+
+        public int FirstSample
+        {
+            get
+            {
+                int result;
+                try
+                {
+                    result = Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1)*WindowPosition);
+                }
+                catch (OverflowException)
+                {
+
+                    result = int.MaxValue;
+                }
+
+                return result;
+            }
+        }
+
         public int LastSample => FirstSample + SampleWindow;
 
         #endregion
@@ -291,6 +319,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
 
         private static Random _rnd; // RNG for in design mode value generation. See OnLoaded
+
         #endregion
 
         static LineChart()
@@ -347,7 +376,9 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             if (AutoMinMax) CheckMinMaxValue(value);
             Values.Add(value);
             DrawGraph();
-            if (Values.Count == 1) DrawGrid(); // if the values were zero before (are now 1) Redraw the grid. (which has some problems with the max. width for some reason)
+            if (Values.Count == 1)
+                DrawGrid();
+            // if the values were zero before (are now 1) Redraw the grid. (which has some problems with the max. width for some reason)
         }
 
         /// <summary>
@@ -375,9 +406,10 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             var upperX = availableWidth;
 
             // axis
+
             #region Axis
 
-            var line = new Line 
+            var line = new Line
             {
                 // Y axis
                 X1 = lowerX,
@@ -388,7 +420,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             };
             _gridCanvas.Children.Add(line);
             line = new Line
-            { 
+            {
                 // X axis
                 X1 = lowerX,
                 X2 = upperX,
@@ -426,7 +458,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 {
                     X1 = xPos,
                     X2 = xPos,
-                    Y1 = lowerY,//from top
+                    Y1 = lowerY, //from top
                     Y2 = upperY, // to bottom
                     Stroke = GridLinesColor
                 };
@@ -455,7 +487,16 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             // if we have more samples than we show in our window AND IsShowingAll is false, set the first sample and the amount
             if (samples > SampleWindow && !IsShowingAll)
             {
-                firstSample = Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1) * WindowPosition); // if the slider is most to the right (WindowPosition = 1), we want to show the last SampleWindow samples. Therefore our biggest first sample is _values.Count - SampleWindow.
+                try
+                {
+                    firstSample = Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1) * WindowPosition); // if the slider is most to the right (WindowPosition = 1), we want to show the last SampleWindow samples. Therefore our biggest first sample is _values.Count - SampleWindow.
+                }
+                catch (OverflowException)
+                {
+
+                   firstSample = int.MaxValue;
+                }
+
                 lastSample = firstSample + SampleWindow;
                 // check if last sample went out of bounds
                 if (lastSample >= Values.Count) lastSample = Values.Count - 1;
@@ -545,7 +586,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 }
                 if (i >= Values.Count)
                 {
-                    i = Values.Count-1;
+                    i = Values.Count - 1;
                 }
                 else if (i < 0)
                 {
