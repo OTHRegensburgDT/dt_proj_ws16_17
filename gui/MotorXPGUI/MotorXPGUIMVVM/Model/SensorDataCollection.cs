@@ -146,7 +146,7 @@ namespace MotorXPGUIMVVM.Model
                 _showAll = value;
                 if (_showAll)
                 {
-                    SampleWindow = _lastTimeStamp;
+                    SampleWindow = LastTimeStamp;
                 }
                 OnPropertyChanged(nameof(ShowAll));
             }
