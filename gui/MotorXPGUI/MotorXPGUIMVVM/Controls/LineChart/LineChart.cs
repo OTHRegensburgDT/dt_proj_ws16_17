@@ -294,9 +294,23 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         //Todo Error handling!!
         public double MiddleValue => MinValue + (MaxValue - MinValue)/2;
 
-        public int FirstSample => IsShowingAll ? 0: Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1)*WindowPosition);
+        public int FirstSample
+        {
+            get
+            {
+                var result = IsShowingAll ? 0 : Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1)*WindowPosition);
+                return result < 0 ? 0: result;
+            }
+        }
 
-        public int LastSample => IsShowingAll? Values.Count : FirstSample + SampleWindow;
+        public int LastSample
+        {
+            get
+            {
+                var result  = IsShowingAll ? Values.Count : FirstSample + SampleWindow;
+                return result > Values.Count ? Values.Count : result;
+            }
+        }
 
         #endregion
 
