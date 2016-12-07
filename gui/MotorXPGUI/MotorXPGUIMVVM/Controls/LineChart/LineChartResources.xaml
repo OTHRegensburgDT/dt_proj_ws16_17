@@ -7,6 +7,7 @@
     <Style TargetType="{x:Type local:LineChart}">
         <Style.Resources>
             <converter:BooleanToVisibilityHiddenConverter x:Key="BooleanToVisibilityConverter"/>
+            <converter:BooleanToVisibilityCollapsedConverter x:Key="BooleanToVisibilityCollapsedConverter"/>
             <converter:DoubleToIntConverter x:Key="DoubleToIntConverter"/>
             <Style TargetType="{x:Type TextBlock}" x:Key="LineChartIndicatorStyle">
                 <Setter Property="FontSize" Value="14"/>
@@ -23,12 +24,12 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Margin="{TemplateBinding Margin}">
                         <DockPanel x:Name="PART_DockPanel">
-                            <UniformGrid Rows="3">
+                            <UniformGrid Rows="3" DockPanel.Dock="Left">
                                 <TextBlock VerticalAlignment="Top" Width="50" Style="{StaticResource LineChartIndicatorStyle}" Text="{Binding MaxValue, RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Converter={StaticResource DoubleToIntConverter}}" Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Path=ShowIndicators, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                 <TextBlock VerticalAlignment="Center" Width="50" Style="{StaticResource LineChartIndicatorStyle}" Text="{Binding MiddleValue, RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Converter={StaticResource DoubleToIntConverter}}" Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Path=ShowIndicators, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                 <TextBlock VerticalAlignment="Bottom" Width="50" Style="{StaticResource LineChartIndicatorStyle}" Text="{Binding MinValue, RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Converter={StaticResource DoubleToIntConverter}}" Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Path=ShowIndicators, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                             </UniformGrid>
-                            <UniformGrid Columns="2" DockPanel.Dock="Bottom">
+                            <UniformGrid Columns="2" DockPanel.Dock="Bottom" Visibility="{Binding IsXScaleVisible, Converter={StaticResource BooleanToVisibilityCollapsedConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}}">
                                 <TextBlock HorizontalAlignment="Left" Style="{StaticResource LineChartIndicatorStyle}" Text="{Binding FirstSample, RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}}" Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Path=ShowIndicators, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                                 <TextBlock HorizontalAlignment="Right" Style="{StaticResource LineChartIndicatorStyle}" Text="{Binding LastSample, RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}}" Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Path=ShowIndicators, Converter={StaticResource BooleanToVisibilityConverter}}"/>
