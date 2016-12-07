@@ -14,13 +14,14 @@ namespace UnitTests
             var assertVal = 0;
             _getDataFlag = false;
             var data = new Sensordata();
+            // ReSharper disable once UnusedVariable
             var list = new SortedList<ushort, ulong> {{73, 65555}};
             var com = new UartCommunicator("Com5");
             com.NewSensordata += CbGetData;
 
             for (var i = 0; i < 3; i++)
             {
-                while (_getDataFlag == false){ };
+                while (_getDataFlag == false){ }
                 _getDataFlag = false;
                 data = com.GetData();
             }
@@ -54,7 +55,7 @@ namespace UnitTests
         [TestMethod]
         public void DecodeBytearr()
         {
-            Sensordata data;
+            //Sensordata data;
             //byte[] arr = { 196, 135, 254, 31, 8, 233, 7, 16, 5, 18, 5, 8, 234, 7, 16, 6, 18, 4, 8, 1, 16, 1, 18, 4, 8, 2, 16, 2, 18, 4, 8, 3, 16, 3, 18, 5, 8, 209, 15, 16, 4};
 
             //data = KomModule.Protoparser.ByArrtoSData(arr);
@@ -66,7 +67,6 @@ namespace UnitTests
         public void EncodeBytearr()
         {
             var data = new Sensordata();
-            Sensordata dataout;
             var list = new SortedList<ushort, double>();
             data.SeqNr = 0;
             list.Add(1, 1);
@@ -79,7 +79,9 @@ namespace UnitTests
             data.DataTable = list;
 
             var arr = Protoparser.SDatatoByArrr(data);
-            dataout = Protoparser.ByArrtoSData(arr);
+            
+            // ReSharper disable once UnusedVariable
+            var dataout = Protoparser.ByArrtoSData(arr);
             Assert.AreEqual(1, 1);
         }
         [TestMethod]
@@ -95,6 +97,7 @@ namespace UnitTests
             };
 
             var buf = Protoparser.RParatoByArr(paraIn);
+            // ReSharper disable once UnusedVariable
             var paraOut = Protoparser.ByArrtoRPara(buf);
 
             Assert.AreEqual(1, 1);
