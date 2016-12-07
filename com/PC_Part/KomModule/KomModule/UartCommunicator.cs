@@ -7,13 +7,12 @@ namespace KomModule
 {
     public class UartCommunicator : ICommunicator
     {
-        private readonly string _portName;
         private Sensordata _recData;
         private RegulationParams _regPara;
         private Action _dataArrived;
         private readonly SerialPort _uart;
         private bool _isInit;
-        private const short Sensordatalength = 43;
+
         public bool IsInitialized()
         {
             return _isInit;
@@ -22,12 +21,15 @@ namespace KomModule
         public event Action NewSensordata
         {
             add { _dataArrived += value; }
-            remove {_dataArrived -= value;}
+            remove
+            {
+                // ReSharper disable once DelegateSubtraction
+                if (_dataArrived != null) _dataArrived -= value;
+            }
         }
         public UartCommunicator(string portName)
         {
             if (portName == null) throw new ArgumentNullException(nameof(portName));
-            _portName = portName;
             _isInit = false;
             _uart = new SerialPort(portName);
             port_Init();
