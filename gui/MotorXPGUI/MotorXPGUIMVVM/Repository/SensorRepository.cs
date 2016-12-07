@@ -11,11 +11,13 @@ namespace MotorXPGUIMVVM.Repository
         private readonly ICommunicator _com;
 
         private BindingList<SensorDataCollection> _sensorDataCollections;
+        private readonly BindingList<SensorDataCollection> _hallSensorDataCollections;
 
         public SensorRepository(ICommunicator com)
         {
             _com = com;
             _com.NewSensordata += OnNewSensorData;
+            _hallSensorDataCollections = new BindingList<SensorDataCollection>();
             _sensorDataCollections = new BindingList<SensorDataCollection>();
         }
 
@@ -27,6 +29,11 @@ namespace MotorXPGUIMVVM.Repository
                 _sensorDataCollections = value;
                 OnPropertyChanged(nameof(SensorDataCollections));
             }
+        }
+
+        public BindingList<SensorDataCollection> HallSensorDataCollections
+        {
+            get { return _hallSensorDataCollections; }
         }
 
         public ICommand SubmitPIDCommand { get; set; }

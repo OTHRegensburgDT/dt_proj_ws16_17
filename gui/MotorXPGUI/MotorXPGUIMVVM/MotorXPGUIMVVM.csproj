@@ -164,7 +164,7 @@
     <Compile Include="Model\SensorDataType.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Repository\ISensorRepository.cs" />
-    <Compile Include="Repository\Metronom.cs" />
+    <Compile Include="Model\Metronom.cs" />
     <Compile Include="Repository\MockSensorRepository.cs" />
     <Compile Include="Repository\SensorRepository.cs" />
     <Compile Include="ViewModel\DataDisplayViewModel.cs" />

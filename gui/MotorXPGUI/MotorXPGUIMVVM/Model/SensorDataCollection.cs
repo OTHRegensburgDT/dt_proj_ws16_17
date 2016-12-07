@@ -38,8 +38,8 @@ namespace MotorXPGUIMVVM.Model
                     HasTargetValue = true;
                     break;
                 case SensorDataType.Angle:
-                    MinValue = -360;
-                    MaxValue = 360;
+                    MinValue = 0;
+                    MaxValue = 359;
                     break;
                 case SensorDataType.Temp:
                     MinValue = 0;

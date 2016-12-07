@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MotorXPGUIMVVM.Properties;
 
-namespace MotorXPGUIMVVM.Repository
+namespace MotorXPGUIMVVM.Model
 {
     public class Metronom
     {

@@ -8,7 +8,9 @@ namespace MotorXPGUIMVVM.Repository
     public interface ISensorRepository
     {
         BindingList<SensorDataCollection> SensorDataCollections { get; set; }
-        
+        BindingList<SensorDataCollection> HallSensorDataCollections { get; }
+
+
         // ReSharper disable once InconsistentNaming
         ICommand SubmitPIDCommand { get; set; }
         event PropertyChangedEventHandler PropertyChanged;
