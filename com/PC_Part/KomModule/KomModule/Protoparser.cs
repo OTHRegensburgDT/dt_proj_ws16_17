@@ -1,53 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Google.Protobuf;
 using MotorXP.Protobuf.SensorMSg;
 using MotorXP.Protobuf.ParamMSg;
 
 namespace KomModule
 {
-    public class Protoparser
+    public static class Protoparser
     {
-        public static Sensordata ByArrtoSData(byte[] InputData)
+        public static Sensordata ByArrtoSData(byte[] inputData)
         {
-            Sensordata retVal = new Sensordata();
-            SensorMsg protoMsg;
+            var retVal = new Sensordata {DataTable = new SortedList<ushort, double>()};
 
-            retVal.DataTable = new SortedList<ushort, Double>();
 
             //create ProtoBuf Message from byteArray
             try
             {
-                protoMsg = SensorMsg.Parser.ParseFrom(InputData);
+                var protoMsg = SensorMsg.Parser.ParseFrom(inputData);
                 //build Sensordata object
                 retVal.SeqNr = protoMsg.SequenceNr;
-                for (int i = 0; i < protoMsg.DataTable.Count; i++)
+                foreach (var dataEntry in protoMsg.DataTable)
                 {
-                    retVal.DataTable.Add((UInt16)protoMsg.DataTable[i].SensorId, protoMsg.DataTable[i].Data);
+                    retVal.DataTable.Add((ushort)dataEntry.SensorId, dataEntry.Data);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new ArgumentException("Input Array does not contain valid Sensordata!");
             }
             return retVal;
         }
 
-        public static byte[] SDatatoByArrr(Sensordata InputData)
+        public static byte[] SDatatoByArrr(Sensordata inputData)
         {
-            SensorMsg protoMsg = new SensorMsg();
+            var protoMsg = new SensorMsg {SequenceNr = inputData.SeqNr};
 
             //build ProtoBuf Message
-            protoMsg.SequenceNr = InputData.SeqNr;
-            foreach (var tabRow in InputData.DataTable)
+            foreach (var tabRow in inputData.DataTable)
             {
-                DataEntry entry = new DataEntry();
-                entry.SensorId = tabRow.Key;
-                entry.Data = tabRow.Value;
+                var entry = new DataEntry
+                {
+                    SensorId = tabRow.Key,
+                    Data = tabRow.Value
+                };
                 protoMsg.DataTable.Add(entry);
             }
 
@@ -55,27 +50,27 @@ namespace KomModule
             return protoMsg.ToByteArray();
         }
 
-        public static byte[] RParatoByArr(RegulationParams InputData)
+        public static byte[] RParatoByArr(RegulationParams inputData)
         {
-            RegParams protoMsg = new RegParams();
+            var protoMsg = new RegParams();
 
             //assemble message
-            if (InputData.ParamD < 0.001 || InputData.ParamD > 0.001)
+            if (inputData.ParamD < 0.001 || inputData.ParamD > 0.001)
             {
-                protoMsg.ParaD = InputData.ParamD;
+                protoMsg.ParaD = inputData.ParamD;
             }
-            if (InputData.ParamD < 0.001 || InputData.ParamD > 0.001)
+            if (inputData.ParamD < 0.001 || inputData.ParamD > 0.001)
             {
-                protoMsg.ParaI = InputData.ParamI;
+                protoMsg.ParaI = inputData.ParamI;
             }
-            if (InputData.ParamD < 0.001 || InputData.ParamD > 0.001)
+            if (inputData.ParamD < 0.001 || inputData.ParamD > 0.001)
             {
-                protoMsg.ParaP = InputData.ParamP;
+                protoMsg.ParaP = inputData.ParamP;
             }
 
-            protoMsg.TgtVal = InputData.TargetVal;
+            protoMsg.TgtVal = inputData.TargetVal;
 
-            switch (InputData.RegTarget)
+            switch (inputData.RegTarget)
             {
                 case reguTarget.ANGLE:
                     protoMsg.Target = 0;
@@ -93,12 +88,11 @@ namespace KomModule
             //create byte Array from message
             return protoMsg.ToByteArray();
         }
-        public static RegulationParams ByArrtoRPara(byte[] InputData)
+        public static RegulationParams ByArrtoRPara(byte[] inputData)
         {
-            RegParams protoMsg;
-            RegulationParams retVal = new RegulationParams();
+            var retVal = new RegulationParams();
             //create protoBuf from byte[]
-            protoMsg = RegParams.Parser.ParseFrom(InputData);
+            var protoMsg = RegParams.Parser.ParseFrom(inputData);
 
             //build parameter class
             retVal.TargetVal = protoMsg.TgtVal;
