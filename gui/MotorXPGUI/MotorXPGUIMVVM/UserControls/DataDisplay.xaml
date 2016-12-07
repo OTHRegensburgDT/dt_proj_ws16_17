@@ -45,14 +45,14 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Viewbox>
-                                <Expander Name="Expander" Header="{Binding Unit}" IsExpanded="True" Padding="8"  Width="800">
+                                <Expander Name="Expander" Header="{Binding Unit}" IsExpanded="True" Padding="8" >
                                     <Expander.Content>
-                                        <Viewbox Height="300">
+                                        <Viewbox Height="250">
                                             <DockPanel LastChildFill="True">
                                                 <StackPanel  Name="GaugeGrid">
                                                     <Grid>
-                                                        <gauge:Gauge Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" x:Name="TargetGauge" Width="150" Height="100" VerticalAlignment="Top" HorizontalAlignment="Stretch" MaxAngle="7.85" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" MinAngle="4.7" NeedleColor="Transparent" GaugeBorderBrush="Transparent" NeedleBorderBrush="Red" Value="{Binding TargetValue}" Margin="0 8 0 0" StrokeColor="Transparent" MinMaxValueIndicatorBrush="Transparent" Foreground="Transparent" GaugeFill="Transparent"/>
-                                                        <gauge:Gauge x:Name="CurrentValueGauge" Width="150" Height="100" VerticalAlignment="Top" HorizontalAlignment="Stretch"  MaxAngle="7.85" MaxValue="{Binding MaxValue}" MinAngle="4.7" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" Margin="0 8 0 0" StrokeColor="PowderBlue"  FontSize="8" MinMaxValueIndicatorBrush="Black" GaugeFill="Transparent" ValueIndicatorSize="16" Strokes="20" StrokeLength="0.5" StrokeThickness="2" Value="{Binding LastValue}" MinValue="{Binding MinValue}"/>
+                                                        <gauge:Gauge Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" x:Name="TargetGauge" Width="200" Height="160" VerticalAlignment="Top" HorizontalAlignment="Stretch" MaxAngle="7.85" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" MinAngle="4.7" NeedleColor="Transparent" GaugeBorderBrush="Transparent" NeedleBorderBrush="Red" Value="{Binding TargetValue}" Margin="0 8 0 0" StrokeColor="Transparent" MinMaxValueIndicatorBrush="Transparent" Foreground="Transparent" GaugeFill="Transparent"/>
+                                                        <gauge:Gauge x:Name="CurrentValueGauge" Width="200" Height="160" VerticalAlignment="Top" HorizontalAlignment="Stretch"  MaxAngle="7.85" MaxValue="{Binding MaxValue}" MinAngle="4.7" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" Margin="0 8 0 0" StrokeColor="PowderBlue"  FontSize="8" MinMaxValueIndicatorBrush="Black" GaugeFill="Transparent" ValueIndicatorSize="16" Strokes="20" StrokeLength="0.5" StrokeThickness="2" Value="{Binding LastValue}" MinValue="{Binding MinValue}"/>
                                                     </Grid>
                                                     <!--Gauge slider-->
                                                     <Slider Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" Name="SliderGauge" Margin="8 -8 8 4" Minimum="{Binding MinValue}" Width="100" Maximum="{Binding MaxValue}" Value="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSnapToTickEnabled="True"/>
@@ -76,18 +76,17 @@
 
                                                                 <DockPanel LastChildFill="True" Margin="8 8 0 0">
                                                                     <DockPanel DockPanel.Dock="Right" LastChildFill="True" Margin="8 8 8 16 ">
-                                                                        <fa:ImageAwesome DockPanel.Dock="Top" Icon="Plus" Foreground="Gray" Width="15"/>
-                                                                        <fa:ImageAwesome DockPanel.Dock="Bottom" Icon="Minus" Foreground="Gray" Width="15"/>
-                                                                        <Slider Margin="0 8"  Orientation="Vertical" Minimum="20" Maximum="500" Value="{Binding SampleWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                        <fa:ImageAwesome DockPanel.Dock="Top" Icon="Minus" Foreground="Gray" Width="15"/>
+                                                                        <fa:ImageAwesome DockPanel.Dock="Bottom" Icon="Plus" Foreground="Gray" Width="15"/>
+                                                                        <Slider Margin="0 8"  Orientation="Vertical"  IsEnabled="{Binding ShowAll , Converter={StaticResource InverseBooleanConverter}}" Minimum="20" Maximum="500" Value="{Binding SampleWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                                     </DockPanel>
                                                                     <lineChart:LineChart MinWidth="500" DockPanel.Dock="Left" Margin="0 0 10 0" HorizontalAlignment="Stretch"  Values="{Binding Values}" MinHeight="147" AutoMinMax="False" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}"  SampleWindow="{Binding SampleWindow}" IsShowingAll="{Binding ShowAll, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="LineChart" Background="White" StrokeColor="Blue" FillColor="MintCream" AxisColor="DarkGray"/>
                                                                 </DockPanel>
                                                             </DockPanel>
                                                             <DockPanel DockPanel.Dock="Bottom">
-                                                                <Slider DockPanel.Dock="Top" IsEnabled="{Binding ShowAll , Converter={StaticResource InverseBooleanConverter}}"  Name="SliderLineChart" Minimum="0" Margin="48 8 8 0" Maximum="1" Value="{Binding ElementName=LineChart, Path=WindowPosition}" ToolTip="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+                                                                <Slider DockPanel.Dock="Top" IsEnabled="{Binding ShowAll , Converter={StaticResource InverseBooleanConverter}}"  Name="SliderLineChart" Minimum="0" Margin="48 8 48 0" Maximum="1" Value="{Binding ElementName=LineChart, Path=WindowPosition}" ToolTip="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
                                                                 <StackPanel DockPanel.Dock="Bottom" Margin="48 8 8 8">
                                                                     <CheckBox FontSize="16" Content="Show All" Height="30" Command="{Binding ShowAllCommand}" IsChecked="{Binding ShowAll}"/>
-                                                                    <Label FontSize="16" Content="{Binding CurrentValueText, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="-5" />
                                                                 </StackPanel>
                                                             </DockPanel>
                                                         </DockPanel>

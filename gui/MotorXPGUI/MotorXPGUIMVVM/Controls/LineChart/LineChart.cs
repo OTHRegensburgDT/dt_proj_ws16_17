@@ -308,7 +308,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             get
             {
                 var result  = IsShowingAll ? Values.Count : FirstSample + SampleWindow;
-                return result > Values.Count ? Values.Count : result;
+                return result >= Values.Count ? Values.Count-1 : result;
             }
         }
 

@@ -65,12 +65,12 @@ namespace MotorXPGUIMVVM.Repository
             var dataCollection2 = new SensorDataCollection(SensorDataType.Temp);
             var dataCollection3 = new SensorDataCollection(SensorDataType.Angle);
 
-            //for (var i = 0; i < 100; i++)
-            //{
-            //    dataCollection1.Values.Add(_rnd.NextDouble() * 6000.0);
-            //    dataCollection2.Values.Add(_rnd.NextDouble() * 150.0);
-            //    dataCollection3.Values.Add(_rnd.NextDouble() * 50.00);
-            //}
+            for (var i = 0; i < 100; i++)
+            {
+                dataCollection1.Values.Add(_rnd.NextDouble() * 6000.0);
+                dataCollection2.Values.Add(_rnd.NextDouble() * 150.0);
+                dataCollection3.Values.Add(_rnd.NextDouble() * 50.00);
+            }
 
             return new BindingList<SensorDataCollection> { dataCollection1, dataCollection2, dataCollection3 };
         }
@@ -90,7 +90,7 @@ namespace MotorXPGUIMVVM.Repository
         public event PropertyChangedEventHandler PropertyChanged;
         public void SendPID( RegulationParams @params)
         {
-            
+
         }
 
         private void OnPropertyChanged(string propertyName)
