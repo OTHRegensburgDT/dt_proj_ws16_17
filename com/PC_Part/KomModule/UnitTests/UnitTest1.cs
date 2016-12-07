@@ -18,13 +18,13 @@ namespace UnitTests
             SortedList<ushort, ulong> list = new SortedList<ushort,ulong>();
             list.Add(73, 65555);
             KomModule.ICommunicator com = new KomModule.UartCommunicator("Com5");
-            com.newSensordata += cbGetData;
+            com.NewSensordata += cbGetData;
 
             for (int i = 0; i < 3; i++)
             {
                 while (getDataFlag == false){ };
                 getDataFlag = false;
-                data = com.getData();
+                data = com.GetData();
             }
 
             if (data.DataTable.Count == 4)

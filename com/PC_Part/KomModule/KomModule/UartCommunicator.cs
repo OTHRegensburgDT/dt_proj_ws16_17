@@ -17,12 +17,12 @@ namespace KomModule
         private SerialPort uart;
         private bool isInit;
         private const short SENSORDATALENGTH = 43;
-        public bool isInitialized()
+        public bool IsInitialized()
         {
             return isInit;
         }
 
-        public event Action newSensordata
+        public event Action NewSensordata
         {
             add { _dataArrived += value; }
             remove {_dataArrived -= value;}
@@ -83,7 +83,7 @@ namespace KomModule
             return retVal;
         }
 
-        public Sensordata getData()
+        public Sensordata GetData()
         {
             return recData;
         }

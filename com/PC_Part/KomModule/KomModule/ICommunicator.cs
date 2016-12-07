@@ -8,14 +8,14 @@ namespace KomModule
          * return: received Sensordata object
          * description: method returns the received sensordata object
          */
-        Sensordata getData();
+        Sensordata GetData();
 
         /*
          * newSensordata
          * description: event to be thrown when new Sensordata object
          * is available
          */
-        event Action newSensordata;
+        event Action NewSensordata;
 
         /*
          * SendParams
@@ -38,6 +38,6 @@ namespace KomModule
          * return: boolean value if Communication was initialized
          * description: is communication initialized? (means: com port open)
          */
-        bool isInitialized();
+        bool IsInitialized();
     }
 }
