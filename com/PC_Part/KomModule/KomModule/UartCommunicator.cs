@@ -45,42 +45,33 @@ namespace KomModule
         }
         public bool SendParams()
         {
-            bool retVal;
-            int i = 0;
-            retVal = false;
-            byte[] buf = new byte[1024];
+            var i = 0;
             //TODO: parse Parameter struct to intermediate byte[]
-            buf = Protoparser.RParatoByArr(regPara);
+            var buf = Protoparser.RParatoByArr(regPara);
             //TODO: parse intermediate byte[] to final byte[] for sending
             buf = Frameparser.EncapsuleFrame(buf);
             try
             {
-                foreach (byte elem in buf)
+                // ReSharper disable once UnusedVariable
+                foreach (var elem in buf)
                 {
                     uart.Write(buf, i, 1);
                     i++;
                     System.Threading.Thread.Sleep(30);
                 }
-                retVal = true;
+                return true;
             }
             catch (Exception e)
             {
-                throw new SystemException("Could not send Params! Error: " + e.ToString());
+                throw new SystemException($"Could not send Params! Error: {e.Message}");
             }
-            return retVal;
         }
         public bool SetParams(RegulationParams para)
         {
-            bool retVal;
-            retVal = false;
+            if (para == null) return false;
+            regPara = para;
 
-            if (para != null)
-            {
-                regPara = para;
-                retVal = true;
-            }
-
-            return retVal;
+            return true;
         }
 
         public Sensordata GetData()
@@ -105,7 +96,7 @@ namespace KomModule
             }
             catch(Exception e)
             {
-                throw new SystemException("Uart init failed! Message: "+ e.ToString());
+                throw new SystemException($"Uart init failed! Message: {e.Message}");
             }
         }
         private void port_Deinit()
@@ -117,16 +108,15 @@ namespace KomModule
             }
             catch (Exception e)
             {
-                throw new Exception(e.ToString());
+                throw new Exception(e.Message);
             }
         }
 
         private void uart_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //read serial port
-            SerialPort spL = (SerialPort)sender;
-            byte[] inLength = new byte[1];
-            byte[] buf;
+            var spL = (SerialPort)sender;
+            var inLength = new byte[1];
             Task.Delay(100);
             //read Framelength
             spL.Read(inLength, 0, 1);
@@ -136,7 +126,7 @@ namespace KomModule
             { //wait for Message end
             }
             //read Frame
-            buf = new byte[inLength[0]+1];
+            var buf = new byte[inLength[0]+1];
             //write full framesize in first element
             buf[0] = (byte)(inLength[0] + 1);
             //read rest of frame
