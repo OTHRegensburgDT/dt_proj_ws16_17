@@ -96,7 +96,7 @@ namespace UnitTests
             paraIn.ParamI = 2.2f;
             paraIn.ParamP = 3.3f;
             paraIn.TargetVal = 4400f;
-            paraIn.RegTarget = KomModule.reguTarget.VELOCITY;
+            paraIn.RegTarget = KomModule.ReguTarget.Velocity;
 
             buf = KomModule.Protoparser.RParatoByArr(paraIn);
             paraOut = KomModule.Protoparser.ByArrtoRPara(buf);
@@ -113,7 +113,7 @@ namespace UnitTests
             paraIn.ParamI = 2.2f;
             paraIn.ParamP = 3.3f;
             paraIn.TargetVal = 4400f;
-            paraIn.RegTarget = KomModule.reguTarget.VELOCITY;
+            paraIn.RegTarget = KomModule.ReguTarget.Velocity;
 
             com.SetParams(paraIn);
             com.SendParams();
@@ -122,7 +122,7 @@ namespace UnitTests
             paraIn.ParamI = 8.8f;
             paraIn.ParamP = 7.7f;
             paraIn.TargetVal = 44f;
-            paraIn.RegTarget = KomModule.reguTarget.TEMPERATURE;
+            paraIn.RegTarget = KomModule.ReguTarget.Temperature;
 
             com.SendParams();
 

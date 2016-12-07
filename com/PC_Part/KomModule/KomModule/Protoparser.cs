@@ -72,13 +72,13 @@ namespace KomModule
 
             switch (inputData.RegTarget)
             {
-                case reguTarget.ANGLE:
+                case ReguTarget.Angle:
                     protoMsg.Target = 0;
                     break;
-                case reguTarget.TEMPERATURE:
+                case ReguTarget.Temperature:
                     protoMsg.Target = 1;
                     break;
-                case reguTarget.VELOCITY:
+                case ReguTarget.Velocity:
                     protoMsg.Target = 2;
                     break;
                 default:
@@ -103,13 +103,13 @@ namespace KomModule
             switch (protoMsg.Target)
             {
                 case 0:
-                    retVal.RegTarget = reguTarget.ANGLE;
+                    retVal.RegTarget = ReguTarget.Angle;
                     break;
                 case 1:
-                    retVal.RegTarget = reguTarget.TEMPERATURE;
+                    retVal.RegTarget = ReguTarget.Temperature;
                     break;
                 case 2:
-                    retVal.RegTarget = reguTarget.VELOCITY;
+                    retVal.RegTarget = ReguTarget.Velocity;
                     break;
                 default:
                     throw new KeyNotFoundException("Wrong target!");
