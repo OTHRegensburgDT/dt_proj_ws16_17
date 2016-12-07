@@ -105,7 +105,9 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         {
             CalcMinMax();
             DrawGraph();
+            // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(nameof(FirstSample));
+            // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(nameof(LastSample));
         }
 
@@ -384,7 +386,9 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             DrawGraph();
             if (Values.Count == 1)
                 DrawGrid();
+            // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(nameof(FirstSample));
+            // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(nameof(LastSample));
             // if the values were zero before (are now 1) Redraw the grid. (which has some problems with the max. width for some reason)
         }

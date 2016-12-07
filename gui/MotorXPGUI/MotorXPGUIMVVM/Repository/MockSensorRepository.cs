@@ -22,41 +22,41 @@ namespace MotorXPGUIMVVM.Repository
 
         private void StrartMockTask()
         {
-            var task =  Task.Run(() =>
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (Application.Current == null) continue;
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        foreach (var col in _sensorDataCollections)
                         {
-                            while (true)
+                            var newValue = 0;
+                            switch (col.SensorDataType)
                             {
-                                if (Application.Current == null) continue;
-                                Application.Current.Dispatcher.Invoke(() =>
-                                {
-                                    foreach (var col in _sensorDataCollections)
-                                    {
-                                        var newValue = 0;
-                                        switch (col.SensorDataType)
-                                        {
-                                            case SensorDataType.Velocity:
-                                                newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);          
-                                                break;
-                                            case SensorDataType.Angle:
-                                                newValue = _rnd.Next(-43, 43);
-                                                break;
-                                            case SensorDataType.Temp:
-                                                newValue = _rnd.Next(36, 46);
-                                                break;
-                                            case SensorDataType.HallPattern:
-                                                break;
-                                            default:
-                                                throw new ArgumentOutOfRangeException();
-                                        }
-                                        col.Values.Add(newValue);
-                                        col.LastValue = newValue;
-                                        col.LastTimeStamp++;
-                                    }
-                                });
-                                Thread.Sleep(300);
+                                case SensorDataType.Velocity:
+                                    newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);          
+                                    break;
+                                case SensorDataType.Angle:
+                                    newValue = _rnd.Next(-43, 43);
+                                    break;
+                                case SensorDataType.Temp:
+                                    newValue = _rnd.Next(36, 46);
+                                    break;
+                                case SensorDataType.HallPattern:
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
                             }
-                            // ReSharper disable once FunctionNeverReturns
-                        });            
+                            col.Values.Add(newValue);
+                            col.LastValue = newValue;
+                            col.LastTimeStamp++;
+                        }
+                    });
+                    Thread.Sleep(300);
+                }
+                // ReSharper disable once FunctionNeverReturns
+            });
         }
 
         private BindingList<SensorDataCollection> GetStartSensorData()

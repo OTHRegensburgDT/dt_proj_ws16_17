@@ -14,10 +14,10 @@ namespace MotorXPGUIMVVM.UserControls
     public partial class GaugeAndLineChartTest : UserControl
     {
         private int _counter = 20;
-        private Random rand;
+        private readonly Random _rand;
         public GaugeAndLineChartTest()
         {
-            rand = new Random();
+            _rand = new Random();
             InitializeComponent();
 
             // only run this test code when not in the designer.
@@ -34,7 +34,7 @@ namespace MotorXPGUIMVVM.UserControls
                                 if (Application.Current == null) continue;
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    Gauge2.Value = Convert.ToDouble(rand.Next(j - 20, j + 20)) / 500 * 100;
+                                    Gauge2.Value = Convert.ToDouble(_rand.Next(j - 20, j + 20)) / 500 * 100;
                                     //LineChart.AddValue(Gauge.Value);
                                     LineChart.AddValue(Gauge2.Value);
                                 });
@@ -46,7 +46,7 @@ namespace MotorXPGUIMVVM.UserControls
                                 if (Application.Current == null) continue;
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    Gauge2.Value = Convert.ToDouble(rand.Next(j - 20, j + 20))/500*100;
+                                    Gauge2.Value = Convert.ToDouble(_rand.Next(j - 20, j + 20))/500*100;
                                     LineChart.AddValue(Gauge2.Value);
                                     //LineChart2.AddValue(Gauge2.Value);
                                 });

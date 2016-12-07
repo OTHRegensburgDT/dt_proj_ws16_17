@@ -63,7 +63,7 @@ namespace MotorXPGUIMVVM.Model
                 if (index < 0 || index >= Count)
                     throw new IndexOutOfRangeException();
                 // calculate the relative position within the rolling base array
-                int index2 = (_position - Count + index) % Capacity;
+                var index2 = (_position - Count + index) % Capacity;
                 return _buffer[index2];
             }
             set { Insert(index, value); }
@@ -99,7 +99,7 @@ namespace MotorXPGUIMVVM.Model
         /// </summary>
         public void Clear()
         {
-            for (int i = 0; i < Count; i++)
+            for (var i = 0; i < Count; i++)
                 _buffer[i] = default(T);
             _position = 0;
             Count = 0;
@@ -116,7 +116,7 @@ namespace MotorXPGUIMVVM.Model
         /// the buffer; otherwise false.</returns>
         public bool Contains(T item)
         {
-            int index = IndexOf(item);
+            var index = IndexOf(item);
             return index != -1;
         }
 

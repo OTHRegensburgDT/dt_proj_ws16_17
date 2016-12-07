@@ -73,7 +73,9 @@ namespace MotorXPGUIMVVM.ViewModel
             if (asCollection != null) asCollection.ShowAll = !asCollection.ShowAll;
         }
 
+       
         // ReSharper disable once InconsistentNaming
+        // ReSharper disable once UnusedMember.Local
         private void OnSubmitPIDCommand(object o)
         {
             if (_repository.SubmitPIDCommand == null)
@@ -81,6 +83,7 @@ namespace MotorXPGUIMVVM.ViewModel
                 _repository.SubmitPIDCommand = new RelayCommand<object>(OnSubmitPIDCommand);
             }
             var regParams = new RegulationParams
+                // ReSharper disable once RedundantEmptyObjectOrCollectionInitializer
             {
                 //ToDo parse parameter to object
             };

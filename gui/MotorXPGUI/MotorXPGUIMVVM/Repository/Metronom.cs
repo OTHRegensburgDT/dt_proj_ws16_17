@@ -7,17 +7,8 @@ namespace MotorXPGUIMVVM.Repository
 {
     public class Metronom
     {
-        private Action _tick;
+        public event Action Tick;
 
-        public event Action Tick
-        {
-            add { _tick += value; }
-            remove
-            {
-                // ReSharper disable once DelegateSubtraction
-                if (_tick != null) _tick -= value;
-            }
-        }
         private bool _shouldStop;
         private int _beatsPerMinute = 120;
 
@@ -35,10 +26,7 @@ namespace MotorXPGUIMVVM.Repository
 
             while(_shouldStop == false)
             {
-                if (_tick != null)
-                {
-                    _tick();
-                }
+                Tick?.Invoke();
                 Thread.Sleep(interval);
             }
         }

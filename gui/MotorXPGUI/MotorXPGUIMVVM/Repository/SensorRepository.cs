@@ -15,7 +15,7 @@ namespace MotorXPGUIMVVM.Repository
         public SensorRepository(ICommunicator com)
         {
             _com = com;
-            _com.newSensordata += OnNewSensorData;
+            _com.NewSensordata += OnNewSensorData;
             _sensorDataCollections = new BindingList<SensorDataCollection>();
         }
 
@@ -40,7 +40,7 @@ namespace MotorXPGUIMVVM.Repository
 
         private void OnNewSensorData()
         {
-            var dataTable = _com.getData().DataTable;
+            var dataTable = _com.GetData().DataTable;
 
             foreach (var data in dataTable)
             {
