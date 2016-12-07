@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 
@@ -11,32 +7,37 @@ namespace KomModule
 {
     public class UartCommunicator : ICommunicator
     {
-        private Sensordata recData;
-        private RegulationParams regPara;
+        private Sensordata _recData;
+        private RegulationParams _regPara;
         private Action _dataArrived;
-        private SerialPort uart;
-        private bool isInit;
-        private const short SENSORDATALENGTH = 43;
-        public bool isInitialized()
+        private readonly SerialPort _uart;
+        private bool _isInit;
+
+        public bool IsInitialized()
         {
-            return isInit;
+            return _isInit;
         }
 
-        public event Action newSensordata
+        public event Action NewSensordata
         {
             add { _dataArrived += value; }
-            remove {_dataArrived -= value;}
+            remove
+            {
+                // ReSharper disable once DelegateSubtraction
+                if (_dataArrived != null) _dataArrived -= value;
+            }
         }
-        public UartCommunicator(String portName)
+        public UartCommunicator(string portName)
         {
-            isInit = false;
-            uart = new SerialPort(portName);
+            if (portName == null) throw new ArgumentNullException(nameof(portName));
+            _isInit = false;
+            _uart = new SerialPort(portName);
             port_Init();
         }
         public UartCommunicator(SerialPort port)
 	    {
-            isInit = false;
-            uart = port;
+            _isInit = false;
+            _uart = port;
             port_Init();
         }
         ~UartCommunicator()
@@ -45,88 +46,78 @@ namespace KomModule
         }
         public bool SendParams()
         {
-            bool retVal;
-            int i = 0;
-            retVal = false;
-            byte[] buf = new byte[1024];
+            var i = 0;
             //TODO: parse Parameter struct to intermediate byte[]
-            buf = Protoparser.RParatoByArr(regPara);
+            var buf = Protoparser.RParatoByArr(_regPara);
             //TODO: parse intermediate byte[] to final byte[] for sending
             buf = Frameparser.EncapsuleFrame(buf);
             try
             {
-                foreach (byte elem in buf)
+                // ReSharper disable once UnusedVariable
+                foreach (var elem in buf)
                 {
-                    uart.Write(buf, i, 1);
+                    _uart.Write(buf, i, 1);
                     i++;
                     System.Threading.Thread.Sleep(30);
                 }
-                retVal = true;
+                return true;
             }
             catch (Exception e)
             {
-                throw new SystemException("Could not send Params! Error: " + e.ToString());
+                throw new SystemException($"Could not send Params! Error: {e.Message}");
             }
-            return retVal;
         }
         public bool SetParams(RegulationParams para)
         {
-            bool retVal;
-            retVal = false;
+            if (para == null) return false;
+            _regPara = para;
 
-            if (para != null)
-            {
-                regPara = para;
-                retVal = true;
-            }
-
-            return retVal;
+            return true;
         }
 
-        public Sensordata getData()
+        public Sensordata GetData()
         {
-            return recData;
+            return _recData;
         }
         private void port_Init()
         {
             try
             {
-                uart.BaudRate = 9600;
-                uart.DataBits = 8;
-                uart.StopBits = StopBits.One;
-                uart.Handshake = Handshake.None;
-                uart.Parity = Parity.Even;
-                uart.DtrEnable = false;
-                uart.RtsEnable = false;
-                uart.DataReceived += uart_DataReceived;
-                uart.ReceivedBytesThreshold = 10;
-                uart.Open();
-                isInit = true;
+                _uart.BaudRate = 9600;
+                _uart.DataBits = 8;
+                _uart.StopBits = StopBits.One;
+                _uart.Handshake = Handshake.None;
+                _uart.Parity = Parity.Even;
+                _uart.DtrEnable = false;
+                _uart.RtsEnable = false;
+                _uart.DataReceived += uart_DataReceived;
+                _uart.ReceivedBytesThreshold = 10;
+                _uart.Open();
+                _isInit = true;
             }
             catch(Exception e)
             {
-                throw new SystemException("Uart init failed! Message: "+ e.ToString());
+                throw new SystemException($"Uart init failed! Message: {e.Message}");
             }
         }
         private void port_Deinit()
         {
             try
             {
-                uart.Close();
-                isInit = false;
+                _uart.Close();
+                _isInit = false;
             }
             catch (Exception e)
             {
-                throw new Exception(e.ToString());
+                throw new Exception(e.Message);
             }
         }
 
         private void uart_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //read serial port
-            SerialPort spL = (SerialPort)sender;
-            byte[] inLength = new byte[1];
-            byte[] buf;
+            var spL = (SerialPort)sender;
+            var inLength = new byte[1];
             Task.Delay(100);
             //read Framelength
             spL.Read(inLength, 0, 1);
@@ -136,7 +127,7 @@ namespace KomModule
             { //wait for Message end
             }
             //read Frame
-            buf = new byte[inLength[0]+1];
+            var buf = new byte[inLength[0]+1];
             //write full framesize in first element
             buf[0] = (byte)(inLength[0] + 1);
             //read rest of frame
@@ -144,7 +135,7 @@ namespace KomModule
                 
             //parse message
             buf = Frameparser.DecapsuleFrame(buf);
-            recData = Protoparser.ByArrtoSData(buf);
+            _recData = Protoparser.ByArrtoSData(buf);
 
             _dataArrived();
         }

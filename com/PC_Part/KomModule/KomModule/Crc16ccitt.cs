@@ -1,50 +1,52 @@
 ﻿using System;
 
-public enum InitialCrcValue { Zeros, NonZero1 = 0xffff, NonZero2 = 0x1D0F }
-
-public class Crc16Ccitt
+namespace KomModule
 {
-    const ushort poly = 4129;
-    ushort[] table = new ushort[256];
-    ushort initialValue = 0;
+    public enum InitialCrcValue { Zeros, NonZero1 = 0xffff, NonZero2 = 0x1D0F }
 
-    public ushort ComputeChecksum(byte[] bytes)
+    public class Crc16Ccitt
     {
-        ushort crc = this.initialValue;
-        for (int i = 0; i < bytes.Length; ++i)
+        private const ushort Poly = 4129;
+        private readonly ushort[] _table = new ushort[256];
+        private readonly ushort _initialValue;
+
+        public ushort ComputeChecksum(byte[] bytes)
         {
-            crc = (ushort)((crc << 8) ^ table[((crc >> 8) ^ (0xff & bytes[i]))]);
-        }
-        return crc;
-    }
-
-    public byte[] ComputeChecksumBytes(byte[] bytes)
-    {
-        ushort crc = ComputeChecksum(bytes);
-        return BitConverter.GetBytes(crc);
-    }
-
-    public Crc16Ccitt(InitialCrcValue initialValue)
-    {
-        this.initialValue = (ushort)initialValue;
-        ushort temp, a;
-        for (int i = 0; i < table.Length; ++i)
-        {
-            temp = 0;
-            a = (ushort)(i << 8);
-            for (int j = 0; j < 8; ++j)
+            var crc = _initialValue;
+            foreach (var bit in bytes)
             {
-                if (((temp ^ a) & 0x8000) != 0)
-                {
-                    temp = (ushort)((temp << 1) ^ poly);
-                }
-                else
-                {
-                    temp <<= 1;
-                }
-                a <<= 1;
+                crc = (ushort)((crc << 8) ^ _table[(crc >> 8) ^ (0xff & bit)]);
             }
-            table[i] = temp;
+            return crc;
+        }
+
+        public byte[] ComputeChecksumBytes(byte[] bytes)
+        {
+            var crc = ComputeChecksum(bytes);
+            return BitConverter.GetBytes(crc);
+        }
+
+        public Crc16Ccitt(InitialCrcValue initialValue)
+        {
+            _initialValue = (ushort)initialValue;
+            for (var i = 0; i < _table.Length; ++i)
+            {
+                ushort temp = 0;
+                var a = (ushort)(i << 8);
+                for (var j = 0; j < 8; ++j)
+                {
+                    if (((temp ^ a) & 0x8000) != 0)
+                    {
+                        temp = (ushort)((temp << 1) ^ Poly);
+                    }
+                    else
+                    {
+                        temp <<= 1;
+                    }
+                    a <<= 1;
+                }
+                _table[i] = temp;
+            }
         }
     }
 }

@@ -1,30 +1,29 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Text;
+using KomModule;
 
 namespace UnitTests
 {
     [TestClass]
     public class UnitTest1
     {
-        bool getDataFlag;
+        bool _getDataFlag;
         [TestMethod]
         public void TestRcvData()
         {
-            int assertVal = 0;
-            getDataFlag = false;
-            KomModule.Sensordata data = new KomModule.Sensordata();
-            SortedList<ushort, ulong> list = new SortedList<ushort,ulong>();
-            list.Add(73, 65555);
-            KomModule.ICommunicator com = new KomModule.UartCommunicator("Com5");
-            com.newSensordata += cbGetData;
+            var assertVal = 0;
+            _getDataFlag = false;
+            var data = new Sensordata();
+            // ReSharper disable once UnusedVariable
+            var list = new SortedList<ushort, ulong> {{73, 65555}};
+            var com = new UartCommunicator("Com5");
+            com.NewSensordata += CbGetData;
 
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
-                while (getDataFlag == false){ };
-                getDataFlag = false;
-                data = com.getData();
+                while (_getDataFlag == false){ }
+                _getDataFlag = false;
+                data = com.GetData();
             }
 
             if (data.DataTable.Count == 4)
@@ -34,19 +33,18 @@ namespace UnitTests
             Assert.AreEqual(assertVal, 1);
         }
 
-        public void cbGetData()
+        private void CbGetData()
         {
-            getDataFlag = true;
+            _getDataFlag = true;
         }
 
         [TestMethod]
         public void TestFrameParsing()
         {
-            int i = 0;
+            var i = 0;
             byte[] buf = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-            byte[] output, frame;
-            frame = KomModule.Frameparser.EncapsuleFrame(buf);
-            output = KomModule.Frameparser.DecapsuleFrame(frame);
+            var frame = Frameparser.EncapsuleFrame(buf);
+            var output = Frameparser.DecapsuleFrame(frame);
             foreach (var element in output)
             {
                 Assert.AreEqual(buf[i], element);
@@ -55,23 +53,21 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void decodeBytearr()
+        public void DecodeBytearr()
         {
-            KomModule.Sensordata data;
-            byte[] arr = { 196, 135, 254, 31, 8, 233, 7, 16, 5, 18, 5, 8, 234, 7, 16, 6, 18, 4, 8, 1, 16, 1, 18, 4, 8, 2, 16, 2, 18, 4, 8, 3, 16, 3, 18, 5, 8, 209, 15, 16, 4};
+            //Sensordata data;
+            //byte[] arr = { 196, 135, 254, 31, 8, 233, 7, 16, 5, 18, 5, 8, 234, 7, 16, 6, 18, 4, 8, 1, 16, 1, 18, 4, 8, 2, 16, 2, 18, 4, 8, 3, 16, 3, 18, 5, 8, 209, 15, 16, 4};
 
-            data = KomModule.Protoparser.ByArrtoSData(arr);
-
+            //data = KomModule.Protoparser.ByArrtoSData(arr);
+            //ToDo update test
             Assert.AreEqual(1, 1);
         }
 
         [TestMethod]
-        public void encodeBytearr()
+        public void EncodeBytearr()
         {
-            KomModule.Sensordata data = new KomModule.Sensordata();
-            KomModule.Sensordata dataout;
-            SortedList<ushort, Double> list = new SortedList<ushort, Double>();
-            byte[] arr;
+            var data = new Sensordata();
+            var list = new SortedList<ushort, double>();
             data.SeqNr = 0;
             list.Add(1, 1);
             list.Add(2, 2);
@@ -82,38 +78,43 @@ namespace UnitTests
 
             data.DataTable = list;
 
-            arr = KomModule.Protoparser.SDatatoByArrr(data);
-            dataout = KomModule.Protoparser.ByArrtoSData(arr);
+            var arr = Protoparser.SDatatoByArrr(data);
+            
+            // ReSharper disable once UnusedVariable
+            var dataout = Protoparser.ByArrtoSData(arr);
             Assert.AreEqual(1, 1);
         }
         [TestMethod]
         public void TestRegPara_EnDecaps()
         {
-            KomModule.RegulationParams paraIn = new KomModule.RegulationParams();
-            KomModule.RegulationParams paraOut;
-            byte[] buf;
-            paraIn.ParamD = 1.1f;
-            paraIn.ParamI = 2.2f;
-            paraIn.ParamP = 3.3f;
-            paraIn.TargetVal = 4400f;
-            paraIn.RegTarget = KomModule.reguTarget.VELOCITY;
+            var paraIn = new RegulationParams
+            {
+                ParamD = 1.1f,
+                ParamI = 2.2f,
+                ParamP = 3.3f,
+                TargetVal = 4400f,
+                RegTarget = ReguTarget.Velocity
+            };
 
-            buf = KomModule.Protoparser.RParatoByArr(paraIn);
-            paraOut = KomModule.Protoparser.ByArrtoRPara(buf);
+            var buf = Protoparser.RParatoByArr(paraIn);
+            // ReSharper disable once UnusedVariable
+            var paraOut = Protoparser.ByArrtoRPara(buf);
 
             Assert.AreEqual(1, 1);
         }
         [TestMethod]
         public void TestSendPara()
         {
-            KomModule.ICommunicator com = new KomModule.UartCommunicator("Com5");
-            KomModule.RegulationParams paraIn = new KomModule.RegulationParams();
+            var com = new UartCommunicator("Com5");
+            var paraIn = new RegulationParams
+            {
+                ParamD = 1.1f,
+                ParamI = 2.2f,
+                ParamP = 3.3f,
+                TargetVal = 4400f,
+                RegTarget = ReguTarget.Velocity
+            };
 
-            paraIn.ParamD = 1.1f;
-            paraIn.ParamI = 2.2f;
-            paraIn.ParamP = 3.3f;
-            paraIn.TargetVal = 4400f;
-            paraIn.RegTarget = KomModule.reguTarget.VELOCITY;
 
             com.SetParams(paraIn);
             com.SendParams();
@@ -122,7 +123,7 @@ namespace UnitTests
             paraIn.ParamI = 8.8f;
             paraIn.ParamP = 7.7f;
             paraIn.TargetVal = 44f;
-            paraIn.RegTarget = KomModule.reguTarget.TEMPERATURE;
+            paraIn.RegTarget = ReguTarget.Temperature;
 
             com.SendParams();
 
