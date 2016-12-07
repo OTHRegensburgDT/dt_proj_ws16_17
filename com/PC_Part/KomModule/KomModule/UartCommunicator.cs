@@ -29,7 +29,7 @@ namespace KomModule
         }
         public UartCommunicator(string portName)
         {
-            if (portName == null) throw new ArgumentNullException(nameof(portName));
+            if (portName == null) throw new ArgumentNullException("portName");
             _isInit = false;
             _uart = new SerialPort(portName);
             port_Init();
@@ -64,7 +64,7 @@ namespace KomModule
             }
             catch (Exception e)
             {
-                throw new SystemException($"Could not send Params! Error: {e.Message}");
+                throw new SystemException("Could not send Params! Error: " + e.Message);
             }
         }
         public bool SetParams(RegulationParams para)
@@ -97,7 +97,7 @@ namespace KomModule
             }
             catch(Exception e)
             {
-                throw new SystemException($"Uart init failed! Message: {e.Message}");
+                throw new SystemException("Uart init failed! Message: " + e.Message);
             }
         }
         private void port_Deinit()
