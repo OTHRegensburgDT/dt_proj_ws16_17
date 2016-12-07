@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace MotorXPGUIMVVM.Model
 {
-    public class SensorDataCollection : INotifyPropertyChanged
+    public sealed class SensorDataCollection : INotifyPropertyChanged
     {
         private BindingList<double> _values;
         private double _lastValue;
@@ -192,7 +192,7 @@ namespace MotorXPGUIMVVM.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

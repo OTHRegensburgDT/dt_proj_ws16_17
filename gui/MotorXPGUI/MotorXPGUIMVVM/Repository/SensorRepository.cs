@@ -1,4 +1,5 @@
-﻿using KomModule;
+﻿using System;
+using KomModule;
 using MotorXPGUIMVVM.Model;
 using System.ComponentModel;
 using System.Linq;
@@ -17,8 +18,18 @@ namespace MotorXPGUIMVVM.Repository
         {
             _com = com;
             _com.NewSensordata += OnNewSensorData;
-            _hallSensorDataCollections = new BindingList<SensorDataCollection>();
+            _hallSensorDataCollections = InitHallPattern();
             _sensorDataCollections = new BindingList<SensorDataCollection>();
+        }
+
+        private BindingList<SensorDataCollection> InitHallPattern()
+        {
+           return new BindingList<SensorDataCollection>
+           {
+               new SensorDataCollection(SensorDataType.HallPattern),
+               new SensorDataCollection(SensorDataType.HallPattern),
+               new SensorDataCollection(SensorDataType.HallPattern),
+           };
         }
 
         public BindingList<SensorDataCollection> SensorDataCollections
@@ -31,10 +42,7 @@ namespace MotorXPGUIMVVM.Repository
             }
         }
 
-        public BindingList<SensorDataCollection> HallSensorDataCollections
-        {
-            get { return _hallSensorDataCollections; }
-        }
+        public BindingList<SensorDataCollection> HallSensorDataCollections => _hallSensorDataCollections;
 
         public ICommand SubmitPIDCommand { get; set; }
 
@@ -59,7 +67,44 @@ namespace MotorXPGUIMVVM.Repository
                 }
                 sensorDataCollection.Values.Add(data.Value);
                 sensorDataCollection.LastValue = data.Value;
+                // add hallpattern if angle value is arrived
+                if ((SensorDataType) data.Key == SensorDataType.Angle)
+                {
+                    AddHallPattern(data.Value);
+                }
             }
+        }
+
+        private void AddHallPattern(double angle)
+        {
+            _hallSensorDataCollections[0].Values.Add(GetHallA(angle));
+            _hallSensorDataCollections[1].Values.Add(GetHallB(angle));
+            _hallSensorDataCollections[2].Values.Add(GetHallC(angle));
+        }
+        private static double GetHallA(double angle)
+        {
+            var preAngle = PrepareAngle(angle);
+            if (preAngle >= -60.0 && preAngle <= 120) return 1.0;
+            return 0;
+        }
+        private static double GetHallB(double angle)
+        {
+            var preAngle = PrepareAngle(angle);
+            if (preAngle >= 60.0 || preAngle <= -120) return 1.0;
+            return 0;
+        }
+        private static double GetHallC(double angle)
+        {
+            var preAngle = PrepareAngle(angle);
+            if (preAngle >= -180.0 && preAngle <= 0) return 1.0;
+            return 0;
+        }
+        private static double PrepareAngle(double angle)
+        {
+            var sin = Math.Sin(angle);
+            var cos = Math.Cos(angle);
+            var aTan2 = Math.Atan2(sin, cos);
+            return aTan2 * (180 / Math.PI);
         }
 
         private void OnPropertyChanged(string propertyName)

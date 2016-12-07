@@ -1,6 +1,5 @@
 ﻿using MotorXPGUIMVVM.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
@@ -134,6 +133,7 @@ namespace MotorXPGUIMVVM.Repository
         }
         public BindingList<SensorDataCollection> HallSensorDataCollections => _hallDataCollections;
         public ICommand SubmitPIDCommand { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void SendPID( RegulationParams @params)
         {
