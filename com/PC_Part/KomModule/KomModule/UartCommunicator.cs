@@ -11,15 +11,16 @@ namespace KomModule
 {
     public class UartCommunicator : ICommunicator
     {
-        private Sensordata recData;
-        private RegulationParams regPara;
+        private readonly string _portName;
+        private Sensordata _recData;
+        private RegulationParams _regPara;
         private Action _dataArrived;
-        private SerialPort uart;
-        private bool isInit;
-        private const short SENSORDATALENGTH = 43;
+        private readonly SerialPort _uart;
+        private bool _isInit;
+        private const short Sensordatalength = 43;
         public bool IsInitialized()
         {
-            return isInit;
+            return _isInit;
         }
 
         public event Action NewSensordata
@@ -27,16 +28,18 @@ namespace KomModule
             add { _dataArrived += value; }
             remove {_dataArrived -= value;}
         }
-        public UartCommunicator(String portName)
+        public UartCommunicator(string portName)
         {
-            isInit = false;
-            uart = new SerialPort(portName);
+            if (portName == null) throw new ArgumentNullException(nameof(portName));
+            _portName = portName;
+            _isInit = false;
+            _uart = new SerialPort(portName);
             port_Init();
         }
         public UartCommunicator(SerialPort port)
 	    {
-            isInit = false;
-            uart = port;
+            _isInit = false;
+            _uart = port;
             port_Init();
         }
         ~UartCommunicator()
@@ -47,7 +50,7 @@ namespace KomModule
         {
             var i = 0;
             //TODO: parse Parameter struct to intermediate byte[]
-            var buf = Protoparser.RParatoByArr(regPara);
+            var buf = Protoparser.RParatoByArr(_regPara);
             //TODO: parse intermediate byte[] to final byte[] for sending
             buf = Frameparser.EncapsuleFrame(buf);
             try
@@ -55,7 +58,7 @@ namespace KomModule
                 // ReSharper disable once UnusedVariable
                 foreach (var elem in buf)
                 {
-                    uart.Write(buf, i, 1);
+                    _uart.Write(buf, i, 1);
                     i++;
                     System.Threading.Thread.Sleep(30);
                 }
@@ -69,30 +72,30 @@ namespace KomModule
         public bool SetParams(RegulationParams para)
         {
             if (para == null) return false;
-            regPara = para;
+            _regPara = para;
 
             return true;
         }
 
         public Sensordata GetData()
         {
-            return recData;
+            return _recData;
         }
         private void port_Init()
         {
             try
             {
-                uart.BaudRate = 9600;
-                uart.DataBits = 8;
-                uart.StopBits = StopBits.One;
-                uart.Handshake = Handshake.None;
-                uart.Parity = Parity.Even;
-                uart.DtrEnable = false;
-                uart.RtsEnable = false;
-                uart.DataReceived += uart_DataReceived;
-                uart.ReceivedBytesThreshold = 10;
-                uart.Open();
-                isInit = true;
+                _uart.BaudRate = 9600;
+                _uart.DataBits = 8;
+                _uart.StopBits = StopBits.One;
+                _uart.Handshake = Handshake.None;
+                _uart.Parity = Parity.Even;
+                _uart.DtrEnable = false;
+                _uart.RtsEnable = false;
+                _uart.DataReceived += uart_DataReceived;
+                _uart.ReceivedBytesThreshold = 10;
+                _uart.Open();
+                _isInit = true;
             }
             catch(Exception e)
             {
@@ -103,8 +106,8 @@ namespace KomModule
         {
             try
             {
-                uart.Close();
-                isInit = false;
+                _uart.Close();
+                _isInit = false;
             }
             catch (Exception e)
             {
@@ -134,7 +137,7 @@ namespace KomModule
                 
             //parse message
             buf = Frameparser.DecapsuleFrame(buf);
-            recData = Protoparser.ByArrtoSData(buf);
+            _recData = Protoparser.ByArrtoSData(buf);
 
             _dataArrived();
         }
