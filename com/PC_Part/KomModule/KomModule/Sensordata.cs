@@ -8,19 +8,8 @@ namespace KomModule
 {
     public class Sensordata
     {
-        private UInt64 seqNr;
-        private SortedList<UInt16, Double> dataTable;
+        public ulong SeqNr { get; set; }
 
-        public UInt64 SeqNr
-        {
-            get { return seqNr; }
-            set { seqNr = value; }
-        }
-
-        public SortedList<UInt16, Double> DataTable
-        {
-            get { return dataTable; }
-            set { dataTable = value; }
-        }
+        public SortedList<ushort, double> DataTable { get; set; }
     }
 }
