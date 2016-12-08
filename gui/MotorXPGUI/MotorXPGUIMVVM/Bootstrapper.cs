@@ -29,8 +29,6 @@ namespace MotorXPGUIMVVM
             //Container.RegisterType<ISensorRepository, SensorRepository>();
             Container.RegisterType<ISensorRepository, MockSensorRepository>();
   
-
-
             var config = new MapperConfiguration(cfg =>
             { 
                 cfg.CreateMap<SensorData, Sensordata>();

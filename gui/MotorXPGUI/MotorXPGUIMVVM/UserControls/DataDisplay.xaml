@@ -35,7 +35,7 @@
                 <Label Content="D: "/>
                 <TextBox Text="{Binding ValueD}" Width="40" TextAlignment="Right"/>
             </StackPanel>
-            <Button Content="Submit" Margin="8 0 0 0" Command="{Binding Repository.SubmitPIDCommand}"/>
+            <Button Content="Submit" Margin="8 0 0 0" Command="{Binding Repository.SubmitPIDCommand}" Style="{DynamicResource AccentedSquareButtonStyle }"/>
         </DockPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical">
@@ -123,7 +123,7 @@
                         
                         <Slider DockPanel.Dock="Top" IsEnabled="{Binding ElementName=HallLineChart, Path=IsShowingAll, Converter={StaticResource InverseBooleanConverter}}"  Minimum="0" Margin="64 8 24 0" Maximum="1" Value="{Binding ElementName=HallLineChart, Path=WindowPosition}" ToolTip="{Binding Repository.HallSensorDataCollections[0].CurrentValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
                         
-                        <CheckBox FontSize="16" Content="Show All" Height="30" Command="{Binding Repository.HallSensorDataCollections[0].ShowAllCommand}" IsChecked="{Binding Repository.HallSensorDataCollections[0].ShowAll, UpdateSourceTrigger=PropertyChanged}"/>
+                        <CheckBox Margin="64 8 8 8" FontSize="16" Content="Show All" Height="30" Command="{Binding Repository.HallSensorDataCollections[0].ShowAllCommand}" IsChecked="{Binding Repository.HallSensorDataCollections[0].ShowAll, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
