@@ -175,7 +175,8 @@
     <Compile Include="Converter\InverseBooleanConverter.cs" />
     <Compile Include="Converter\RadianToDegreeConverter.cs" />
     <Compile Include="Converter\StringToIntConverter.cs" />
-    <Compile Include="Model\RingBuffer.cs" />
+    <Compile Include="Model\IBindingRingBuffer.cs" />
+    <Compile Include="Model\BindingRingBuffer.cs" />
     <Compile Include="Model\SensorData.cs" />
     <Compile Include="Model\SensorDataCollection.cs" />
     <Compile Include="Model\SensorDataType.cs" />

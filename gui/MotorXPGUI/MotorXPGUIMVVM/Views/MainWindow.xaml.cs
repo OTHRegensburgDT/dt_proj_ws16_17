@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using MotorXPGUIMVVM.ViewModel;
+using System;
+using System.Windows;
 
 namespace MotorXPGUIMVVM.Views
 {

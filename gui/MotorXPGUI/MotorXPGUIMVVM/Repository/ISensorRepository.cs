@@ -1,7 +1,7 @@
-﻿using MotorXPGUIMVVM.Model;
+﻿using KomModule;
+using MotorXPGUIMVVM.Model;
 using System.ComponentModel;
 using System.Windows.Input;
-using KomModule;
 
 namespace MotorXPGUIMVVM.Repository
 {

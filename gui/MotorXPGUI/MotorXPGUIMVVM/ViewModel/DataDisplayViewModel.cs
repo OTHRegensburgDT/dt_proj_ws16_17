@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using KomModule;
 using MotorXPGUIMVVM.Model;
 using MotorXPGUIMVVM.Repository;
+using System.ComponentModel;
 
 namespace MotorXPGUIMVVM.ViewModel
 {

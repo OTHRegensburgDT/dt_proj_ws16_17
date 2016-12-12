@@ -1,6 +1,6 @@
-﻿using System;
-using KomModule;
+﻿using KomModule;
 using MotorXPGUIMVVM.Model;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;

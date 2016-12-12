@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.IO.Ports;
+using System.Threading.Tasks;
 
 
 namespace KomModule

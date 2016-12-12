@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MotorXPGUIMVVM.Properties;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
-using MotorXPGUIMVVM.Properties;
+using System.Linq;
 
 namespace MotorXPGUIMVVM.Model
 {
@@ -12,16 +15,28 @@ namespace MotorXPGUIMVVM.Model
     /// </summary>
     /// <typeparam name="T">The generic type of the items stored within the ring buffer.</typeparam>
     [DebuggerDisplay("Count = {Count}")]
-    public class RingBuffer<T> : IList<T>
+    public class BindingRingBuffer<T> : Collection<T>, IBindingList, ICancelAddNew, IRaiseItemChangedEvents, IBindingRingBuffer<T>, ICollection<T>
     {
         /// <summary>
-        /// Creates a new instance of a <see cref="RingBuffer&lt;T&gt;"/> with a 
+        /// Creates a new instance of a see cref="BindingRingBuffer{T}" with a 
         /// specified cache size.
         /// </summary>
         /// <param name="capacity">The maximal count of items to be stored within 
         /// the ring buffer.</param>
+        /// <param name="raisesItemChangedEvents"></param>
         /// <exception cref="ArgumentException"></exception>
-        public RingBuffer(int capacity)
+        public BindingRingBuffer(int capacity, bool raisesItemChangedEvents)
+        {
+            // validate capacity
+            if (capacity <= 0)
+                throw new ArgumentException(Resources.RingBuffer_RingBuffer_Must_be_greater_than_zero, nameof(capacity));
+            // set capacity and init the cache
+            Capacity = capacity;
+            RaisesItemChangedEvents = raisesItemChangedEvents;
+            _buffer = new T[capacity];
+        }
+
+        public BindingRingBuffer(int capacity)
         {
             // validate capacity
             if (capacity <= 0)
@@ -55,7 +70,7 @@ namespace MotorXPGUIMVVM.Model
         /// <returns>The fond item at the specified position within the ring buffer.
         /// </returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public T this[int index]
+        public new T this[int index]
         {
             get
             {
@@ -76,13 +91,13 @@ namespace MotorXPGUIMVVM.Model
         /// <summary>
         /// Get the current count of items within the ring buffer.
         /// </summary>
-        public int Count { get; private set; }
+        public new int Count { get; private set; }
 
         /// <summary>
         /// Adds a new item to the buffer.
         /// </summary>
         /// <param name="item">The item to be added to the buffer.</param>
-        public void Add(T item)
+        public new void Add(T item)
         {
             // add a new item to the current relative position within the
             // buffer and increase the position
@@ -97,7 +112,7 @@ namespace MotorXPGUIMVVM.Model
         /// Clears the whole buffer and releases all referenced objects 
         /// currently stored within the buffer.
         /// </summary>
-        public void Clear()
+        public new void Clear()
         {
             for (var i = 0; i < Count; i++)
                 _buffer[i] = default(T);
@@ -114,7 +129,7 @@ namespace MotorXPGUIMVVM.Model
         /// buffer.</param>
         /// <returns>True if the specified item is currently present within 
         /// the buffer; otherwise false.</returns>
-        public bool Contains(T item)
+        public new bool Contains(T item)
         {
             var index = IndexOf(item);
             return index != -1;
@@ -127,7 +142,7 @@ namespace MotorXPGUIMVVM.Model
         /// the buffer to.</param>
         /// <param name="arrayIndex">The start position witihn the target
         /// array to start copying.</param>
-        public void CopyTo(T[] array, int arrayIndex)
+        public new void CopyTo(T[] array, int arrayIndex)
         {
             for (int i = 0; i < Count; i++)
             {
@@ -140,7 +155,7 @@ namespace MotorXPGUIMVVM.Model
         /// </summary>
         /// <returns>An enumerator over the current items within the buffer.
         /// </returns>
-        public IEnumerator<T> GetEnumerator()
+        public new IEnumerator<T> GetEnumerator()
         {
             long version = _version;
             for (int i = 0; i < Count; i++)
@@ -158,7 +173,7 @@ namespace MotorXPGUIMVVM.Model
         /// <returns>The zero based index of the found item within the 
         /// buffer. If the item was not present within the buffer, this
         /// method returns -1.</returns>
-        public int IndexOf(T item)
+        public new int IndexOf(T item)
         {
             // loop over the current count of items
             for (var i = 0; i < Count; i++)
@@ -193,7 +208,7 @@ namespace MotorXPGUIMVVM.Model
         /// at a specified position within the buffer causes causes all present 
         /// items below the specified position to be moved one position.
         /// </remarks>
-        public void Insert(int index, T item)
+        public new void Insert(int index, T item)
         {
             // validate index
             if (index < 0 || index > Count)
@@ -245,7 +260,7 @@ namespace MotorXPGUIMVVM.Model
         /// item. If the item was found, the deletion requires a move of all 
         /// items stored abouve the found position.
         /// </remarks>
-        public bool Remove(T item)
+        public new bool Remove(T item)
         {
             // find the position of the specified item
             var index = IndexOf(item);
@@ -268,7 +283,7 @@ namespace MotorXPGUIMVVM.Model
         /// working with a large buffer capacity. The deletion requires a move 
         /// of all items stored abouve the found position.
         /// </remarks>
-        public void RemoveAt(int index)
+        public new void RemoveAt(int index)
         {
             // validate the index
             if (index < 0 || index >= Count)
@@ -306,6 +321,63 @@ namespace MotorXPGUIMVVM.Model
         /// <returns>See generic implementation of <see cref="GetEnumerator"/>.
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public object AddNew()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddIndex(PropertyDescriptor property)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ApplySort(PropertyDescriptor property, ListSortDirection direction)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Find(PropertyDescriptor property, object key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveIndex(PropertyDescriptor property)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveSort()
+        {
+            throw new NotImplementedException();
+        }
+
+        public object LastOrDefault()
+        {
+            return _buffer.LastOrDefault();
+        }
+
+        public bool AllowNew { get; }
+        public bool AllowEdit { get; }
+        public bool AllowRemove { get; }
+        public bool SupportsChangeNotification { get; }
+        public bool SupportsSearching { get; }
+        public bool SupportsSorting { get; }
+        public bool IsSorted { get; }
+        public PropertyDescriptor SortProperty { get; }
+        public ListSortDirection SortDirection { get; }
+        public event ListChangedEventHandler ListChanged;
+        public void CancelNew(int itemIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EndNew(int itemIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RaisesItemChangedEvents { get; }
     }
 }
 

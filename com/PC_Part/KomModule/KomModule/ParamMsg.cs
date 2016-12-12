@@ -4,13 +4,12 @@
 #region Designer generated code
 
 using pb = global::Google.Protobuf;
-using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
-using scg = global::System.Collections.Generic;
-namespace MotorXP.Protobuf.ParamMSg {
+namespace MotorXP.Protobuf.ParamMSg
+{
 
-  /// <summary>Holder for reflection information generated from ParamMsg.proto</summary>
-  public static partial class ParamMsgReflection {
+    /// <summary>Holder for reflection information generated from ParamMsg.proto</summary>
+    public static partial class ParamMsgReflection {
 
     #region Descriptor
     /// <summary>File descriptor for ParamMsg.proto</summary>

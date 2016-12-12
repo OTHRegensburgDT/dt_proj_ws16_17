@@ -1,4 +1,5 @@
-﻿using MotorXPGUIMVVM.Model;
+﻿using KomModule;
+using MotorXPGUIMVVM.Model;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using KomModule;
 
 namespace MotorXPGUIMVVM.Repository
 {

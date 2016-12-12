@@ -1,7 +1,7 @@
+using MotorXPGUIMVVM.Properties;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MotorXPGUIMVVM.Properties;
 
 namespace MotorXPGUIMVVM.Model
 {
