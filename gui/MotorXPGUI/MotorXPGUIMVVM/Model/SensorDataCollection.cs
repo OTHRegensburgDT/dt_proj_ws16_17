@@ -1,5 +1,6 @@
 ﻿using MotorXPGUIMVVM.Annotations;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -7,7 +8,7 @@ namespace MotorXPGUIMVVM.Model
 {
     public sealed class SensorDataCollection : INotifyPropertyChanged
     {
-        private IBindingRingBuffer<double> _values;
+        private BindingList<double> _values;
         private double _lastValue;
         private double _currentValue;
         private bool _showAll = true;
@@ -27,7 +28,7 @@ namespace MotorXPGUIMVVM.Model
 
         private void InitSensorSettings()
         {
-            Values = new BindingRingBuffer<double>(10000);
+            Values = new BindingList<double>();
             switch (SensorDataType)
             {
                 case SensorDataType.Velocity:
@@ -171,13 +172,13 @@ namespace MotorXPGUIMVVM.Model
 
         public SensorDataType SensorDataType { get; }
 
-        public BindingRingBuffer<double> Values
+        public BindingList<double> Values
         {
-            get { return (BindingRingBuffer<double>) _values; }
+            get { return _values; }
             private set
             {
                 _values = value;
-                LastValue = (double) _values.LastOrDefault();
+                LastValue = _values.LastOrDefault();
                 OnPropertyChanged();
             }
         }

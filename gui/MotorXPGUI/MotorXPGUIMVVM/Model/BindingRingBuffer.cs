@@ -357,6 +357,11 @@ namespace MotorXPGUIMVVM.Model
             return _buffer.LastOrDefault();
         }
 
+        public object Last()
+        {
+            return _buffer.Last();
+        }
+
         public bool AllowNew { get; }
         public bool AllowEdit { get; }
         public bool AllowRemove { get; }

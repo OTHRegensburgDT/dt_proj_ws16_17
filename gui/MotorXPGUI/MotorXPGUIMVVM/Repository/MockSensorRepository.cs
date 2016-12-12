@@ -90,7 +90,8 @@ namespace MotorXPGUIMVVM.Repository
                 {
                     angleCol.Values.Add(0);
                 }
-                angleCol.Values.Add((angleCol.Values.Last()+1)%360);
+                var angleValueToAdd = (angleCol.Values.Last()+1)%360;
+                angleCol.Values.Add(angleValueToAdd);
                 _hallDataCollections[0].Values.Add(GetHallA(angleCol.Values.Last()));
                 _hallDataCollections[1].Values.Add(GetHallB(angleCol.Values.Last()));
                 _hallDataCollections[2].Values.Add(GetHallC(angleCol.Values.Last()));
