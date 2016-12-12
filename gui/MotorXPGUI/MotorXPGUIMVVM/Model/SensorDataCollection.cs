@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using MotorXPGUIMVVM.Annotations;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using MotorXPGUIMVVM.Annotations;
 
 namespace MotorXPGUIMVVM.Model
 {
