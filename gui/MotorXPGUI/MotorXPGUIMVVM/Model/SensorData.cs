@@ -5,7 +5,7 @@ namespace MotorXPGUIMVVM.Model
 {
     public class SensorData
     {
-        public UInt64 Timestamp { get; set; }
-        public SortedList<UInt16, UInt64> DataTable { get; set; }
+        public ulong Timestamp { get; set; }
+        public SortedList<ushort, ulong> DataTable { get; set; }
     }
 }
