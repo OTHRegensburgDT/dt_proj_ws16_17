@@ -12,17 +12,16 @@ namespace MotorXPGUIMVVM.Repository
         private readonly ICommunicator _com;
 
         private BindingList<SensorDataCollection> _sensorDataCollections;
-        private readonly BindingList<SensorDataCollection> _hallSensorDataCollections;
 
         public SensorRepository(ICommunicator com)
         {
             _com = com;
             _com.NewSensordata += OnNewSensorData;
-            _hallSensorDataCollections = InitHallPattern();
+            HallSensorDataCollections = InitHallPattern();
             _sensorDataCollections = new BindingList<SensorDataCollection>();
         }
 
-        private BindingList<SensorDataCollection> InitHallPattern()
+        private static BindingList<SensorDataCollection> InitHallPattern()
         {
            return new BindingList<SensorDataCollection>
            {
@@ -42,7 +41,8 @@ namespace MotorXPGUIMVVM.Repository
             }
         }
 
-        public BindingList<SensorDataCollection> HallSensorDataCollections => _hallSensorDataCollections;
+        public BindingList<SensorDataCollection> HallSensorDataCollections { get; }
+
         public double HallPatternWindowPosition { get; set; }
 
         public ICommand SubmitPIDCommand { get; set; }
@@ -51,7 +51,10 @@ namespace MotorXPGUIMVVM.Repository
         // ReSharper disable once InconsistentNaming
         public void SendPID(RegulationParams @params)
         {
-            if (_com.SetParams(@params)) _com.SendParams();
+            if (_com.SetParams(@params))
+            {
+                _com.SendParams();
+            }
         }
 
         private void OnNewSensorData()
@@ -67,8 +70,8 @@ namespace MotorXPGUIMVVM.Repository
                     SensorDataCollections.Add(sensorDataCollection);
                 }
 
-                sensorDataCollection.Values.Add(CheckMinValue(data.Value, sensorDataCollection));
-                sensorDataCollection.LastValue = data.Value;
+                sensorDataCollection.AddValue(CheckMinValue(data.Value, sensorDataCollection));
+
                 // add hallpattern if angle value is arrived
                 if ((SensorDataType) data.Key == SensorDataType.Angle)
                 {
@@ -76,17 +79,15 @@ namespace MotorXPGUIMVVM.Repository
                 }
             }
         }
-
         protected virtual double CheckMinValue(double dataValue, SensorDataCollection col)
         {
             return dataValue <= col.MinValue ? col.MinValue : dataValue;
         }
-
         private void AddHallPattern(double angle)
         {
-            _hallSensorDataCollections[0].Values.Add(GetHallA(angle));
-            _hallSensorDataCollections[1].Values.Add(GetHallB(angle));
-            _hallSensorDataCollections[2].Values.Add(GetHallC(angle));
+            HallSensorDataCollections[0].Values.Add(GetHallA(angle));
+            HallSensorDataCollections[1].Values.Add(GetHallB(angle));
+            HallSensorDataCollections[2].Values.Add(GetHallC(angle));
         }
         private static double GetHallA(double angle)
         {

@@ -59,8 +59,7 @@ namespace MotorXPGUIMVVM.Repository
                                 default:
                                     throw new ArgumentOutOfRangeException();
                             }
-                            col.Values.Add(newValue);
-                            col.LastValue = newValue;
+                            col.AddValue(newValue);
                             col.LastTimeStamp++;
                         }
                     });

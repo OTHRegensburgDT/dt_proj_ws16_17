@@ -9,7 +9,6 @@ namespace MotorXPGUIMVVM.Model
     public sealed class SensorDataCollection : INotifyPropertyChanged
     {
         private const int MinSampleWindowValue = 10;
-        private ulong _currentSample;
         private double _currentValue;
         private double _lastValue;
         private ulong _sampleWindow = MinSampleWindowValue;
@@ -46,16 +45,6 @@ namespace MotorXPGUIMVVM.Model
                     }
                 }
                 OnPropertyChanged(nameof(LastTimeStamp));
-            }
-        }
-
-        public ulong CurrentSample
-        {
-            get { return _currentSample; }
-            set
-            {
-                _currentSample = value;
-                OnPropertyChanged(nameof(CurrentSample));
             }
         }
 
@@ -127,6 +116,9 @@ namespace MotorXPGUIMVVM.Model
             }
         }
 
+        /// <summary>
+        /// If true display complete SampleWindow
+        /// </summary>
         public bool ShowAll
         {
             get { return _showAll; }
@@ -161,6 +153,17 @@ namespace MotorXPGUIMVVM.Model
 
         public SensorDataType SensorDataType { get; }
 
+        public void AddValue(double value)
+        {
+            _values.Add(value);
+            _lastValue = value;
+            OnPropertyChanged(nameof(LastValue));
+            OnPropertyChanged(nameof(Values));
+        }
+
+        /// <summary>
+        /// all recived values should be a ringbuffer 
+        /// </summary>
         public BindingList<double> Values
         {
             get { return _values; }
@@ -177,8 +180,6 @@ namespace MotorXPGUIMVVM.Model
         }
 
         public ICommand ShowAllCommand { get; set; }
-
-        public int GaugeTickFrequency => MaxValue / 10;
 
         public bool HasTargetValue { get; set; }
 
@@ -208,10 +209,7 @@ namespace MotorXPGUIMVVM.Model
                     MaxValue = 1;
                     break;
                 default:
-                    MinValue = 0;
-                    MaxValue = 100;
-                    TargetValue = 42;
-                    break;
+                    throw new InvalidEnumArgumentException();                    
             }
         }
 

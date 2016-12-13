@@ -16,6 +16,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Controls/Gauge/GaugeResources.xaml"/>
                 <ResourceDictionary Source="../Controls/LineChart/LineChartResources.xaml"/>
+                <ResourceDictionary Source="../Resources/Style.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <converter:BooleanToVisibilityHiddenConverter x:Key="BooleanToVisibilityConverter"/>
             <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
@@ -59,8 +60,6 @@
                                                     <TextBox FontSize="12" Width="40" Height="26" Text="{Binding ElementName=SliderGauge, Path=Value, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
                                                 </StackPanel>
                                             </StackPanel>
-
-
                                             <Viewbox DockPanel.Dock="Right" Stretch="Fill" >
                                                 <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="2" Margin="4">
                                                     <Border.Effect>
@@ -70,7 +69,6 @@
                                                         <DockPanel DockPanel.Dock="Top" >
                                                             <!--LineChart Column-->
                                                             <!--Value LineChart-->
-
                                                             <DockPanel LastChildFill="True" Margin="8 8 0 0">
                                                                 <DockPanel DockPanel.Dock="Right" LastChildFill="True" Margin="8 8 8 16 ">
                                                                     <fa:ImageAwesome DockPanel.Dock="Top" Icon="Minus" Foreground="Gray" Width="15"/>
@@ -122,7 +120,6 @@
                                         </StackPanel>
                                     </DockPanel>
                                 </Grid>
-
                                 <Slider x:Name="HallSlider" DockPanel.Dock="Top" IsEnabled="{Binding ElementName=HallLineChart, Path=IsShowingAll, Converter={StaticResource InverseBooleanConverter}}"  Minimum="0" Margin="64 8 24 0" Maximum="1" Value="{Binding ElementName=HallLineChart, Path=WindowPosition}" ToolTip="{Binding Repository.HallSensorDataCollections[0].CurrentValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
 
                                 <CheckBox Margin="64 8 8 8" FontSize="16" Content="Show All" Height="30" Command="{Binding Repository.HallSensorDataCollections[0].ShowAllCommand}" IsChecked="{Binding Repository.HallSensorDataCollections[0].ShowAll, UpdateSourceTrigger=PropertyChanged}"/>

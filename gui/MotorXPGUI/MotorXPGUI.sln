@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KomModule", "..\..\com\PC_P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorXPGUIMVVMTests", "MotorXPGUIMVVMTests\MotorXPGUIMVVMTests.csproj", "{23048F75-845F-4D38-896A-8BEA7757C26D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorXPGUIMVVM.Tests", "MotorXPGUIMVVM.Tests\MotorXPGUIMVVM.Tests.csproj", "{AFF08BD4-1274-4322-8907-9AA81EA5CAD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{23048F75-845F-4D38-896A-8BEA7757C26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23048F75-845F-4D38-896A-8BEA7757C26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23048F75-845F-4D38-896A-8BEA7757C26D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF08BD4-1274-4322-8907-9AA81EA5CAD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF08BD4-1274-4322-8907-9AA81EA5CAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF08BD4-1274-4322-8907-9AA81EA5CAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF08BD4-1274-4322-8907-9AA81EA5CAD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
