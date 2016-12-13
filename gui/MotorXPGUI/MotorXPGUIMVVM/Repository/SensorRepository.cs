@@ -65,7 +65,8 @@ namespace MotorXPGUIMVVM.Repository
                     sensorDataCollection = new SensorDataCollection((SensorDataType)data.Key);
                     SensorDataCollections.Add(sensorDataCollection);
                 }
-                sensorDataCollection.Values.Add(data.Value);
+
+                sensorDataCollection.Values.Add(CheckMinValue(data.Value, sensorDataCollection));
                 sensorDataCollection.LastValue = data.Value;
                 // add hallpattern if angle value is arrived
                 if ((SensorDataType) data.Key == SensorDataType.Angle)
@@ -73,6 +74,11 @@ namespace MotorXPGUIMVVM.Repository
                     AddHallPattern(data.Value);
                 }
             }
+        }
+
+        protected virtual double CheckMinValue(double dataValue, SensorDataCollection col)
+        {
+            return dataValue <= col.MinValue ? col.MinValue : dataValue;
         }
 
         private void AddHallPattern(double angle)
@@ -106,11 +112,9 @@ namespace MotorXPGUIMVVM.Repository
             var aTan2 = Math.Atan2(sin, cos);
             return aTan2 * (180 / Math.PI);
         }
-
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-      
+        }      
     }
 }

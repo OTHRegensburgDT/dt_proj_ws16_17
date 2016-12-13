@@ -47,7 +47,7 @@ namespace MotorXPGUIMVVM.Repository
                             switch (col.SensorDataType)
                             {
                                 case SensorDataType.Velocity:
-                                    newValue = _rnd.Next(col.TargetValue - 100, col.TargetValue + 100);          
+                                    newValue = _rnd.Next(col.TargetValue - 100 <= 0 ?  0 : col.TargetValue - 100, col.TargetValue + 100 >= 6000 ?  6000 : col.TargetValue + 100);          
                                     break;
                                 case SensorDataType.Angle:
                                     newValue =  (int)(col.LastValue +1)%360;
