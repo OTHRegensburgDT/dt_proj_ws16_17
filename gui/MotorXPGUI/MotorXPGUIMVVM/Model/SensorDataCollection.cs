@@ -43,26 +43,23 @@ namespace MotorXPGUIMVVM.Model
             get { return _sampleWindow; }
             set
             {
-                if (value > LastTimeStamp)
-                    _sampleWindow = LastTimeStamp;
-                else if (value <= 10)
+                if (value > LastTimeStamp) // max sample window 
+                {
+                    _sampleWindow = LastTimeStamp; 
+                }
+                else if (value <= 10) // prevent to low sample windows
+                {
                     _sampleWindow = 10;
-                _sampleWindow = value;
+                }
+                else
+                {
+                    _sampleWindow = value;
+                }
                 OnPropertyChanged(nameof(SampleWindow));
             }
         }
 
         public string Unit { get; }
-
-        public bool ExpanderCollapsed
-        {
-            get { return _expanderCollapsed; }
-            set
-            {
-                _expanderCollapsed = value;
-                OnPropertyChanged(nameof(ExpanderCollapsed));
-            }
-        }
 
         public double CurrentValue
         {
@@ -86,11 +83,9 @@ namespace MotorXPGUIMVVM.Model
                 var newValue = value;
                 if (int.TryParse(newValue.ToString(), out _trashValue))
                 {
-                    if ((newValue >= MinValue) && (newValue <= MaxValue))
-                    {
-                        _targetValue = newValue;
-                        OnPropertyChanged(nameof(TargetValue));
-                    }
+                    if ((newValue < MinValue) || (newValue > MaxValue)) return;
+                    _targetValue = newValue;
+                    OnPropertyChanged(nameof(TargetValue));
                 }
                 else
                 {
@@ -142,7 +137,7 @@ namespace MotorXPGUIMVVM.Model
 
         public ICommand ShowAllCommand { get; set; }
 
-        public int GaugeTickFrequency => MaxValue/10;
+        public int GaugeTickFrequency => MaxValue / 10;
 
         public bool HasTargetValue { get; set; }
 
