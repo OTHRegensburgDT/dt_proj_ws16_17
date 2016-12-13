@@ -1,0 +1,47 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[left = 2cm, top = 2cm, right = 2cm]{geometry}
+\usepackage[autooneside=true, automark, headsepline, footsepline, plainfootsepline]{scrlayer-scrpage}
+\usepackage{lmodern}
+\usepackage{graphicx}
+
+\title{Projektdokumentation - MotorXP}
+\author{Christian Brunner, Andreas Kölbl, \\
+  Ricardo Krause, Bernd Krupinski, \\
+  Andreas Lackner, Michael Schleinkofer, \\
+  Franz Welker}
+
+\automark{chapter}
+\headheight1.3cm
+\lehead{\headmark}
+\lohead{\headmark}
+\rehead{\includegraphics[height=25pt]{images/MotorXP}}
+\rohead{\includegraphics[height=25pt]{images/MotorXP}}
+\cfoot*{\pagemark}
+
+\begin{document}
+
+\makeatletter
+\begin{titlepage}
+  \centering
+  \vspace*{0.02\textheight}
+  \includegraphics[width=\textwidth]{images/OTHLogo}\vspace*{0.1\textheight}
+  {\huge\textbf{\\Projektdokumentation\\}}\vspace*{0.05\textheight}
+  \includegraphics[height=3cm]{images/MotorXP}\vspace*{0.05\textheight}
+  {\huge\textbf{\\MotorXP}}\vspace*{0.03\textheight}
+  {\large\textit{\\Ansteuerung eines Brushless DC Motors mit einer grafischen Oberfläche und MATLAB Simulation}}\vspace*{0.03\textheight}
+  {\\Vorlesung DT - Wintersemester 2016/17\\}\vspace*{0.2\textheight}
+  {\@author}
+\end{titlepage}
+\makeatother
+\tableofcontents
+
+\begin{abstract}
+Diese Dokumentation entstand im Rahmen der Vorlesung "Datenverarbeitung in der Technik" im Wintersemester 2016/17. Zu Beginn erfolgt die
+Projektdefinition mit Aufteilung der einzelnen Arbeitspakete. Anschließend werden die einzelnen Arbeitspakete näher in den einzelnen Projektschritten erklärt.
+\end{abstract}
+
+\chapter{Projektdefinition}
+\include{communication/communication}
+\end{document}
