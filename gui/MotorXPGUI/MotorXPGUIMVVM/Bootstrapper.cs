@@ -22,19 +22,26 @@ namespace MotorXPGUIMVVM
 
         private void ConfigurationContainer()
         {
-            Container.RegisterType<MainViewModel>();
-            Container.RegisterType<MainViewViewModel>();
-            Container.RegisterType<DataDisplayViewModel>();
-            Container.RegisterType<ICommunicator, UartCommunicator>();
-            //Container.RegisterType<ISensorRepository, SensorRepository>();
-            Container.RegisterType<ISensorRepository, MockSensorRepository>();
-  
             var config = new MapperConfiguration(cfg =>
             { 
                 cfg.CreateMap<SensorData, Sensordata>();
             });
             var mapper = config.CreateMapper();
-            Container.RegisterInstance(mapper);
+            Container.RegisterType<MainViewModel>()
+                .RegisterInstance(mapper)
+                .RegisterType<MainViewViewModel>()
+                .RegisterType<DataDisplayViewModel>()
+                //.RegisterType<ICommunicator, UartCommunicator>()
+                //.RegisterInstance(InitComPort())
+                //.RegisterType<ISensorRepository, SensorRepository>();
+                .RegisterType<ISensorRepository, MockSensorRepository>();
+ 
+        }
+
+        private UartCommunicator InitComPort()
+        {
+
+            return new UartCommunicator("Com_3");
         }
 
         public object GetInstance(Type serviceType)

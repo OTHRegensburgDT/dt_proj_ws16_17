@@ -4,15 +4,18 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using Microsoft.Practices.Unity;
 
 namespace MotorXPGUIMVVM.Repository
 {
+    
     public class SensorRepository : INotifyPropertyChanged, ISensorRepository
     {
         private readonly ICommunicator _com;
 
         private BindingList<SensorDataCollection> _sensorDataCollections;
 
+        [InjectionConstructor]
         public SensorRepository(ICommunicator com)
         {
             _com = com;

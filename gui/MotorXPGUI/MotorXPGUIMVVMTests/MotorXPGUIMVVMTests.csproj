@@ -56,6 +56,10 @@
     <Compile Include="Repository\SensorRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\com\PC_Part\KomModule\KomModule\KomModule.csproj">
+      <Project>{A921DA7D-D911-4161-A7AC-A09FF9DE2C8B}</Project>
+      <Name>KomModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MotorXPGUIMVVM\MotorXPGUIMVVM.csproj">
       <Project>{9A18C386-9EB7-4E7C-A529-41ADE1A49F4D}</Project>
       <Name>MotorXPGUIMVVM</Name>
