@@ -74,6 +74,102 @@ namespace MotorXPGUIMVVMTests.Model
             Assert.IsTrue(collection.Unit == "Velocity");
         }
 
+        [TestMethod]
+        public void SensorDataCollectionGetCurrentValueWithoutShowAllTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                ShowAll = false,
+                CurrentValue = 1500
+                
+            };
+
+            Assert.IsTrue(Math.Abs(collection.CurrentValue - 1500) < 1);
+        }
+        [TestMethod]
+        public void SensorDataCollectionGetCurrentValueWithShowAllTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                ShowAll = true,
+                CurrentValue = 1500,
+                LastValue =  500
+
+            };
+
+            Assert.IsTrue(Math.Abs(collection.CurrentValue - 500) < 1);
+        }
+        [TestMethod]
+        public void SensorDataCollectionGetCurrentValueTextTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                ShowAll = false,
+                CurrentValue = 1500
+            };
+
+            Assert.IsTrue(collection.CurrentValueText == "Current Value: 1500");
+        }
+
+        [TestMethod]
+        public void SensorDataCollectionSetTargetValueToHighTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                TargetValue = 6001
+            };
+
+            Assert.IsTrue(collection.TargetValue == collection.MaxValue);
+        }
+        [TestMethod]
+        public void SensorDataCollectionSetTargetValueHighTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                TargetValue = 6000
+            };
+
+            Assert.IsTrue(collection.TargetValue == 6000);
+        }
+        [TestMethod]
+        public void SensorDataCollectionSetTargetValueToLowTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                TargetValue = -1
+            };
+
+            Assert.IsTrue(collection.TargetValue == collection.MinValue);
+        }
+        [TestMethod]
+        public void SensorDataCollectionSetTargetValueLowTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                TargetValue = 0
+            };
+
+            Assert.IsTrue(collection.TargetValue == 0);
+        }
+
+        [TestMethod]
+        public void SensorDataCollectionGetInitialShowAllTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity);
+
+            Assert.IsTrue(collection.ShowAll);
+        }
+
+        [TestMethod]
+        public void SensorDataCollectionSetShowAllTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                ShowAll = false
+            };
+
+            Assert.IsFalse(collection.ShowAll);
+        }
     }
 
 }

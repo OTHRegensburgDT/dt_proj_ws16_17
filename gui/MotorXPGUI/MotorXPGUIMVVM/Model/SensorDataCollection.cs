@@ -10,7 +10,6 @@ namespace MotorXPGUIMVVM.Model
     {
         private ulong _currentSample;
         private double _currentValue;
-        private bool _expanderCollapsed;
         private double _lastValue;
         private ulong _sampleWindow = 10;
         private bool _showAll = true;
@@ -66,10 +65,23 @@ namespace MotorXPGUIMVVM.Model
             get { return _showAll ? _lastValue : _currentValue; }
             set
             {
-                _currentValue = value;
+                _currentValue = CheckMinMax(value);                
                 OnPropertyChanged(nameof(CurrentValue));
                 OnPropertyChanged(nameof(CurrentValueText));
             }
+        }
+
+        private double CheckMinMax(double value)
+        {
+            if (value <= MinValue)
+            {
+                return MinValue;
+            }
+            if (value >= MaxValue)
+            {
+                return MaxValue;
+            }
+            return value;
         }
 
         public string CurrentValueText
@@ -82,9 +94,8 @@ namespace MotorXPGUIMVVM.Model
             {
                 var newValue = value;
                 if (int.TryParse(newValue.ToString(), out _trashValue))
-                {
-                    if ((newValue < MinValue) || (newValue > MaxValue)) return;
-                    _targetValue = newValue;
+                {                 
+                    _targetValue = (int)CheckMinMax(value);
                     OnPropertyChanged(nameof(TargetValue));
                 }
                 else
@@ -101,7 +112,9 @@ namespace MotorXPGUIMVVM.Model
             {
                 _showAll = value;
                 if (_showAll)
+                {
                     SampleWindow = LastTimeStamp;
+                }
                 OnPropertyChanged(nameof(ShowAll));
             }
         }
@@ -112,7 +125,9 @@ namespace MotorXPGUIMVVM.Model
             set
             {
                 if (_showAll)
+                {
                     _currentValue = value;
+                }
                 _lastValue = value;
                 OnPropertyChanged(nameof(LastValue));
             }
@@ -129,8 +144,12 @@ namespace MotorXPGUIMVVM.Model
             get { return _values; }
             private set
             {
-                _values = value;
-                LastValue = _values.LastOrDefault();
+                _values =  value;
+                LastValue = CheckMinMax(_values.LastOrDefault());
+                if (_showAll)
+                {
+                    CurrentValue = LastValue;
+                }
                 OnPropertyChanged();
             }
         }
