@@ -10,6 +10,7 @@ namespace MotorXPGUIMVVM.Repository
         BindingList<SensorDataCollection> SensorDataCollections { get; set; }
         BindingList<SensorDataCollection> HallSensorDataCollections { get; }
 
+        double HallPatternWindowPosition { get; set; }
 
         // ReSharper disable once InconsistentNaming
         ICommand SubmitPIDCommand { get; set; }

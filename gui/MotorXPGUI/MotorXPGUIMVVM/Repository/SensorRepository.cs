@@ -43,6 +43,7 @@ namespace MotorXPGUIMVVM.Repository
         }
 
         public BindingList<SensorDataCollection> HallSensorDataCollections => _hallSensorDataCollections;
+        public double HallPatternWindowPosition { get; set; }
 
         public ICommand SubmitPIDCommand { get; set; }
 

@@ -135,6 +135,20 @@ namespace MotorXPGUIMVVM.Repository
         public BindingList<SensorDataCollection> HallSensorDataCollections => _hallDataCollections;
         public ICommand SubmitPIDCommand { get; set; }
 
+        private double _hallPatternWindowPosition;
+
+        public double HallPatternWindowPosition
+        {
+            get { return _hallPatternWindowPosition; }
+            set
+            {
+                _hallPatternWindowPosition = value; 
+
+                OnPropertyChanged(nameof(HallPatternWindowPosition));
+            }
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void SendPID( RegulationParams @params)
         {

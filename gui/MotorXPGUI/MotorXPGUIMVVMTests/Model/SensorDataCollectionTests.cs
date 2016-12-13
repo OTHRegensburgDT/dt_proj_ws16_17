@@ -31,7 +31,6 @@ namespace MotorXPGUIMVVMTests.Model
             var collection = new SensorDataCollection(SensorDataType.HallPattern);
             Assert.IsTrue(collection.SensorDataType == SensorDataType.HallPattern);
         }
-
         [TestMethod]
         public void SensorDataCollectionSetLastStampTest()
         {
@@ -41,7 +40,6 @@ namespace MotorXPGUIMVVMTests.Model
         [TestMethod]
         public void SensorDataCollectionSetSampleWindowMaxTest()
         {
-
             var collection = new SensorDataCollection(SensorDataType.Velocity)
             {
                 LastTimeStamp = ulong.MaxValue,
@@ -55,7 +53,6 @@ namespace MotorXPGUIMVVMTests.Model
             var collection = new SensorDataCollection(SensorDataType.Velocity) { SampleWindow = ulong.MinValue };
             Assert.IsTrue(collection.SampleWindow == 10);
         }
-
         [TestMethod]
         public void SensorDataCollectionSetSampleWindowLowTest()
         {
@@ -66,14 +63,12 @@ namespace MotorXPGUIMVVMTests.Model
             };
             Assert.IsTrue(collection.SampleWindow == 10);
         }
-
         [TestMethod]
         public void SensorDataCollectionGetUnitTest()
         {
             var collection = new SensorDataCollection(SensorDataType.Velocity);
             Assert.IsTrue(collection.Unit == "Velocity");
         }
-
         [TestMethod]
         public void SensorDataCollectionGetCurrentValueWithoutShowAllTest()
         {
@@ -81,9 +76,7 @@ namespace MotorXPGUIMVVMTests.Model
             {
                 ShowAll = false,
                 CurrentValue = 1500
-                
             };
-
             Assert.IsTrue(Math.Abs(collection.CurrentValue - 1500) < 1);
         }
         [TestMethod]
@@ -93,10 +86,8 @@ namespace MotorXPGUIMVVMTests.Model
             {
                 ShowAll = true,
                 CurrentValue = 1500,
-                LastValue =  500
-
+                LastValue = 500
             };
-
             Assert.IsTrue(Math.Abs(collection.CurrentValue - 500) < 1);
         }
         [TestMethod]
@@ -107,10 +98,8 @@ namespace MotorXPGUIMVVMTests.Model
                 ShowAll = false,
                 CurrentValue = 1500
             };
-
             Assert.IsTrue(collection.CurrentValueText == "Current Value: 1500");
         }
-
         [TestMethod]
         public void SensorDataCollectionSetTargetValueToHighTest()
         {
@@ -118,7 +107,6 @@ namespace MotorXPGUIMVVMTests.Model
             {
                 TargetValue = 6001
             };
-
             Assert.IsTrue(collection.TargetValue == collection.MaxValue);
         }
         [TestMethod]
@@ -128,7 +116,6 @@ namespace MotorXPGUIMVVMTests.Model
             {
                 TargetValue = 6000
             };
-
             Assert.IsTrue(collection.TargetValue == 6000);
         }
         [TestMethod]
@@ -138,7 +125,6 @@ namespace MotorXPGUIMVVMTests.Model
             {
                 TargetValue = -1
             };
-
             Assert.IsTrue(collection.TargetValue == collection.MinValue);
         }
         [TestMethod]
@@ -148,18 +134,14 @@ namespace MotorXPGUIMVVMTests.Model
             {
                 TargetValue = 0
             };
-
             Assert.IsTrue(collection.TargetValue == 0);
         }
-
         [TestMethod]
         public void SensorDataCollectionGetInitialShowAllTest()
         {
             var collection = new SensorDataCollection(SensorDataType.Velocity);
-
             Assert.IsTrue(collection.ShowAll);
         }
-
         [TestMethod]
         public void SensorDataCollectionSetShowAllTest()
         {
@@ -167,9 +149,63 @@ namespace MotorXPGUIMVVMTests.Model
             {
                 ShowAll = false
             };
-
             Assert.IsFalse(collection.ShowAll);
         }
+        [TestMethod]
+        public void SensorDataCollectionSetShowAllAndCheckSampleWindowTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                ShowAll = true,
+                //LastTimeStamp have to be greater 10 this is the MinValue for the SampleWindow
+                LastTimeStamp =  11
+            };
+            Assert.IsTrue(collection.SampleWindow == collection.LastTimeStamp);
+        }
+        [TestMethod]
+        public void SensorDataCollectionSetShowAllAndCheckSampleWindowTest2()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                ShowAll = true,
+                LastTimeStamp = 9
+            };
+            //minValue of SampleWindow is 10
+            Assert.IsTrue(collection.SampleWindow == 10);
+        }
+        [TestMethod]
+        public void SensorDataCollectionCheckSampleWindowToHighTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                //LastTimeStamp have to be greater 10 this is the MinValue for the SampleWindow
+                LastTimeStamp = 11,
+                SampleWindow = 20
+            };
+            Assert.IsTrue(collection.SampleWindow == collection.LastTimeStamp);
+        }
+        [TestMethod]
+        public void SensorDataCollectionCheckSampleWindowToLowTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                //LastTimeStamp have to be greater 10 this is the MinValue for the SampleWindow
+                LastTimeStamp = 11,
+                SampleWindow = 0
+            };
+            Assert.IsTrue(collection.SampleWindow == collection.LastTimeStamp);
+        }
+        [TestMethod]
+        public void SensorDataCollectionCheckSampleWindowToLowWithoutShowAllTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity)
+            {
+                //LastTimeStamp have to be greater 10 this is the MinValue for the SampleWindow
+                ShowAll = false,
+                LastTimeStamp = 11,
+                SampleWindow = 0
+            };
+            Assert.IsTrue(collection.SampleWindow == 10);
+        }
     }
-
 }

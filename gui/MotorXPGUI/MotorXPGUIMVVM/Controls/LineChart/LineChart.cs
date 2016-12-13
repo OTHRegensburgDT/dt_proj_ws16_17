@@ -136,6 +136,15 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             set { SetValue(IsXScaleVisibleProperty, value); }
         }
 
+        public static readonly DependencyProperty MouseScrollEnabledProperty = DependencyProperty.Register(
+            "MouseScrollEnabled", typeof(bool), typeof(LineChart), new PropertyMetadata(true));
+
+        public bool MouseScrollEnabled
+        {
+            get { return (bool) GetValue(MouseScrollEnabledProperty); }
+            set { SetValue(MouseScrollEnabledProperty, value); }
+        }
+
         public static readonly DependencyProperty SampleWindowProperty = DependencyProperty.Register(
             "SampleWindow", typeof(int), typeof(LineChart), new PropertyMetadata(10, PropertyChangedCallback));
         
@@ -629,6 +638,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         private void ChartCanvasOnMouseWheel(object sender, MouseWheelEventArgs mouseWheelEventArgs)
         {
+            if(!MouseScrollEnabled) return;
             if (mouseWheelEventArgs.Delta < 0) SampleWindow += 10;
             else SampleWindow -= 10;
             if (SampleWindow < 5) SampleWindow = 5;

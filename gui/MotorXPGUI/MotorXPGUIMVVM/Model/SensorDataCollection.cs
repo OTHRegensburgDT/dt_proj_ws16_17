@@ -8,14 +8,16 @@ namespace MotorXPGUIMVVM.Model
 {
     public sealed class SensorDataCollection : INotifyPropertyChanged
     {
+        private const int MinSampleWindowValue = 10;
         private ulong _currentSample;
         private double _currentValue;
         private double _lastValue;
-        private ulong _sampleWindow = 10;
+        private ulong _sampleWindow = MinSampleWindowValue;
         private bool _showAll = true;
         private int _targetValue;
         private int _trashValue;
         private BindingList<double> _values;
+        private ulong _lastTimeStamp;
 
         public SensorDataCollection(SensorDataType type)
         {
@@ -25,7 +27,27 @@ namespace MotorXPGUIMVVM.Model
         }
 
 
-        public ulong LastTimeStamp { get; set; }
+        public ulong LastTimeStamp
+        {
+            get { return _lastTimeStamp; }
+            set
+            {
+                _lastTimeStamp = value <= 0 ? 0 : value;
+                if (_showAll)
+                {
+
+                    if (MinSampleWindowValue < _lastTimeStamp)
+                    {
+                        SampleWindow = _lastTimeStamp;
+                    }
+                    if (MinSampleWindowValue > _lastTimeStamp)
+                    {
+                        SampleWindow = MinSampleWindowValue;
+                    }
+                }
+                OnPropertyChanged(nameof(LastTimeStamp));
+            }
+        }
 
         public ulong CurrentSample
         {
@@ -42,13 +64,13 @@ namespace MotorXPGUIMVVM.Model
             get { return _sampleWindow; }
             set
             {
-                if (value > LastTimeStamp) // max sample window 
+                if ((_showAll || value >= LastTimeStamp) && LastTimeStamp >= MinSampleWindowValue)
                 {
-                    _sampleWindow = LastTimeStamp; 
+                    _sampleWindow = LastTimeStamp;
                 }
-                else if (value <= 10) // prevent to low sample windows
+                else if (value <= MinSampleWindowValue) // prevent to low sample windows
                 {
-                    _sampleWindow = 10;
+                    _sampleWindow = MinSampleWindowValue;
                 }
                 else
                 {
@@ -65,7 +87,7 @@ namespace MotorXPGUIMVVM.Model
             get { return _showAll ? _lastValue : _currentValue; }
             set
             {
-                _currentValue = CheckMinMax(value);                
+                _currentValue = CheckMinMax(value);
                 OnPropertyChanged(nameof(CurrentValue));
                 OnPropertyChanged(nameof(CurrentValueText));
             }
@@ -94,7 +116,7 @@ namespace MotorXPGUIMVVM.Model
             {
                 var newValue = value;
                 if (int.TryParse(newValue.ToString(), out _trashValue))
-                {                 
+                {
                     _targetValue = (int)CheckMinMax(value);
                     OnPropertyChanged(nameof(TargetValue));
                 }
@@ -144,7 +166,7 @@ namespace MotorXPGUIMVVM.Model
             get { return _values; }
             private set
             {
-                _values =  value;
+                _values = value;
                 LastValue = CheckMinMax(_values.LastOrDefault());
                 if (_showAll)
                 {
