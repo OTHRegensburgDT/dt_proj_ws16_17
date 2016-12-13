@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MotorXPGUIMVVM.Model;
 
@@ -207,5 +208,15 @@ namespace MotorXPGUIMVVMTests.Model
             };
             Assert.IsTrue(collection.SampleWindow == 10);
         }
+        [TestMethod]
+        public void SensorDataCollectionAddValueAndUpdateLastValueTest()
+        {
+            var collection = new SensorDataCollection(SensorDataType.Velocity);
+            collection.AddValue(1.0);
+
+            Assert.IsTrue(Math.Abs(collection.LastValue - 1.0) < 0.1);
+        }
+
+
     }
 }

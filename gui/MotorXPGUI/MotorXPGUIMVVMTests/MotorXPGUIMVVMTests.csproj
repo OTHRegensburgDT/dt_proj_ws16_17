@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Model\SensorDataCollectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\SensorRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MotorXPGUIMVVM\MotorXPGUIMVVM.csproj">
