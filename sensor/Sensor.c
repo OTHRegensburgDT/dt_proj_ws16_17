@@ -19,7 +19,7 @@
 
 void Sensor_Init()
 {
-	//Sensor_Hall_Init();
+	Sensor_Hall_Init();
 	Sensor_Temperature_Init();
 }
 
@@ -44,6 +44,12 @@ Std_ReturnType Sensor_RegisterHallCallback(Sensor_HallCallbackType callback)
 	return E_OK;
 }
 
+Std_ReturnType Sensor_GetCurrentHallPattern(Sensor_HallPattern_t* pattern)
+{
+	*pattern = ActiveHallPattern;
+	return E_OK;
+}
+
 Std_ReturnType Sensor_GetVelocity(double* velocity)
 {
 	return E_OK;
@@ -54,8 +60,8 @@ Std_ReturnType Sensor_GetAngle(double* angle)
 	return E_OK;
 }
 
-Std_ReturnType Sensor_GetTemperature(Sensor_TemperatureType sensor, int* temperature)
+Std_ReturnType Sensor_GetTemperature(int* temperature)
 {
-	*temperature = Sensor_Temperature_Calculate(sensor);
+	*temperature = Sensor_Temperature_Calculate(TEMPERATURE_SENSOR_A);
 	return E_OK;
 }

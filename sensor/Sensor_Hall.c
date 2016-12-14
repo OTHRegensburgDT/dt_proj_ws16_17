@@ -10,7 +10,6 @@
  *********************************************************************************/
 
 #include "Sensor_Hall.h"
-#include "Posif_Control.h"
 
 #include <xmc_ccu4.h>
 #include <xmc_posif.h>
@@ -20,6 +19,7 @@
  * Local macros
  *********************************************************************************/
 
+#define POSIF_PTR		POSIF0
 #define HALL_CCU		CCU40
 #define HALL_CCU_NUM	(0U)
 
@@ -28,11 +28,14 @@
 #define CAPTURE_SLICE_PTR 		CCU40_CC41
 #define CAPTURE_SLICE_NUMBER	(1U)
 
-#define HALL_PORT_A	P1_3
-#define HALL_PORT_B	P1_2
-#define HALL_PORT_C	P1_1
+#define HALL_PORT_A	P14_7
+#define HALL_PORT_B	P14_6
+#define HALL_PORT_C	P14_5
+
+#define HALL_EVENT_IO P1_10
 
 #define GEN_HALL_PATTERN(EHP, CHP) (((uint32_t)EHP << 3) | (uint32_t)CHP)
+#define HALL_EMPTY 0
 
 /*********************************************************************************
  * Local data
@@ -40,28 +43,28 @@
 
 uint32_t hall[3] = { 0,0,0 };
 MotorDirection_t motorDirection = 0;
-extern XMC_POSIF_CONFIG_t POSIF_HALL_config;
-extern XMC_POSIF_HSC_CONFIG_t POSIF_HSC_config;
 
 /* Hall pattern of the motor. This depends on the type and make of the motor selected */
 uint8_t hall_pattern_cw[] =
 {
-	(uint8_t)GEN_HALL_PATTERN(5,1),
-	(uint8_t)GEN_HALL_PATTERN(3,2),
-	(uint8_t)GEN_HALL_PATTERN(1,3),
-	(uint8_t)GEN_HALL_PATTERN(6,4),
-	(uint8_t)GEN_HALL_PATTERN(4,5),
-	(uint8_t)GEN_HALL_PATTERN(2,6)
-};
-
-uint8_t hall_pattern_ccw[] =
-{
+	(uint8_t)GEN_HALL_PATTERN(HALL_EMPTY,HALL_EMPTY),
 	(uint8_t)GEN_HALL_PATTERN(3,1),
 	(uint8_t)GEN_HALL_PATTERN(6,2),
 	(uint8_t)GEN_HALL_PATTERN(2,3),
 	(uint8_t)GEN_HALL_PATTERN(5,4),
 	(uint8_t)GEN_HALL_PATTERN(1,5),
 	(uint8_t)GEN_HALL_PATTERN(4,6)
+};
+
+uint8_t hall_pattern_ccw[] =
+{
+	(uint8_t)GEN_HALL_PATTERN(HALL_EMPTY,HALL_EMPTY),
+	(uint8_t)GEN_HALL_PATTERN(5,1),
+	(uint8_t)GEN_HALL_PATTERN(3,2),
+	(uint8_t)GEN_HALL_PATTERN(1,3),
+	(uint8_t)GEN_HALL_PATTERN(6,4),
+	(uint8_t)GEN_HALL_PATTERN(4,5),
+	(uint8_t)GEN_HALL_PATTERN(2,6)
 };
 
 //XMC Capture/Compare Unit 4 (CCU4) Configuration for Capture:
@@ -110,9 +113,25 @@ XMC_CCU4_SLICE_EVENT_CONFIG_t capture_event0_config = //off time capture
 	.duration = XMC_CCU4_SLICE_EVENT_FILTER_DISABLED
 };
 
+XMC_POSIF_CONFIG_t POSIF_HALL_config =
+{
+	.mode = XMC_POSIF_MODE_HALL_SENSOR, /**< POSIF Operational mode */
+	.input0 = XMC_POSIF_INPUT_PORT_B, /**< Choice of input for Input-1 */
+	.input1 = XMC_POSIF_INPUT_PORT_B, /**< Choice of input for Input-2 */
+	.input2 = XMC_POSIF_INPUT_PORT_B, /**< Choice of input for Input-3 */
+	.filter = XMC_POSIF_FILTER_DISABLED /**< Input filter configuration */
+};
+
+XMC_POSIF_HSC_CONFIG_t POSIF_HSC_config =
+{
+	.disable_idle_signal = 1,
+	.sampling_trigger = 0, //HSDA
+	.sampling_trigger_edge = 0 //Rising edge
+};
+
 XMC_GPIO_CONFIG_t HALL_POSIF_0_Hall_PadConfig =
 {
-	.mode = (XMC_GPIO_MODE_t)XMC_GPIO_MODE_INPUT_TRISTATE,
+	.mode = (XMC_GPIO_MODE_t)XMC_GPIO_MODE_INPUT_PULL_DOWN,
 	.output_level = (XMC_GPIO_OUTPUT_LEVEL_t)XMC_GPIO_OUTPUT_LEVEL_LOW,
 };
 
@@ -121,6 +140,8 @@ XMC_GPIO_CONFIG_t HALL_POSIF_0_Hall_PadConfig =
  *********************************************************************************/
 
 void Sensor_Hall_InitPattern(void);
+
+void Sensor_Hall_SetActivePattern(uint8_t hallposition);
 
 uint8_t Sensor_Hall_GetPattern(uint8_t currentPattern);
 
@@ -142,9 +163,19 @@ void Sensor_Hall_InitPattern()
 	XMC_POSIF_HSC_SetHallPatterns(POSIF_PTR, Sensor_Hall_GetPattern(hallposition));
 	XMC_POSIF_HSC_UpdateHallPattern(POSIF_PTR);
 
+	//Save the active hall position for queries
+	Sensor_Hall_SetActivePattern(hallposition);
+
 	//Get the next hall pattern and copy it into the shadow registers
 	hallposition = XMC_POSIF_HSC_GetExpectedPattern(POSIF_PTR);
 	XMC_POSIF_HSC_SetHallPatterns(POSIF_PTR, Sensor_Hall_GetPattern(hallposition));
+}
+
+void Sensor_Hall_SetActivePattern(uint8_t hallposition)
+{
+	ActiveHallPattern.h1 = hallposition & 0x1;
+	ActiveHallPattern.h2 = hallposition & 0x2;
+	ActiveHallPattern.h3 = hallposition & 0x4;
 }
 
 uint8_t Sensor_Hall_GetPattern(uint8_t currentPattern)
@@ -164,11 +195,33 @@ uint8_t Sensor_Hall_GetPattern(uint8_t currentPattern)
  * Global function definitions
  *********************************************************************************/
 
+void POSIF0_0_IRQHandler(void)
+{
+	int sleep_c;
+	uint8_t hallposition;
+
+	/* Set the new Hall pattern */
+	hallposition = XMC_POSIF_HSC_GetExpectedPattern(POSIF_PTR);
+	XMC_POSIF_HSC_SetHallPatterns(POSIF_PTR, Sensor_Hall_GetPattern(hallposition));
+
+	//Save the active hall position for queries
+	Sensor_Hall_SetActivePattern(hallposition);
+
+	/* Peak */
+	XMC_GPIO_ToggleOutput(HALL_EVENT_IO);
+	for(sleep_c = 0; sleep_c < 1024; sleep_c++);
+	XMC_GPIO_ToggleOutput(HALL_EVENT_IO);
+
+	SensorHallCallback();
+}
+
 void Sensor_Hall_Init()
 {
 	XMC_GPIO_Init(HALL_PORT_A, &HALL_POSIF_0_Hall_PadConfig);
 	XMC_GPIO_Init(HALL_PORT_B, &HALL_POSIF_0_Hall_PadConfig);
 	XMC_GPIO_Init(HALL_PORT_C, &HALL_POSIF_0_Hall_PadConfig);
+
+	XMC_GPIO_SetMode(HALL_EVENT_IO, XMC_GPIO_MODE_OUTPUT_PUSH_PULL);
 
 	/* Enable clock, enable prescaler block and configure global control */
 	XMC_CCU4_Init(HALL_CCU, XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR);
@@ -202,6 +255,7 @@ void Sensor_Hall_Init()
 	XMC_CCU4_EnableClock(HALL_CCU, CAPTURE_SLICE_NUMBER);
 
 	/* POSIF Configuration */
+	XMC_POSIF_Init(POSIF_PTR, &POSIF_HALL_config);
 	XMC_POSIF_HSC_Init(POSIF_PTR, &POSIF_HSC_config);
 	XMC_POSIF_EnableEvent(POSIF_PTR, XMC_POSIF_IRQ_EVENT_CHE);
 

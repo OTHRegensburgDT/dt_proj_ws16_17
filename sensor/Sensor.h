@@ -58,6 +58,15 @@ Std_ReturnType Sensor_RegisterHallCallback(Sensor_HallCallbackType callback);
 
 /*
  * <summary>
+ * Gets the current states of the hall sensors that together forms the active hall pattern.
+ * </summary>
+ * <param name="callback">Pointer to memory location where the hall pattern is stored</param>
+ * <returns>E_OK if the active pattern could successfully been read.</returns>
+ */
+Std_ReturnType Sensor_GetCurrentHallPattern(Sensor_HallPattern_t* pattern);
+
+/*
+ * <summary>
  * Gets the current velocity of the motor shaft measured in rotations per second.
  * </summary>
  * <param name="velocity">Pointer to memory location where the velocity is stored.</param>
@@ -84,6 +93,6 @@ Std_ReturnType Sensor_GetAngle(double* angle);
  * <param name="temperature">Pointer to the memory location where the temperature is stored.</param>
  * <returns>E_OK if the temperature was read successful.</returns>
  */
-Std_ReturnType Sensor_GetTemperature(Sensor_TemperatureType sensor, int* temperature);
+Std_ReturnType Sensor_GetTemperature(int* temperature);
 
 #endif /* SENSOR_H */

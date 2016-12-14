@@ -20,15 +20,16 @@
 #define ADC_MODULE (XMC_VADC_GLOBAL_t*)VADC
 #define Adc_Measurement_Handler IRQ_Hdlr_16
 
-#define ADC_CHANNEL_COUNT (2U)
+#define ADC_CHANNEL_COUNT (1U)
 #define ADC_MEASUREMENT_ICLASS_NUM (0U)
 
 #define SENSOR_CFG_A &Temperature_Sensors[0]
-#define SENSOR_CFG_B &Temperature_Sensors[1]
 
-#define ADC_REF_VOLTAGE 5
-#define ADC_RESOLUTION 0.0012
+#define SENSOR_REF_VOLTAGE 5
+#define ADC_RESOLUTION 0.00085
 #define R1 10000
+
+#define NTC_LOOKUP_ENTRIES 151
 
 /*********************************************************************************
  * Local datatypes
@@ -157,7 +158,7 @@ XMC_VADC_CHANNEL_CONFIG_t  Channel_A_ch_config =
   .upper_boundary_select 	  = (uint32_t) XMC_VADC_CHANNEL_BOUNDARY_GROUP_BOUND0,
   .event_gen_criteria         = (uint32_t) XMC_VADC_CHANNEL_EVGEN_NEVER, /*Channel Event disabled */
   .sync_conversion  		  = (uint32_t) 0,                            /* Sync feature disabled*/
-  .alternate_reference        = (uint32_t) XMC_VADC_CHANNEL_REF_ALT_CH0,  /* Internal reference selected */
+  .alternate_reference        = (uint32_t) XMC_VADC_CHANNEL_REF_INTREF,  /* Internal reference selected */
   .result_reg_number          = (uint32_t) 15,                           /* GxRES[15] selected */
   .use_global_result          = (uint32_t) 0, 				             /* Use Group result register*/
   .result_alignment           = (uint32_t) XMC_VADC_RESULT_ALIGN_RIGHT,  /* Result alignment - Right Aligned*/
@@ -178,37 +179,6 @@ XMC_VADC_RESULT_CONFIG_t Channel_A_res_config =
   .event_gen_enable   	   = (uint32_t) 0   /* Disable Result event */
 };
 
-/*********************** Channel_B Configurations ************************************/
-
-
-/*Channel_B ADC Channel configuration structure*/
-XMC_VADC_CHANNEL_CONFIG_t  Channel_B_ch_config =
-{
-  .input_class                = (uint32_t) XMC_VADC_CHANNEL_CONV_GLOBAL_CLASS0,  /* Global ICLASS 0 selected */
-  .lower_boundary_select 	  = (uint32_t) XMC_VADC_CHANNEL_BOUNDARY_GROUP_BOUND0,
-  .upper_boundary_select 	  = (uint32_t) XMC_VADC_CHANNEL_BOUNDARY_GROUP_BOUND0,
-  .event_gen_criteria         = (uint32_t) XMC_VADC_CHANNEL_EVGEN_NEVER, /*Channel Event disabled */
-  .sync_conversion  		  = (uint32_t) 0,                            /* Sync feature disabled*/
-  .alternate_reference        = (uint32_t) XMC_VADC_CHANNEL_REF_ALT_CH0,  /* Internal reference selected */
-  .result_reg_number          = (uint32_t) 3,                           /* GxRES[3] selected */
-  .use_global_result          = (uint32_t) 0, 				             /* Use Group result register*/
-  .result_alignment           = (uint32_t) XMC_VADC_RESULT_ALIGN_RIGHT,  /* Result alignment - Right Aligned*/
-  .broken_wire_detect_channel = (uint32_t) XMC_VADC_CHANNEL_BWDCH_VAGND, /* No Broken wire mode select*/
-  .broken_wire_detect		  = (uint32_t) 0,    		                 /* No Broken wire detection*/
-  .bfl                        = (uint32_t) 0,                            /* No Boundary flag */
-  .channel_priority           = (uint32_t) 0,                   		 /* Lowest Priority 0 selected*/
-  .alias_channel              = (int8_t) -1,                         /* ALIAS is Disabled*/
-};
-
-/*Channel_B Result configuration structure*/
-XMC_VADC_RESULT_CONFIG_t Channel_B_res_config =
-{
-  .data_reduction_control  = (uint8_t) 0,  /* No Accumulation */
-  .post_processing_mode    = (uint32_t) XMC_VADC_DMM_REDUCTION_MODE,
-  .wait_for_read_mode  	   = (uint32_t) 0,  /* Disabled */
-  .part_of_fifo       	   = (uint32_t) 0 , /* No FIFO */
-  .event_gen_enable   	   = (uint32_t) 0   /* Disable Result event */
-};
 
 /* Background request source interrupt handler : End of Measurement Interrupt configuration structure*/
 const ADC_MEASUREMENT_ISR_t backgnd_rs_intr_handle=
@@ -253,20 +223,10 @@ SensorAnalogPort_t Temperature_Sensors[ADC_CHANNEL_COUNT] =
 		.res_handle	 	= (XMC_VADC_RESULT_CONFIG_t*) &Channel_A_res_config,
 		.analog_port 	= XMC_GPIO_PORT14,
 		.analog_pin 	= 1U
-	},
-	/* Temperature Sensor 2 */
-	{
-		.ch_num			= (uint8_t) 2,
-		.group_handle	= (VADC_G_TypeDef*)(void*) VADC_G0,
-		.group_index	= (uint8_t) 0,
-		.ch_handle	 	= (XMC_VADC_CHANNEL_CONFIG_t*) &Channel_B_ch_config,
-		.res_handle	 	= (XMC_VADC_RESULT_CONFIG_t*) &Channel_B_res_config,
-		.analog_port 	= XMC_GPIO_PORT14,
-		.analog_pin 	= 2U
 	}
 };
 
-NTCLookupEntry_t TemperatureLookupTable[151] =
+NTCLookupEntry_t TemperatureLookupTable[NTC_LOOKUP_ENTRIES] =
 {
 	{-40, 190556}, {-39, 183413}, {-38, 175674}, {-37, 167646}, {-36, 159564}, {-35, 151597}, {-34, 143862}, {-33, 136436}, {-32, 129364}, {-31, 122667}, {-30, 116351},
 	{-29, 110409}, {-28, 104827}, {-27, 99584}, {-26, 94660}, {-25, 90032}, {-24, 85677}, {-23, 81574}, {-22, 77703}, {-21, 74044}, {-20, 70581}, {-19, 67298},
@@ -345,6 +305,10 @@ void Sensor_Temperature_ADC_InitMeasurements(void)
 		/* Initialize for configured channels*/
 		XMC_VADC_GROUP_ChannelInit(indexed->group_handle,(uint32_t)indexed->ch_num, indexed->ch_handle);
 
+		/* Set reference voltage*/
+		XMC_VADC_GROUP_ChannelSetInputReference(indexed->group_handle, (uint32_t)indexed->ch_num,
+				(uint32_t)indexed->ch_handle->alternate_reference);
+
 		/* Initialize for configured result registers */
 		XMC_VADC_GROUP_ResultInit(indexed->group_handle, (uint32_t)indexed->ch_handle->result_reg_number,
 								  indexed->res_handle);
@@ -386,7 +350,6 @@ double Sensor_Temperature_ConvertToVoltage(uint16_t adcValue)
 void Adc_Measurement_Handler()
 {
 	SensorVoltages[TEMPERATURE_SENSOR_A] = Sensor_Temperature_ADC_GetConversionResult(SENSOR_CFG_A);
-	SensorVoltages[TEMPERATURE_SENSOR_B] = Sensor_Temperature_ADC_GetConversionResult(SENSOR_CFG_B);
 
 	MeasurementRunning = 0;
 }
@@ -416,9 +379,9 @@ int Sensor_Temperature_Calculate(Sensor_TemperatureType sensor)
 
 	/* Calculate temperature */
 	adcVoltage = Sensor_Temperature_ConvertToVoltage(SensorVoltages[sensor]);
-	res = (adcVoltage * R1) / (ADC_REF_VOLTAGE - adcVoltage);
+	res = (adcVoltage * R1) / (SENSOR_REF_VOLTAGE - adcVoltage);
 
-	while(TemperatureLookupTable[i++].resistence > res);
+	while(TemperatureLookupTable[i++].resistence > res && i < NTC_LOOKUP_ENTRIES);
 
 	return TemperatureLookupTable[i].temperature;
 }
