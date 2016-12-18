@@ -14,9 +14,9 @@ int main()
 
 	DAVE_STATUS_t status;
 	status = DAVE_Init();           /* Initialization of DAVE APPs  */
-	float speed = 0;
-	float power = 0;
-	float passedS;
+	double velocity = 0;
+	double power = 0;
+	float passedMs; // milliseconds passed since last call
 	int i, j;
 	Regulation_VelocityVariables.targetValue = 100.f;
 	Regulation_VelocityVariables.Kp = 0.6;
@@ -42,19 +42,21 @@ int main()
 	// main loop
     while(1U)
 	{
-		speed += power;
 
-		for (i = 0; i < 80; i++)for (j = 0; j < 100000; j++);
+    	// busy wait and assume it has been like 5 milliseconds
+    	for (i = 0; i < 80; i++);
+    	passedMs = 2;
 
-
-		passedS = 2;
-
-		power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables), passedS, speed);
 		// com
+    	COMHANDLER_UPDATE_PID_VALUES();
+
 
 		// read sensor
+		Sensor_GetVelocity(&velocity);
 
-		// regulate
+		// regulate velocity
+		power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables), passedMs, velocity);
+		Motor_SetVelocityPower(power);
 	}
     return 0;
 }

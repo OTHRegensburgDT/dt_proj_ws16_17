@@ -1,7 +1,7 @@
 #ifndef _SENSOR_HANDLER_H_
 #define _SENSOR_HANDLER_H_
 
-#include "Sensor.h"
+#include "Sensor/Sensor.h"
 
 /*
 * <summary>
