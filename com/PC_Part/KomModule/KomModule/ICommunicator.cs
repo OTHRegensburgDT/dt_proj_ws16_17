@@ -3,15 +3,41 @@ namespace KomModule
 {
     public interface ICommunicator
     {
-        //getter für aktuelles Sensordatenobjekt
-        Sensordata getData();
-        //event neue Daten liegen vor
-        event Action newSensordata;
-        //start sending regulation parameters
+        /*
+         * getData
+         * return: received Sensordata object
+         * description: method returns the received sensordata object
+         */
+        Sensordata GetData();
+
+        /*
+         * newSensordata
+         * description: event to be thrown when new Sensordata object
+         * is available
+         */
+        event Action NewSensordata;
+
+        /*
+         * SendParams
+         * return: boolean value if send was successful
+         * description: start sending of regulation parameters
+         *      SetParams should be called first
+         */
         bool SendParams();
-        //provide regulation parameters
+
+        /*
+         * SetParams
+         * parameters: RegulationParam object with new parameters for motor regulation
+         * return: boolean value if parameters were set successfully
+         * description: set regulation parameters before send is issued
+         */
         bool SetParams(RegulationParams para);
-        //status Flag if Com port is open
-        bool isInitialized();
+
+        /*
+         * isInitialized
+         * return: boolean value if Communication was initialized
+         * description: is communication initialized? (means: com port open)
+         */
+        bool IsInitialized();
     }
 }

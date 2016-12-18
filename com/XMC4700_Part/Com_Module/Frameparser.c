@@ -12,7 +12,7 @@
 bool FrameToProto(uint8_t* buffer, int* size){
 	bool status = false;
 	uint32_t CRCResult;
-	CRC_SW_CalculateCRC(&CRC_SW_0, buffer, *size);
+	CRC_SW_CalculateCRC(&CRC_SW_0, buffer+1, (*size)-1);
 	CRCResult = CRC_SW_GetCRCResult(&CRC_SW_0);
 
 	//check if Message was transferred correctly overall-crc == 0

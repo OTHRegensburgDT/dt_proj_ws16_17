@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:MotorXPGUIMVVM.Converter"
+                    xmlns:gauge="clr-namespace:MotorXPGUIMVVM.Controls.Gauge">
+    <Style x:Key="GaugeStyle" TargetType="{x:Type gauge:Gauge}" >
+        <Setter Property="Margin" Value="0 8 0 0"/>
+        <Setter Property="MinAngle" Value="4.7"/>
+        <Setter Property="MaxAngle" Value="7.85"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <!--<Setter Property="Height" Value="160"/>
+        <Setter Property="Width" Value="200"/>-->
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="StrokeLength" Value="0.5"/>
+        <Setter Property="Strokes" Value="20"/>
+
+
+
+
+    </Style>
+</ResourceDictionary>

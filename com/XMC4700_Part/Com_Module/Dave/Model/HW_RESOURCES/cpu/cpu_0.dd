@@ -350,5 +350,24 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="#0" description="interrupt disabled"/>
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="#1" description="interrupt enabled."/>
   </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="USIC0_5_IRQHandler" URI="http://resources/48.0.0/peripheral/cpu/0/nvic/interrupt/89">
+    <resourcesList name="iser_setena" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/nvic_iser2/setena25"/>
+    <resourcesList name="icer_clrena" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/nvic_icer2/clrena25"/>
+    <resourcesList name="ispr_setpend" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/nvic_ispr2/setpend25"/>
+    <resourcesList name="icpr_clrpend" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/nvic_icpr2/clrpend25"/>
+    <resourcesList name="iabr_active" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/nvic_iabr2/active25"/>
+    <resourcesList name="ipr_pri" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/nvic_ipr22/pri_89"/>
+    <resourcesList name="signal_in" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/usic0_5_irqhandler"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="SETENA25" URI="http://resources/48.0.0/peripheral/cpu/0/nvic_iser2/setena25" value="0x00000000" toolTipHelpDescription="Interrupt set-enable bits" defaultValue="0x00000000" startPos="25" stopPos="25" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="#0" description="interrupt disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="#1" description="interrupt enabled."/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="SYSTICK" URI="http://resources/48.0.0/peripheral/cpu/0/systick">
+    <resourcesList name="csr" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/syst_csr"/>
+    <resourcesList name="rvr" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/syst_rvr"/>
+    <resourcesList name="cvr" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/syst_cvr"/>
+    <resourcesList name="calib" requiredResourceUri="http://resources/48.0.0/peripheral/cpu/0/syst_calib"/>
+  </provided>
   <addressBlock offset="0x0" size="0x1000" usage="registers"/>
 </ResourceModel:Peripheral>

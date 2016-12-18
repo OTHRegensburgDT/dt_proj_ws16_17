@@ -1,50 +1,120 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Google.Protobuf;
+﻿using Google.Protobuf;
+using MotorXP.Protobuf.ParamMSg;
 using MotorXP.Protobuf.SensorMSg;
+using System;
+using System.Collections.Generic;
 
 namespace KomModule
 {
-    public class Protoparser
+    public static class Protoparser
     {
-        public static Sensordata ByArrtoSData(byte[] InputData)
+        public static Sensordata ByArrtoSData(byte[] inputData)
         {
-            Sensordata retVal = new Sensordata();
-            SensorMsg protoMsg;
+            var retVal = new Sensordata {DataTable = new SortedList<ushort, double>()};
 
-            retVal.DataTable = new SortedList<ushort, Double>();
 
             //create ProtoBuf Message from byteArray
-            protoMsg = SensorMsg.Parser.ParseFrom(InputData);
-            //build Sensordata object
-            retVal.SeqNr = protoMsg.SequenceNr;
-            for(int i = 0; i < protoMsg.DataTable.Count; i++)
+            try
             {
-                retVal.DataTable.Add((UInt16)protoMsg.DataTable[i].SensorId, protoMsg.DataTable[i].Data);
+                var protoMsg = SensorMsg.Parser.ParseFrom(inputData);
+                //build Sensordata object
+                retVal.SeqNr = protoMsg.SequenceNr;
+                foreach (var dataEntry in protoMsg.DataTable)
+                {
+                    retVal.DataTable.Add((ushort)dataEntry.SensorId, dataEntry.Data);
+                }
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("Input Array does not contain valid Sensordata!");
             }
             return retVal;
         }
 
-        public static byte[] SDatatoByArrr(Sensordata InputData)
+        public static byte[] SDatatoByArrr(Sensordata inputData)
         {
-            SensorMsg protoMsg = new SensorMsg();
+            var protoMsg = new SensorMsg {SequenceNr = inputData.SeqNr};
 
             //build ProtoBuf Message
-            protoMsg.SequenceNr = InputData.SeqNr;
-            foreach (var tabRow in InputData.DataTable)
+            foreach (var tabRow in inputData.DataTable)
             {
-                DataEntry entry = new DataEntry();
-                entry.SensorId = tabRow.Key;
-                entry.Data = tabRow.Value;
+                var entry = new DataEntry
+                {
+                    SensorId = tabRow.Key,
+                    Data = tabRow.Value
+                };
                 protoMsg.DataTable.Add(entry);
             }
 
             //create string from message
             return protoMsg.ToByteArray();
+        }
+
+        public static byte[] RParatoByArr(RegulationParams inputData)
+        {
+            var protoMsg = new RegParams();
+
+            //assemble message
+            if (inputData.ParamD < 0.001 || inputData.ParamD > 0.001)
+            {
+                protoMsg.ParaD = inputData.ParamD;
+            }
+            if (inputData.ParamD < 0.001 || inputData.ParamD > 0.001)
+            {
+                protoMsg.ParaI = inputData.ParamI;
+            }
+            if (inputData.ParamD < 0.001 || inputData.ParamD > 0.001)
+            {
+                protoMsg.ParaP = inputData.ParamP;
+            }
+
+            protoMsg.TgtVal = inputData.TargetVal;
+
+            switch (inputData.RegTarget)
+            {
+                case ReguTarget.Angle:
+                    protoMsg.Target = 0;
+                    break;
+                case ReguTarget.Temperature:
+                    protoMsg.Target = 1;
+                    break;
+                case ReguTarget.Velocity:
+                    protoMsg.Target = 2;
+                    break;
+                default:
+                    throw new KeyNotFoundException("Wrong Target!");
+            }
+
+            //create byte Array from message
+            return protoMsg.ToByteArray();
+        }
+        public static RegulationParams ByArrtoRPara(byte[] inputData)
+        {
+            var retVal = new RegulationParams();
+            //create protoBuf from byte[]
+            var protoMsg = RegParams.Parser.ParseFrom(inputData);
+
+            //build parameter class
+            retVal.TargetVal = protoMsg.TgtVal;
+            retVal.ParamD = protoMsg.ParaD;
+            retVal.ParamI = protoMsg.ParaI;
+            retVal.ParamP = protoMsg.ParaP;
+
+            switch (protoMsg.Target)
+            {
+                case 0:
+                    retVal.RegTarget = ReguTarget.Angle;
+                    break;
+                case 1:
+                    retVal.RegTarget = ReguTarget.Temperature;
+                    break;
+                case 2:
+                    retVal.RegTarget = ReguTarget.Velocity;
+                    break;
+                default:
+                    throw new KeyNotFoundException("Wrong target!");
+            }
+            return retVal;
         }
     }
 }

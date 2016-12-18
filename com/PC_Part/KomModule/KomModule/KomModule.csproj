@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Crc16ccitt.cs" />
     <Compile Include="FrameParser.cs" />
+    <Compile Include="ParamMsg.cs" />
     <Compile Include="Protoparser.cs" />
     <Compile Include="SensorMsg.cs" />
     <Compile Include="UartCommunicator.cs" />
@@ -55,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ParamMsg.proto" />
     <None Include="SensorMsg.proto" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,7 +9,18 @@
 #define COMMUNICATION_H_
 
 #include <stdbool.h>
-#include "com_structs.h"
+#include "com_types.h"
+/*
+ * bool getParamFlag()
+ * Function:
+ * returns the flag if new parameters are available
+ * Params:
+ * none
+ * Return:
+ * boolean value indicating if new parameters have arrived
+ */
+bool getParamFlag(void);
+
 /*
  * bool initCom()
  * Function:

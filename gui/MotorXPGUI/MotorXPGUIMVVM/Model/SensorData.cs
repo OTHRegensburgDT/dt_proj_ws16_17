@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MotorXPGUIMVVM.Model
 {
-    class SensorData
+    public class SensorData
     {
+        public ulong Timestamp { get; set; }
+        public SortedList<ushort, ulong> DataTable { get; set; }
     }
 }

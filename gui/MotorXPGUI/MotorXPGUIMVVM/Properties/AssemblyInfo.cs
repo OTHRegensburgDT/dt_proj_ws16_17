@@ -1,6 +1,5 @@
-﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -53,3 +52,6 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.0.0.1")]
 [assembly: AssemblyFileVersion("0.0.0.1")]
+[assembly: InternalsVisibleTo("MotorXPGUIMVVM.Tests")]
+[assembly: InternalsVisibleTo("MotorXPGUIMVVM.Explorables")]
+

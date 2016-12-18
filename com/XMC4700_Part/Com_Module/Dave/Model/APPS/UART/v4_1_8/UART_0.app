@@ -57,7 +57,7 @@
       <value variableName="sv0" solverValue="dma8"/>
     </solverVarMap>
   </hwResources>
-  <hwResources name="DMA channel Rx" URI="http://resources/4.1.8/app/UART/0/hwres_dma_ch_rx" resourceGroupUri="peripheral/sv0/0/ch/*" solverVariable="true" mResGrpUri="peripheral/sv0/0/ch/*">
+  <hwResources name="DMA channel Rx" URI="http://resources/4.1.8/app/UART/0/hwres_dma_ch_rx" resourceGroupUri="resources/48.0.0/peripheral/dma8/0/ch/5" solverVariable="true" mResGrpUri="peripheral/sv0/0/ch/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/gpdma0/gpdma0_0.dd#//@provided.0"/>
     <solverVarMap index="1">
       <value variableName="sv0" solverValue="dma8"/>
@@ -72,7 +72,7 @@
   <hwResources name="DLR channel Tx" URI="http://resources/4.1.8/app/UART/0/hwres_dlr_ch_tx" resourceGroupUri="peripheral/dlr/0/ch/*" mResGrpUri="peripheral/dlr/0/ch/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/dlr/dlr_0.dd#//@provided.6"/>
   </hwResources>
-  <hwResources name="DLR channel Rx" URI="http://resources/4.1.8/app/UART/0/hwres_dlr_ch_rx" resourceGroupUri="peripheral/dlr/0/ch/*" mResGrpUri="peripheral/dlr/0/ch/*">
+  <hwResources name="DLR channel Rx" URI="http://resources/4.1.8/app/UART/0/hwres_dlr_ch_rx" resourceGroupUri="resources/48.0.0/peripheral/dlr/0/ch/2" mResGrpUri="peripheral/dlr/0/ch/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/dlr/dlr_0.dd#//@provided.3"/>
   </hwResources>
   <hwResources name="Receive Pin" URI="http://resources/4.1.8/app/UART/0/__pin_hwres_port_pad_uart_rx" resourceGroupUri="devicepackage/0/108" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">

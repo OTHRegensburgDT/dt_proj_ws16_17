@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KomModule
+﻿namespace KomModule
 {
-    public class Frameparser
+    public static class Frameparser
     {
-        private static Crc16Ccitt crcGen = new Crc16Ccitt(InitialCrcValue.NonZero1);
-        public static byte[] DecapsuleFrame(byte[] InputData)
+        private static readonly Crc16Ccitt CrcGen = new Crc16Ccitt(InitialCrcValue.NonZero1);
+        public static byte[] DecapsuleFrame(byte[] inputData)
         {
             byte[] corrCrc = { 0, 0 };
-            byte[] retVal = new byte[InputData.Length - 2];
-            byte[] crc = crcGen.ComputeChecksumBytes(InputData);
+            var tmp = new byte[inputData.Length - 1];
+            var retVal = new byte[inputData.Length - 3];
+            for (var i = 0; i < tmp.Length; i++)
+            {
+                tmp[i] = inputData[i + 1];
+            }
+            var crc = CrcGen.ComputeChecksumBytes(tmp);
             if(crc[0] == corrCrc[0] && crc[1] == corrCrc[1])
             {
                 //correct crc
-                for (int i = 0; i < retVal.Length; i++)
+                for (var i = 0; i < retVal.Length; i++)
                 {
-                    retVal[i] = InputData[i];
+                    retVal[i] = tmp[i];
                 }
             }
             else
@@ -29,18 +28,18 @@ namespace KomModule
             }
                 return retVal;
         }
-        public static byte[] EncapsuleFrame(byte[] OutputData)
+        public static byte[] EncapsuleFrame(byte[] outputData)
         {
-            Int32 length = OutputData.Length;
-            byte[] retVal = new byte[length + 2];
-            UInt16 crc = crcGen.ComputeChecksum(OutputData);
-            for (int i = 0; i < length; i++)
+            var length = (byte)outputData.Length;
+            var retVal = new byte[length + 3];
+            var crc = CrcGen.ComputeChecksum(outputData);
+            for (var i = 0; i < length; i++)
             {
-                retVal[i] = OutputData[i];
+                retVal[i+1] = outputData[i];
             }
-            retVal[length] = (byte)(crc >> 8);
-            retVal[length + 1] = (byte)crc;
-
+            retVal[length + 1] = (byte)(crc >> 8);
+            retVal[length + 2] = (byte)crc;
+            retVal[0] = (byte)(length + 3);
             return retVal;
         }
     }

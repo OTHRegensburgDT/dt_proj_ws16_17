@@ -1,26 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KomModule
+﻿namespace KomModule
 {
+    public enum ReguTarget { Angle, Temperature, Velocity };
     public class RegulationParams
     {
-        private UInt64 timestamp;
-        private KeyValuePair<UInt16, UInt64> paramTable;
+        public ReguTarget RegTarget { get; set; }
 
-        public KeyValuePair<UInt16, UInt64> ParamTable
-        {
-            get { return paramTable; }
-            set { paramTable = value; }
-        }
+        public float TargetVal { get; set; }
 
-        public UInt64 Timestamp
-        {
-            get { return timestamp; }
-            set { timestamp = value; }
-        }
+        public float ParamD { get; set; }
+
+        public float ParamI { get; set; }
+
+        public float ParamP { get; set; }
     }
 }

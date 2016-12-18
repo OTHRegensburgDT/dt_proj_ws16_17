@@ -11,6 +11,8 @@
 #include <DAVE.h>                 //Declarations from DAVE Code Generation (includes SFR declaration)
 #include <malloc.h>
 #include "Paramsparser.h"
+#include "communication.h"
+#include "unitTest.h"
 /**
 
  * @brief main() - Application entry point
@@ -23,8 +25,10 @@
 
 int main(void)
 {
+	bool testval;
   DAVE_STATUS_t status;
   status = DAVE_Init();           /* Initialization of DAVE APPs  */
+  Sensordata testData;
   uint8_t buffer[256];
   int size = 256;
 
@@ -38,23 +42,15 @@ int main(void)
 
     }
   }
+  testval = comTest_frameCaps();
+  initCom();
   param_p = 1.1;
   param_i = 2.2;
   param_d = 3.3;
-  angle_aim = 45;
-
-  ParamToProto(buffer, &size);
-
-  param_p = 6.6;
-  param_i = 7.7;
-  param_d = 8.8;
-  angle_aim = 90;
-
-  ProtoToParam(buffer, size);
+  target_val = 45;
 
   /* Placeholder for user application code. The while loop below can be replaced with user application code. */
-  while(1U)
-  {
 
-  }
+  testval = comTest_sendData();
+  return 0;
 }

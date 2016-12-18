@@ -10,9 +10,8 @@
 
 #define VELOCITYID 1u
 #define ANGLEID 2u
-#define TEMP_1ID 3u
-#define TEMP_2ID 4u
-#define HALLID 5u
+#define TEMP_ID 3u
+#define HALLID 4u
 
 
 #endif /* SENSORIDS_H_ */

@@ -6,11 +6,11 @@
 using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
-using scg = global::System.Collections.Generic;
-namespace MotorXP.Protobuf.SensorMSg {
+namespace MotorXP.Protobuf.SensorMSg
+{
 
-  /// <summary>Holder for reflection information generated from SensorMsg.proto</summary>
-  public static partial class SensorMsgReflection {
+    /// <summary>Holder for reflection information generated from SensorMsg.proto</summary>
+    public static partial class SensorMsgReflection {
 
     #region Descriptor
     /// <summary>File descriptor for SensorMsg.proto</summary>

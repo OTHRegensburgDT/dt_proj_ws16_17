@@ -1,12 +1,21 @@
-﻿<Window x:Class="MotorXPGUIMVVM.Views.MainView"
+﻿<UserControl x:Class="MotorXPGUIMVVM.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:uc="clr-namespace:MotorXPGUIMVVM.UserControls"
         mc:Ignorable="d ignore"
+        Name="MainViewControl"
         DataContext="{Binding MainView, Source={StaticResource Locator}}">
+    <!--<TabControl>
+        <TabItem Header="Test1">
 
-    <Grid>
-    </Grid>
-</Window>
+        </TabItem>
+        <TabItem Header="Test2">
+            <uc:GaugeAndLineChartTest/>
+        </TabItem>
+    </TabControl>-->
+    <uc:DataDisplay Width="{Binding ElementName= MainViewControl, Path=Width}"/>
+
+</UserControl>

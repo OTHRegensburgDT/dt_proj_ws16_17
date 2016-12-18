@@ -81,7 +81,7 @@ void UART_0_dma_rx_handler(XMC_DMA_CH_EVENT_t event);
 /*USIC channel configuration*/
 const XMC_UART_CH_CONFIG_t UART_0_channel_config =
 {
-  .baudrate      = 19200U,
+  .baudrate      = 9600U,
   .data_bits     = 8U,
   .frame_length  = 8U,
   .stop_bits     = 1U,

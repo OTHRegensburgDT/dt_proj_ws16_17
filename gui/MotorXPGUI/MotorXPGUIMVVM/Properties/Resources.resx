@@ -114,4 +114,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Metronom_BeatsPerMinute_BPM_must_be_grather_than_0_seconds" xml:space="preserve">
+    <value>BPM must be grather than 0 seconds</value>
+  </data>
+  <data name="RingBuffer_RingBuffer_Must_be_greater_than_zero" xml:space="preserve">
+    <value>Must be greater than zero</value>
+  </data>
 </root>

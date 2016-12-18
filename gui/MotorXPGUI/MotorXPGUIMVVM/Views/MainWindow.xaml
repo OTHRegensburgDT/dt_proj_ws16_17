@@ -1,25 +1,22 @@
-﻿<Window x:Class="MotorXPGUIMVVM.Views.MainWindow"
+﻿<controls:MetroWindow x:Class="MotorXPGUIMVVM.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:local="clr-namespace:MotorXPGUIMVVM.Views"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
-        Title="MVVM Light Application"
+        Height="600"
+        Width="900"
+        Title="MotorXP"
+        ShowIconOnTitleBar="True"
+        Name="MainContainer"
+        Icon="../Resources/MotorXP.png"
+        GlowBrush="{DynamicResource AccentColorBrush}"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Skins/MainSkin.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
 
-    <Grid x:Name="LayoutRoot">
-        <local:MainView/>
-    </Grid>
-</Window>
+    <local:MainView Width="{Binding ElementName=MainContainer, Path=Width}"/>
+
+</controls:MetroWindow>
+

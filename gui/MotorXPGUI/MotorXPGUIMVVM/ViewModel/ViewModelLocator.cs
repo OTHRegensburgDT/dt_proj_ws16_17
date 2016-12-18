@@ -9,10 +9,7 @@
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
 
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using MotorXPGUIMVVM.Model;
 
 namespace MotorXPGUIMVVM.ViewModel
 {
@@ -27,19 +24,11 @@ namespace MotorXPGUIMVVM.ViewModel
     {
         static ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            
+            ServiceLocator.SetLocatorProvider(() => new Bootstrapper());
 
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
-            }
-            else
-            {
-                SimpleIoc.Default.Register<IDataService, DataService>();
-            }
 
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<MainViewViewModel>();
+
         }
 
         /// <summary>
@@ -68,6 +57,20 @@ namespace MotorXPGUIMVVM.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<MainViewViewModel>();
             }
+        }
+        /// <summary>
+        /// Gets the DataDisplayViewModel property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public DataDisplayViewModel DataDisplayViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<DataDisplayViewModel>();
+            }
+
         }
 
         /// <summary>

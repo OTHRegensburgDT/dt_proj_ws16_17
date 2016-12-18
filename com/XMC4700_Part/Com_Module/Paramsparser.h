@@ -10,13 +10,13 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "com_types.h"
 /*------------external variables ----------------*/
-extern bool newParams;
-extern double param_p;
-extern double param_i;
-extern double param_d;
-extern double velo_aim;
-extern short angle_aim;
+extern float param_p;
+extern float param_i;
+extern float param_d;
+extern float target_val;
+extern reguTarget regulationTarget;
 
 /*-------------------global functions -------------*/
 /*
