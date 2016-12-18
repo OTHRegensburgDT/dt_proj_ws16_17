@@ -36,17 +36,14 @@ int main() {
 	// initialize
 	COMHANDLER_INITIALIZE();
 	MOTORHANDLER_INITIALIZE();
-	SENSORHANDLER_INITIALIZE()
-	;
+	SENSORHANDLER_INITIALIZE();
 
 	// main loop
 	while (1U) {
 
 		// busy wait and assume it has been like 10 milliseconds
-		for (j = 0UL; j < 3; ++j) {
-			for (i = 0UL; i < 720000; ++i) {
-				//asm("nop");
-			}
+		for (i = 0UL; i < 720000; ++i) {
+			//asm("nop");
 		}
 		passedMs = 10;
 

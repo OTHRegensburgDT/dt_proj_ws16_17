@@ -122,6 +122,10 @@ namespace KomModule
             //read Framelength
             spL.Read(inLength, 0, 1);
             //subtract length field, as it was already read
+            if (inLength[0] == 0 || inLength[0] == 1)
+            {
+                var a = spL.BytesToRead;
+            }
             inLength[0]--;
             while(spL.BytesToRead < inLength[0])
             { //wait for Message end
@@ -132,7 +136,7 @@ namespace KomModule
             buf[0] = (byte)(inLength[0] + 1);
             //read rest of frame
             spL.Read(buf, 1, buf[0]-1);
-                
+
             //parse message
             buf = Frameparser.DecapsuleFrame(buf);
             _recData = Protoparser.ByArrtoSData(buf);
