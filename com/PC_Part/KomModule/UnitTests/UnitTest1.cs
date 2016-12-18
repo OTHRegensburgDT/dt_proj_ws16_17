@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Threading;
 using KomModule;
@@ -25,6 +26,11 @@ namespace UnitTests
                 while (_getDataFlag == false){ }
                 _getDataFlag = false;
                 data = com.GetData();
+                Console.WriteLine(data.SeqNr);
+                foreach (var d in data.DataTable)
+                {
+                    Console.WriteLine(d);
+                }
             }
 
             if (data.DataTable.Count == 4)

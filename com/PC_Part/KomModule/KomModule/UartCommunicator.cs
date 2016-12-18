@@ -137,7 +137,7 @@ namespace KomModule
             buf = Frameparser.DecapsuleFrame(buf);
             _recData = Protoparser.ByArrtoSData(buf);
 
-            _dataArrived();
+            _dataArrived?.Invoke();
         }
     }
 }

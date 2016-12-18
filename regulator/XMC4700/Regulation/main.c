@@ -9,16 +9,14 @@
 #include "motorHandler.h"
 #include "RegulationHandler.h"
 
-
-int main()
-{
+int main() {
 
 	DAVE_STATUS_t status;
-	status = DAVE_Init();           /* Initialization of DAVE APPs  */
+	status = DAVE_Init(); /* Initialization of DAVE APPs  */
 	double velocity = 0; // crnt motor velocity
 	double power = 0; // crnt motor power
 	float passedMs; // milliseconds passed since last call
-	int i; // iterator for busy waiting
+	int i, j; // iterator for busy waiting
 
 	// initial PID values / target value
 	Regulation_VelocityVariables.targetValue = 100.f;
@@ -26,44 +24,47 @@ int main()
 	Regulation_VelocityVariables.Ki = 0.2;
 	Regulation_VelocityVariables.Kd = 0.03;
 
-	  if(status != DAVE_STATUS_SUCCESS)
-	  {
-	    /* Placeholder for error handler code. The while loop below can be replaced with an user error handler. */
-	    XMC_DEBUG("DAVE APPs initialization failed\n");
+	if (status != DAVE_STATUS_SUCCESS) {
+		/* Placeholder for error handler code. The while loop below can be replaced with an user error handler. */
+		XMC_DEBUG("DAVE APPs initialization failed\n");
 
-	    while(1U)
-	    {
+		while (1U) {
 
-	    }
-	  }
+		}
+	}
 
 	// initialize
 	COMHANDLER_INITIALIZE();
 	MOTORHANDLER_INITIALIZE();
-	SENSORHANDLER_INITIALIZE();
+	SENSORHANDLER_INITIALIZE()
+	;
 
 	// main loop
-    while(1U)
-	{
+	while (1U) {
 
-    	// busy wait and assume it has been like 5 milliseconds
-    	for (i = 0; i < 80; i++);
-    	passedMs = 2;
+		// busy wait and assume it has been like 10 milliseconds
+		for (j = 0UL; j < 3; ++j) {
+			for (i = 0UL; i < 720000; ++i) {
+				//asm("nop");
+			}
+		}
+		passedMs = 10;
 
 		// com
-    	COMHANDLER_RECEIVE();
-    	COMHANDLER_UPDATE_PID_VALUES();
-
+		COMHANDLER_RECEIVE();
+		COMHANDLER_UPDATE_PID_VALUES();
 
 		// read sensor
 		Sensor_GetVelocity(&velocity);
 
 		// regulate velocity
-		power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables), passedMs, velocity);
+		power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables),
+				passedMs, velocity)
+		;
 		Motor_SetVelocityPower(power);
 
 		// send new values
 		ComHandler_SendSensorReadings(velocity);
 	}
-    return 0;
+	return 0;
 }

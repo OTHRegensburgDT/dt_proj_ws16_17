@@ -3,6 +3,8 @@
 
 Std_ReturnType ComHandler_SendSensorReadings(double velocity) {
 	SensorDataToSend.velocity = velocity;
+	SensorDataToSend.angle = 5;
+	SensorDataToSend.temperature0 = 9.4;
 	return sendSensorData(&SensorDataToSend) ? E_OK : E_NOT_OK;
 }
 

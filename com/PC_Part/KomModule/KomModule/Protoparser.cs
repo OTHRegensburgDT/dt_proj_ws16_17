@@ -26,7 +26,8 @@ namespace KomModule
             }
             catch (Exception)
             {
-                throw new ArgumentException("Input Array does not contain valid Sensordata!");
+                // TODO re-enable this
+  //              throw new ArgumentException("Input Array does not contain valid Sensordata!");
             }
             return retVal;
         }
