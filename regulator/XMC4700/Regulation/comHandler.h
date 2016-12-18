@@ -8,14 +8,13 @@
 
 #include "Std_Types.h"
 
-static Sensordata SensorDataToSend; // struct containing the information which shall be sent, used in SendSensorReadings
 
 /*
 * <summary>
 * Initializes the communication interface.
 * </summary>
 */
-#define COMHANDLER_INITIALIZE() initCom()
+#define COMHANDLER_INITIALIZE() while(!initCom())
 
 /*
 * <summary>

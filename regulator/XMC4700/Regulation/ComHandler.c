@@ -1,6 +1,8 @@
 #include "ComHandler.h"
 #include "RegulationHandler.h"
 
+static Sensordata SensorDataToSend; // struct containing the information which shall be sent, used in SendSensorReadings
+
 Std_ReturnType ComHandler_SendSensorReadings(double velocity) {
 	SensorDataToSend.velocity = velocity;
 	SensorDataToSend.angle = 5;

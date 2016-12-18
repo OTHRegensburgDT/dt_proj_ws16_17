@@ -38,12 +38,20 @@ int main() {
 	MOTORHANDLER_INITIALIZE();
 	SENSORHANDLER_INITIALIZE();
 
+	for (j = 0UL; j < 30; ++j) {
+		for (i = 0UL; i < 720000; ++i) {
+			asm("nop");
+		}
+	}
+
 	// main loop
 	while (1U) {
 
 		// busy wait and assume it has been like 10 milliseconds
-		for (i = 0UL; i < 720000; ++i) {
-			//asm("nop");
+		for (j = 0UL; j < 3; ++j) {
+			for (i = 0UL; i < 720000; ++i) {
+				asm("nop");
+			}
 		}
 		passedMs = 10;
 

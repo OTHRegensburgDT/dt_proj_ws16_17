@@ -13,8 +13,8 @@
                 tmp[i] = inputData[i + 1];
             }
             var crc = CrcGen.ComputeChecksumBytes(tmp);
-            // TODO remove || true and check if this works
-            if (crc[0] == corrCrc[0] && crc[1] == corrCrc[1] || true)
+
+            if (crc[0] == corrCrc[0] && crc[1] == corrCrc[1])
             {
                 //correct crc
                 for (var i = 0; i < retVal.Length; i++)
