@@ -16,7 +16,7 @@ namespace UnitTests
             var data = new Sensordata();
             // ReSharper disable once UnusedVariable
             var list = new SortedList<ushort, ulong> {{73, 65555}};
-            var com = new UartCommunicator("Com5");
+            var com = new UartCommunicator("COM3");
             com.NewSensordata += CbGetData;
 
             for (var i = 0; i < 3; i++)
