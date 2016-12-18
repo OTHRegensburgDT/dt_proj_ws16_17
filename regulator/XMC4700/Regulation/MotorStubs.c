@@ -2,10 +2,11 @@
 
 extern double stubVelocity;
 
-void Motor_Initialize() {
-
+Std_ReturnType Motor_Initialize() {
+	return E_OK;
 }
 
-void Motor_SetVelocityPower(double to) {
+Std_ReturnType Motor_SetVelocityPower(double to) {
 	stubVelocity += to;
+	return E_OK;
 }

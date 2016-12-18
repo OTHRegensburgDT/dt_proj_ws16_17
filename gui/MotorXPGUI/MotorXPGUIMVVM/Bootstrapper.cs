@@ -31,17 +31,17 @@ namespace MotorXPGUIMVVM
                 .RegisterInstance(mapper)
                 .RegisterType<MainViewViewModel>()
                 .RegisterType<DataDisplayViewModel>()
-                //.RegisterType<ICommunicator, UartCommunicator>()
-                //.RegisterInstance(InitComPort())
-                //.RegisterType<ISensorRepository, SensorRepository>();
-                .RegisterType<ISensorRepository, MockSensorRepository>();
+                .RegisterType<ICommunicator, UartCommunicator>()
+                .RegisterInstance(InitComPort())
+                .RegisterType<ISensorRepository, SensorRepository>();
+                //.RegisterType<ISensorRepository, MockSensorRepository>();
  
         }
 
         private UartCommunicator InitComPort()
         {
 
-            return new UartCommunicator("Com_3");
+            return new UartCommunicator("COM3");
         }
 
         public object GetInstance(Type serviceType)

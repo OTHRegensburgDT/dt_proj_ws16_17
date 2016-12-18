@@ -14,6 +14,7 @@ namespace MotorXPGUIMVVM.ViewModel
         private float _valueP;
         private float _valueI;
         private float _valueD;
+        private float _valueTarget;
 
         public DataDisplayViewModel(ISensorRepository repository)
         {
@@ -66,6 +67,17 @@ namespace MotorXPGUIMVVM.ViewModel
                 RaisePropertyChanged(nameof(ValueD));
             }
         }
+
+        public float ValueTarget
+        {
+            get { return _valueTarget; }
+            set
+            {
+                _valueTarget = value; 
+                RaisePropertyChanged();
+            }
+        }
+
 
         private static void OnSensorDataCollectionShowAll(object o)
         {

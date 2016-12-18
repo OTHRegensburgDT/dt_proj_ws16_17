@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Threading;
 using KomModule;
 
 namespace UnitTests
@@ -105,7 +106,7 @@ namespace UnitTests
         [TestMethod]
         public void TestSendPara()
         {
-            var com = new UartCommunicator("Com5");
+            var com = new UartCommunicator("COM3");
             var paraIn = new RegulationParams
             {
                 ParamD = 1.1f,

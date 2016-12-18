@@ -8,8 +8,10 @@
 #ifndef MOTOR_H_
 #define MOTOR_H_
 
-void Motor_Initialize();
+#include "Std_Types.h"
 
-void Motor_SetVelocityPower(double to);
+Std_ReturnType Motor_Initialize();
+
+Std_ReturnType Motor_SetVelocityPower(double to);
 
 #endif /* MOTOR_H_ */

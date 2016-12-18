@@ -8,6 +8,6 @@
 * Initializes the motor interface.
 * </summary>
 */
-#define MOTORHANDLER_INITIALIZE() Motor_Initialize();
+#define MOTORHANDLER_INITIALIZE() Motor_Initialize()
 
 #endif

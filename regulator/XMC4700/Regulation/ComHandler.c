@@ -1,15 +1,18 @@
 #include "ComHandler.h"
 #include "RegulationHandler.h"
 
-Std_ReturnType ComHandler_SendSensorReadings()  {
-
-	return E_OK;
+Std_ReturnType ComHandler_SendSensorReadings(double velocity) {
+	SensorDataToSend.velocity = velocity;
+	return sendSensorData(&SensorDataToSend) ? E_OK : E_NOT_OK;
 }
 
 Std_ReturnType ComHandler_UpdatePidValues() {
+	// let com process the data
 	processRegulationData();
+
+	// choose the target struct by the regulationTarget
 	struct Regulation_PidValues* TargetValues;
-	switch(regulationTarget) {
+	switch (regulationTarget) {
 	case ANGLE:
 		TargetValues = &Regulation_AngleVariables;
 		break;
@@ -23,9 +26,10 @@ Std_ReturnType ComHandler_UpdatePidValues() {
 		return E_NOT_OK;
 	}
 
-TargetValues->Kp = param_p;
-TargetValues->Ki = 	param_i;
-TargetValues->Kd = param_d;
-TargetValues->targetValue = target_val;
-return E_OK;
+	// set the values
+	TargetValues->Kp = param_p;
+	TargetValues->Ki = param_i;
+	TargetValues->Kd = param_d;
+	TargetValues->targetValue = target_val;
+	return E_OK;
 }

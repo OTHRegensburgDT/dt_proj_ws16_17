@@ -8,6 +8,8 @@
 
 #include "Std_Types.h"
 
+static Sensordata SensorDataToSend; // struct containing the information which shall be sent, used in SendSensorReadings
+
 /*
 * <summary>
 * Initializes the communication interface.
@@ -34,7 +36,7 @@
 * Sends sensor data
 * </summary>
 */
-Std_ReturnType ComHandler_SendSensorReadings();
+Std_ReturnType ComHandler_SendSensorReadings(double velocity);
 
 /*
 * <summary>

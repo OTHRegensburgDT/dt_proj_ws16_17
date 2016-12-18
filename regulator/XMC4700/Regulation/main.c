@@ -3,6 +3,7 @@
 
 #include <DAVE.h>                 //Declarations from DAVE Code Generation (includes SFR declaration)
 #include <malloc.h>
+#include "Std_Types.h"
 #include "comHandler.h"
 #include "sensorHandler.h"
 #include "motorHandler.h"
@@ -14,10 +15,12 @@ int main()
 
 	DAVE_STATUS_t status;
 	status = DAVE_Init();           /* Initialization of DAVE APPs  */
-	double velocity = 0;
-	double power = 0;
+	double velocity = 0; // crnt motor velocity
+	double power = 0; // crnt motor power
 	float passedMs; // milliseconds passed since last call
-	int i, j;
+	int i; // iterator for busy waiting
+
+	// initial PID values / target value
 	Regulation_VelocityVariables.targetValue = 100.f;
 	Regulation_VelocityVariables.Kp = 0.6;
 	Regulation_VelocityVariables.Ki = 0.2;
@@ -48,6 +51,7 @@ int main()
     	passedMs = 2;
 
 		// com
+    	COMHANDLER_RECEIVE();
     	COMHANDLER_UPDATE_PID_VALUES();
 
 
@@ -57,6 +61,9 @@ int main()
 		// regulate velocity
 		power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables), passedMs, velocity);
 		Motor_SetVelocityPower(power);
+
+		// send new values
+		ComHandler_SendSensorReadings(velocity);
 	}
     return 0;
 }
