@@ -1,4 +1,4 @@
-#include "ComHandler.h"
+/*#include "ComHandler.h"
 
 // communication.h
 bool initCom(void) { return true; }
@@ -23,4 +23,4 @@ extern bool ParamsToProto(uint8_t* protoMsg, int* size) { return true; }
 // Sensorparser.h
 extern bool ProtoToSensor(Sensordata* outData, uint8_t* protoMsg, int size) { return true; }
 
-extern bool SensorToProto(uint8_t* protoMsg, int* size, Sensordata* inData) { return true; }
+extern bool SensorToProto(uint8_t* protoMsg, int* size, Sensordata* inData) { return true; }*/

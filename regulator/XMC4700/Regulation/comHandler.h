@@ -1,25 +1,20 @@
 #ifndef _COM_HANDLER_H_
 #define _COM_HANDLER_H_
 
-#include "../../../com/XMC4700_Part/Com_Module/communication.h"
-#include "../../../com/XMC4700_Part/Com_Module/Frameparser.h"
-#include "../../../com/XMC4700_Part/Com_Module/Paramsparser.h"
-#include "../../../com/XMC4700_Part/Com_Module/Sensorparser.h"
+#include "Com/communication.h"
+#include "Com/Frameparser.h"
+#include "Com/Paramsparser.h"
+#include "Com/Sensorparser.h"
 
-
-#include "../../../com/XMC4700_Part/Com_Module/com_structs.h"
-#include "../../../com/XMC4700_Part/Com_Module/Sensorparser.h"
 
 /*
 * <summary>
 * Initializes the communication interface.
 * </summary>
 */
-#define COMHANDLER_INITIALIZE() ;
+#define COMHANDLER_INITIALIZE() initCom()
 
-// buffer and size for paramsparser.h
-uint8_t buffer[256];
-int size = 256;
+
 
 
 #endif
