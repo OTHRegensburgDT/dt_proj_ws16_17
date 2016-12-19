@@ -1,5 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Threading;
 using KomModule;
 
 namespace UnitTests
@@ -16,7 +18,7 @@ namespace UnitTests
             var data = new Sensordata();
             // ReSharper disable once UnusedVariable
             var list = new SortedList<ushort, ulong> {{73, 65555}};
-            var com = new UartCommunicator("Com5");
+            var com = new UartCommunicator("COM3");
             com.NewSensordata += CbGetData;
 
             for (var i = 0; i < 3; i++)
@@ -24,6 +26,11 @@ namespace UnitTests
                 while (_getDataFlag == false){ }
                 _getDataFlag = false;
                 data = com.GetData();
+                Console.WriteLine(data.SeqNr);
+                foreach (var d in data.DataTable)
+                {
+                    Console.WriteLine(d);
+                }
             }
 
             if (data.DataTable.Count == 4)
@@ -105,7 +112,7 @@ namespace UnitTests
         [TestMethod]
         public void TestSendPara()
         {
-            var com = new UartCommunicator("Com5");
+            var com = new UartCommunicator("COM3");
             var paraIn = new RegulationParams
             {
                 ParamD = 1.1f,

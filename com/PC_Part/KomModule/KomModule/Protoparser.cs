@@ -26,7 +26,7 @@ namespace KomModule
             }
             catch (Exception)
             {
-                throw new ArgumentException("Input Array does not contain valid Sensordata!");
+                throw;
             }
             return retVal;
         }

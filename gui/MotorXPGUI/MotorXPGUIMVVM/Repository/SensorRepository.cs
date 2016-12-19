@@ -3,6 +3,7 @@ using MotorXPGUIMVVM.Model;
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Unity;
 
@@ -16,9 +17,9 @@ namespace MotorXPGUIMVVM.Repository
         private BindingList<SensorDataCollection> _sensorDataCollections;
 
         [InjectionConstructor]
-        public SensorRepository(ICommunicator com)
+        public SensorRepository()
         {
-            _com = com;
+            _com = new UartCommunicator("COM3");
             _com.NewSensordata += OnNewSensorData;
             HallSensorDataCollections = InitHallPattern();
             _sensorDataCollections = new BindingList<SensorDataCollection>();
@@ -70,10 +71,12 @@ namespace MotorXPGUIMVVM.Repository
                 if ( sensorDataCollection == null)
                 {
                     sensorDataCollection = new SensorDataCollection((SensorDataType)data.Key);
-                    SensorDataCollections.Add(sensorDataCollection);
+                    Application.Current.Dispatcher.Invoke(() => SensorDataCollections.Add(sensorDataCollection));
+
                 }
 
-                sensorDataCollection.AddValue(CheckMinValue(data.Value, sensorDataCollection));
+                Application.Current.Dispatcher.Invoke(() => sensorDataCollection.AddValue(CheckMinValue(data.Value, sensorDataCollection)));
+              
 
                 // add hallpattern if angle value is arrived
                 if ((SensorDataType) data.Key == SensorDataType.Angle)
@@ -88,9 +91,12 @@ namespace MotorXPGUIMVVM.Repository
         }
         private void AddHallPattern(double angle)
         {
-            HallSensorDataCollections[0].Values.Add(GetHallA(angle));
-            HallSensorDataCollections[1].Values.Add(GetHallB(angle));
-            HallSensorDataCollections[2].Values.Add(GetHallC(angle));
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                HallSensorDataCollections[0].Values.Add(GetHallA(angle));
+                HallSensorDataCollections[1].Values.Add(GetHallB(angle));
+                HallSensorDataCollections[2].Values.Add(GetHallC(angle));
+            });
         }
         private static double GetHallA(double angle)
         {
