@@ -1,16 +1,15 @@
 #include "ComHandler.h"
-#include "RegulationHandler.h"
 
 static Sensordata SensorDataToSend; // struct containing the information which shall be sent, used in SendSensorReadings
 
-Std_ReturnType ComHandler_SendSensorReadings(double velocity, double angle) {
+Std_ReturnType ComHandler_SendSensorReadings(double velocity, double angle, double temperature) {
 	SensorDataToSend.velocity = velocity;
 	SensorDataToSend.angle = angle;
-	SensorDataToSend.temperature0 = 9.4;
+	SensorDataToSend.temperature0 = temperature;
 	return sendSensorData(&SensorDataToSend) ? E_OK : E_NOT_OK;
 }
 
-Std_ReturnType ComHandler_UpdatePidValues() {
+Std_ReturnType ComHandler_UpdatePidValues(struct Regulation_PidValues* velocityVariables, struct Regulation_PidValues* angleVariables, struct Regulation_PidValues* temperatureVariables) {
 	// let com process the data
 	processRegulationData();
 
@@ -18,13 +17,13 @@ Std_ReturnType ComHandler_UpdatePidValues() {
 	struct Regulation_PidValues* TargetValues;
 	switch (regulationTarget) {
 	case ANGLE:
-		TargetValues = &Regulation_AngleVariables;
+		TargetValues = angleVariables;
 		break;
 	case TEMPERATURE:
-		TargetValues = &Regulation_TemperatureVariables;
+		TargetValues = temperatureVariables;
 		break;
 	case VELOCITY:
-		TargetValues = &Regulation_VelocityVariables;
+		TargetValues = velocityVariables;
 		break;
 	default:
 		return E_NOT_OK;

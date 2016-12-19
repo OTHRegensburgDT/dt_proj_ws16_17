@@ -7,6 +7,7 @@
 #include "Com/Sensorparser.h"
 
 #include "Std_Types.h"
+#include "RegulationHandler.h"
 
 
 /*
@@ -18,30 +19,23 @@
 
 /*
 * <summary>
-* Receives new data and sets newDate flag.
-* </summary>
-*/
-#define COMHANDLER_RECEIVE() DataRcvICR()
-
-/*
-* <summary>
 * Checks if new PID data has been received and if so, updates them
 * </summary>
 */
-#define COMHANDLER_UPDATE_PID_VALUES() (getParamFlag() ?  ComHandler_UpdatePidValues() : E_OK)
+#define COMHANDLER_UPDATE_PID_VALUES(velocityVariables, angleVariables, temperatureVariables) (getParamFlag() ?  ComHandler_UpdatePidValues(velocityVariables, angleVariables, temperatureVariables) : E_OK)
 
 /*
 * <summary>
 * Sends sensor data
 * </summary>
 */
-Std_ReturnType ComHandler_SendSensorReadings(double velocity, double angle);
+Std_ReturnType ComHandler_SendSensorReadings(double velocity, double angle, double temperature);
 
 /*
 * <summary>
 * Sets PID data based on processRegulationData method
 * </summary>
 */
-Std_ReturnType ComHandler_UpdatePidValues();
+Std_ReturnType ComHandler_UpdatePidValues(struct Regulation_PidValues* velocityVariables, struct Regulation_PidValues* angleVariables, struct Regulation_PidValues* temperatureVariables);
 
 #endif
