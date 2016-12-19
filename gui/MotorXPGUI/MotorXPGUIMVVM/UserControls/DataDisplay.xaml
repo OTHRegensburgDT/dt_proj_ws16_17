@@ -20,6 +20,7 @@
             </ResourceDictionary.MergedDictionaries>
             <converter:BooleanToVisibilityHiddenConverter x:Key="BooleanToVisibilityConverter"/>
             <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <converter:EnumToAllEnumValuesConverter x:Key="AllEnumValuesConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
@@ -39,6 +40,10 @@
             <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
                 <Label Content="Target: "/>
                 <TextBox Text="{Binding ValueTarget}" Width="40" TextAlignment="Right"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                <Label Content="Target: "/>
+                <ComboBox ItemsSource="{Binding ReguTarget, Converter={StaticResource AllEnumValuesConverter}, Mode=OneTime}" SelectedItem="{Binding ReguTarget}" Width="120"/>
             </StackPanel>
             <Button Content="Submit" Margin="8 0 0 0" Command="{Binding Repository.SubmitPIDCommand}" Style="{DynamicResource AccentedSquareButtonStyle }"/>
         </DockPanel>

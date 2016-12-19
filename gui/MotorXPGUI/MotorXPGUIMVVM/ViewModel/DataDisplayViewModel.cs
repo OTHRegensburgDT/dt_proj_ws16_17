@@ -11,14 +11,16 @@ namespace MotorXPGUIMVVM.ViewModel
     public class DataDisplayViewModel : ViewModelBase
     {
         private ISensorRepository _repository;
-        private float _valueP;
-        private float _valueI;
-        private float _valueD;
-        private float _valueTarget;
+        private float _valueP = 0.6f;
+        private float _valueI = 0.2f;
+        private float _valueD = 0.03f;
+        private float _valueTarget = 100;
+        private ReguTarget _reguTarget = ReguTarget.Velocity;
 
         public DataDisplayViewModel(ISensorRepository repository)
         {
             _repository = repository;
+            repository.SubmitPIDCommand = new RelayCommand<object>(OnSubmitPIDCommand);
             repository.SensorDataCollections.ListChanged += SensorDataCollectionsOnListChanged;
         }
 
@@ -78,6 +80,15 @@ namespace MotorXPGUIMVVM.ViewModel
             }
         }
 
+        public ReguTarget ReguTarget
+        {
+            get { return _reguTarget; }
+            set
+            {
+                _reguTarget = value; 
+                RaisePropertyChanged();
+            }
+        }
 
         private static void OnSensorDataCollectionShowAll(object o)
         {
@@ -90,14 +101,14 @@ namespace MotorXPGUIMVVM.ViewModel
         // ReSharper disable once UnusedMember.Local
         private void OnSubmitPIDCommand(object o)
         {
-            if (_repository.SubmitPIDCommand == null)
-            {
-                _repository.SubmitPIDCommand = new RelayCommand<object>(OnSubmitPIDCommand);
-            }
             var regParams = new RegulationParams
                 // ReSharper disable once RedundantEmptyObjectOrCollectionInitializer
             {
-                //ToDo parse parameter to object
+                ParamP = ValueP,
+                ParamD = ValueD,
+                ParamI = ValueI,
+                TargetVal = ValueTarget,
+                RegTarget = ReguTarget.Velocity
             };
             _repository.SendPID(regParams);
         }
