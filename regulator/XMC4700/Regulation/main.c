@@ -15,7 +15,7 @@ int main() {
 	status = DAVE_Init(); /* Initialization of DAVE APPs  */
 	double velocity = 0; // crnt motor velocity
 	double power = 0; // crnt motor power
-	float passedMs; // milliseconds passed since last call
+	double passedMs; // milliseconds passed since last call
 	int i, j; // iterator for busy waiting
 
 	// initial PID values / target value
@@ -38,22 +38,16 @@ int main() {
 	MOTORHANDLER_INITIALIZE();
 	SENSORHANDLER_INITIALIZE();
 
-	for (j = 0UL; j < 30; ++j) {
-		for (i = 0UL; i < 720000; ++i) {
-			asm("nop");
-		}
-	}
-
 	// main loop
 	while (1U) {
 
 		// busy wait and assume it has been like 10 milliseconds
-		for (j = 0UL; j < 3; ++j) {
+		for (j = 0UL; j < 10; ++j) {
 			for (i = 0UL; i < 720000; ++i) {
 				asm("nop");
 			}
 		}
-		passedMs = 10;
+		passedMs = 100;
 
 		// com
 		COMHANDLER_RECEIVE();
@@ -64,12 +58,14 @@ int main() {
 
 		// regulate velocity
 		power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables),
-				passedMs, velocity)
+				passedMs/1000, velocity)
 		;
+
+
 		Motor_SetVelocityPower(power);
 
 		// send new values
-		ComHandler_SendSensorReadings(velocity);
+		ComHandler_SendSensorReadings(velocity, power);
 	}
 	return 0;
 }

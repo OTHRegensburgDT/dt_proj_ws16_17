@@ -35,7 +35,7 @@
 * Sends sensor data
 * </summary>
 */
-Std_ReturnType ComHandler_SendSensorReadings(double velocity);
+Std_ReturnType ComHandler_SendSensorReadings(double velocity, double angle);
 
 /*
 * <summary>
