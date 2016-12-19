@@ -7,6 +7,8 @@
              xmlns:lineChart="clr-namespace:MotorXPGUIMVVM.Controls.LineChart"
              xmlns:converter="clr-namespace:MotorXPGUIMVVM.Converter"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              Name="UcContainer"
              d:DesignHeight="1800" d:DesignWidth="900" 
@@ -24,29 +26,28 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
-        <DockPanel DockPanel.Dock="Top" Margin="8" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" >
-                <Label Content="P: "/>
-                <TextBox Text="{Binding ValueP}" Width="40" TextAlignment="Right"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
-                <Label Content="I: "/>
-                <TextBox Text="{Binding ValueI}" Width="40" TextAlignment="Right"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
-                <Label Content="D: "/>
-                <TextBox Text="{Binding ValueD}" Width="40" TextAlignment="Right"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
-                <Label Content="Target: "/>
-                <TextBox Text="{Binding ValueTarget}" Width="40" TextAlignment="Right"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
-                <Label Content="Target: "/>
-                <ComboBox ItemsSource="{Binding ReguTarget, Converter={StaticResource AllEnumValuesConverter}, Mode=OneTime}" SelectedItem="{Binding ReguTarget}" Width="120"/>
-            </StackPanel>
-            <Button Content="Submit" Margin="8 0 0 0" Command="{Binding Repository.SubmitPIDCommand}" Style="{DynamicResource AccentedSquareButtonStyle }"/>
-        </DockPanel>
+        <Grid DockPanel.Dock="Top" Margin="8" HorizontalAlignment="Center">
+            <DockPanel  IsEnabled="{Binding IsNotBusy}">
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="P: "/>
+                    <TextBox Text="{Binding ValueP}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                    <Label Content="I: "/>
+                    <TextBox Text="{Binding ValueI}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                    <Label Content="D: "/>
+                    <TextBox Text="{Binding ValueD}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                    <Label Content="Target: "/>
+                    <ComboBox ItemsSource="{Binding ReguTarget, Converter={StaticResource AllEnumValuesConverter}, Mode=OneTime}" SelectedItem="{Binding ReguTarget}" Width="120"/>
+                </StackPanel>
+                <Button Content="Submit" Margin="8 0 0 0" Command="{Binding Repository.SubmitPIDCommand}" Style="{DynamicResource AccentedSquareButtonStyle }"/>
+            </DockPanel>
+            <TextBlock Text="Sending..." Foreground="White" Background="#A8000000" TextAlignment="Center" FontSize="18" Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical">
                 <ItemsControl HorizontalAlignment="Stretch"  ItemsSource="{Binding Repository.SensorDataCollections}">
@@ -62,7 +63,13 @@
                                                     <gauge:Gauge x:Name="CurrentValueGauge" Width="200" Height="160" VerticalAlignment="Top" HorizontalAlignment="Stretch"  MaxAngle="7.85" MaxValue="{Binding MaxValue}" MinAngle="4.7" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" Margin="0 8 0 0" StrokeColor="PowderBlue" FontSize="8" MinMaxValueIndicatorBrush="Black" GaugeFill="Transparent" ValueIndicatorSize="16" Strokes="20" StrokeLength="0.5" StrokeThickness="2" Value="{Binding LastValue}" MinValue="{Binding MinValue}"/>
                                                 </Grid>
                                                 <!--Gauge slider-->
-                                                <Slider Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" Name="SliderGauge" Margin="8 -8 8 4" Minimum="{Binding MinValue}" Width="100" Maximum="{Binding MaxValue}" Value="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSnapToTickEnabled="True"/>
+                                                <Slider Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" Name="SliderGauge" Margin="8 -8 8 4" Minimum="{Binding MinValue}" Width="100" Maximum="{Binding MaxValue}" Value="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSnapToTickEnabled="True" >
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                                            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=SliderMouseButtonUpCommand}" PassEventArgsToCommand="True" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Slider>
                                                 <!--Gauge Text area-->
                                                 <StackPanel Visibility="{Binding HasTargetValue , Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal" Margin="8 0 8 8" HorizontalAlignment="Center">
                                                     <Label FontSize="12" Content="Target: " VerticalContentAlignment="Top" VerticalAlignment="Top"></Label>

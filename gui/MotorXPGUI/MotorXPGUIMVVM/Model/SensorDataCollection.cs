@@ -181,6 +181,8 @@ namespace MotorXPGUIMVVM.Model
 
         public ICommand ShowAllCommand { get; set; }
 
+        public ICommand SliderMouseButtonUpCommand { get; set; }
+
         public bool HasTargetValue { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

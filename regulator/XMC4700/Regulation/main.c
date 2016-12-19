@@ -21,7 +21,7 @@ int main() {
 	int i, j; // iterator for busy waiting
 
 	// initial PID values / target value
-	Regulation_VelocityVariables.targetValue = 100.f;
+	Regulation_VelocityVariables.targetValue = 1500.f;
 	Regulation_VelocityVariables.Kp = 0.6;
 	Regulation_VelocityVariables.Ki = 0.2;
 	Regulation_VelocityVariables.Kd = 0.03;
@@ -57,7 +57,7 @@ int main() {
 		power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables), passedMs/1000, velocity);
 
 		// apply the motor power
-		Motor_SetVelocityPower(power);
+		Motor_SetVelocityPower(power*passedMs/250);
 
 		// send new sensor values currently send the power instead of the angle
 		ComHandler_SendSensorReadings(velocity, power, temperature);
