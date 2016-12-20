@@ -240,6 +240,8 @@ void UART_0_dma_tx_handler(XMC_DMA_CH_EVENT_t event)
   if(event == XMC_DMA_CH_EVENT_TRANSFER_COMPLETE)
   {
     UART_0.runtime->tx_busy = false;
+    DataTxICR();
+
   }
 }
 
