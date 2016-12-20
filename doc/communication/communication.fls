@@ -1,5 +1,0 @@
-PWD /home/Michael/Dokumente/Studium/Semester 7/DT/communication
-INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
-INPUT /home/Michael/.texlive2015/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT communication.tex
-OUTPUT communication.log
