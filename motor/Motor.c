@@ -5,21 +5,14 @@
  *      Author: Andreas Kölbl
  */
 
-#include "../sensor/Sensor.h"
-#include "Motor_Init.h"
+#include "Sensor.h"
+#include "Motor.h"
+#include "Sensor_Hall.h" //direction
 #include <xmc_gpio.h>
 #include <xmc_posif.h>
 
 #define HALL_CCU		CCU80
 #define HALL_CCU_NUM	(0U)
-
-/* PWM only on High */
-#define	  MOTOR_AH P1_10 /* U */
-#define	  MOTOR_AL P1_11
-#define	  MOTOR_BH P3_10 /* V */
-#define	  MOTOR_BL P3_8
-#define	  MOTOR_CH P3_7  /* W */
-#define	  MOTOR_CL P3_9
 
 #define MOTOR_AH_PWM            CCU80_CC80
 #define MOTOR_AH_PWM            CCU80_CC80
@@ -33,59 +26,89 @@
 #define GEN_HALL_PATTERN(EHP, CHP) (((uint32_t)EHP << 3) | (uint32_t)CHP)
 #define HALL_EMPTY 0
 
+extern MotorDirection_t motorDirection;
 
-
-static uint32_t state; 
-
-void Motor_Init()
+XMC_GPIO_CONFIG_t MOTOR_POSIF_0_PadConfig =
 {
-    state = 0;
+	.mode = (XMC_GPIO_MODE_t)XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
+	.output_level = (XMC_GPIO_OUTPUT_LEVEL_t)XMC_GPIO_OUTPUT_LEVEL_LOW,
+};
+
+void Motor_ClearOutputs()
+{
     XMC_GPIO_SetOutputLow(MOTOR_AH);
     XMC_GPIO_SetOutputLow(MOTOR_AL);
     XMC_GPIO_SetOutputLow(MOTOR_BH);
     XMC_GPIO_SetOutputLow(MOTOR_BL);
     XMC_GPIO_SetOutputLow(MOTOR_CH);
     XMC_GPIO_SetOutputLow(MOTOR_CL);
-
-    Sensor_RegisterHallCallback(Motor_Main);
 }
 
 void Motor_Main()
-{
+{//451326
     Sensor_HallPattern_t pattern;
-    if (Sensor_GetCurrentHallPattern(&pattern) != E_OK)
+    int counterClockWisePattern[] = {1, 3, 2, 6, 4, 5};
+	int clockWisePattern[] = {5, 4, 6, 2, 3, 1};
+    int* currentPattern = clockWisePattern;
+    if (Sensor_GetDirection() == CounterClockWise)
     {
-        switch (pattern.h1 | pattern.h2 << 1 | pattern.h3 << 2)
+    	currentPattern = counterClockWisePattern;
+    }
+    if (Sensor_GetCurrentHallPattern(&pattern) == E_OK)
+    {
+    	int result = pattern.h1 | pattern.h2 << 1 | pattern.h3 << 2;
+        if (result == currentPattern[0])
         {
-            case 5:
-                 XMC_GPIO_SetOutputLow(MOTOR_CL);
-                 XMC_GPIO_SetOutputHigh(MOTOR_AH);
-                 XMC_GPIO_SetOutputHigh(MOTOR_BL);
-                 break;
-            case 1:
-                XMC_GPIO_SetOutputLow(MOTOR_AH);
-                XMC_GPIO_SetOutputHigh(MOTOR_CH);
-                break;
-            case 3:
-                XMC_GPIO_SetOutputLow(MOTOR_BL);
-                XMC_GPIO_SetOutputHigh(MOTOR_AL);
-                break;
-            case 2:
-                XMC_GPIO_SetOutputLow(MOTOR_CH);
-                XMC_GPIO_SetOutputHigh(MOTOR_BH);
-                break;
-            case 6:
-                XMC_GPIO_SetOutputLow(MOTOR_AL);
-                XMC_GPIO_SetOutputHigh(MOTOR_CL);
-                break;
-            case 4:
-                XMC_GPIO_SetOutputLow(MOTOR_BH);
-                XMC_GPIO_SetOutputHigh(MOTOR_AH);
-                break;
-            default:
-                break;
+			 Motor_ClearOutputs();
+			 XMC_GPIO_SetOutputHigh(MOTOR_AH);
+			 XMC_GPIO_SetOutputHigh(MOTOR_BL);
+        }
+        else if (result == currentPattern[1])
+        {
+            Motor_ClearOutputs();
+            XMC_GPIO_SetOutputLow(MOTOR_AH);
+            XMC_GPIO_SetOutputHigh(MOTOR_CH);
+        }
+        else if (result == currentPattern[2])
+        {
+            Motor_ClearOutputs();
+            XMC_GPIO_SetOutputLow(MOTOR_BL);
+            XMC_GPIO_SetOutputHigh(MOTOR_AL);
+        }
+        else if (result == currentPattern[3])
+        {
+            Motor_ClearOutputs();
+            XMC_GPIO_SetOutputLow(MOTOR_CH);
+            XMC_GPIO_SetOutputHigh(MOTOR_BH);
+        }
+        else if (result == currentPattern[4])
+        {
+            Motor_ClearOutputs();
+            XMC_GPIO_SetOutputLow(MOTOR_AL);
+            XMC_GPIO_SetOutputHigh(MOTOR_CL);
+        }
+        else if (result == currentPattern[5])
+        {
+            Motor_ClearOutputs();
+            XMC_GPIO_SetOutputLow(MOTOR_BH);
+            XMC_GPIO_SetOutputHigh(MOTOR_AH);
+        }
+        else
+        {
+            //TODO error handling
         }
     }
 }
 
-
+void Motor_Init()
+{
+	XMC_GPIO_Init(MOTOR_AH, &MOTOR_POSIF_0_PadConfig);
+	XMC_GPIO_Init(MOTOR_AL, &MOTOR_POSIF_0_PadConfig);
+	XMC_GPIO_Init(MOTOR_BH, &MOTOR_POSIF_0_PadConfig);
+	XMC_GPIO_Init(MOTOR_BL, &MOTOR_POSIF_0_PadConfig);
+	XMC_GPIO_Init(MOTOR_CH, &MOTOR_POSIF_0_PadConfig);
+	XMC_GPIO_Init(MOTOR_CL, &MOTOR_POSIF_0_PadConfig);
+	XMC_GPIO_Init(P1_9, &MOTOR_POSIF_0_PadConfig);
+	Motor_ClearOutputs();
+    Sensor_RegisterHallCallback(&Motor_Main);
+}

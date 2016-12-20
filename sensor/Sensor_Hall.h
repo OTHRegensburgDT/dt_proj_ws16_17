@@ -26,6 +26,8 @@ Sensor_HallPattern_t ActiveHallPattern;
  * Global function declarations
  *********************************************************************************/
 
+MotorDirection_t Sensor_GetDirection(void);
+
 void Sensor_Hall_Init(void);
 
 void Sensor_Hall_Start(void);

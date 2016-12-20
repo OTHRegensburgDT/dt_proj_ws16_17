@@ -42,10 +42,10 @@
  *********************************************************************************/
 
 uint32_t hall[3] = { 0,0,0 };
-MotorDirection_t motorDirection = 0;
+static MotorDirection_t motorDirection = ClockWise;
 
 /* Hall pattern of the motor. This depends on the type and make of the motor selected */
-uint8_t hall_pattern_cw[] =
+uint8_t hall_pattern_ccw[] =
 {
 	(uint8_t)GEN_HALL_PATTERN(HALL_EMPTY,HALL_EMPTY),
 	(uint8_t)GEN_HALL_PATTERN(3,1),
@@ -56,7 +56,7 @@ uint8_t hall_pattern_cw[] =
 	(uint8_t)GEN_HALL_PATTERN(4,6)
 };
 
-uint8_t hall_pattern_ccw[] =
+uint8_t hall_pattern_cw[] =
 {
 	(uint8_t)GEN_HALL_PATTERN(HALL_EMPTY,HALL_EMPTY),
 	(uint8_t)GEN_HALL_PATTERN(5,1),
@@ -138,6 +138,7 @@ XMC_GPIO_CONFIG_t HALL_POSIF_0_Hall_PadConfig =
 /*********************************************************************************
  * Local function prototypes
  *********************************************************************************/
+MotorDirection_t Sensor_Get_Direction(void);
 
 void Sensor_Hall_InitPattern(void);
 
@@ -170,8 +171,8 @@ void Sensor_Hall_InitPattern()
 void Sensor_Hall_SetActivePattern(uint8_t hallposition)
 {
 	ActiveHallPattern.h1 = hallposition & 0x1;
-	ActiveHallPattern.h2 = hallposition & 0x2;
-	ActiveHallPattern.h3 = hallposition & 0x4;
+	ActiveHallPattern.h2 = (hallposition & 0x2) >> 1;
+	ActiveHallPattern.h3 = (hallposition & 0x4) >> 2;
 }
 
 uint8_t Sensor_Hall_GetPattern(uint8_t currentPattern)
@@ -191,9 +192,16 @@ uint8_t Sensor_Hall_GetPattern(uint8_t currentPattern)
  * Global function definitions
  *********************************************************************************/
 
+MotorDirection_t Sensor_GetDirection(void)
+{
+	return motorDirection;
+}
+
 void POSIF0_0_IRQHandler(void)
 {
 	uint8_t hallposition;
+
+    XMC_GPIO_ToggleOutput(P1_9);
 
 	/* Set the new Hall pattern */
 	hallposition = XMC_POSIF_HSC_GetExpectedPattern(POSIF_PTR);

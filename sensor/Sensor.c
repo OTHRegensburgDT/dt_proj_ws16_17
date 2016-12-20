@@ -22,7 +22,7 @@ void Sensor_Init()
 {
 	Sensor_Hall_Init();
 	//Sensor_QD_Init();
-	//Sensor_Temperature_Init();
+	Sensor_Temperature_Init();
 }
 
 void Sensor_StartAll()

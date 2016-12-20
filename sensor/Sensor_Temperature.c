@@ -26,7 +26,7 @@
 #define SENSOR_CFG_A &Temperature_Sensors[0]
 
 #define SENSOR_REF_VOLTAGE 5
-#define ADC_RESOLUTION 0.00085
+#define ADC_RESOLUTION 0.00082
 #define R1 10000
 
 #define NTC_LOOKUP_ENTRIES 151
