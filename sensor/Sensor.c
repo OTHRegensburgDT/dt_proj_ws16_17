@@ -11,6 +11,7 @@
 
 #include "Sensor.h"
 #include "Sensor_Hall.h"
+#include "Sensor_QuadratureDecoder.h"
 #include "Sensor_Temperature.h"
 
 /*********************************************************************************
@@ -20,12 +21,14 @@
 void Sensor_Init()
 {
 	Sensor_Hall_Init();
-	Sensor_Temperature_Init();
+	//Sensor_QD_Init();
+	//Sensor_Temperature_Init();
 }
 
 void Sensor_StartAll()
 {
 	Sensor_Hall_Start();
+	//Sensor_QD_Start();
 }
 
 void Sensor_StopAll()

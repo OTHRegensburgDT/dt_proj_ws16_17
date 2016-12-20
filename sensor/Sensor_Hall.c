@@ -32,7 +32,7 @@
 #define HALL_PORT_B	P14_6
 #define HALL_PORT_C	P14_5
 
-#define HALL_EVENT_IO P1_10
+#define HALL_EVENT_IO P5_9
 
 #define GEN_HALL_PATTERN(EHP, CHP) (((uint32_t)EHP << 3) | (uint32_t)CHP)
 #define HALL_EMPTY 0
@@ -68,7 +68,7 @@ uint8_t hall_pattern_ccw[] =
 };
 
 //XMC Capture/Compare Unit 4 (CCU4) Configuration for Capture:
-XMC_CCU4_SLICE_COMPARE_CONFIG_t delay_config =
+XMC_CCU4_SLICE_COMPARE_CONFIG_t hall_delay_config =
 {
 	.timer_mode = (uint32_t)XMC_CCU4_SLICE_TIMER_COUNT_MODE_EA,
 	.monoshot = (uint32_t)true,
@@ -85,7 +85,7 @@ XMC_CCU4_SLICE_COMPARE_CONFIG_t delay_config =
 };
 
 /* Capture Slice configuration */
-XMC_CCU4_SLICE_CAPTURE_CONFIG_t capture_config =
+XMC_CCU4_SLICE_CAPTURE_CONFIG_t hall_capture_config =
 {
 	.fifo_enable = false,
 	.timer_clear_mode = XMC_CCU4_SLICE_TIMER_CLEAR_MODE_ALWAYS,
@@ -97,7 +97,7 @@ XMC_CCU4_SLICE_CAPTURE_CONFIG_t capture_config =
 	.timer_concatenation = (uint32_t)0
 };
 
-XMC_CCU4_SLICE_EVENT_CONFIG_t start_event0_config = //off time capture
+XMC_CCU4_SLICE_EVENT_CONFIG_t hall_start_event0_config = //off time capture
 {
 	.mapped_input = XMC_CCU4_SLICE_INPUT_E, //CAPTURE on POSIF0.OUT0
 	.edge = XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE,
@@ -105,7 +105,7 @@ XMC_CCU4_SLICE_EVENT_CONFIG_t start_event0_config = //off time capture
 	.duration = XMC_CCU4_SLICE_EVENT_FILTER_DISABLED
 };
 
-XMC_CCU4_SLICE_EVENT_CONFIG_t capture_event0_config = //off time capture
+XMC_CCU4_SLICE_EVENT_CONFIG_t hall_capture_event0_config = //off time capture
 {
 	.mapped_input = XMC_CCU4_SLICE_INPUT_F, //CAPTURE on POSIF0.OUT1
 	.edge = XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE,
@@ -165,10 +165,6 @@ void Sensor_Hall_InitPattern()
 
 	//Save the active hall position for queries
 	Sensor_Hall_SetActivePattern(hallposition);
-
-	//Get the next hall pattern and copy it into the shadow registers
-	hallposition = XMC_POSIF_HSC_GetExpectedPattern(POSIF_PTR);
-	XMC_POSIF_HSC_SetHallPatterns(POSIF_PTR, Sensor_Hall_GetPattern(hallposition));
 }
 
 void Sensor_Hall_SetActivePattern(uint8_t hallposition)
@@ -197,19 +193,17 @@ uint8_t Sensor_Hall_GetPattern(uint8_t currentPattern)
 
 void POSIF0_0_IRQHandler(void)
 {
-	int sleep_c;
 	uint8_t hallposition;
 
 	/* Set the new Hall pattern */
 	hallposition = XMC_POSIF_HSC_GetExpectedPattern(POSIF_PTR);
 	XMC_POSIF_HSC_SetHallPatterns(POSIF_PTR, Sensor_Hall_GetPattern(hallposition));
+	XMC_POSIF_HSC_UpdateHallPattern(POSIF_PTR);
 
 	//Save the active hall position for queries
 	Sensor_Hall_SetActivePattern(hallposition);
 
 	/* Peak */
-	XMC_GPIO_ToggleOutput(HALL_EVENT_IO);
-	for(sleep_c = 0; sleep_c < 1024; sleep_c++);
 	XMC_GPIO_ToggleOutput(HALL_EVENT_IO);
 
 	SensorHallCallback();
@@ -233,8 +227,8 @@ void Sensor_Hall_Init()
 	XMC_CCU4_SetModuleClock(HALL_CCU, XMC_CCU4_CLOCK_SCU);
 
 	/* Configure CCU4 slices as monoshot and capture slice */
-	XMC_CCU4_SLICE_CompareInit(DELAY_SLICE_PTR, &delay_config);
-	XMC_CCU4_SLICE_CaptureInit(CAPTURE_SLICE_PTR, &capture_config);
+	XMC_CCU4_SLICE_CompareInit(DELAY_SLICE_PTR, &hall_delay_config);
+	XMC_CCU4_SLICE_CaptureInit(CAPTURE_SLICE_PTR, &hall_capture_config);
 
 	/* Configure CCU4 delay as 1us - CCU40.ST0 is connected to POSIF.HSDA*/
 	XMC_CCU4_SLICE_SetTimerPeriodMatch(DELAY_SLICE_PTR, 127U);
@@ -247,8 +241,8 @@ void Sensor_Hall_Init()
 	/* Configure and enable events */
 	XMC_CCU4_SLICE_StartConfig(DELAY_SLICE_PTR, XMC_CCU4_SLICE_EVENT_0, XMC_CCU4_SLICE_START_MODE_TIMER_START_CLEAR);
 	XMC_CCU4_SLICE_Capture0Config(CAPTURE_SLICE_PTR, XMC_CCU4_SLICE_EVENT_0);
-	XMC_CCU4_SLICE_ConfigureEvent(CAPTURE_SLICE_PTR, XMC_CCU4_SLICE_EVENT_0, &capture_event0_config);
-	XMC_CCU4_SLICE_ConfigureEvent(DELAY_SLICE_PTR, XMC_CCU4_SLICE_EVENT_0, &start_event0_config);
+	XMC_CCU4_SLICE_ConfigureEvent(CAPTURE_SLICE_PTR, XMC_CCU4_SLICE_EVENT_0, &hall_capture_event0_config);
+	XMC_CCU4_SLICE_ConfigureEvent(DELAY_SLICE_PTR, XMC_CCU4_SLICE_EVENT_0, &hall_start_event0_config);
 
 	/* Get the slice out of idle mode */
 	XMC_CCU4_EnableClock(HALL_CCU, DELAY_SLICE_NUMBER);
