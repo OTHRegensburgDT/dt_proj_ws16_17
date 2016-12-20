@@ -65,6 +65,7 @@ extern "C" {
 #endif
   
 /*Extern declaration for callback functions and UART APP instance handles*/
+  extern void DataTxICR(void);
   extern void DataRcvICR(void);
 
   extern UART_t UART_0; 

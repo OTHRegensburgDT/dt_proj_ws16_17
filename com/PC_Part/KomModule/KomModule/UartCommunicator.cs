@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 using System.Threading.Tasks;
+using System.Threading;
 
 
 namespace KomModule
@@ -117,8 +118,13 @@ namespace KomModule
         {
             //read serial port
             var spL = (SerialPort)sender;
+            var SofDel = new byte[2];
+            do{
+                spL.Read(SofDel, 0, 2);
+            }while(SofDel[0] != 0x55 || SofDel[1] != 0xD5);
+
             var inLength = new byte[1];
-            Task.Delay(100);
+
             //read Framelength
             spL.Read(inLength, 0, 1);
             //subtract length field, as it was already read
@@ -136,12 +142,14 @@ namespace KomModule
             buf[0] = (byte)(inLength[0] + 1);
             //read rest of frame
             spL.Read(buf, 1, buf[0]-1);
-
             //parse message
             buf = Frameparser.DecapsuleFrame(buf);
             _recData = Protoparser.ByArrtoSData(buf);
 
-            _dataArrived?.Invoke();
+            if (_dataArrived != null)
+            {
+                _dataArrived.Invoke();
+            }
         }
     }
 }

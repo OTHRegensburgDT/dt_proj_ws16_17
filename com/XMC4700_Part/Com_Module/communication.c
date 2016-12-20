@@ -24,6 +24,7 @@ reguTarget regulationTarget;
 static uint8_t buffersize;
 static uint8_t* inBuffer;
 static bool newParams;
+static bool transfin;
 
 /*--------local functions ------------*/
 
@@ -35,6 +36,7 @@ bool restartRcv(void){
 	buffersize = 0;
 	newParams = false;
 	uStat = UART_AbortReceive(&UART_0);
+	transfin = true;
 	if(UART_STATUS_SUCCESS == uStat){
 		uStat = UART_Receive(&UART_0, &buffersize, 1);
 		if(UART_STATUS_SUCCESS == uStat){
@@ -59,6 +61,7 @@ bool initCom(void){
 	target_val = 0.0;
 	buffersize = 0;
 	UART_AbortReceive(&UART_0); //just in case
+	transfin = true;
 	//wait in background until framelength is known
 	uStat = UART_Receive(&UART_0, &buffersize, 1);
 	if(UART_STATUS_SUCCESS == uStat){
@@ -69,7 +72,12 @@ bool initCom(void){
 }
 
 bool sendSensorData(Sensordata* data){
+	//check if previous transfers are complete
+	if(!transfin){
+		return false;
+	}
 	bool retVal = false;
+	uint8_t sof[] = {0x55, 0xD5};
 	uint8_t* outBuffer = malloc(OUT_BUFFSIZE);
 	int bufsize = OUT_BUFFSIZE-1;
 	UART_STATUS_t retStat;
@@ -81,6 +89,11 @@ bool sendSensorData(Sensordata* data){
 		//parse to frame if successful
 		retVal = ProtoToFrame(outBuffer, &bufsize);
 		if(retVal && (bufsize < 256)){
+			transfin = false;
+			retStat = UART_Transmit(&UART_0, sof ,2);
+			//wait until first two bytes have been transferred
+			while(!transfin);
+			transfin = false;
 			retStat = UART_Transmit(&UART_0, outBuffer, bufsize);
 		}
 	}
@@ -135,4 +148,8 @@ void DataRcvICR(){
 			initCom();
 		}
 	}
+}
+
+void DataTxICR(){
+	transfin = true;
 }
