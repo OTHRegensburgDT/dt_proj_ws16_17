@@ -12,8 +12,7 @@ namespace MotorXPGUIMVVM
 {
     public class Bootstrapper : IServiceLocator
     {
-        public IUnityContainer Container { get; set; }
-        private static UartCommunicator tmpCom;
+        private IUnityContainer Container { get; }
 
         public Bootstrapper()
         {

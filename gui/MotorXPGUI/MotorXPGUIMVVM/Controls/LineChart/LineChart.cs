@@ -41,7 +41,6 @@ namespace MotorXPGUIMVVM.Controls.LineChart
     /// </summary>
     [TemplatePart(Name = "PART_GraphCanvas", Type = typeof(Canvas))]
     [TemplatePart(Name = "PART_ChartCanvas", Type = typeof(Canvas))]
-    [TemplatePart(Name= "PART_LineCanvas", Type = typeof(Canvas))]
     public class LineChart : Control, INotifyPropertyChanged
     {
         #region DependencyProperties
@@ -72,7 +71,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                     asLineChart.OnPropertyChanged(nameof(LastSample));
                     break;
                 case nameof(AutoMinMax):
-                    if ((bool) dependencyPropertyChangedEventArgs.NewValue) asLineChart.CalcMinMax();
+                    if ((bool)dependencyPropertyChangedEventArgs.NewValue) asLineChart.CalcMinMax();
                     break;
                 case nameof(MaxValue):
                 case nameof(MinValue):
@@ -118,7 +117,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public bool IsShowingAll
         {
-            get { return (bool) GetValue(IsShowingAllProperty); }
+            get { return (bool)GetValue(IsShowingAllProperty); }
             set { SetValue(IsShowingAllProperty, value); }
         }
 
@@ -133,7 +132,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public bool IsXScaleVisible
         {
-            get { return (bool) GetValue(IsXScaleVisibleProperty); }
+            get { return (bool)GetValue(IsXScaleVisibleProperty); }
             set { SetValue(IsXScaleVisibleProperty, value); }
         }
 
@@ -142,13 +141,13 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public bool MouseScrollEnabled
         {
-            get { return (bool) GetValue(MouseScrollEnabledProperty); }
+            get { return (bool)GetValue(MouseScrollEnabledProperty); }
             set { SetValue(MouseScrollEnabledProperty, value); }
         }
 
         public static readonly DependencyProperty SampleWindowProperty = DependencyProperty.Register(
             "SampleWindow", typeof(int), typeof(LineChart), new PropertyMetadata(10, PropertyChangedCallback));
-        
+
         /// <summary>
         /// Gets or sets the sample window. If IsShowingAll is false, this value decides how many samples are shown at once.
         /// </summary>
@@ -157,7 +156,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public int SampleWindow
         {
-            get { return (int) GetValue(SampleWindowProperty); }
+            get { return (int)GetValue(SampleWindowProperty); }
             set { SetValue(SampleWindowProperty, value); }
         }
 
@@ -167,7 +166,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public Brush StrokeColor
         {
-            get { return (Brush) GetValue(StrokeColorProperty); }
+            get { return (Brush)GetValue(StrokeColorProperty); }
             set { SetValue(StrokeColorProperty, value); }
         }
 
@@ -177,14 +176,14 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public Brush FillColor
         {
-            get { return (Brush) GetValue(FillColorProperty); }
+            get { return (Brush)GetValue(FillColorProperty); }
             set { SetValue(FillColorProperty, value); }
         }
 
         public static readonly DependencyProperty WindowPositionProperty = DependencyProperty.Register(
             "WindowPosition", typeof(double), typeof(LineChart),
             new PropertyMetadata(default(double), PropertyChangedCallback));
-        
+
         /// <summary>
         /// Gets or sets the window position of the displayed samples in percent. 1 = 100%
         /// </summary>
@@ -193,7 +192,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public double WindowPosition
         {
-            get { return (double) GetValue(WindowPositionProperty); }
+            get { return (double)GetValue(WindowPositionProperty); }
             set
             {
                 // check if value is in bounds
@@ -205,7 +204,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public static readonly DependencyProperty AutoMinMaxProperty = DependencyProperty.Register(
             "AutoMinMax", typeof(bool), typeof(LineChart), new PropertyMetadata(default(bool), PropertyChangedCallback));
-        
+
         /// <summary>
         /// Gets or sets a value indicating whether [minValue and maxValue is automatic].
         /// </summary>
@@ -214,14 +213,14 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public bool AutoMinMax
         {
-            get { return (bool) GetValue(AutoMinMaxProperty); }
+            get { return (bool)GetValue(AutoMinMaxProperty); }
             set { SetValue(AutoMinMaxProperty, value); }
         }
 
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
             "MinValue", typeof(double), typeof(LineChart),
             new PropertyMetadata(default(double), PropertyChangedCallback));
-        
+
         /// <summary>
         /// Gets or sets the minimum value. If AutoMinMax is set to true, this value gets updated automatically.
         /// </summary>
@@ -230,13 +229,13 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public double MinValue
         {
-            get { return (double) GetValue(MinValueProperty); }
+            get { return (double)GetValue(MinValueProperty); }
             set { SetValue(MinValueProperty, value); }
         }
 
         public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(
             "MaxValue", typeof(double), typeof(LineChart), new PropertyMetadata(50.0, PropertyChangedCallback));
-        
+
         /// <summary>
         /// Gets or sets the maximum value. If AutoMinMax is set to true, this value gets updated automatically.
         /// </summary>
@@ -245,7 +244,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </value>
         public double MaxValue
         {
-            get { return (double) GetValue(MaxValueProperty); }
+            get { return (double)GetValue(MaxValueProperty); }
             set { SetValue(MaxValueProperty, value); }
         }
 
@@ -254,7 +253,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public bool ShowIndicators
         {
-            get { return (bool) GetValue(ShowIndicatorsProperty); }
+            get { return (bool)GetValue(ShowIndicatorsProperty); }
             set { SetValue(ShowIndicatorsProperty, value); }
         }
 
@@ -263,7 +262,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public int VerticalLines
         {
-            get { return (int) GetValue(VerticalLinesProperty); }
+            get { return (int)GetValue(VerticalLinesProperty); }
             set { SetValue(VerticalLinesProperty, value); }
         }
 
@@ -272,7 +271,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public int HorizontalLines
         {
-            get { return (int) GetValue(HorizontalLinesProperty); }
+            get { return (int)GetValue(HorizontalLinesProperty); }
             set { SetValue(HorizontalLinesProperty, value); }
         }
 
@@ -282,7 +281,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public BindingList<double> Values
         {
-            get { return (BindingList<double>) GetValue(ValuesProperty); }
+            get { return (BindingList<double>)GetValue(ValuesProperty); }
             set { SetValue(ValuesProperty, value); }
         }
 
@@ -292,7 +291,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public Brush GridLinesColor
         {
-            get { return (Brush) GetValue(GridLinesColorProperty); }
+            get { return (Brush)GetValue(GridLinesColorProperty); }
             set { SetValue(GridLinesColorProperty, value); }
         }
 
@@ -302,21 +301,21 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         public Brush AxisColor
         {
-            get { return (Brush) GetValue(AxisColorProperty); }
+            get { return (Brush)GetValue(AxisColorProperty); }
             set { SetValue(AxisColorProperty, value); }
         }
         #endregion
-        
+
         #region Properties
         //Todo Error handling!!
-        public double MiddleValue => MinValue + (MaxValue - MinValue)/2;
+        public double MiddleValue => MinValue + (MaxValue - MinValue) / 2;
 
         public int FirstSample
         {
             get
             {
-                var result = IsShowingAll ? 0 : Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1)*WindowPosition);
-                return result < 0 ? 0: result;
+                var result = IsShowingAll ? 0 : Convert.ToInt32(Convert.ToDouble(Values.Count - SampleWindow - 1) * WindowPosition);
+                return result < 0 ? 0 : result;
             }
         }
 
@@ -324,8 +323,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         {
             get
             {
-                var result  = IsShowingAll ? Values.Count : FirstSample + SampleWindow;
-                return result >= Values.Count ? Values.Count-1 : result;
+                var result = IsShowingAll ? Values.Count : FirstSample + SampleWindow;
+                return result >= Values.Count ? Values.Count - 1 : result;
             }
         }
         #endregion
@@ -334,7 +333,6 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         private Canvas _gridCanvas;
         private Canvas _chartCanvas;
-        private Canvas _lineCanvas;
 
         //trigger for mouse over event
 #pragma warning disable 414
@@ -342,6 +340,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 #pragma warning restore 414
 
         private static Random _rnd; // RNG for in design mode value generation. See OnLoaded
+        private Point _mousePosition;
+
         #endregion
 
         static LineChart()
@@ -377,7 +377,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 SetValues(samples);
             }
         }
-        
+
         /// <summary>
         /// Sets a list of values to display at the graph.
         /// </summary>
@@ -388,7 +388,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             if (AutoMinMax) CalcMinMax();
             DrawGraph();
         }
-        
+
         /// <summary>
         /// Adds a value to the graph.
         /// </summary>
@@ -406,7 +406,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             OnPropertyChanged(nameof(LastSample));
             // if the values were zero before (are now 1) Redraw the grid. (which has some problems with the max. width for some reason)
         }
-        
+
         /// <summary>
         /// Checks if the given value is bigger or smaller then the min/max value fields and if so, updates the fields.
         /// </summary>
@@ -423,7 +423,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         /// </summary>
         private void DrawVerticalLineWithValue()
         {
-            if(_gridCanvas == null) return;
+            if (_gridCanvas == null) return;
 
 
 
@@ -497,7 +497,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 _gridCanvas.Children.Add(line);
             }
         }
-        
+
         /// <summary>
         /// Draws the graph.
         /// </summary>
@@ -522,7 +522,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 }
                 catch (OverflowException)
                 {
-                   firstSample = int.MaxValue;
+                    firstSample = int.MaxValue;
                 }
                 lastSample = firstSample + SampleWindow;
                 // check if last sample went out of bounds
@@ -536,6 +536,23 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             var upperX = availableWidth;
             // we use a polygon to draw the graph (so we can fill in the area under it)
             var poly = new Polygon();
+
+            // we use this polygon to draw a line bellow the mouse to indicate the current position
+            var mousePoly = new Polygon();
+
+            // flag indicating whether to draw the mouse hover line or not
+            var addMousePoly = false;
+
+            // draw a circle on the graph on the mousepolygon
+            var lineCircle = new Ellipse
+            {
+                Width = 8,
+                Height = 8,
+                Fill = StrokeColor,
+                Stroke = StrokeColor
+
+            };
+
             // draw lower rectangle border (so we can fill the area)
             var points = new PointCollection
             {
@@ -553,8 +570,28 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                     var values = GetBiggestAndSmallesValue(Convert.ToInt32(firstSample + samplePerPixel * i),
                         Convert.ToInt32(firstSample + samplePerPixel * (i + 1)));
                     // translate the local min and max values into percent
+
                     var minValueInPercent = 1.0 - (values[0] - MinValue) / (MaxValue - MinValue);
                     var maxValueInPercent = 1.0 - (values[1] - MinValue) / (MaxValue - MinValue);
+
+                    if (i == (int)_mousePosition.X || i + 1 == (int)_mousePosition.X)
+                    {
+                        // set add mouse poly to true to indicate that we have to draw the line new
+                        addMousePoly = true;
+                        
+                        // draw the line from bottom to top (x low to x up)
+                        mousePoly.Points = new PointCollection
+                        {
+                            new Point((int)_mousePosition.X + lowerX, lowerY),
+                            new Point((int)_mousePosition.X + lowerX, upperY)
+                        };
+                        // set color and thickness of stroke
+                        mousePoly.Stroke = StrokeColor;
+                        mousePoly.StrokeThickness = 1;
+
+                        Canvas.SetLeft(lineCircle, _mousePosition.X + lowerX - (lineCircle.Width / 2));
+                        Canvas.SetTop(lineCircle, lowerY + (upperY - lowerY) * maxValueInPercent - lineCircle.Height / 2);
+                    }
                     // translate it to points on the canvas
                     points.Add(new Point(lowerX + i, lowerY + (upperY - lowerY) * minValueInPercent));
                     points.Add(new Point(lowerX + i + 1, lowerY + (upperY - lowerY) * maxValueInPercent));
@@ -567,11 +604,27 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 for (var sampleIndex = firstSample; sampleIndex <= lastSample; sampleIndex++)
                 { // iterate through each sample we want to show
                     var value = Values[sampleIndex]; // get the value for the sample index
-                    var nextValue = sampleIndex+1 >lastSample?value:Values[sampleIndex+1]; // get the value for the sample index
+                    var nextValue = sampleIndex + 1 > lastSample ? value : Values[sampleIndex + 1]; // get the value for the sample index
                     var valueInPercent = 1.0 - (value - MinValue) / (MaxValue - MinValue); // calculate it in percent
                     var nextValueInPercent = 1.0 - (nextValue - MinValue) / (MaxValue - MinValue); // calculate it in percent
-
                     var xPos = sampleNo * pixelPerSample; // translate to the graph position (no of the sample * the amount of pixel per sample)
+
+                    if (xPos > _mousePosition.X)
+                    {
+                        addMousePoly = true;
+
+                        mousePoly.Points = new PointCollection
+                        {
+                            new Point((int)_mousePosition.X + lowerX, lowerY),
+                            new Point((int)_mousePosition.X + lowerX, upperY)
+                        };
+                        mousePoly.Stroke = StrokeColor;
+                        mousePoly.StrokeThickness = 1;
+                        Canvas.SetLeft(lineCircle, _mousePosition.X + lowerX - (lineCircle.Width / 2));
+                        Canvas.SetTop(lineCircle, lowerY + (upperY - lowerY) * nextValueInPercent - lineCircle.Height / 2);
+
+                    }
+
                     points.Add(new Point(lowerX + xPos, lowerY + (upperY - lowerY) * valueInPercent)); // add as point
                     points.Add(new Point(lowerX + xPos, lowerY + (upperY - lowerY) * nextValueInPercent)); // add as point
                     sampleNo++; // increase the current sample number
@@ -581,9 +634,16 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             poly.Points = points;
             poly.Stroke = StrokeColor;
             poly.Fill = FillColor;
+
+            
             _chartCanvas.Children.Add(poly);
+            if (addMousePoly && _displayMouseInfo)
+            {
+                _chartCanvas.Children.Add(mousePoly);
+                _chartCanvas.Children.Add(lineCircle);
+            }
         }
-        
+
         /// <summary>
         /// Gets the biggest and smalles value of the given sample window.
         /// </summary>
@@ -627,7 +687,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             // E.g. for a sample window like this: 10, 5, 2. Which would return 2 as min and 10 as max. However 2 came AFTER the 10. So a distortion would appear
             return minIndex < maxIndex ? new List<double> { localMinValue, localMaxValue } : new List<double> { localMaxValue, localMinValue };
         }
-        
+
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
         /// </summary>
@@ -641,13 +701,20 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 dp.MouseWheel += ChartCanvasOnMouseWheel;
                 dp.MouseEnter += DpOnMouseEnter;
                 dp.MouseLeave += DpOnMouseLeave;
+                dp.MouseMove += DpOnMouseMove;
             }
             base.OnApplyTemplate();
+        }
+
+        private void DpOnMouseMove(object sender, MouseEventArgs e)
+        {
+            _mousePosition = e.GetPosition(_gridCanvas);
         }
 
         private void DpOnMouseEnter(object sender, MouseEventArgs e)
         {
             _displayMouseInfo = true;
+            _mousePosition = e.GetPosition(_gridCanvas);
         }
 
         private void DpOnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
@@ -657,12 +724,12 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         private void ChartCanvasOnMouseWheel(object sender, MouseWheelEventArgs mouseWheelEventArgs)
         {
-            if(!MouseScrollEnabled) return;
+            if (!MouseScrollEnabled) return;
             if (mouseWheelEventArgs.Delta < 0) SampleWindow += 10;
             else SampleWindow -= 10;
             if (SampleWindow < 5) SampleWindow = 5;
         }
-        
+
         /// <summary>
         /// Raises the <see cref="E:System.Windows.FrameworkElement.SizeChanged" /> event, using the specified information as part of the eventual event data.
         /// </summary>
@@ -673,12 +740,12 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             DrawGraph();
             DrawGrid();
         }
-        
+
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         /// <summary>
         /// Called when [property changed].
         /// </summary>
