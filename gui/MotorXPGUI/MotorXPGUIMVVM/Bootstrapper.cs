@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace MotorXPGUIMVVM
 {
-    public class Bootstrapper : IServiceLocator
+    public class Bootstrapper : IServiceLocator, IDisposable
     {
         private IUnityContainer Container { get; }
 
@@ -70,6 +70,11 @@ namespace MotorXPGUIMVVM
         public object GetService(Type serviceType)
         {
             return Container.Resolve(serviceType);
+        }
+
+        public void Dispose()
+        {
+            Container.Dispose();
         }
     }
 }

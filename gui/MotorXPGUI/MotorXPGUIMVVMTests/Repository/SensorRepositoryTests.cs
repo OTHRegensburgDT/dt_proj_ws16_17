@@ -1,6 +1,4 @@
-﻿using KomModule;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MotorXPGUIMVVM.Repository;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MotorXPGUIMVVMTests.Repository
 {

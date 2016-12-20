@@ -136,9 +136,23 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             set { SetValue(IsXScaleVisibleProperty, value); }
         }
 
+        public static readonly DependencyProperty ValueUnderMouseProperty = DependencyProperty.Register(
+            "ValueUnderMouse", typeof(double), typeof(LineChart), new PropertyMetadata(default(double)));
+
+        public double ValueUnderMouse
+        {
+            get { return (double) GetValue(ValueUnderMouseProperty); }
+            set { SetValue(ValueUnderMouseProperty, value); }
+        }
+
         public static readonly DependencyProperty MouseScrollEnabledProperty = DependencyProperty.Register(
             "MouseScrollEnabled", typeof(bool), typeof(LineChart), new PropertyMetadata(true));
-
+        /// <summary>
+        /// Get or sets a value indicates wheter this instance can scroll with the mouse to change the sampleWindow
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance can scroll; otherwise, <c>flase</c>
+        /// </value>
         public bool MouseScrollEnabled
         {
             get { return (bool)GetValue(MouseScrollEnabledProperty); }
@@ -418,16 +432,6 @@ namespace MotorXPGUIMVVM.Controls.LineChart
         }
 
 
-        /// <summary>
-        /// Draw the vertical line if the mouse is over the the linechart
-        /// </summary>
-        private void DrawVerticalLineWithValue()
-        {
-            if (_gridCanvas == null) return;
-
-
-
-        }
 
         /// <summary>
         /// Draws the grid.
@@ -578,6 +582,11 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                     {
                         // set add mouse poly to true to indicate that we have to draw the line new
                         addMousePoly = true;
+
+
+                        //ToDO set ValueUnderMouse
+                        // update the tooltip value
+                        ValueUnderMouse = 1.0;
                         
                         // draw the line from bottom to top (x low to x up)
                         mousePoly.Points = new PointCollection
@@ -611,8 +620,14 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
                     if (xPos > _mousePosition.X)
                     {
+                        // set add mouse poly to true to indicate that we have to draw the line new
                         addMousePoly = true;
 
+                        //ToDO set ValueUnderMouse
+                        // update the tooltip value
+                        ValueUnderMouse = 1.0;
+
+                        // draw the line from bottom to top (x low to x up)
                         mousePoly.Points = new PointCollection
                         {
                             new Point((int)_mousePosition.X + lowerX, lowerY),
