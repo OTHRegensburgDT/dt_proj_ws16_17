@@ -41,6 +41,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
     /// </summary>
     [TemplatePart(Name = "PART_GraphCanvas", Type = typeof(Canvas))]
     [TemplatePart(Name = "PART_ChartCanvas", Type = typeof(Canvas))]
+    [TemplatePart(Name= "PART_LineCanvas", Type = typeof(Canvas))]
     public class LineChart : Control, INotifyPropertyChanged
     {
         #region DependencyProperties
@@ -333,6 +334,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
         private Canvas _gridCanvas;
         private Canvas _chartCanvas;
+        private Canvas _lineCanvas;
+
         //trigger for mouse over event
 #pragma warning disable 414
         private bool _displayMouseInfo;
@@ -413,7 +416,19 @@ namespace MotorXPGUIMVVM.Controls.LineChart
             if (forValue < MinValue) MinValue = forValue;
             if (forValue > MaxValue) MaxValue = forValue;
         }
-        
+
+
+        /// <summary>
+        /// Draw the vertical line if the mouse is over the the linechart
+        /// </summary>
+        private void DrawVerticalLineWithValue()
+        {
+            if(_gridCanvas == null) return;
+
+
+
+        }
+
         /// <summary>
         /// Draws the grid.
         /// </summary>
@@ -552,9 +567,13 @@ namespace MotorXPGUIMVVM.Controls.LineChart
                 for (var sampleIndex = firstSample; sampleIndex <= lastSample; sampleIndex++)
                 { // iterate through each sample we want to show
                     var value = Values[sampleIndex]; // get the value for the sample index
+                    var nextValue = sampleIndex+1 >lastSample?value:Values[sampleIndex+1]; // get the value for the sample index
                     var valueInPercent = 1.0 - (value - MinValue) / (MaxValue - MinValue); // calculate it in percent
+                    var nextValueInPercent = 1.0 - (nextValue - MinValue) / (MaxValue - MinValue); // calculate it in percent
+
                     var xPos = sampleNo * pixelPerSample; // translate to the graph position (no of the sample * the amount of pixel per sample)
                     points.Add(new Point(lowerX + xPos, lowerY + (upperY - lowerY) * valueInPercent)); // add as point
+                    points.Add(new Point(lowerX + xPos, lowerY + (upperY - lowerY) * nextValueInPercent)); // add as point
                     sampleNo++; // increase the current sample number
                 }
             }

@@ -32,8 +32,8 @@ namespace MotorXPGUIMVVM
                 .RegisterInstance(mapper)
                 .RegisterType<MainViewViewModel>()
                 .RegisterType<DataDisplayViewModel>()
-                .RegisterType<ISensorRepository, SensorRepository>();
-                //.RegisterType<ISensorRepository, MockSensorRepository>();
+                //.RegisterType<ISensorRepository, SensorRepository>();
+                .RegisterType<ISensorRepository, MockSensorRepository>();
  
         }
         
