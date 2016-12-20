@@ -2,6 +2,7 @@
 using MotorXPGUIMVVM.Model;
 using System;
 using System.ComponentModel;
+using System.IO.Ports;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -19,7 +20,8 @@ namespace MotorXPGUIMVVM.Repository
         [InjectionConstructor]
         public SensorRepository()
         {
-            _com = new UartCommunicator("COM3");
+            var test = SerialPort.GetPortNames();
+            _com = new UartCommunicator("COM8");
             _com.NewSensordata += OnNewSensorData;
             HallSensorDataCollections = InitHallPattern();
             _sensorDataCollections = new BindingList<SensorDataCollection>();

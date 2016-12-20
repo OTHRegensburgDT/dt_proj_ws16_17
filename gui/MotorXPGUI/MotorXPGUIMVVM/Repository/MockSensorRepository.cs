@@ -151,7 +151,7 @@ namespace MotorXPGUIMVVM.Repository
         public event PropertyChangedEventHandler PropertyChanged;
         public void SendPID( RegulationParams @params)
         {
-
+            Thread.Sleep(3000);
         }
         private void OnPropertyChanged(string propertyName)
         {
