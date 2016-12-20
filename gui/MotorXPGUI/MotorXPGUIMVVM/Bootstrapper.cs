@@ -12,8 +12,7 @@ namespace MotorXPGUIMVVM
 {
     public class Bootstrapper : IServiceLocator
     {
-        public IUnityContainer Container { get; set; }
-        private static UartCommunicator tmpCom;
+        private IUnityContainer Container { get; }
 
         public Bootstrapper()
         {
@@ -32,8 +31,8 @@ namespace MotorXPGUIMVVM
                 .RegisterInstance(mapper)
                 .RegisterType<MainViewViewModel>()
                 .RegisterType<DataDisplayViewModel>()
-                .RegisterType<ISensorRepository, SensorRepository>();
-                //.RegisterType<ISensorRepository, MockSensorRepository>();
+                //.RegisterType<ISensorRepository, SensorRepository>();
+                .RegisterType<ISensorRepository, MockSensorRepository>();
  
         }
         
