@@ -10,23 +10,30 @@ using System.Windows.Input;
 
 namespace MotorXPGUIMVVM.Repository
 {
+    /// <summary>
+    /// first mock implementation to test gui, replaced with MockCommunicator
+    /// </summary>
     public class MockSensorRepository : INotifyPropertyChanged, ISensorRepository
     {
         private BindingList<SensorDataCollection> _sensorDataCollections;
         private BindingList<SensorDataCollection> _hallDataCollections;
         private readonly Random _rnd = new Random();
+        private double _hallPatternWindowPosition;
+        private ICommunicator _com;
 
         public MockSensorRepository()
         {
+            _com = new MockCommunicator();
             InitHallCollections();
             GetStartSensorData();        
             StrartMockTask();
+            
         }
 
         private void InitHallCollections()
         {
             _hallDataCollections = new BindingList<SensorDataCollection>();
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 _hallDataCollections.Add(new SensorDataCollection(SensorDataType.HallPattern));
             }
@@ -134,7 +141,7 @@ namespace MotorXPGUIMVVM.Repository
         public BindingList<SensorDataCollection> HallSensorDataCollections => _hallDataCollections;
         public ICommand SubmitPIDCommand { get; set; }
 
-        private double _hallPatternWindowPosition;
+
 
         public double HallPatternWindowPosition
         {
