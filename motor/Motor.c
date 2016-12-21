@@ -47,9 +47,9 @@ void Motor_ClearOutputs()
 void Motor_Main()
 {//451326
     Sensor_HallPattern_t pattern;
-    uint8_t counterClockWisePattern[] = {4, 5, 1, 3, 2, 6};
-	uint8_t clockWisePattern[] = {6, 2, 3, 1, 5, 4};
-    uint8_t* currentPattern = clockWisePattern;
+    int counterClockWisePattern[] = {1, 3, 2, 6, 4, 5};
+	int clockWisePattern[] = {5, 4, 6, 2, 3, 1};
+    int* currentPattern = clockWisePattern;
     if (Sensor_GetDirection() == CounterClockWise)
     {
     	currentPattern = counterClockWisePattern;
@@ -59,38 +59,38 @@ void Motor_Main()
     	int result = pattern.h1 | pattern.h2 << 1 | pattern.h3 << 2;
         if (result == currentPattern[0])
         {
-            XMC_GPIO_SetOutputLow(MOTOR_CL);
-			XMC_GPIO_SetOutputHigh(MOTOR_AH);
-			XMC_GPIO_SetOutputHigh(MOTOR_BL);
+			 Motor_ClearOutputs();
+			 XMC_GPIO_SetOutputHigh(MOTOR_AH);
+			 XMC_GPIO_SetOutputHigh(MOTOR_BL);
         }
         else if (result == currentPattern[1])
         {
+            Motor_ClearOutputs();
             XMC_GPIO_SetOutputLow(MOTOR_AH);
-			XMC_GPIO_SetOutputHigh(MOTOR_BL);
             XMC_GPIO_SetOutputHigh(MOTOR_CH);
         }
         else if (result == currentPattern[2])
         {
+            Motor_ClearOutputs();
             XMC_GPIO_SetOutputLow(MOTOR_BL);
-            XMC_GPIO_SetOutputHigh(MOTOR_CH);
             XMC_GPIO_SetOutputHigh(MOTOR_AL);
         }
         else if (result == currentPattern[3])
         {
+            Motor_ClearOutputs();
             XMC_GPIO_SetOutputLow(MOTOR_CH);
-            XMC_GPIO_SetOutputHigh(MOTOR_AL);
             XMC_GPIO_SetOutputHigh(MOTOR_BH);
         }
         else if (result == currentPattern[4])
         {
+            Motor_ClearOutputs();
             XMC_GPIO_SetOutputLow(MOTOR_AL);
-            XMC_GPIO_SetOutputHigh(MOTOR_BH);
             XMC_GPIO_SetOutputHigh(MOTOR_CL);
         }
         else if (result == currentPattern[5])
         {
+            Motor_ClearOutputs();
             XMC_GPIO_SetOutputLow(MOTOR_BH);
-            XMC_GPIO_SetOutputHigh(MOTOR_CL);
             XMC_GPIO_SetOutputHigh(MOTOR_AH);
         }
         else
