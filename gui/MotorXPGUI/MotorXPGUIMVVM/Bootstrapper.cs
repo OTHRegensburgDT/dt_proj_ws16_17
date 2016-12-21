@@ -7,10 +7,11 @@ using MotorXPGUIMVVM.Repository;
 using MotorXPGUIMVVM.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 
 namespace MotorXPGUIMVVM
 {
-    public class Bootstrapper : IServiceLocator, IDisposable
+    public class Bootstrapper : IServiceLocator
     {
         private IUnityContainer Container { get; }
 
@@ -19,7 +20,9 @@ namespace MotorXPGUIMVVM
             Container = new UnityContainer();
             ConfigurationContainer();
         }
-
+        /// <summary>
+        /// register all instances to inject them later in the in the constructor
+        /// </summary>
         private void ConfigurationContainer()
         {
             var config = new MapperConfiguration(cfg =>
@@ -31,11 +34,9 @@ namespace MotorXPGUIMVVM
                 .RegisterInstance(mapper)
                 .RegisterType<MainViewViewModel>()
                 .RegisterType<DataDisplayViewModel>()
-                //.RegisterType<ISensorRepository, SensorRepository>();
-                .RegisterType<ISensorRepository, MockSensorRepository>();
- 
+                .RegisterType<ISensorRepository, SensorRepository>();
+                //.RegisterType<ISensorRepository, MockSensorRepository>();
         }
-        
 
         public object GetInstance(Type serviceType)
         {
@@ -70,11 +71,6 @@ namespace MotorXPGUIMVVM
         public object GetService(Type serviceType)
         {
             return Container.Resolve(serviceType);
-        }
-
-        public void Dispose()
-        {
-            Container.Dispose();
         }
     }
 }
