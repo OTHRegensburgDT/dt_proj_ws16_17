@@ -118,10 +118,34 @@ namespace KomModule
         {
             //read serial port
             var spL = (SerialPort)sender;
-            var SofDel = new byte[2];
+            var SofDel = new byte[1];
+            //Start of Frame checker
+            var state = 0; //state 0: no sof; state 1: 0x55 detected; state 2: 0x55 and 0xD5 detected
             do{
-                spL.Read(SofDel, 0, 2);
-            }while(SofDel[0] != 0x55 || SofDel[1] != 0xD5);
+                spL.Read(SofDel, 0, 1);
+                if (state == 0 && SofDel[0] == 0x55)
+                {
+                    state = 1;
+                    continue;
+                }
+                if(state == 1 && SofDel[0] == 0x55)
+                {
+                    state = 1;
+                    continue;
+                }
+                if (state == 1 && SofDel[0] == 0xD5)
+                {
+                    state = 2;
+                    continue;
+                }
+                if (SofDel[0] != 0x55 || SofDel[0] != 0xD5)
+                {
+                    state = 0;
+                    continue;
+                }
+            }while(state != 2);
+            state = 0;
+            //End of Frame Checker
 
             var inLength = new byte[1];
 
