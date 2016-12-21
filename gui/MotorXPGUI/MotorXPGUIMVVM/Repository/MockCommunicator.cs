@@ -61,18 +61,14 @@ namespace MotorXPGUIMVVM.Repository
         /// <returns>temperature as double</returns>
         private double AddNewTempValue()
         {
-            var target = 65;
-            if (_params.TargetVal <= 1500)
+            var target = 150;
+            // if the motor change the speed, the tmp change too
+            if (Math.Abs(_currentVelocity - _params.TargetVal) > 1)
             {
-                target = 35;
-                return _currentTemperature += (target - _currentTemperature) * 0.01;
+                return _currentTemperature += (target - _currentTemperature)*0.006;
             }
-            if (_params.TargetVal >= 4500)
-            {
-                target = 150;
-                return _currentTemperature += (target - _currentTemperature) * 0.01;
-            }
-            return _currentTemperature += (target - _currentTemperature) * 0.01;           
+            target = 30;
+            return _currentTemperature += (target - _currentTemperature) * 0.006;
         }
 
         /// <summary>
@@ -84,7 +80,6 @@ namespace MotorXPGUIMVVM.Repository
             const int maxAngle = 120;
             const int maxVelocity = 6000;
             Angle += (_currentVelocity/maxVelocity)*maxAngle;
-
             return Angle;
             
         }
