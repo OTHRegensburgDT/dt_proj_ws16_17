@@ -7,10 +7,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Unity;
+using MotorXPGUIMVVM.Annotations;
 
 namespace MotorXPGUIMVVM.Repository
 {
-    
+
     public class SensorRepository : INotifyPropertyChanged, ISensorRepository
     {
         private readonly ICommunicator _com;
@@ -20,16 +21,29 @@ namespace MotorXPGUIMVVM.Repository
         [InjectionConstructor]
         public SensorRepository()
         {
-            var test = SerialPort.GetPortNames();
-            _com = new UartCommunicator("COM8");
+
+            _com = GetCommunicator();
             _com.NewSensordata += OnNewSensorData;
             HallSensorDataCollections = InitHallPattern();
             _sensorDataCollections = new BindingList<SensorDataCollection>();
         }
 
+        private ICommunicator GetCommunicator()
+        {
+            try
+            {
+               return new UartCommunicator("COM8");
+            }
+            catch (Exception)
+            {
+                
+               return new MockCommunicator();
+            }
+        }
+
         private static BindingList<SensorDataCollection> InitHallPattern()
         {
-           return new BindingList<SensorDataCollection>
+            return new BindingList<SensorDataCollection>
            {
                new SensorDataCollection(SensorDataType.HallPattern),
                new SensorDataCollection(SensorDataType.HallPattern),
@@ -70,18 +84,21 @@ namespace MotorXPGUIMVVM.Repository
             foreach (var data in dataTable)
             {
                 var sensorDataCollection = SensorDataCollections.FirstOrDefault(x => x.SensorDataType == (SensorDataType)data.Key);
-                if ( sensorDataCollection == null)
+                if (sensorDataCollection == null 
+                    && (SensorDataType)data.Key != SensorDataType.HallPattern)
                 {
                     sensorDataCollection = new SensorDataCollection((SensorDataType)data.Key);
                     Application.Current.Dispatcher.Invoke(() => SensorDataCollections.Add(sensorDataCollection));
 
                 }
 
-                Application.Current.Dispatcher.Invoke(() => sensorDataCollection.AddValue(CheckMinValue(data.Value, sensorDataCollection)));
-              
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    sensorDataCollection?.AddValue(CheckMinValue(data.Value, sensorDataCollection));
+                });
 
                 // add hallpattern if angle value is arrived
-                if ((SensorDataType) data.Key == SensorDataType.Angle)
+                if ((SensorDataType)data.Key == SensorDataType.HallPattern)
                 {
                     AddHallPattern(data.Value);
                 }
@@ -91,43 +108,19 @@ namespace MotorXPGUIMVVM.Repository
         {
             return dataValue <= col.MinValue ? col.MinValue : dataValue;
         }
-        private void AddHallPattern(double angle)
+        private void AddHallPattern(double hallValue)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                HallSensorDataCollections[0].Values.Add(GetHallA(angle));
-                HallSensorDataCollections[1].Values.Add(GetHallB(angle));
-                HallSensorDataCollections[2].Values.Add(GetHallC(angle));
+                HallSensorDataCollections[0].Values.Add((int)hallValue & (1<<0));
+                HallSensorDataCollections[1].Values.Add((int)hallValue & (1 << 1));
+                HallSensorDataCollections[2].Values.Add((int)hallValue & (1 << 2));
             });
         }
-        private static double GetHallA(double angle)
-        {
-            var preAngle = PrepareAngle(angle);
-            if (preAngle >= -60.0 && preAngle <= 120) return 1.0;
-            return 0;
-        }
-        private static double GetHallB(double angle)
-        {
-            var preAngle = PrepareAngle(angle);
-            if (preAngle >= 60.0 || preAngle <= -120) return 1.0;
-            return 0;
-        }
-        private static double GetHallC(double angle)
-        {
-            var preAngle = PrepareAngle(angle);
-            if (preAngle >= -180.0 && preAngle <= 0) return 1.0;
-            return 0;
-        }
-        private static double PrepareAngle(double angle)
-        {
-            var sin = Math.Sin(angle);
-            var cos = Math.Cos(angle);
-            var aTan2 = Math.Atan2(sin, cos);
-            return aTan2 * (180 / Math.PI);
-        }
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }      
+        }
     }
 }
