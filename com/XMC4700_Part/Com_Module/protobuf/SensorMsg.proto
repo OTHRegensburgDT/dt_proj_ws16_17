@@ -1,0 +1,16 @@
+//Message description sensorData
+
+syntax = "proto2";
+package Com_Module;
+
+//defining an entry of the data table
+message DataEntry{
+	required uint32 SensorId = 1;
+	required double Data = 2;
+}
+//defining the real message
+message SensorMsg{
+	//Upcounting Nr
+	required uint64 SequenceNr = 1;
+	repeated DataEntry DataTable = 2;
+}

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\com">
+      <UniqueIdentifier>{f46670d6-b24a-4f0e-b3f8-acb655d26f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\motor">
+      <UniqueIdentifier>{d6106723-7562-431c-b963-504bc5f6ee82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sensor">
+      <UniqueIdentifier>{ab791fd8-3e83-4aad-a1ba-5c881cc1eb73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sensor">
+      <UniqueIdentifier>{20a4cf09-b4e9-4844-a32c-4194219d0ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\motor">
+      <UniqueIdentifier>{19e83f24-bd82-44f9-8dae-a0ab1edbfc6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\com">
+      <UniqueIdentifier>{54a1291b-5c75-4962-8e22-48e66ff4f9e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\regulation">
+      <UniqueIdentifier>{2da43745-2979-4179-959c-15a600e4dbdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\regulation">
+      <UniqueIdentifier>{2b2f7c55-6776-4f18-9ddb-4b08eaf8eca9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sensor.h">
+      <Filter>Header Files\sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="ComHandler.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="MotorHandler.h">
+      <Filter>Header Files\motor</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorHandler.h">
+      <Filter>Header Files\sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="RegulationHandler.h">
+      <Filter>Header Files\regulation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\com_structs.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\communication.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\Frameparser.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\Paramsparser.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\SensorIDs.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\com\XMC4700_Part\Com_Module\Sensorparser.h">
+      <Filter>Header Files\com</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorHandler.c">
+      <Filter>Source Files\sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="ComHandler.c">
+      <Filter>Source Files\com</Filter>
+    </ClCompile>
+    <ClCompile Include="MotorHandler.c">
+      <Filter>Source Files\motor</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorStubs.c">
+      <Filter>Source Files\sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="RegulationHandler.c">
+      <Filter>Source Files\regulation</Filter>
+    </ClCompile>
+    <ClCompile Include="ComStubs.c">
+      <Filter>Source Files\com</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

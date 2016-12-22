@@ -1,0 +1,15 @@
+//Message description Regulation parameters 
+
+syntax = "proto3";
+package KomModule;
+
+option csharp_namespace = "MotorXP.Protobuf.ParamMSg";
+
+//defining the parameter message
+message RegParams{
+	uint32 target = 1;
+	float paraP = 2;
+	float paraI = 3;
+	float paraD = 4;
+	float tgtVal = 5;
+}

@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="MotorXPGUIMVVM.UserControls.DataDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:gauge="clr-namespace:MotorXPGUIMVVM.Controls.Gauge"
+             xmlns:lineChart="clr-namespace:MotorXPGUIMVVM.Controls.LineChart"
+             xmlns:converter="clr-namespace:MotorXPGUIMVVM.Converter"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             Name="UcContainer"
+             d:DesignHeight="1800" d:DesignWidth="900" 
+             DataContext="{Binding DataDisplayViewModel, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/Gauge/GaugeResources.xaml"/>
+                <ResourceDictionary Source="../Controls/LineChart/LineChartResources.xaml"/>
+                <ResourceDictionary Source="../Resources/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converter:BooleanToVisibilityHiddenConverter x:Key="BooleanToVisibilityConverter"/>
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <converter:EnumToAllEnumValuesConverter x:Key="AllEnumValuesConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Margin="8" HorizontalAlignment="Center">
+            <DockPanel  IsEnabled="{Binding IsNotBusy}">
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="P: "/>
+                    <TextBox Text="{Binding ValueP}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                    <Label Content="I: "/>
+                    <TextBox Text="{Binding ValueI}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                    <Label Content="D: "/>
+                    <TextBox Text="{Binding ValueD}" Width="40" TextAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="8 0 0 0">
+                    <Label Content="Target: "/>
+                    <ComboBox ItemsSource="{Binding ReguTarget, Converter={StaticResource AllEnumValuesConverter}, Mode=OneTime}" SelectedItem="{Binding ReguTarget}" Width="120"/>
+                </StackPanel>
+                <Button Content="Submit" Margin="8 0 0 0" Command="{Binding Repository.SubmitPIDCommand}" Style="{DynamicResource AccentedSquareButtonStyle }"/>
+            </DockPanel>
+            <TextBlock Text="Sending..." Foreground="White" Background="#A8000000" TextAlignment="Center" FontSize="18" Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <ItemsControl HorizontalAlignment="Stretch"  ItemsSource="{Binding Repository.SensorDataCollections}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Expander Name="Expander" Header="{Binding Unit}" IsExpanded="True" Padding="8" >
+                                <Expander.Content>
+                                    <Viewbox Height="250">
+                                        <DockPanel LastChildFill="True">
+                                            <StackPanel  Name="GaugeGrid">
+                                                <Grid>
+                                                    <gauge:Gauge Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" x:Name="TargetGauge" Width="200" Height="160" VerticalAlignment="Top" HorizontalAlignment="Stretch" MaxAngle="{Binding MaxGaugeAngle}" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" MinAngle="{Binding MinGaugeAngle}" NeedleColor="Transparent" GaugeBorderBrush="Transparent" NeedleBorderBrush="Red" Value="{Binding TargetValue}" Margin="0 8 0 0" StrokeColor="Transparent" MinMaxValueIndicatorBrush="Transparent" Foreground="Transparent" GaugeFill="Transparent"/>
+                                                    <gauge:Gauge x:Name="CurrentValueGauge" Width="200" Height="160" VerticalAlignment="Top" HorizontalAlignment="Stretch"  MaxAngle="{Binding MaxGaugeAngle}" MaxValue="{Binding MaxValue}" MinAngle="{Binding MinGaugeAngle}" GaugeBorderBrush="Transparent" NeedleBorderBrush="Gray" NeedleColor="White" Margin="0 8 0 0" StrokeColor="PowderBlue" FontSize="8" MinMaxValueIndicatorBrush="Black" GaugeFill="Transparent" ValueIndicatorSize="16" Strokes="20" StrokeLength="0.5" StrokeThickness="2" Value="{Binding LastValue}" MinValue="{Binding MinValue}"/>
+                                                </Grid>
+                                                <!--Gauge slider-->
+                                                <Slider Visibility="{Binding HasTargetValue, Converter={StaticResource BooleanToVisibilityConverter}}" Name="SliderGauge" Margin="8 -8 8 4" Minimum="{Binding MinValue}" Width="100" Maximum="{Binding MaxValue}" Value="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSnapToTickEnabled="True" >
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                                            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=SliderMouseButtonUpCommand}" PassEventArgsToCommand="True" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Slider>
+                                                <!--Gauge Text area-->
+                                                <StackPanel Visibility="{Binding HasTargetValue , Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal" Margin="8 0 8 8" HorizontalAlignment="Center">
+                                                    <Label FontSize="12" Content="Target: " VerticalContentAlignment="Top" VerticalAlignment="Top"></Label>
+                                                    <TextBox FontSize="12" Width="40" Height="26" Text="{Binding ElementName=SliderGauge, Path=Value, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <Viewbox DockPanel.Dock="Right" Stretch="Fill" >
+                                                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="2" Margin="4">
+                                                    <Border.Effect>
+                                                        <DropShadowEffect BlurRadius="4" Color="LightGray"/>
+                                                    </Border.Effect>
+                                                    <DockPanel  Name="LineChartGrid" Background="White">
+                                                        <DockPanel DockPanel.Dock="Top" >
+                                                            <!--LineChart Column-->
+                                                            <!--Value LineChart-->
+                                                            <DockPanel LastChildFill="True" Margin="8 8 0 0">
+                                                                <DockPanel DockPanel.Dock="Right" LastChildFill="True" Margin="8 8 8 16 ">
+                                                                    <fa:ImageAwesome DockPanel.Dock="Top" Icon="Minus" Foreground="Gray" Width="15"/>
+                                                                    <fa:ImageAwesome DockPanel.Dock="Bottom" Icon="Plus" Foreground="Gray" Width="15"/>
+                                                                    <Slider Margin="0 8"  Orientation="Vertical"  IsEnabled="{Binding ShowAll , Converter={StaticResource InverseBooleanConverter}}" Minimum="5" Maximum="500" Value="{Binding SampleWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                </DockPanel>
+                                                                <lineChart:LineChart ToolTip="{Binding ElementName=LineChart, Path=ValueUnderMouse, UpdateSourceTrigger=PropertyChanged}" MinWidth="500"  DockPanel.Dock="Left" Margin="0 0 10 0" HorizontalAlignment="Stretch"  Values="{Binding Values}" MinHeight="147" AutoMinMax="False" MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}"  SampleWindow="{Binding SampleWindow}" IsShowingAll="{Binding ShowAll, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="LineChart" Background="White" StrokeColor="Blue" FillColor="MintCream" AxisColor="DarkGray" WindowPosition="{Binding ElementName=SliderLineChart, Path=Value}"/>
+                                                            </DockPanel>
+                                                        </DockPanel>
+                                                        <DockPanel DockPanel.Dock="Bottom">
+                                                            <Slider  DockPanel.Dock="Top" IsEnabled="{Binding ShowAll , Converter={StaticResource InverseBooleanConverter}}"  Name="SliderLineChart" Minimum="0" Margin="48 8 48 0" Maximum="1" Value="{Binding ElementName=LineChart, Path=WindowPosition}" ToolTip="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+                                                            <StackPanel DockPanel.Dock="Bottom" Margin="48 8 8 8">
+                                                                <CheckBox FontSize="16" Content="Show All" Height="30" Command="{Binding ShowAllCommand}" IsChecked="{Binding ShowAll}"/>
+                                                            </StackPanel>
+                                                        </DockPanel>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Viewbox>
+                                        </DockPanel>
+                                    </Viewbox>
+                                </Expander.Content>
+                            </Expander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <Expander Header="{Binding Repository.HallSensorDataCollections[0].Unit}" IsExpanded="True">
+                    <Expander.Content>
+                        <Border>
+                            <StackPanel>
+                                <Grid Margin="16">
+                                    <DockPanel LastChildFill="True">
+                                        <DockPanel DockPanel.Dock="Right" LastChildFill="True" Margin="8 8 8 16 ">
+                                            <fa:ImageAwesome DockPanel.Dock="Top" Icon="Minus" Foreground="Gray" Width="15"/>
+                                            <fa:ImageAwesome DockPanel.Dock="Bottom" Icon="Plus" Foreground="Gray" Width="15"/>
+                                            <Slider Margin="0 8"  Orientation="Vertical"  IsEnabled="{Binding Repository.HallSensorDataCollections[0].ShowAll , Converter={StaticResource InverseBooleanConverter}}" Minimum="10" Maximum="500" Value="{Binding Repository.HallSensorDataCollections[0].SampleWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DockPanel>
+                                        <StackPanel DockPanel.Dock="Left" Height="240">
+
+                                            <lineChart:LineChart x:Name="HallLineChart" ToolTip="{Binding ElementName=HallLineChart, Path=ValueUnderMouse, UpdateSourceTrigger=PropertyChanged}" WindowPosition="{Binding ElementName=HallSlider , Path=Value}"  Values="{Binding Repository.HallSensorDataCollections[0].Values}" Height="80" AutoMinMax="False" MinValue="{Binding Repository.HallSensorDataCollections[0].MinValue}" MaxValue="{Binding Repository.HallSensorDataCollections[0].MaxValue}"  SampleWindow="{Binding Repository.HallSensorDataCollections[0].SampleWindow}" IsShowingAll="{Binding Repository.HallSensorDataCollections[0].ShowAll}" Background="Transparent" MouseScrollEnabled="False" StrokeColor="Blue" FillColor="Transparent" AxisColor="LightGray" FontSize="1" IsXScaleVisible="True"/>
+
+                                            <lineChart:LineChart  Values="{Binding Repository.HallSensorDataCollections[1].Values}" Height="80"  ToolTip="{Binding ElementName=HallLineChart, Path=ValueUnderMouse, UpdateSourceTrigger=PropertyChanged}" AutoMinMax="False" MinValue="{Binding Repository.HallSensorDataCollections[1].MinValue}" MaxValue="{Binding Repository.HallSensorDataCollections[1].MaxValue}"  SampleWindow="{Binding ElementName=HallLineChart, Path=SampleWindow}" IsShowingAll="{Binding ElementName=HallLineChart, Path=IsShowingAll}" Background="Transparent" MouseScrollEnabled="False" StrokeColor="DarkGoldenrod" WindowPosition="{Binding ElementName=HallSlider , Path=Value}"  FillColor="Transparent" AxisColor="LightGray" FontSize="1" IsXScaleVisible="True"/>
+
+                                            <lineChart:LineChart  Values="{Binding Repository.HallSensorDataCollections[2].Values}" Height="80"  ToolTip="{Binding ElementName=HallLineChart, Path=ValueUnderMouse, UpdateSourceTrigger=PropertyChanged}" AutoMinMax="False" MinValue="{Binding Repository.HallSensorDataCollections[2].MinValue}" MaxValue="{Binding Repository.HallSensorDataCollections[2].MaxValue}"  SampleWindow="{Binding ElementName=HallLineChart, Path=SampleWindow}" IsShowingAll="{Binding ElementName=HallLineChart, Path=IsShowingAll}" Background="Transparent" MouseScrollEnabled="False" StrokeColor="DarkOrange" WindowPosition="{Binding ElementName=HallSlider , Path=Value}"  FillColor="Transparent" AxisColor="LightGray" FontSize="1" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Grid>
+                                <Slider x:Name="HallSlider" DockPanel.Dock="Top" IsEnabled="{Binding ElementName=HallLineChart, Path=IsShowingAll, Converter={StaticResource InverseBooleanConverter}}"  Minimum="0" Margin="64 8 24 0" Maximum="1" Value="{Binding ElementName=HallLineChart, Path=WindowPosition}" ToolTip="{Binding Repository.HallSensorDataCollections[0].CurrentValue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+
+                                <CheckBox Margin="64 8 8 8" FontSize="16" Content="Show All" Height="30" Command="{Binding Repository.HallSensorDataCollections[0].ShowAllCommand}" IsChecked="{Binding Repository.HallSensorDataCollections[0].ShowAll, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </Border>
+                    </Expander.Content>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
+

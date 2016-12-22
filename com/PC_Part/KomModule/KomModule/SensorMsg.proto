@@ -1,0 +1,21 @@
+//Message description sensorData
+
+
+syntax = "proto3";
+package KomModule;
+
+option csharp_namespace = "MotorXP.Protobuf.SensorMSg";
+
+//defining an entry of the data table
+message DataEntry{
+	uint32 SensorId = 1;
+	double Data = 2;
+}
+
+//defining the real message
+message SensorMsg{
+	//Upcounting Nr
+	uint64 SequenceNr = 1;
+	//all Data
+	repeated DataEntry DataTable = 2;
+}

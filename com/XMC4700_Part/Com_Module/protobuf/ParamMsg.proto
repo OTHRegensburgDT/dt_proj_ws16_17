@@ -1,0 +1,13 @@
+//Message description sensorData
+
+syntax = "proto2";
+package Com_Module;
+
+//defining the parameter message
+message RegParams{
+	required uint32 target = 1;
+	required float paraP = 2;
+	required float paraI = 3;
+	required float paraD = 4;
+	required float tgtVal = 5;
+}
