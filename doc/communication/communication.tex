@@ -1,4 +1,4 @@
-\
+\graphicspath{{./communication/}}
 \chapter{Arbeitspaket Kommunikation}
 Für die Analyse, den Entwurf, die Impelementierung und die Integration dieses Arbeitspaketes übernahm Herr Schleinkofer die Verantwortung.
 \paragraph{}
@@ -28,24 +28,22 @@ message Person {
 }
 \end{lstlisting}
 Dies liegt in der Art, wie eine Nachricht in Protobuf aufgebaut ist. Zunächst wird diese in einer Beschreibungssprache definiert.
-Im Code-Ausschnitt \ref{lst:protoEx} ist ersichtlich, dass eine "Message" aus mehreren Feldern besteht. Wird nun eine Nachricht um neue Felder erweitert, so kann ein Programm, welches jedoch noch die alte Beschreibung nutzt, eine neuartige Nachricht wieder zurückverwandeln. Die neuen Felder jedoch werden hierbei ignoriert. Diese Art und Weise der strukturierten Nachrichten ist auch von Vorteil. Protobuf besitzt darüber hinaus über einen Codegenerator. Das bedeutet: Der Entwickler definiert in der Beschreibungssprache eine Nachricht. Diese Beschreibung wird nun duch den Generator in einen Code zur De-/Serialisierung umgewandelt. Zusätzlich wird dabei eine Datenstruktur definiert, die vom Entwickler im Programmcode mit den zu übertragenden Daten ausgefüllt werden und einfach in einen Bytestream verwandelt und wieder zurückverwandelt werden kann.
+Im Code \ref{lst:protoEx} ist ersichtlich, dass eine "Message" aus mehreren Feldern und deren zugehörigen Identifiern ("= 1" für das Feld "name") besteht. Wird nun eine Nachricht um neue Felder erweitert, so kann ein Programm, welches jedoch noch die alte Beschreibung nutzt, eine neuartige Nachricht wieder deserialisieren. Die neuen Felder jedoch werden hierbei aufgrund des unbekannten Identifiers ignoriert. Protobuf verfügt darüber hinaus noch über einen Codegenerator. Das bedeutet: Der Entwickler definiert in der gezeigten Beschreibungssprache eine Nachricht. Diese Beschreibung wird nun duch den Generator in einen Code zur De-/Serialisierung umgewandelt. Zusätzlich wird dabei eine Datenstruktur definiert, die vom Entwickler im Programmcode mit den zu übertragenden Daten ausgefüllt werden und einfach in einen Bytestream verwandelt und wieder zurückverwandelt werden kann.
 \paragraph{}
 Zwar gibt es keine "offizielle" Implementierung von Protobuf für C, jedoch gibt es ein Projekt mit dem Namen "nanopb" welches die grundlegenden Funktionen von Protocol Buffers in C speziell für Embedded Systems umsetzt. Ein weiterer Vorteil von Protobuf gegenüber der einfachen String-Variante ist die geringere Größe der einzelnen Nachrichten, was die Kommunikation effizienter werden lässt.
 \section{Entwurfsphase}
 Der Ablauf der Kommunikation sollte relativ einfach gehalten werden, um in der vorgegebenen Zeit umsetzbar zu sein. Daher senden die Kommunikationspartner nur einfache Protobuf-Nachrichten. Der PC sendet Regelungsparameter und Ziel an den Controller. Dieser wiederum sendet regelmäßig die Daten der angeschlossenen Sensoren an die GUI auf dem PC. Um die Kommunikation für die angrenzenden Arbeitspakete so einfach wie möglich zu gestalten, soll die Schnittstelle nur aus wenigen Funktionen bzw. Methoden bestehen.
 \subsection{Nachrichtendefinition}
-Im System gibt es zwei Arten von Nachrichten. Die erste Art enthält die gesammelten Daten aller Sensoren auf dem Controller und wird von diesem an den PC verschickt. Die zweite Art enthält die Regelungsparameter und die Größe, welche geregelt werden soll. Diese Parameter können an der GUI eingestellt und an den $\mu$-Controller gesendet werden. Der grundlegende Aufbau beider Nachrichten auf Byte-Ebene ist gleich und wird in Bild \ref{fig:FrameOv} dargestellte. Den Beginn der Nachricht markiert ein Byte, welches die Anzahl aller Bytes der Nachricht (nachfolgend Frame genannt) enthält. Anschließend folgen die bereits von Protobuf serialiserten Daten als Reihe von Bytes. Am Ende des Frames folgen zwei Bytes, welche die CRC Prüfsumme enthalten. Bei der Prüfsumme handelt es sich um die 16-Bit große CRC-CCITT, welche unter anderem auch beim seriellen Datenübertragungsprotokoll HDLC verwendet wird.
-\begin{figure}
-  \begin{center}
-    \includesvg[width=1.0\textwidth, height=0.1\textheight]{communication/MessageFormat}
-    \caption{Schematischer Aufbau eines Nachrichtenframes}
-    \label{fig:FrameOv}
-  \end{center}
+Im System gibt es zwei Arten von Nachrichten. Die erste Art enthält die gesammelten Daten aller Sensoren auf dem Controller und wird von diesem an den PC verschickt. Die zweite Art enthält die Regelungsparameter und die Größe, welche geregelt werden soll. Diese Parameter können an der GUI eingestellt und an den $\mu$-Controller gesendet werden. Der grundlegende Aufbau beider Nachrichten auf Byte-Ebene ist gleich und wird in Bild \ref{fig:FrameOv} dargestellte. Den Beginn der Nachricht markiert ein Byte, welches die Anzahl aller Bytes der Nachricht (nachfolgend Frame genannt) enthält. Anschließend folgen die bereits von Protobuf serialiserten Daten als Reihe von Bytes. Den Abschluss des Frames bilden zwei Bytes, welche die CRC Prüfsumme enthalten. Bei der Prüfsumme handelt es sich um die 16-Bit große CRC-CCITT, welche unter anderem auch beim seriellen Datenübertragungsprotokoll HDLC verwendet wird.
+\begin{figure}[h]
+  \includegraphics[width=\textwidth]{MessageFormat}
+  \caption{Schematischer Aufbau eines Frames}
+  \label{fig:FrameOv}
 \end{figure}
 \subsubsection{Sensordaten Nachricht}
-Bei der Absprache mit den für die GUI verantwortlichen Entwicklern, kam folgende Anforderung hinzu: "Die Nachrichten sollen mit einem Zeitstempel oder einer fortlaufenden Nummer ausgestattet sein, um diese später unter Umständen nochmals sortieren zu können." Um auch für zukünftige Erweiterungen von Sensoren gerüstet zu sein, soll die Anzahl der Sensordaten in der Nachricht variabel gestaltet sein. Um das alles zu erfüllen gilt für die Protobuf Nachricht folgende Beschreibung:
+Bei der Absprache mit den für die GUI verantwortlichen Entwicklern, kam folgende Anforderung hinzu: "Die Nachrichten sollen mit einem Zeitstempel oder einer fortlaufenden Nummer ausgestattet sein, um diese später unter Umständen nochmals sortieren zu können." Um auch für zukünftige Erweiterungen von Sensoren gerüstet zu sein, soll die Anzahl der Sensordaten in der Nachricht variabel gestaltet sein. Zudem wird jedem Sensorwert die ID des Sensors, welcher den Wert produzierte, zugeordnet. Um das alles zu erfüllen gilt für die Protobuf Nachricht folgende Beschreibung:
 \begin{lstlisting}[caption=Beschreibung der Sensordaten Nachricht, label=lst:protoData]
-  //defining an entry of the data table
+//defining an entry of the data table
 message DataEntry{
 	uint32 SensorId = 1;
 	double Data = 2;
@@ -59,7 +57,7 @@ message SensorMsg{
 }
 \end{lstlisting}
 \subsubsection{Regelungsparameter Nachricht}
-Das Team, welches die Regelung umgesetzt hat, stellt eine API bereit, welche neben den Parametern P, I und D eines Reglers auch die Regelgröße (z.B. Geschwindigkeit oder Drehmoment) und den Zielwert entgegennimmt. Dazu müssen diese Werte auch in der Protobuf Nachricht berücksichtigt werden.
+Das Team, welches die Regelung umgesetzt hat, stellt eine API bereit, welche neben den Parametern P, I und D eines Reglers auch die Regelgröße (z.B. Geschwindigkeit oder Drehmoment) und den Zielwert entgegennimmt. Dazu müssen diese Werte auch in der Protobuf Nachricht wie folgt berücksichtigt werden:
 \begin{lstlisting}[caption=Beschreibung der Parameter Nachricht, label=lst:protoPara]
 //defining the parameter message
 message RegParams{
@@ -70,10 +68,9 @@ message RegParams{
 	float tgtVal = 5;
 }
 \end{lstlisting}
-\paragraph{}
-
+Im Codebeispiel \ref{lst:protoPara} wird die Regelgröße mittels dem "target" Feld übermittelt. Dabei muss jedoch beachtet werden, dass bei beiden Kommunikationspartnern die Werte der gleichen Größe zugeordnet werden.
 \paragraph{PC Bibliothek}
-Für den Teil, welcher die Kommunikation auf Seiten der GUI übernimmt, soll eine Bibliothek auf C\#-Basis implementiert werden. Um nun Regelungsparameter an den Controller senden zu können, muss ein Datenobjekt beim Aufruf der Sende-Methode übergeben werden. Für den Empfang von Sensordaten 
+Für den Teil, welcher die Kommunikation auf Seiten der GUI übernimmt, soll eine Bibliothek auf C\#-Basis implementiert werden. Um nun Regelungsparameter an den Controller senden zu können, muss ein Datenobjekt beim Aufruf der Sende-Methode übergeben werden. Für den Empfang von Sensordaten ist es von Vorteil, das Hollywood-Prinzip anzuwenden. So soll die Bibiliothek nicht regelmäßig nach neuen Daten abgefragt werden. Vielmehr lößt die API ein Event aus, welches die Verfügbarkeit neuer Werte anzeigt. Da sich bereits darauf festgelegt wurde, einen virtuellen Com-Port zur Kommunikation zu verwenden, soll dieser nun auch bei der Initialisierung der API als String oder gleich als ComPort-Objekt mit angegeben werden. 
 \paragraph{Controller Funktionen}
 \section{Implementierung}
 \section{Integration}
