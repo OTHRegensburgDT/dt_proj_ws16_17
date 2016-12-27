@@ -1,0 +1,77 @@
+\chapter{Codeausschnitt aus der C\#-Bibliothek mit ComPort-Settings}
+\label{ComAPP:ComPortSettings}
+\begin{lstlisting}
+private void port_Init()
+{
+  try
+  {
+    _uart.BaudRate = 9600;
+    _uart.DataBits = 8;
+    _uart.StopBits = StopBits.One;
+    _uart.Handshake = Handshake.None;
+    _uart.Parity = Parity.Even;
+    _uart.DtrEnable = false;
+    _uart.RtsEnable = false;
+    _uart.DataReceived += uart_DataReceived;
+    _uart.ReceivedBytesThreshold = 10;
+    _uart.Open();
+    _isInit = true;
+  }
+  catch(Exception e)
+  {
+    throw new SystemException("Uart init failed! Message: " + e.Message);
+  }
+}
+\end{lstlisting}
+\chapter{Codeausschnitt aus der C\#-Bibliothek zum Senden der Bytes}
+\label{ComAPP:SendWait}
+\begin{lstlisting}
+  buf = Frameparser.EncapsuleFrame(buf);
+  try
+  {
+    // ReSharper disable once UnusedVariable
+    foreach (var elem in buf)
+    {
+      _uart.Write(buf, i, 1);
+      i++;
+      System.Threading.Thread.Sleep(30);
+    }
+    return true;
+  }
+  catch (Exception e)
+  {
+    throw new SystemException("Could not send Params! Error: " + e.Message);
+  }
+\end{lstlisting}
+
+\chapter{Codeausschnitt aus der C\#-Bibliothek mit dem SoF-Automaten}
+\label{ComAPP:SoFMachine}
+\begin{lstlisting}
+//Start of Frame checker
+var state = 0; //state 0: no sof; state 1: 0x55 detected; state 2: 0x55 and 0xD5 detected
+do{
+  spL.Read(SofDel, 0, 1);
+  if (state == 0 && SofDel[0] == 0x55)
+  {
+    state = 1;
+    continue;
+  }
+  if(state == 1 && SofDel[0] == 0x55)
+  {
+    state = 1;
+    continue;
+  }
+  if (state == 1 && SofDel[0] == 0xD5)
+  {
+    state = 2;
+    continue;
+  }
+  if (SofDel[0] != 0x55 || SofDel[0] != 0xD5)
+  {
+    state = 0;
+    continue;
+  }
+}while(state != 2);
+state = 0;
+//End of Frame Checker
+\end{lstlisting}

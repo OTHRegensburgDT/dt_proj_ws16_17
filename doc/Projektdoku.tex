@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage[font=small, margin=0pt ,labelfont=bf]{caption}
+\usepackage[numbers,round]{natbib}
+\bibliographystyle{alphadin}
 
 \title{Projektdokumentation - MotorXP}
 \author{Christian Brunner, Andreas Kölbl, \\
@@ -23,7 +25,15 @@
 \cfoot*{\pagemark}
 
 \renewcommand{\lstlistingname}{Code}
+\lstset{
+numbers=left,
+stepnumber=1,
+firstnumber=1,
+numberfirstline=true}
 \renewcommand{\figurename}{Bild}
+\renewcommand{\refname}{Quellen}
+\renewcommand{\bibname}{Quellen}
+\renewcommand{\appendixname}{Anhang}
 
 \begin{document}
 
@@ -48,4 +58,9 @@ Projektdefinition mit Aufteilung der einzelnen Arbeitspakete. Anschließend werd
 
 \chapter{Projektdefinition}
 \include{communication/communication}
+\listoffigures
+\listoftables
+\appendix
+\include{communication/comAppendix}
+\bibliography{communication/comCite}
 \end{document}
