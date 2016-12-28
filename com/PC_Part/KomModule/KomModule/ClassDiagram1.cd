@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+  <Class Name="KomModule.Frameparser">
+    <Position X="11.25" Y="2.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FrameParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorXP.Protobuf.ParamMSg.RegParams">
+    <Position X="6" Y="1.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>ABEgAgABIEAAQCYEgAAAACAAAEUABIggAAAAAAASJBA=</HashCode>
+      <FileName>ParamMsg.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KomModule.Protoparser">
+    <Position X="11.25" Y="4.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAgAAAAIABAA=</HashCode>
+      <FileName>Protoparser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KomModule.Sensordata">
+    <Position X="0.5" Y="9.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sensordata.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KomModule.UartCommunicator">
+    <Position X="0.5" Y="4.25" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>ECACACgAEAIAAAAAAAAAAAAAAAAIACAIAAAABQAAAAQ=</HashCode>
+      <FileName>UartCommunicator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="KomModule.ICommunicator">
+    <Position X="0.5" Y="2" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAIAAAIAAAABQAAAAA=</HashCode>
+      <FileName>ICommunicator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

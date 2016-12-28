@@ -1,4 +1,4 @@
-﻿\graphicspath{{./communication/}}
+\graphicspath{{./communication/}}
 \chapter{Arbeitspaket Kommunikation}
 Für die Analyse, den Entwurf, die Impelementierung dieses Arbeitspaketes übernahm Herr Schleinkofer die Verantwortung. Während der Integration des Arbeitspaketes war Herr Schleinkofer unterstützend eingebunden.
 \paragraph{}
@@ -10,7 +10,7 @@ Dabei stellt sich die Frage, welche Möglichkeiten der Controller zur Datenüber
 \paragraph{}
 Die gemachten Überlegungen haben zur Folge, dass die Kommunikation zwischen Testplatz und PC über die serielle Schnittstelle abgewickelt wird. Nun muss entschieden werden, welches Gerät am Computer verwendet werden soll. Möglich wäre eine Kommunikation über ein serielles Kabel, welches an eine EIA-232 Schnittstelle des PC's angeschlossen wird. Dies ist jedoch mit einigen Problemen behaftet. Zunächst verfügen moderne Desktop Computer nur noch in wenigen Fällen über eine dedizierte EIA-232 Schnittstelle. Dies kann jedoch durch Verwendung eines USB-zu-Seriell-Adapters umgangen werden. Am $\mu$-Controller erfolgt dann der Anschluss an die GPIO-Pins. Allerdings muss dafür ein Adapter angefertigt werden, welcher auf der einen Seite einen D-Sub 9 Stecker und auf der anderen Seite mindestens die Pins 2 (Data Transceive), 3 (Data Receive) und 5 (Ground) als Stifte, passend zur Buchsenleiste des Evaulation Boards, weiterführt. Allerdings werden die Daten an der EIA-232 Schnittstelle mit bis zu 9 Volt übertragen. Dies stellt ein weiteres Problem dar, da an den Pins des Controllers nur 3,3 oder 5 Volt ausgegeben werden können. Auch kann ein Eingangssignal mit 9 Volt zu Schäden am $\mu$-Controller führen. Um dieses Problem zu umgehen, wäre es möglich, einen USB-zu-Seriell-Adapter mit integriertem Wandler-Chip zu verwenden.
 \paragraph{}
-Eine weitere Möglichkeit zur seriellen Kommunikation zeigt ein Beispielprojekt von Infineon für das Evaluation Board auf. In diesem erfolgt die Kommunikation zwischen PC und Controller über das USB-Kabel, welches am Debugging-Chip des Boards angeschlossen wird. Auch in diesem Projekt erfolgt der Datenaustausch mit Nutzung des USIC-Bausteins. Allerdings werden hier die Sende- und Empfangsleitungen an den ... Chip weitergeleitet. Für den PC ist darüber hinaus ein Windows-Treiber verfügbar, welcher einen "virtuellen Com-Port" zur Kommunikation mit dem Evaluation Board einrichtet und über den nun Daten im Rahmen des Beispielprojektes ausgetauscht werden können. Auf die Software des PC's hat diese Vorgehensweise keinen Einfluss, da ein virtueller Com-Port in der gleichen Weise verwendet wird, wie ein Hardware-Gerät. Ein weiterer Vorteil dieser Lösung ist, dass eine zusätzliche Stromversorgung des $\mu$-Controllers entfällt, da dies über das USB-Kabel der Kommunikation erfolgt.
+Eine weitere Möglichkeit zur seriellen Kommunikation zeigt ein Beispielprojekt von Infineon für das Evaluation Board auf. In diesem erfolgt die Kommunikation zwischen PC und Controller über das USB-Kabel, welches am Debugging-Chip des Boards angeschlossen wird. Auch in diesem Projekt erfolgt der Datenaustausch mit Nutzung des USIC-Bausteins. Allerdings werden hier die Sende- und Empfangsleitungen an den XMC4200 Debug IC (im folgenden auch Debug-Chip genannt) auf der Platine weitergeleitet. Für den PC ist darüber hinaus ein Windows-Treiber verfügbar, welcher einen "virtuellen Com-Port" zur Kommunikation mit dem Evaluation Board einrichtet und über den nun Daten im Rahmen des Beispielprojektes ausgetauscht werden können. Auf die Software des PC's hat diese Vorgehensweise keinen Einfluss, da ein virtueller Com-Port in der gleichen Weise verwendet wird, wie ein Hardware-Gerät. Ein weiterer Vorteil dieser Lösung ist, dass eine zusätzliche Stromversorgung des $\mu$-Controllers entfällt, da dies über das USB-Kabel der Kommunikation erfolgt.
 \paragraph{}
 Die Aufgaben der zweiten Schicht des ISO/OSI-Modells umfassen unter Anderem auch die Sicherung der Datenintegrität während der Übertragung. Dies geschieht im Fall des Ethernet-Protokolls mittels eines Cyclic Redundancy Check Verfahrens. Und auch andere Kommunikationsprotokolle nutzen diese Art der Integritätsprüfung um etwaigen Störungen während der Übertragung entgegenzuwirken.
 \paragraph{}
@@ -126,21 +126,21 @@ Zum Ein- und Entpacken der Messages in Frames, können die Funktionen "ProtoToFr
 In der Funktion "FrameToProto" werden auch die genannten Funktionen zur Generierung des CRC-Wertes genutzt. Hier wird jedoch das Ergebnis auf 0 überprüft. Wie bereits geschildert, bedeutet beim Entkapseln des Frames ein CRC-Wert gleich 0, dass kein Fehler während der Übertragung aufgetreten ist. Ist dies der Fall, so wird der Bearbeitungspuffer um 2 Elemente verkleinert. Das dritte nun überschüssige Byte des Puffers wird nicht gelöscht, da ein dadurch notwendiges Verrücken der Payload im Puffer zu ressourcenintensiv ist. Allerdings wird die Größe der Payload durch die Funktion "FrameToProto" richtig zurückgegeben.
 \paragraph{}
 Außerdem existieren noch zwei Header-Dateien com\_types.h und SensorIDs.h. In der Ersteren befinden sich die Definitionen für die Sensordata-Struktur, welche die Regelung zur Übergabe der Sensorwerte nutzt, sowie der Aufzählung der möglichen Regelgröße. In der Letzteren wurden die ID's der einzelnen Sensoren für die Zuordnung der Werte abgelegt.
-\paragraph{Parametrierung der DAVE Apps}
-Hier werden alle in den DAVE Apps getroffenen Einstellungen aufgeführt. Die notwendigen Apps "UART [4.1.8]" und "CRC\_SW [4.0.6]" werden über den Menüpung "DAVE -> Add New APP …"... hinzugefügt.
-\begin{figure}
+\subsection{Parametrierung der DAVE Apps}
+In den Bildern \ref{fig:dave1} bis \ref{fig:dave6} werden alle in den DAVE Apps getroffenen Einstellungen aufgeführt. Die notwendigen Apps "UART [4.1.8]" und "CRC\_SW [4.0.6]" werden über den Menüpunkt "DAVE -> Add New APP ..." hinzugefügt.
+\newpage
+\begin{figure}[!h]
   \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{UARTgeneralSet}
-    \caption{Grundlegende Einstellungen der UART-App: Diese müssen mit den Einstellungen der C#-Bibliothek übereinstimmen.}
+    \caption{Grundlegende Einstellungen der UART-App: Diese müssen mit den Einstellungen der PC-Bibliothek übereinstimmen.}
+    \label{fig:dave1}
   \end{minipage}
   \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{UARTadvancedSet}
     \caption{Weiterführende Einstellungen der UART-App: Beide Richtungen werden per DMA gehandhabt.}
   \end{minipage}
-\end{figure}
-\begin{figure}
   \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{UARTinterSet}
@@ -149,21 +149,21 @@ Hier werden alle in den DAVE Apps getroffenen Einstellungen aufgeführt. Die not
   \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{UARTpinSet}
-    \caption{Einstellungen der GPIO-Pins für die UART-App}
+    \caption{GPIO Einstellungen der UART-App}
   \end{minipage}
-\end{figure}
-\begin{figure}
   \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{CRCgeneralSet}
-    \caption{Einstellungen für die CRC-Berechnung: Auch hier müssen die Einstellungen mit denen der C#-Bibliothek übereinstimmen}
+    \caption{Einstellungen der CRC-App: Auch hier müssen die Einstellungen mit denen der PC-Bibliothek übereinstimmen.}
   \end{minipage}
   \begin{minipage}{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{PinAlloc}
-    \caption{Zuordnung der GPIO-Pins unter "DAVE -> Manual Pin Allocator; Die Pins P1.4 und P1.5 sind mit dem Debug-Chip verbunden."}
+    \caption{Zuordnung der GPIO-Pins unter "DAVE -> Manual Pin Allocator"; Die Pins P1.4 und P1.5 sind mit dem Debug-Chip verbunden. Siehe \cite[Table 5]{boardMan}}
+    \label{fig:dave6}
   \end{minipage}
 \end{figure}
+\newpage
 \section{Integration}
 \begin{figure}
   \includegraphics[width=\textwidth]{WorkBufferFail}
@@ -185,9 +185,10 @@ Um dies zu verhindern, wird nun zu Beginn jedes Frames vom $\mu$-Controller ein 
   \label{fig:Machine}
 \end{figure}
 \section{Ausblick}
-Einige Funktionen für eine zuverlässige Kommunikation konnten aufgrund der beschränkten Zeit nicht mehr umgesetzt werden. So ist es von Vorteil, wenn auch die Nachrichten mit den Regelungsparametern einen Start of Frame vorangestellt bekommen. Dies würde wie auch auf der GUI-Seite verhindern, dass eine unvollständig empfangene Nachricht das Erkennen eines Framebeginns verhindert.
+Leider war bereits ab der Hälfte der Bearbeitungszeit absehbar, dass die anderen Arbeitspakete zeitmäßig nicht mehr auf den XE16x portiert werden können. Deshalb wurde auch das Kommunikations-Modul nicht mehr für den bisher in der Vorlesung Embedded Systems verwendeten Controller umgesetzt. Stattdessen war Herr Schleinkofer in anderen Arbeitspaketen (v.a. der Simulation) unterstützend tätig. Die Umsetzung des Projektes auf den zweiten Chip ist im Nachgang dieses Projektes noch möglich.
+\paragraph{}
+Einige Funktionen für eine zuverlässige Kommunikation konnten aufgrund der beschränkten Zeit ebenfalls nicht mehr umgesetzt werden. So ist es von Vorteil, wenn auch die Nachrichten mit den Regelungsparametern einen Start of Frame vorangestellt bekommen. Dies würde wie auch auf der GUI-Seite verhindern, dass eine unvollständig empfangene Nachricht das Erkennen eines Framebeginns verhindert.
 \paragraph{}
 Darüber hinaus wäre noch vorstellbar, für die Übertragung der Regelungsparameter eine Empfangsbestätigung zu implementieren. Dies würde einem eventuell notwendigen mehrfachen Sendeversuch durch den Benutzer vorbeugen.
 \paragraph{}
 Weiterhin wurde bei einem Review des erstellten Codes ersichtlich, dass die DAVE-App zur Erzeugung des CRC-Wertes keinen Gebrauch der Flexible CRC Engine auf dem $\mu$-Controller macht. Aufgrund des Zeitdrucks war eine detailliertere Einarbeitung in die Parametrierung der Hardware nicht mehr möglich.
-
