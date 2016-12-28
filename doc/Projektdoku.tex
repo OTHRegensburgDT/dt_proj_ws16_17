@@ -9,6 +9,10 @@
 \usepackage[font=small, margin=0pt ,labelfont=bf]{caption}
 \usepackage[numbers,round]{natbib}
 \bibliographystyle{alphadin}
+\DeclareUnicodeCharacter{FEFF}{ }
+\usepackage{tikz}
+\usetikzlibrary{circuits.ee.IEC}
+\usepackage{placeins}
 
 \title{Projektdokumentation - MotorXP}
 \author{Christian Brunner, Andreas Kölbl, \\
@@ -58,6 +62,9 @@ Projektdefinition mit Aufteilung der einzelnen Arbeitspakete. Anschließend werd
 
 \chapter{Projektdefinition}
 \include{communication/communication}
+\include{regulation/regulation}
+\include{gui/gui}
+\include{./sim/sim}
 \listoffigures
 \listoftables
 \appendix
