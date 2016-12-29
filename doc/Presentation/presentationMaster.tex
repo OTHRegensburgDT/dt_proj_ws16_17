@@ -1,0 +1,32 @@
+\documentclass[14pt]{beamer}
+\usetheme{PaloAlto}
+\usecolortheme{seahorse}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{listings}
+
+\lstset{
+basicstyle=\ttfamily\tiny,
+breaklines=true,
+postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}}
+
+
+\title{\includegraphics[height=1cm]{../images/MotorXP}}
+\author{Christian Brunner, Anreas Kölbl, Ricardo Krause, Bernd Krupinski, Andreas Lackner, Michael Schleinkofer, Franz Welker}
+
+\begin{document}
+\begingroup
+\makeatletter
+\setlength{\hoffset}{-.5\beamer@sidebarwidth}
+\makeatother
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+\endgroup
+  \title{\includegraphics[height=0.5cm]{../images/MotorXP}}
+  \author{}
+
+\include{presentationCom}
+
+\end{document}
