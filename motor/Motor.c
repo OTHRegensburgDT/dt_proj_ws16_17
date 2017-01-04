@@ -8,6 +8,7 @@
 #include "Sensor.h"
 #include "Motor.h"
 #include "Sensor_Hall.h" //direction
+#include "Motor_PWMSchemes.h"
 #include <xmc_gpio.h>
 #include <xmc_posif.h>
 
@@ -47,56 +48,19 @@ void Motor_ClearOutputs()
 void Motor_Main()
 {//451326
     Sensor_HallPattern_t pattern;
-    int counterClockWisePattern[] = {1, 3, 2, 6, 4, 5};
-	int clockWisePattern[] = {5, 4, 6, 2, 3, 1};
-    int* currentPattern = clockWisePattern;
+    uint8_t position;
+    uint8_t counterClockWisePattern[] = {1, 3, 2, 6, 4, 5};
+    uint8_t clockWisePattern[] = {5, 4, 6, 2, 3, 1};
+    uint8_t* currentPattern = clockWisePattern;
     if (Sensor_GetDirection() == CounterClockWise)
     {
     	currentPattern = counterClockWisePattern;
     }
     if (Sensor_GetCurrentHallPattern(&pattern) == E_OK)
     {
-    	int result = pattern.h1 | pattern.h2 << 1 | pattern.h3 << 2;
-        if (result == currentPattern[0])
-        {
-			 Motor_ClearOutputs();
-			 XMC_GPIO_SetOutputHigh(MOTOR_AH);
-			 XMC_GPIO_SetOutputHigh(MOTOR_BL);
-        }
-        else if (result == currentPattern[1])
-        {
-            Motor_ClearOutputs();
-            XMC_GPIO_SetOutputLow(MOTOR_AH);
-            XMC_GPIO_SetOutputHigh(MOTOR_CH);
-        }
-        else if (result == currentPattern[2])
-        {
-            Motor_ClearOutputs();
-            XMC_GPIO_SetOutputLow(MOTOR_BL);
-            XMC_GPIO_SetOutputHigh(MOTOR_AL);
-        }
-        else if (result == currentPattern[3])
-        {
-            Motor_ClearOutputs();
-            XMC_GPIO_SetOutputLow(MOTOR_CH);
-            XMC_GPIO_SetOutputHigh(MOTOR_BH);
-        }
-        else if (result == currentPattern[4])
-        {
-            Motor_ClearOutputs();
-            XMC_GPIO_SetOutputLow(MOTOR_AL);
-            XMC_GPIO_SetOutputHigh(MOTOR_CL);
-        }
-        else if (result == currentPattern[5])
-        {
-            Motor_ClearOutputs();
-            XMC_GPIO_SetOutputLow(MOTOR_BH);
-            XMC_GPIO_SetOutputHigh(MOTOR_AH);
-        }
-        else
-        {
-            //TODO error handling
-        }
+        /* http://multicopter.org/wiki/PWM_Schemes */
+        uint8_t position = pattern.h1 | pattern.h2 << 1 | pattern.h3 << 2;
+        Motor_Scheme_Default(currentPattern, position);
     }
 }
 
