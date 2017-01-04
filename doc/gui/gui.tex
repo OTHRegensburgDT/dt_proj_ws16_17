@@ -1,15 +1,28 @@
 \graphicspath{{./gui/Bilder/}}
 
 \chapter{Arbeitspaket GUI}
-Für die Analyse, den Entwurf, die Implementierung dieses Arbeitspaketes übernahm Herr Krause die Verantwortung. Während der Integration des Arbeitspaketes waren die Herren Krupinski und Schleinkhofer unterstützend eingebunden.
+Für die Analyse, den Entwurf, die Implementierung dieses Arbeitspaketes übernahm Herr Krause die Verantwortung, wobei er bei der Implementierung vom Herrn Krupinski unterstützt wurde. Während der Integration des Arbeitspaketes waren die Herren Krupinski und Schleinkhofer unterstützend eingebunden.
 \paragraph{}
-In der Projektspezifikation wurde die Anforderung der Visualisierung der Motor-Charakteristiken und der Steuerung des Motors mit aufgenommen. Zu diesem Zweck wurde eine Benutzeroberfläche in der Programmiersprache C# mit Hilfe des Grafik-Framework\footnote{Rahmenstruktur in der Software} \textit{WPF} \footnote{Windows Presentation Foundation} von Microsoft erstellt.
+In der Projektspezifikation wurde die Anforderung der Visualisierung der Motor-Charakteristiken und der Steuerung des Motors mit aufgenommen. Zu diesem Zweck wurde eine Benutzeroberfläche in der Programmiersprache C\# mit Hilfe des Grafik-Framework\footnote{Rahmenstruktur in der Software} \textit{WPF} \footnote{Windows Presentation Foundation} von Microsoft erstellt.
+
 \section{Analysephase}
+Das Arbeitspaket GUI wurde mit einer Analysephase begonnen. In dieser Phase wurden die möglichen Funktionalen und Nicht-Funktionalen Anforderungen zusammengetragen und aufgelistet. Zu dem Zweck Anforderungen zu finden, wurden Stakeholder\footnote{Projektbeteiligte, welche nicht an der Entwicklung beteiligt sind} befragt, anschließend wurden die Ergebnisse der Befragung validiert und es wurde eine Priorisierung für die umzusetzenden Projektinhalte durchgeführt.\\
+Die Analyse ergab, folgende Anforderungen an die Benutzeroberfläche:
+
+\begin{itemize}
+	\item Anzeige aller zu empfangenden Sensordaten
+	\item Regelung der Geschwindigkeit
+	\item Kalibrierung der PID Regelung
+	\item Anzeige der aktuellen Sensorwerte mit einem Tachometer
+	\item Anzeige einer Historie in einem Linien Diagramm
+	\item Zoom- und Scroll-Funktion für das Linien Diagramm
+	\item Export- und Import für Messungen und Vergleiche
+\end{itemize} 
 
 \section{Entwurfsphase}
 
 \section{Implementierung}
-Da beide Endpunkte gänzlich unterschiedliche Eigenschaften und Ressourcen besitzen, gibt es zwei separate Softwareprojekte. Die Implementierung der Bibliothek erfolgt wie bereits erwähnt in C\# und unter Visual Studio 2013. Für die Implementierung des Kommunikationsmoduls auf dem Controller wird die Programmiersprache C unter DAVE 4 genutzt. 
+ 
 \section{Ausblick}
 
 
