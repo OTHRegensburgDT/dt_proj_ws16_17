@@ -301,7 +301,10 @@ Contact GitHub API Training Shop Blog About
 
 # LaTex build
 
-.lof
-.log
-.aux
-.toc
+*.lof
+*.log
+*.aux
+*.toc
+*.out
+*.lot
+*.synctex.gz
