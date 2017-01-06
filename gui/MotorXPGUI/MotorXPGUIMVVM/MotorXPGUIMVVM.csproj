@@ -176,14 +176,11 @@
     <Compile Include="Converter\InverseBooleanConverter.cs" />
     <Compile Include="Converter\RadianToDegreeConverter.cs" />
     <Compile Include="Converter\StringToIntConverter.cs" />
-    <Compile Include="Model\IBindingRingBuffer.cs" />
-    <Compile Include="Model\BindingRingBuffer.cs" />
     <Compile Include="Model\SensorData.cs" />
     <Compile Include="Model\SensorDataCollection.cs" />
     <Compile Include="Model\SensorDataType.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Repository\ISensorRepository.cs" />
-    <Compile Include="Model\Metronom.cs" />
     <Compile Include="Repository\MockCommunicator.cs" />
     <Compile Include="Repository\MockSensorRepository.cs" />
     <Compile Include="Repository\SensorRepository.cs" />
