@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO.Ports;
-using System.Threading.Tasks;
 using System.Threading;
 
 
@@ -141,10 +140,8 @@ namespace KomModule
                 if (sofDel[0] != 0x55 || sofDel[0] != 0xD5)
                 {
                     state = 0;
-                    continue;
                 }
             }while(state != 2);
-            state = 0;
             //End of Frame Checker
 
             var inLength = new byte[1];

@@ -1,10 +1,8 @@
-﻿using System;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using KomModule;
 using MotorXPGUIMVVM.Model;
 using MotorXPGUIMVVM.Repository;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -97,6 +95,7 @@ namespace MotorXPGUIMVVM.ViewModel
             {
                 _isBusy = value; 
                 RaisePropertyChanged();
+                // ReSharper disable once ExplicitCallerInfoArgument
                 RaisePropertyChanged(nameof(IsNotBusy));
             }
         }

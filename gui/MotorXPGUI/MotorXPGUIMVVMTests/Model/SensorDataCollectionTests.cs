@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MotorXPGUIMVVM.Model;
 
@@ -216,7 +215,5 @@ namespace MotorXPGUIMVVMTests.Model
 
             Assert.IsTrue(Math.Abs(collection.LastValue - 1.0) < 0.1);
         }
-
-
     }
 }
