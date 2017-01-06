@@ -61,7 +61,7 @@ Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen dem Kommuni
         public SortedList<ushort, double> DataTable { get; set; }
     }
 \end{lstlisting}
-Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} erstellt. Dieses Layout wurde mit dem Werkzeug Pencil\footnote{Link zum Projekt \url{http://pencil.evolus.vn/}}erstellt. Es ist einfach zu bedienen und lieferte schnell ein Layout, welches im Projektteam besprochen werden konnte.
+Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} erstellt. Für dieses wurde das Werkzeug Pencil\footnote{Link zum Projekt \url{http://pencil.evolus.vn/}} eingesetzt. Es ist einfach zu bedienen und lieferte schnell ein Ergebnis, welches im Projektteam besprochen werden konnte.
 
 \begin{figure}[h]
 	\centering
@@ -72,8 +72,14 @@ Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} ers
 
 
 \section{Implementierung}
- 
- Durch den Einsatz des MVVM-Light\footnote{Link zum Projekt\url{https://mvvmlight.codeplex.com/}} Toolkits, welches grundlegende Funktionalitäten und Templates für das WPF Projekt bereitstellt.
+In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C# und den .NET Framework WPF erstellt.
+
+Zu beginn der Implementierung wurde die Frage aufgeworfen, welche Technologie für die Oberfläche zum Einsatz gebracht werden sollten. Zur Auswahl stand, es mit neuesten Multi-Plattform fähigen Web-Technologien umzusetzen und auf das .NET ASP-Framework\footnote{Web Applikations Framework von Microsoft} zu setzen oder eine reine Desktop Applikation mit dem WPF-Framework umzusetzen. Aufgrund des relativ knappen Zeitplanes für das Projekt und der mehrheitlichen Erfahrungen im WPF-Framework, wurde sich für dieses entschieden.
+
+Als Grundlage für den Start des Projektes wurde das MVVM-Light\footnote{Link zum Projekt\url{https://mvvmlight.codeplex.com/}} Toolkits verwendet. Es beinhaltet grundlegende Funktionalitäten und Templates, welche den Entwickler entlasten. Das Projekttemplate aus diesem Toolkit bringt ebenfalls die notwendige Struktur für das MVVM-Entwurfsmuster mit und ergänzt es um einen IoC-Container.
+
+Der Datenzugriff wurde wie ebenfalls im Entwurf beschrieben mit dem Repository-Muster realisiert. Dies ermöglichte zu beginn des Projektes und für Test gegen eine Attrappe des Kommunikationsmoduls  zu entwickeln. Diese Attrappe täuschte das fehlende Modul vor und kann problemlos durch das fertig implementierte Modul ersetzt werden. Durch die vorangegangene Schnittstellen Definition mussten für die Integration des Kommunikationsmoduls keine Änderungen an der internen Systemlogik der GUI mehr vorgenommen werden.   
+
 \section{Ausblick}
 Dieser Abschnitt beinhaltet mögliche Erweiterungen und nicht vollständig umgesetzte Projektteile, welche eine weitere Gruppe als Arbeitspaket übernehmen kann. 
 
