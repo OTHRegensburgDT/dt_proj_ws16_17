@@ -2,7 +2,8 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace MotorXPGUIMVVM.Converter {
+namespace MotorXPGUIMVVM.Converter
+{
     public class EnumToAllEnumValuesConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

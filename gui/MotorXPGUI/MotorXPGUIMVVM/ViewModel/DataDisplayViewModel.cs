@@ -1,10 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using KomModule;
 using MotorXPGUIMVVM.Model;
 using MotorXPGUIMVVM.Repository;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight.CommandWpf;
 
 namespace MotorXPGUIMVVM.ViewModel
 {

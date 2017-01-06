@@ -1,11 +1,11 @@
 ﻿using KomModule;
+using Microsoft.Practices.Unity;
 using MotorXPGUIMVVM.Model;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Microsoft.Practices.Unity;
 
 namespace MotorXPGUIMVVM.Repository
 {
