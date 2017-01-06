@@ -59,7 +59,7 @@ namespace KomModule
                 {
                     _uart.Write(buf, i, 1);
                     i++;
-                    System.Threading.Thread.Sleep(30);
+                    Thread.Sleep(30);
                 }
                 return true;
             }
@@ -118,27 +118,27 @@ namespace KomModule
         {
             //read serial port
             var spL = (SerialPort)sender;
-            var SofDel = new byte[1];
+            var sofDel = new byte[1];
             //Start of Frame checker
             var state = 0; //state 0: no sof; state 1: 0x55 detected; state 2: 0x55 and 0xD5 detected
             do{
-                spL.Read(SofDel, 0, 1);
-                if (state == 0 && SofDel[0] == 0x55)
+                spL.Read(sofDel, 0, 1);
+                if (state == 0 && sofDel[0] == 0x55)
                 {
                     state = 1;
                     continue;
                 }
-                if(state == 1 && SofDel[0] == 0x55)
+                if(state == 1 && sofDel[0] == 0x55)
                 {
                     state = 1;
                     continue;
                 }
-                if (state == 1 && SofDel[0] == 0xD5)
+                if (state == 1 && sofDel[0] == 0xD5)
                 {
                     state = 2;
                     continue;
                 }
-                if (SofDel[0] != 0x55 || SofDel[0] != 0xD5)
+                if (sofDel[0] != 0x55 || sofDel[0] != 0xD5)
                 {
                     state = 0;
                     continue;
