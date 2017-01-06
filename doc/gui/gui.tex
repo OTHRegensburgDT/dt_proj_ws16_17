@@ -7,20 +7,22 @@ In der Projektspezifikation wurde die Anforderung der Visualisierung der Motor-C
 
 \section{Analysephase}
 Das Arbeitspaket GUI wurde mit einer Analysephase begonnen. In dieser Phase wurden die möglichen Funktionalen und Nicht-Funktionalen Anforderungen zusammengetragen und aufgelistet. Zu dem Zweck Anforderungen zu finden, wurden Stakeholder\footnote{Projektbeteiligte, welche nicht an der Entwicklung beteiligt sind} befragt, anschließend wurden die Ergebnisse der Befragung validiert und es wurde eine Priorisierung für die umzusetzenden Projektinhalte durchgeführt.\\
-Die Analyse ergab, folgende Anforderungen an die Benutzeroberfläche:
-\begin{itemize}
-	\item Anzeige aller zu empfangenden Sensordaten
-	\item Regelung der Geschwindigkeit
-	\item Kalibrierung der PID Regelung
-	\item Anzeige der aktuellen Sensorwerte mit einem Tachometer
-	\item Anzeige einer Historie in einem Linien Diagramm
-	\item Zoom- und Scroll-Funktion für das Linien Diagramm
-	\item Export- und Import für Messungen und Vergleiche
-	\item Modularer und erweiterbarer Aufbau der Software
-	\item Metro Design
-	\item Ziel Betriebssystem Windows 10
-\end{itemize} 
+Die Analyse ergab, folgende Anforderungen an die Benutzeroberfläche:\\
 
+\begin{minipage}[t]{0.5\textwidth}
+\textbf{Funktionale Anforderungen:}
+\begin{itemize}
+	\item Anzeige von Sensordaten in der GUI
+	\item Regelung möglicher Parameter des Motors
+	\item Einstellung der PID Regelung in der GUI
+	\end{itemize} 
+\end{minipage}\begin{minipage}[t]{0.5\textwidth}
+\textbf{Nicht-Funktionale Anforderungen:}
+\begin{itemize}
+	\item Die Software soll Modular aufgebaut und erweiterbar sein
+	\item Es soll das aktuelle Metro-Design verwendet werden
+\end{itemize} 
+\end{minipage}\\
 Weitere Ergebnisse der Analysephase waren die bestehenden Schnittstellen zu dem Kommunikationsmodul vom Herrn Schleinkhofer. Die Datenstrukturen für die zu sendenden Datenobjekte mussten aufeinander abgestimmt sein, damit eine Abbildung in beide Richtungen gewährleistet ist. 
 
 
@@ -40,7 +42,6 @@ Bei der Strukturierung des Codes wurde darauf geachtet, die einzelnen Teilbereic
 Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen\ref{lst:SensorData} vom Kommunikationsmodul aufgenommen.
 
 \begin{lstlisting}[frame=single, caption=Beschreibung der Sensordatenstruktur, label=lst:SensorData]
-
     public class SensorData
     {
         public ulong Timestamp { get; set; }
