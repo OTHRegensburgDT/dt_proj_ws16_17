@@ -580,26 +580,7 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
                     if (i == (int)_mousePosition.X || i + 1 == (int)_mousePosition.X)
                     {
-                        // set add mouse poly to true to indicate that we have to draw the line new
-                        addMousePoly = true;
-
-
-                        //ToDO set ValueUnderMouse
-                        // update the tooltip value
-                        ValueUnderMouse = 1.0;
-                        
-                        // draw the line from bottom to top (x low to x up)
-                        mousePoly.Points = new PointCollection
-                        {
-                            new Point((int)_mousePosition.X + lowerX, lowerY),
-                            new Point((int)_mousePosition.X + lowerX, upperY)
-                        };
-                        // set color and thickness of stroke
-                        mousePoly.Stroke = StrokeColor;
-                        mousePoly.StrokeThickness = 1;
-
-                        Canvas.SetLeft(lineCircle, _mousePosition.X + lowerX - (lineCircle.Width / 2));
-                        Canvas.SetTop(lineCircle, lowerY + (upperY - lowerY) * maxValueInPercent - lineCircle.Height / 2);
+                        DrawMouseHoverLine(ref addMousePoly, ref mousePoly, lineCircle, lowerX, lowerY, upperY, maxValueInPercent);
                     }
                     // translate it to points on the canvas
                     points.Add(new Point(lowerX + i, lowerY + (upperY - lowerY) * minValueInPercent));
@@ -620,24 +601,8 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
                     if (xPos > _mousePosition.X)
                     {
-                        // set add mouse poly to true to indicate that we have to draw the line new
-                        addMousePoly = true;
-
-                        //ToDO set ValueUnderMouse
-                        // update the tooltip value
-                        ValueUnderMouse = 1.0;
-
-                        // draw the line from bottom to top (x low to x up)
-                        mousePoly.Points = new PointCollection
-                        {
-                            new Point((int)_mousePosition.X + lowerX, lowerY),
-                            new Point((int)_mousePosition.X + lowerX, upperY)
-                        };
-                        mousePoly.Stroke = StrokeColor;
-                        mousePoly.StrokeThickness = 1;
-                        Canvas.SetLeft(lineCircle, _mousePosition.X + lowerX - (lineCircle.Width / 2));
-                        Canvas.SetTop(lineCircle, lowerY + (upperY - lowerY) * nextValueInPercent - lineCircle.Height / 2);
-
+                        DrawMouseHoverLine(ref addMousePoly, ref mousePoly, lineCircle, lowerX, lowerY, upperY,
+                            nextValueInPercent);
                     }
 
                     points.Add(new Point(lowerX + xPos, lowerY + (upperY - lowerY) * valueInPercent)); // add as point
@@ -652,11 +617,34 @@ namespace MotorXPGUIMVVM.Controls.LineChart
 
             
             _chartCanvas.Children.Add(poly);
-            if (addMousePoly && _displayMouseInfo)
-            {
-                _chartCanvas.Children.Add(mousePoly);
-                _chartCanvas.Children.Add(lineCircle);
-            }
+            if (!addMousePoly || !_displayMouseInfo) return;
+            _chartCanvas.Children.Add(mousePoly);
+            _chartCanvas.Children.Add(lineCircle);
+        }
+
+        // ReSharper disable once RedundantAssignment
+        private void DrawMouseHoverLine(ref bool addMousePoly, ref Polygon mousePoly, FrameworkElement lineCircle, double lowerX, double lowerY, double upperY, double valueInPercent)
+        {
+            // set add mouse poly to true to indicate that we have to draw the line new
+            addMousePoly = true;
+
+
+            //ToDO set ValueUnderMouse
+            // update the tooltip value
+            ValueUnderMouse = 1.0;
+
+            // draw the line from bottom to top (x low to x up)
+            mousePoly.Points = new PointCollection
+                        {
+                            new Point((int)_mousePosition.X + lowerX, lowerY),
+                            new Point((int)_mousePosition.X + lowerX, upperY)
+                        };
+            // set color and thickness of stroke
+            mousePoly.Stroke = StrokeColor;
+            mousePoly.StrokeThickness = 1;
+
+            Canvas.SetLeft(lineCircle, _mousePosition.X + lowerX - lineCircle.Width / 2);
+            Canvas.SetTop(lineCircle, lowerY + (upperY - lowerY) * valueInPercent - lineCircle.Height / 2);
         }
 
         /// <summary>
