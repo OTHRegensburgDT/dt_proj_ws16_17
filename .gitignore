@@ -298,3 +298,15 @@ local.properties
 # Code Recommenders
 .recommenders/
 Contact GitHub API Training Shop Blog About
+
+
+# Latex
+
+*.aux
+*.toc
+*.log
+*.lof
+*.lot
+*.out
+*.synctex.gz
+
