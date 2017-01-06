@@ -72,13 +72,23 @@ Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} ers
 
 
 \section{Implementierung}
-In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C# und den .NET Framework WPF erstellt.
+In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt.
 
 Zu beginn der Implementierung wurde die Frage aufgeworfen, welche Technologie für die Oberfläche zum Einsatz gebracht werden sollten. Zur Auswahl stand, es mit neuesten Multi-Plattform fähigen Web-Technologien umzusetzen und auf das .NET ASP-Framework\footnote{Web Applikations Framework von Microsoft} zu setzen oder eine reine Desktop Applikation mit dem WPF-Framework umzusetzen. Aufgrund des relativ knappen Zeitplanes für das Projekt und der mehrheitlichen Erfahrungen im WPF-Framework, wurde sich für dieses entschieden.
 
 Als Grundlage für den Start des Projektes wurde das MVVM-Light\footnote{Link zum Projekt\url{https://mvvmlight.codeplex.com/}} Toolkits verwendet. Es beinhaltet grundlegende Funktionalitäten und Templates, welche den Entwickler entlasten. Das Projekttemplate aus diesem Toolkit bringt ebenfalls die notwendige Struktur für das MVVM-Entwurfsmuster mit und ergänzt es um einen IoC-Container.
 
-Der Datenzugriff wurde wie ebenfalls im Entwurf beschrieben mit dem Repository-Muster realisiert. Dies ermöglichte zu beginn des Projektes und für Test gegen eine Attrappe des Kommunikationsmoduls  zu entwickeln. Diese Attrappe täuschte das fehlende Modul vor und kann problemlos durch das fertig implementierte Modul ersetzt werden. Durch die vorangegangene Schnittstellen Definition mussten für die Integration des Kommunikationsmoduls keine Änderungen an der internen Systemlogik der GUI mehr vorgenommen werden.   
+Der Datenzugriff wurde wie ebenfalls im Entwurf beschrieben mit dem Repository-Muster siehe Abbildung \ref{fig:repo} realisiert. Dies ermöglichte zu beginn des Projektes und für Test gegen eine Attrappe des Kommunikationsmoduls  zu entwickeln. Diese Attrappe täuschte das fehlende Modul vor und kann problemlos durch das fertig implementierte Modul ersetzt werden. Durch die vorangegangene Schnittstellen Definition mussten für die Integration des Kommunikationsmoduls keine Änderungen an der internen Systemlogik der GUI mehr vorgenommen werden.   
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.5\textwidth]{RepoPattern}
+		\caption{Repository Muster in der GUI}
+		\label{fig:repo}
+\end{figure}
+
+Ein weiteres Problem, welches es zu lösen gab, waren die Steuerelemente für die Anzeige. Es folgte eine kurze Evaluation und Testphase für die möglichen Tachometer und Linienchart Anzeigen, leider mit dem Ergebnis, dass die fertigen Produkte entweder Kostenpflicht waren oder schlecht dokumentiert und nicht genügend Anpassbar für unseren Zweck waren. Darauf hin erstellt der Herr Krupinski diese beiden Aufwändigen Steuerelemente als Benutzerdefinierte WPF-Steuerelemente selbst welche uns die geforderten Funktionalitäten und die notwendige Veränderbarkeit mitbrachten. Das "Gauge" Control in Abbildung besteht aus einer.
+
 
 \section{Ausblick}
 Dieser Abschnitt beinhaltet mögliche Erweiterungen und nicht vollständig umgesetzte Projektteile, welche eine weitere Gruppe als Arbeitspaket übernehmen kann. 
