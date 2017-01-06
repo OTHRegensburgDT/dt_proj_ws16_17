@@ -7,7 +7,7 @@ In der Projektspezifikation wurde die Anforderung der Visualisierung der Motor-C
 
 \section{Analysephase}
 Das Arbeitspaket GUI wurde mit einer Analysephase begonnen. In dieser Phase wurden die möglichen Funktionalen und Nicht-Funktionalen Anforderungen zusammengetragen und aufgelistet. Zu dem Zweck Anforderungen zu finden, wurden Stakeholder\footnote{Projektbeteiligte, welche nicht an der Entwicklung beteiligt sind} befragt, anschließend wurden die Ergebnisse der Befragung validiert und es wurde eine Priorisierung für die umzusetzenden Projektinhalte durchgeführt.\\
-Die Analyse ergab, folgende Anforderungen an die Benutzeroberfläche:\\
+Die wichtigsten drei Anforderungen jeder Gruppe, basierend auf der Analyse:\\
 
 \begin{minipage}[t]{0.5\textwidth}
 \textbf{Funktionale Anforderungen:}
@@ -22,25 +22,38 @@ Die Analyse ergab, folgende Anforderungen an die Benutzeroberfläche:\\
 	\item Die Software soll Modular aufgebaut und erweiterbar sein
 	\item Es soll das aktuelle Metro-Design verwendet werden
 \end{itemize} 
-\end{minipage}\\
-Weitere Ergebnisse der Analysephase waren die bestehenden Schnittstellen zu dem Kommunikationsmodul vom Herrn Schleinkhofer. Die Datenstrukturen für die zu sendenden Datenobjekte mussten aufeinander abgestimmt sein, damit eine Abbildung in beide Richtungen gewährleistet ist. 
+\end{minipage}
+\newline
+\newline
+Als weiteres Ergebnis der Analyse ergab sich eine zwingende Abhängigkeit zu dem Arbeitspaket Kommunikation, wo eine enge Zusammenarbeit in der Definition der Schnittstelle bestand.
 
 
 \section{Entwurfsphase}
 Mit den Ergebnissen der Analysephase, wurde ein Entwurf der Benutzeroberfläche erstellt. Der Entwurf wurde auf der einen Seite für die Code Struktur durchgeführt, auf der anderen Seite wurden ebenfalls bereits Designentwürfe des Layouts erstellt.\\
-Im ersten Teil des Entwurfes wurden gezielt Entwurfsmuster eingesetzt um den Code auf der einen Seite gut lesbar und wartbar zu modellieren, auf der anderen Seite ihn auch flexible und erweiterbar zu halten. Als grundlegende Architektur für das System wurde das MVVM\footnote{kurzw. für Model-View-ViewModel} Entwurfsmuster\ref{fig:mvvm} gewählt. Durch den Einsatz des MVVM-Light\footnote{Link zum Projekt\url{https://mvvmlight.codeplex.com/}} Toolkits, welches grundlegende Funktionalitäten und Templates für das WPF Projekt bereitstellt. Weitere eingesetzte Entwurfsmuster sind das Kommandomuster, welches alle ausgeführten Events auf der Benutzeroberfläche auffängt und im ViewModel behandelt und verarbeitet, das Repository\footnote{engl. Haufen}-Muster, welches die Daten Verwaltung übernimmt und das "Umkehrung der Kontrolle"-Muster, für dessen Zweck ein Abhängigkeits-Container zu beginn des Systemstarts erstellt und gefüllt wird und anschließend den Zugriff auf die im Container befindlichen Objekte von jedem Punkt der Anwendung her ermöglicht.\\
+
+Als grundlegende Architektur wurde ein drei Schichtenmodell\ref{fig:arc} verwendet, welches den Anforderungen der Analysephase gerecht wird und allen Entwicklern des Projektes bekannt ist. In diesem gewählten Modell kommunizieren nur benachbarte Schichten miteinander. Und jede Schicht hat eine separate Aufgabe.
 
 \begin{figure}[h]
 	\centering
-		\includegraphics[scale=1]{385px-MVVMPattern}
+		\includegraphics[scale=0.5]{Arc1}
+		\caption{Grober Architektur Entwurf}
+		\label{fig:arc}
+\end{figure}
+
+Es wurden mehrere Entwurfsmuster verwendet, welche zur Softwarequalität beitragen und dem Entwickler einzelne Lösungsgerüste für wiederkehrende Probleme liefern.
+\\
+Für die oberen beiden Schichten wurde das MVVM\footnote{kurzw. für Model-View-ViewModel} Entwurfsmuster\ref{fig:mvvm} gewählt. Dieses Muster trennt die Oberfläche von der zugrundeliegenden Business-Logik, dies ermöglicht es die Oberfläche unabhängig und austauschbar von der Businesslogik zu entwickeln.\\ 
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.6\textwidth]{MVVM}
 		\caption{MVVM-Konzept}
 		\label{fig:mvvm}
 \end{figure}
 
-Bei der Strukturierung des Codes wurde darauf geachtet, die einzelnen Teilbereiche der Software bestmöglich unabhängig von einander zu halten, dies wurde durch den Einsatz der verschiedenen Muster positive Unterstützt.
+Weitere eingesetzte Entwurfsmuster sind das Kommandomuster, welches alle ausgeführten Events auf der Benutzeroberfläche auffängt und im ViewModel behandelt und verarbeitet, das Repository\footnote{engl. Haufen}-Muster, welches die Daten Verwaltung übernimmt und flexible auf Änderungen im Kommunikationsmodul reagiert und das "Umkehrung der Kontrolle"-Muster, für dessen Zweck ein Abhängigkeits-Container zu beginn des Systemstarts erstellt und gefüllt wird und anschließend den Zugriff auf die im Container befindlichen Objekte von jedem Punkt der Anwendung her ermöglicht.\\
 
-Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen\ref{lst:SensorData} vom Kommunikationsmodul aufgenommen.
-
+Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen dem Kommunikationsmodul angepasst siehe Abbildung \ref{lst:SensorData}.\\
 \begin{lstlisting}[frame=single, caption=Beschreibung der Sensordatenstruktur, label=lst:SensorData]
     public class SensorData
     {
@@ -48,9 +61,6 @@ Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen\ref{lst:Sen
         public SortedList<ushort, double> DataTable { get; set; }
     }
 \end{lstlisting}
-
-
-
 Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} erstellt. Dieses Layout wurde mit dem Werkzeug Pencil\footnote{Link zum Projekt \url{http://pencil.evolus.vn/}}erstellt. Es ist einfach zu bedienen und lieferte schnell ein Layout, welches im Projektteam besprochen werden konnte.
 
 \begin{figure}[h]
@@ -63,6 +73,7 @@ Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} ers
 
 \section{Implementierung}
  
+ Durch den Einsatz des MVVM-Light\footnote{Link zum Projekt\url{https://mvvmlight.codeplex.com/}} Toolkits, welches grundlegende Funktionalitäten und Templates für das WPF Projekt bereitstellt.
 \section{Ausblick}
 Dieser Abschnitt beinhaltet mögliche Erweiterungen und nicht vollständig umgesetzte Projektteile, welche eine weitere Gruppe als Arbeitspaket übernehmen kann. 
 
