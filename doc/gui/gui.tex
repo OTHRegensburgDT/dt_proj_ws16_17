@@ -21,7 +21,8 @@ Die Analyse ergab, folgende Anforderungen an die Benutzeroberfläche:
 	\item Ziel Betriebssystem Windows 10
 \end{itemize} 
 
-Weitere Ergebnisse der Analysephase waren die bestehenden Schnittstellen zu dem Kommunikationsmodul vom Herrn Schleinkhofer. Die Datenstruktur für die zu sendenden Datenobjekte wurde vom Kommunikationsmodul übernommen, damit eine problemlose Abbildung in beide Richtungen gewährleistet ist. 
+Weitere Ergebnisse der Analysephase waren die bestehenden Schnittstellen zu dem Kommunikationsmodul vom Herrn Schleinkhofer. Die Datenstrukturen für die zu sendenden Datenobjekte mussten aufeinander abgestimmt sein, damit eine Abbildung in beide Richtungen gewährleistet ist. 
+
 
 \section{Entwurfsphase}
 Mit den Ergebnissen der Analysephase, wurde ein Entwurf der Benutzeroberfläche erstellt. Der Entwurf wurde auf der einen Seite für die Code Struktur durchgeführt, auf der anderen Seite wurden ebenfalls bereits Designentwürfe des Layouts erstellt.\\
@@ -36,6 +37,21 @@ Im ersten Teil des Entwurfes wurden gezielt Entwurfsmuster eingesetzt um den Cod
 
 Bei der Strukturierung des Codes wurde darauf geachtet, die einzelnen Teilbereiche der Software bestmöglich unabhängig von einander zu halten, dies wurde durch den Einsatz der verschiedenen Muster positive Unterstützt.
 
+Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen\ref{lst:SensorData} vom Kommunikationsmodul aufgenommen.
+
+\begin{lstlisting}[frame=single, caption=Beschreibung der Sensordatenstruktur, label=lst:SensorData]
+
+    public class SensorData
+    {
+        public ulong Timestamp { get; set; }
+        public SortedList<ushort, double> DataTable { get; set; }
+    }
+\end{lstlisting}
+
+
+
+Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} erstellt. Dieses Layout wurde mit dem Werkzeug Pencil\footnote{Link zum Projekt \url{http://pencil.evolus.vn/}}erstellt. Es ist einfach zu bedienen und lieferte schnell ein Layout, welches im Projektteam besprochen werden konnte.
+
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=0.5\textwidth]{Mockup}
@@ -43,7 +59,6 @@ Bei der Strukturierung des Codes wurde darauf geachtet, die einzelnen Teilbereic
 		\label{fig:gui}
 \end{figure}
 
-Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} erstellt. Dieses Layout wurde mit dem Werkzeug Pencil\footnote{Link zum Projekt \url{http://pencil.evolus.vn/}}erstellt. Es ist einfach zu bedienen und lieferte schnell ein Layout, welches im Projektteam besprochen werden konnte.
 
 \section{Implementierung}
  
