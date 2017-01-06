@@ -72,7 +72,7 @@ Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} ers
 
 
 \section{Implementierung}
-In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt.
+In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt. Diese Phase wurde durch den Herrn Krupinski unterstützt.
 
 Zu beginn der Implementierung wurde die Frage aufgeworfen, welche Technologie für die Oberfläche zum Einsatz gebracht werden sollten. Zur Auswahl stand, es mit neuesten Multi-Plattform fähigen Web-Technologien umzusetzen und auf das .NET ASP-Framework\footnote{Web Applikations Framework von Microsoft} zu setzen oder eine reine Desktop Applikation mit dem WPF-Framework umzusetzen. Aufgrund des relativ knappen Zeitplanes für das Projekt und der mehrheitlichen Erfahrungen im WPF-Framework, wurde sich für dieses entschieden.
 
@@ -87,12 +87,80 @@ Der Datenzugriff wurde wie ebenfalls im Entwurf beschrieben mit dem Repository-M
 		\label{fig:repo}
 \end{figure}
 
-Ein weiteres Problem, welches es zu lösen gab, waren die Steuerelemente für die Anzeige. Es folgte eine kurze Evaluation und Testphase für die möglichen Tachometer und Linienchart Anzeigen, leider mit dem Ergebnis, dass die fertigen Produkte entweder Kostenpflicht waren oder schlecht dokumentiert und nicht genügend Anpassbar für unseren Zweck waren. Darauf hin erstellt der Herr Krupinski diese beiden Aufwändigen Steuerelemente als Benutzerdefinierte WPF-Steuerelemente selbst welche uns die geforderten Funktionalitäten und die notwendige Veränderbarkeit mitbrachten. Das "Gauge" Control in Abbildung besteht aus einer.
+Ein weiteres Problem, welches es zu lösen gab, waren die Steuerelemente für die Anzeige. Es folgte eine kurze Evaluation und Testphase für die möglichen Tachometer und Linienchart Anzeigen, leider mit dem Ergebnis, dass die fertigen Produkte entweder Kostenpflicht waren oder schlecht dokumentiert und nicht genügend Anpassbar für unseren Zweck waren.\\
 
+Darauf hin erstellte der Herr Krupinski diese beiden aufwändigen Steuerelemente als Benutzerdefinierte WPF-Steuerelemente selbst, welche uns die geforderten Funktionalitäten und die notwendige Veränderbarkeit mitbrachten. 
+
+\subsubsection*{Gauge Control}
+Das entwickelte "Gauge"\footnote{engl. Tachometer} Control in Abbildung \ref{fig:gauge} besteht aus einer Skala(1) mit einem minimal und maximal Wert, einen Zeiger(2) und einem Label(3), welches den Aktuellen Wert anzeigt.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.3\textwidth]{Gauge1}
+		\caption{Tachometer Anzeige der GUI}
+		\label{fig:gauge}
+\end{figure}
+
+\subsubsection*{LineChart Control}
+
+In Abbildung \ref{fig:line} ist das "LineChart"\footnote{engl. Liniendiagramm} Control abgebildet. Es besteht aus einem anzeige Raster(1), einen Graphen(2) zur Visualisierung der Werte einer Anzeige für die Y-Achse(3) mit einstellbaren Werten und einer Anzeige für den ersten und letzten Wert der X-Achse(4).
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.6\textwidth]{Line1}
+		\caption{Liniendiagramm Anzeige der GUI}
+		\label{fig:line}
+\end{figure}
+
+
+Diese Steuerelemente bieten dem Entwickler diverse Einstellmöglichkeiten in Form und Farbgebung und sind beliebig erweiterbar für kommende Anforderungen.\\
+
+Die beiden Benutzer definierten Steuerelemente wurden zu einem eigenen Control zusammengefasst und mit weiteren Steuerelementen ergänzt. In Abbildung \ref{fig:control1} ist exemplarisch ein komplettes Anzeigeelement für einen Sensorwert abgebildet.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=\textwidth]{GUIScreenshot3}
+		\caption{Datenanzeige Control}
+		\label{fig:control1}
+\end{figure}
+
+Die Abbildung \ref{fig:guifinal} zeigt fertige die GUI zum Ende des Projektes. Sie ist aktuell in der Lage die definierten Sensorwerte anzuzeigen, die einzelnen Anzeigeelemente\ref{fig:control1} bieten die Möglichkeiten im Liniendiagramm zu Zoomen und das Wertefenster der X-Achse festzulegen und zu verschieben. Für einstellbare Größen, wie zum Beispiel die Drehgeschwindigkeit kann ein Zielwert eingegeben werden, welcher durch eine zweite rote Nadel im Tachometer angezeigt wird. Im oberen Bereich der GUI kann man die Regelparameter ebenfalls verändern und an den Controller senden.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=\textwidth]{GUIScreenshot2}
+		\caption{Ansicht der GUI zum Projektende}
+		\label{fig:guifinal}
+\end{figure}
+
+
+Zum Abschluss der Implementierungsphase wurden Unit-Tests geschrieben, wodurch noch einige Fehler aus der Codebasis aufgespürt werden konnten. Diese Test helfen ebenfalls zukünftigen Entwickler an dem Projekt, da unbedachte Änderungen welche zu Fehlverhalten der Applikation führen können schnell aufgedeckt werden.
 
 \section{Ausblick}
-Dieser Abschnitt beinhaltet mögliche Erweiterungen und nicht vollständig umgesetzte Projektteile, welche eine weitere Gruppe als Arbeitspaket übernehmen kann. 
+Dieser Abschnitt beinhaltet mögliche Erweiterungen und nicht vollständig umgesetzte Projektteile, welche eine weitere Gruppe als Arbeitspaket aufnehmen kann. 
+
+\begin{description}
 
 
-\input{gui/diagram}
-\input{gui/gauge}
+\item[Multi-Platformfähigkeit] Durch die Separierung der einzelnen Codeteile in eigenständige Projekte und die strikte Umsetzung eines Domain Driven Designs kann man die WPF GUI austauschbar machen und durch zum Beispiel eine Web-API ersetzen, welche anschließend mit einem Web-Frontend z.B. ASP.NET oder Angular2 kommuniziert. Auch eine Smartphone Applikation mit zum Beispiel Xamarin wäre möglich.
+
+\item[MouseHover in LineChart] Diese Funktionalität konnte leider nicht Fertiggestellt werden, es wird noch nicht der aktuelle Wert unter der Maus angezeigt.
+
+\item[Änderung des Layoutes] Durch eine Änderung des Layoutes wäre es möglich alle Sensorwerte auf einen Bildschirm Darzustellen, ohne die Notwendigkeit von Scrolbars zu haben. Empfehlung dafür wäre ein Wrappanel mit Horizontaler Ausrichtung.
+
+\item[Hall Pattern Anzeige] Die Aktuelle Anzeige des Hall Pattern ist in einem extra Control unter dem ItemsTemplate für die Anzeigeelemente, dies verhindert Aktuell die einfache Umsetzung der vorher beschriebenen Änderung des Layouts. Hier müsste das Hall Pattern mit in das ItemsTemplate implementiert werden.
+
+\item[Auswahl des Com-Ports] Eine wichtige Erweiterung wäre eine Einstellmöglichkeit für den Com-Port, da dieser aktuell Hardcoded ist und ggf. im Quelltext angepasst werden muss. Eine Notlösung wäre eine Auslagerung der Einstellung in eine Konfigurations-Datei. Aber die Bessere Lösung wäre eine ComboBox in der GUI zur Auswahl aus verfügbaren Ports. 
+
+\item[Mehrere Inputs] Die GUI könnte noch für mehrere Inputs erweitert werden um es zu ermöglichen mehrere Messstationen oder die Simulation nebeneinander Vergleichend laufen zu lassen.
+
+\item[Benutzer Handbuch] Dem knappen Zeitrahmen geschuldet wurde noch kein Benutzerhandbuch erstellt. Dies wäre Sinnvoll nach der Änderung des Layouts zu erstellen, um aktuelle Bilder verwenden zu können.
+
+\item[Weitere Tests] Sinnvoll für mehr stabilität wären weitere Tests, einmal für die CustomControls (Gauge und LineChart) Unittests, für die Oberfläche allgemein Coded-UI Tests und ein automatisierter Integrationstest für das Kommunikationsmodul.
+
+\item[Import/Export] Eine Im-/Exportfunktion um Testläufe zu sichern und wiederholt zu laden.
+
+\item[RingSpeicher] Implementierung eines Ringspeichers, welcher eine Maximale Anzahl an Elementen fasst und überschüssige Daten auf der Festplatte oder ähnlich Speichert, um ein Überlaufen des Arbeitsspeichers zu verhindern.
+
+\end{description}
+
