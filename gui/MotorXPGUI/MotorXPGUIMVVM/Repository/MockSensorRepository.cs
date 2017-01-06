@@ -19,15 +19,12 @@ namespace MotorXPGUIMVVM.Repository
         private BindingList<SensorDataCollection> _hallDataCollections;
         private readonly Random _rnd = new Random();
         private double _hallPatternWindowPosition;
-        private ICommunicator _com;
 
         public MockSensorRepository()
         {
-            _com = new MockCommunicator();
             InitHallCollections();
             GetStartSensorData();        
-            StrartMockTask();
-            
+            StrartMockTask();     
         }
 
         private void InitHallCollections()
