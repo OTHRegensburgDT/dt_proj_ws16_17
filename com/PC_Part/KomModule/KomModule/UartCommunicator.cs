@@ -151,6 +151,8 @@ namespace KomModule
             //subtract length field, as it was already read
             if (inLength[0] == 0 || inLength[0] == 1)
             {
+                //add Michi why we do that?
+                // ReSharper disable once UnusedVariable
                 var a = spL.BytesToRead;
             }
             inLength[0]--;

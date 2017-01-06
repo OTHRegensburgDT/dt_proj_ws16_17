@@ -2,12 +2,10 @@
 using MotorXPGUIMVVM.Model;
 using System;
 using System.ComponentModel;
-using System.IO.Ports;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Unity;
-using MotorXPGUIMVVM.Annotations;
 
 namespace MotorXPGUIMVVM.Repository
 {
@@ -28,7 +26,7 @@ namespace MotorXPGUIMVVM.Repository
             _sensorDataCollections = new BindingList<SensorDataCollection>();
         }
 
-        private ICommunicator GetCommunicator()
+        private static ICommunicator GetCommunicator()
         {
             try
             {

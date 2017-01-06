@@ -7,7 +7,6 @@ using MotorXPGUIMVVM.Repository;
 using MotorXPGUIMVVM.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.IO.Ports;
 
 namespace MotorXPGUIMVVM
 {

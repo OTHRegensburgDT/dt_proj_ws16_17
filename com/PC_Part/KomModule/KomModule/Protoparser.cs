@@ -24,6 +24,7 @@ namespace KomModule
                     retVal.DataTable.Add((ushort)dataEntry.SensorId, dataEntry.Data);
                 }
             }
+            // ReSharper disable once RedundantCatchClause
             catch (Exception)
             {
                 throw;
