@@ -308,3 +308,6 @@ Contact GitHub API Training Shop Blog About
 *.out
 *.lot
 *.synctex.gz
+*.nav
+*.snm
+*.vrb
