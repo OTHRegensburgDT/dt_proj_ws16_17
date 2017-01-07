@@ -3,14 +3,8 @@
 %\usetikzlibrary{circuits.ee.IEC}
 %\usepackage{placeins}
 
-
-
-
-
-
 \chapter{Arbeitspaket Simulation}
 Für Analyse, Entwurf und Implementierung dieses Arbeitspakets übernahm Herr Welker die Verantwortung.
-
 
 \section{Analysephase I - Verwendung existierender Bausteine}
 Gemäß Projektspezifikation wurde gewünscht, dass die zu entwickelnde Simulation in Echtzeit laufen soll (1 Sekunde Simulation soll einer Sekunde in der Realität entsprechen), so dass die Simulationsergebnisse später ggf. mit dem realen Versuchsaufbau verglichen oder gar verbunden werden können. 
@@ -35,7 +29,7 @@ Da in der Konzept-Phase nicht eindeutig ausgeschlossen werden konnte, dass Simul
 Hierzu wurde das Programm \textit{Virtual Serial Port Driver} %http://www.eltima.com/de/products/vspdxp/ 
 ausgewählt, mit dessen Hilfe es möglich ist, virtuelle COM-Ports zu erzeugen und diese virtuell zu verbinden. Damit wird es möglich, Simulation und GUI auf demselben PC laufen zu lassen und dieselben Schnittstellen zu verwenden wie bei Kommunikation mit externer realer Hardware.
 
-Da die Simulation alle real verfügbaren Sensoren sowie das Verhalten des Motors möglichst gut abbilden soll, wurde weiterhin recherchiert, wie sich der reale Aufbau des Motor-Experimentierplatzes am besten in Simulink umsetzen ließ. Im Verlauf dieser Recherchen wurde festgestellt, dass es in Simulink bereits mehrere Modelle für einen solchen Aufbau (BLCD Motor mit Sensorik) gibt, die anhand ihrer Anpassbarkeit hinsichtlich der Motorparameter evaluiert wurden. 
+Da die Simulation alle real verfügbaren Sensoren sowie das Verhalten des Motors möglichst gut abbilden soll, wurde weiterhin recherchiert, wie sich der reale Aufbau des Motor-Experimentierplatzes am besten in Simulink umsetzen ließ. Im Verlauf dieser Recherchen wurde festgestellt, dass es in Simulink bereits mehrere Modelle für einen solchen Aufbau (BLDC Motor mit Sensorik) gibt, die anhand ihrer Anpassbarkeit hinsichtlich der Motorparameter evaluiert wurden. 
 
 Dabei stellte sich heraus, dass das Modell \textit{power\_pmmotor}
 %https://www.facebook.com/l.php?u=https%3A%2F%2Fde.mathworks.com%2Fhelp%2Fphysmod%2Fsps%2Fexamples%2Fpermanent-magnet-synchronous-machine.html&h=2AQHLRXS auch als referenz verwendbar, wobei das Bild in matlab gemacht wurde
@@ -107,61 +101,11 @@ sowie die Ausgangsgrößen
 \vspace{1cm}
 Der Motor ist wie in Abbildung \ref{FigMotorAufbau} zu sehen ist aufgebaut:
 
-\begin{figure}[htbp]
-	\begin{center}
-		\begin{tikzpicture}[
-		point/.style={circle,draw,minimum size=#1},
-		point/.default=0pt,
-		circuit ee IEC]
-		
-		
-		
-		%rotor
-		
-		\foreach \anfang/\ende/\farbe in { 0/23.7/red!90, 27.7/49.4/green!90,  53.4/75.1/red!90, 79.1/100.8/green!90,  104.8/126.5/red!90, 130.5/152.2/green!90, 156.2/177.9/red!90, 
-			181.9/203.6/green!90,  207.6/229.3/red!90, 233.3/255/green!90!,  259/280.7/red!90, 284.7/306.4/green!90,  310.4/332.1/red!90, 336.1/358/green!90}
-		\draw[fill=\farbe,draw=none] (0,0) -- (\anfang:4cm) arc (\anfang:\ende:4cm);
-		
-		\draw[fill=white,draw=none] (0,0) circle (3.5cm);
-		
-		\foreach[count=\i,evaluate=\i as \angle using (\i-1)*(360/14)+12.85] \text in {N,S,N,S,N,S,N,S,N,S,N,S,N,S}
-		\node (node\i) at (\angle:3.75) {\text};
-		
-		%stator
-		%spulen zuordnung
-		\begin{scope}[fill opacity=0.1]
-		\foreach \anfang/\ende/\farbe in {0/120/yellow!40!white, 120/240/blue!40!white, 240/360/purple!40!white}
-		\draw[draw=black, fill=\farbe, fill opacity=0.2] (0,0) -- (\anfang:3.2cm) arc (\anfang:\ende:3.2cm);
-		\end{scope}
-		
-		%spulen
-		\foreach[count=\i,evaluate=\i as \angle using (\i-1)*(360/12)+15] \text in {1,2,3,4,5,6,7,8,9,10,11,12}
-		\draw ({cos(\angle)*1.5},{sin(\angle)*1.5}) to [inductor={info={\text}}] ({cos(\angle)*3},{sin(\angle)*3});
-		
-		
-		%spulenverbindung große spulen
-		\foreach \angle in {(4-1)*(360/12)+15, (5-1)*(360/12)+15, (12-1)*(360/12)+15}	
-		\draw (0,0) to ({cos(\angle)*1.5},{sin(\angle)*1.5});
-		
-		
-		%anschlüsse
-		\foreach \angle in {(1-1)*(360/12)+15, (8-1)*(360/12)+15, (9-1)*(360/12)+15}	
-		\draw[ultra thick, ->] ({cos(\angle)*5},{sin(\angle)*5}) to ({cos(\angle)*3},{sin(\angle)*3});	
-		
-		
-		
-		
-		%ränder	
-		\draw (0,0) circle [radius=3.2cm];
-		\draw (0,0) circle [radius=3.5cm];
-		\draw (0,0) circle [radius=4cm];
-		
-		
-		\end{tikzpicture}
-		\caption{Motor Aufbau}
-		\label{FigMotorAufbau}
-	\end{center}
-	
+\begin{figure}[htbp] 
+	\centering
+	\includestandalone{./sim/pictures/motorAufbau}
+	\caption{Motor Aufbau}
+	\label{FigMotorAufbau}
 \end{figure}
 
 
@@ -190,39 +134,7 @@ Da ein einfaches Modell erstellt werden sollte, wurden folgende Annahmen getroff
 
 \begin{figure}[htbp]
 	\begin{center}
-		\begin{tikzpicture}[
-		point/.style={circle,draw,minimum size=#1},
-		point/.default=0pt]
-		
-		
-		%rotor
-		
-		\foreach \anfang/\ende/\farbe in { 0/25.7/red!90, 25.7/51.4/green!90,  51.4/77.1/red!90, 77.1/102.8/green!90,  102.8/128.5/red!90, 128.5/154.2/green!90, 154.2/179.9/red!90, 
-			179.9/205.6/green!90,  205.6/231.3/red!90, 231.3/257/green!90!,  257/282.7/red!90, 282.7/308.4/green!90,  308.4/334.1/red!90, 334.1/360/green!90}
-		\draw[fill=\farbe,draw=none] (0,0) -- (\anfang:4cm) arc (\anfang:\ende:4cm);
-		
-		\draw[fill=white,draw=none] (0,0) circle (3.5cm);
-		
-		\foreach[count=\i,evaluate=\i as \angle using (\i-1)*(360/14)+12.85] \text in {1,2,3,4,5,6,7,8,9,10,11,12,13,14}
-		\node (node\i) at (\angle:3.75) {\text};
-		
-		%stator
-		\foreach \anfang/\ende/\farbe in { 0/30/red!90, 30/60/green!90,  60/90/red!90, 90/120/green!90,  120/150/white!90, 150/180/white!90, 
-			180/210/white!90, 210/240/white!90,  240/270/red!90, 270/300/green!90!,  300/330/red!90, 330/360/green!90}
-		\draw[fill=\farbe,draw=none] (0,0) -- (\anfang:3.5cm) arc (\anfang:\ende:3.5cm);
-		
-		\draw[fill=white,draw=none] (0,0) circle (3cm);
-		
-		\foreach[count=\i,evaluate=\i as \angle using (\i-1)*(360/12)+15] \text in {1,2,3,4,5,6,7,8,9,10,11,12}
-		\node (node\i) at (\angle:3.25) {\text};
-		
-		%ränder	
-		\draw (0,0) circle [radius=3cm];
-		\draw (0,0) circle [radius=3.5cm];
-		\draw (0,0) circle [radius=4cm];
-		
-		
-		\end{tikzpicture}
+		\includestandalone{./sim/pictures/vereinfachtesModell}
 		\caption{Vereinfachtes Modell}
 		\label{FigVereinfachtesModell}
 	\end{center}
@@ -235,28 +147,7 @@ Um dieses Modell mithilfe von Arrays in Simulink umsetzen zu können, wurde geda
 
 \begin{figure}[htbp]
 	\begin{center}
-		\begin{tikzpicture}[
-		point/.style={circle,draw,minimum size=#1},
-		point/.default=0pt]
-		
-		
-		%rotor
-		\foreach \i/\farbe [evaluate=\i as \x using int(1*\i)] in {1/red!90,2/green!90,3/red!90,4/green!90,5/red!90,6/green!90,7/red!90,8/green!90,9/red!90,10/green!90,11/red!90,12/green!90,13/red!90,14/green!90} 
-		{
-			\draw[fill=\farbe] (\x-1,0) rectangle (\x,0.6); 
-			\node at (\x-0.5,0.3) {\i};
-		}
-			
-		
-		%stator
-		\foreach \i/\farbe  [evaluate=\i as \x using (14/12*\i)] in {1/red!90,2/green!90,3/red!90,4/green!90,5/white!90,6/white!90,7/white!90,8/white!90,9/red!90,10/green!90,11/red!90,12/green!90} 
-		{
-			\draw[fill=\farbe] (\x-14/12,-0.6) rectangle (\x,0);
-			\node at (\x-14/24,-0.3) {\i};
-		}
-		
-			
-		\end{tikzpicture}
+		\includestandalone{./sim/pictures/abgerolltesModell}
 		\caption{Abgerolltes Modell}
 		\label{FigAbgerolltesModell}
 	\end{center}
@@ -314,14 +205,12 @@ Hingegen scheint der Verlauf für das Drehmoment durchaus Sinn zu ergeben, wie i
 Es ist jedoch noch darauf hinzuweisen, dass eine Vergrößerung der Anzahl an Array-Elementen (entspricht einer Erhöhung der Auflösung) nicht dazu führt, dass dieser Verlauf glatter werden würde, sondern es werden immer dieselben zwölf Stufen, welche den Spulen-Polpaaren entsprechen, im Verlauf zu erkennen sein.
 Dies ist eine Folge der zu Beginn getroffenen Vereinfachungen, wonach Luftspalt, Polform und nicht-senkrechte Magnetfeldlinien vernachlässigt wurden.
 
-
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./sim/pictures/drehmoment.png}
 	\caption{Drehmoment bei Spannung an $U_a$ und Masse bei $U_b$}
 	\label{FigDrehmoment}
 \end{figure}
-
 
 \section{Bewertung der beiden Modelle}
 Für eine Simulation des Motor-Experimentierplatzes ist das zweite Modell (zumindest in der vorliegenden Form) nicht geeignet, es geht von statischen Zuständen aus und vernachlässigt die dominanten Parameter (Induktivität, Luftspaltgestaltung usw.) eines realen Motors.

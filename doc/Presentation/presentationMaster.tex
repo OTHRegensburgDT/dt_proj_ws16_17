@@ -5,6 +5,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{circuits.ee.IEC}
+\usepackage{placeins}
+\usepackage{standalone}
 
 \lstset{
 basicstyle=\ttfamily\tiny,
@@ -13,7 +17,7 @@ postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}
 
 
 \title{\includegraphics[height=1cm]{../images/MotorXP}}
-\author{Christian Brunner, Anreas Kölbl, Ricardo Krause, Bernd Krupinski, Andreas Lackner, Michael Schleinkofer, Franz Welker}
+\author{Christian Brunner, Andreas Kölbl, Ricardo Krause, Bernd Krupinski, Andreas Lackner, Michael Schleinkofer, Franz Welker}
 
 \begin{document}
 \begingroup
@@ -28,5 +32,6 @@ postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}
   \author{}
 
 \include{presentationCom}
+\include{presentationSim}
 
 \end{document}

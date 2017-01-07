@@ -13,6 +13,9 @@
 \usepackage{tikz}
 \usetikzlibrary{circuits.ee.IEC}
 \usepackage{placeins}
+\usepackage{pdfpages}
+\usepackage{standalone}
+\usepackage{hyperref}
 
 \title{Projektdokumentation - MotorXP}
 \author{Christian Brunner, Andreas Kölbl, \\
@@ -56,11 +59,10 @@ numberfirstline=true}
 \tableofcontents
 
 \begin{abstract}
-Diese Dokumentation entstand im Rahmen der Vorlesung "Datenverarbeitung in der Technik" im Wintersemester 2016/17. Zu Beginn erfolgt die
-Projektdefinition mit Aufteilung der einzelnen Arbeitspakete. Anschließend werden die einzelnen Arbeitspakete näher in den einzelnen Projektschritten erklärt.
+Diese Dokumentation entstand im Rahmen der Vorlesung "Datenverarbeitung in der Technik" im Wintersemester 2016/17. Zu Beginn erfolgt die Projektdefinition mit Aufteilung der einzelnen Arbeitspakete. Anschließend werden die einzelnen Arbeitspakete näher in den einzelnen Projektschritten erklärt.
 \end{abstract}
 
-\chapter{Projektdefinition}
+\include{projectdefinition/ProjektDefinition}
 \include{communication/communication}
 \include{regulation/regulation}
 \include{gui/gui}
