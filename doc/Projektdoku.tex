@@ -16,6 +16,9 @@
 \usepackage{pdfpages}
 \usepackage{standalone}
 \usepackage{hyperref}
+\usepackage{dirtree}
+
+\begin{document}
 
 \title{Projektdokumentation - MotorXP}
 \author{Christian Brunner, Andreas Kölbl, \\
@@ -42,8 +45,6 @@ numberfirstline=true}
 \renewcommand{\bibname}{Quellen}
 \renewcommand{\appendixname}{Anhang}
 
-\begin{document}
-
 \makeatletter
 \begin{titlepage}
   \centering
@@ -64,9 +65,10 @@ Diese Dokumentation entstand im Rahmen der Vorlesung "Datenverarbeitung in der T
 
 \include{projectdefinition/ProjektDefinition}
 \include{communication/communication}
+\include{sensor/sensor}
 \include{regulation/regulation}
 \include{gui/gui}
-\include{./sim/sim}
+\include{sim/sim}
 \listoffigures
 \listoftables
 \appendix
