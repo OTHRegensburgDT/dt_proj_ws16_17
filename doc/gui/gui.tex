@@ -1,35 +1,36 @@
 \graphicspath{{./gui/Bilder/}}
 
 \chapter{Arbeitspaket GUI}
-Für die Analyse, den Entwurf, die Implementierung dieses Arbeitspaketes übernahm Herr Krause die Verantwortung, wobei er bei der Implementierung vom Herrn Krupinski unterstützt wurde. Während der Integration des Arbeitspaketes waren die Herren Krupinski und Schleinkhofer unterstützend eingebunden.
+Für die Analyse, den Entwurf, die Implementierung dieses Arbeitspaketes übernahm Herr Krause die Verantwortung, wobei er bei der Implementierung von den selbst erstellten Steuerelementen vom Herrn Krupinski unterstützt wurde. Während der Integration des Arbeitspaketes waren die Herren Krupinski und Schleinkofer unterstützend beteiligt.
 \paragraph{}
-In der Projektspezifikation wurde die Anforderung der Visualisierung der Motor-Charakteristiken und der Steuerung des Motors mit aufgenommen. Zu diesem Zweck wurde eine Benutzeroberfläche in der Programmiersprache C\# mit Hilfe des Grafik-Framework\footnote{Rahmenstruktur in der Software} \textit{WPF} \footnote{Windows Presentation Foundation} von Microsoft erstellt.
+In der Projektspezifikation wurde die Anforderung der Visualisierung von Motor-Charakteristiken und die Steuerung des Motors mit aufgenommen. Zu diesem Zweck wurde eine Benutzeroberfläche in der Programmiersprache C\# mit Hilfe des Grafik-Framework\footnote{Rahmenstruktur in der Software} \textit{WPF} \footnote{Windows Presentation Foundation} von Microsoft erstellt.
 
 \section{Analysephase}
-Das Arbeitspaket GUI wurde mit einer Analysephase begonnen. In dieser Phase wurden die möglichen Funktionalen und Nicht-Funktionalen Anforderungen zusammengetragen und aufgelistet. Zu dem Zweck Anforderungen zu finden, wurden Stakeholder\footnote{Projektbeteiligte, welche nicht an der Entwicklung beteiligt sind} befragt, anschließend wurden die Ergebnisse der Befragung validiert und es wurde eine Priorisierung für die umzusetzenden Projektinhalte durchgeführt.\\
+Das Arbeitspaket GUI wurde mit einer Analysephase begonnen. In dieser Phase wurden die möglichen Funktionalen und Nicht-Funktionalen Anforderungen in einer Spezifikation zusammengetragen und aufgelistet. Es wurden Stakeholder\footnote{Projektbeteiligte, welche nicht an der Entwicklung beteiligt sind} befragt, um die gewünschten Anforderungen an das System zu erhalten und anschließend wurden die Ergebnisse der Befragung validiert, priorisiert und in die Spezifikation mit aufgenommen. Die umzusetzenden Projektinhalte wurden dann aus dieser abgleitet.\\
 Die wichtigsten drei Anforderungen jeder Gruppe, basierend auf der Analyse:\\
 
 \begin{minipage}[t]{0.5\textwidth}
 \textbf{Funktionale Anforderungen:}
 \begin{itemize}
 	\item Anzeige von Sensordaten in der GUI
-	\item Regelung möglicher Parameter des Motors
-	\item Einstellung der PID Regelung in der GUI
+	\item Einstellung möglicher Parameter des Motors
+	\item Justierung der PID Regelung in der GUI
 	\end{itemize} 
 \end{minipage}\begin{minipage}[t]{0.5\textwidth}
 \textbf{Nicht-Funktionale Anforderungen:}
 \begin{itemize}
 	\item Die Software soll Modular aufgebaut und erweiterbar sein
 	\item Es soll das aktuelle Metro-Design verwendet werden
+	\item Der Aufbau soll möglichst einfach gehalten sein, um die Stabilität und Benutzbarkeit zu verbessern.
 \end{itemize} 
 \end{minipage}
 \newline
 \newline
-Als weiteres Ergebnis der Analyse ergab sich eine zwingende Abhängigkeit zu dem Arbeitspaket Kommunikation, wo eine enge Zusammenarbeit in der Definition der Schnittstelle bestand.
-
+\newline
+Als weiteres Ergebnis der Analyse ergab sich eine zwingende Abhängigkeit zu dem Arbeitspaket Kommunikation, wo die erforderlichen Schnittstellen und Datenstrukturen in enger Zusammenarbeit erstellt wurden. Diese sind ebenfalls in die Spezifikation mit aufgenommen worden.
 
 \section{Entwurfsphase}
-Mit den Ergebnissen der Analysephase, wurde ein Entwurf der Benutzeroberfläche erstellt. Der Entwurf wurde auf der einen Seite für die Code Struktur durchgeführt, auf der anderen Seite wurden ebenfalls bereits Designentwürfe des Layouts erstellt.\\
+Mit den Ergebnissen der Analysephase, wurde ein Entwurf der Benutzeroberfläche erstellt. Dieser wurde auf der einen Seite für die Code Struktur und Architektur durchgeführt, auf der anderen Seite wurden mögliche Designentwürfe des Layouts erstellt.\\
 
 Als grundlegende Architektur wurde ein drei Schichtenmodell\ref{fig:arc} verwendet, welches den Anforderungen der Analysephase gerecht wird und allen Entwicklern des Projektes bekannt ist. In diesem gewählten Modell kommunizieren nur benachbarte Schichten miteinander. Und jede Schicht hat eine separate Aufgabe.
 
@@ -42,7 +43,7 @@ Als grundlegende Architektur wurde ein drei Schichtenmodell\ref{fig:arc} verwend
 
 Es wurden mehrere Entwurfsmuster verwendet, welche zur Softwarequalität beitragen und dem Entwickler einzelne Lösungsgerüste für wiederkehrende Probleme liefern.
 \\
-Für die oberen beiden Schichten wurde das MVVM\footnote{kurzw. für Model-View-ViewModel} Entwurfsmuster\ref{fig:mvvm} gewählt. Dieses Muster trennt die Oberfläche von der zugrundeliegenden Business-Logik, dies ermöglicht es die Oberfläche unabhängig und austauschbar von der Businesslogik zu entwickeln.\\ 
+Für die oberen beiden Schichten wurde das MVVM\footnote{kurzw. für Model-View-ViewModel} Entwurfsmuster\ref{fig:mvvm} gewählt. Dieses Muster trennt die Oberfläche von der zugrundeliegenden Business-Logik, dies ermöglicht es die Komponenten unabhängig und austauschbar von der Businesslogik zu entwickeln.\\ 
 
 \begin{figure}[h]
 	\centering
@@ -51,7 +52,7 @@ Für die oberen beiden Schichten wurde das MVVM\footnote{kurzw. für Model-View-
 		\label{fig:mvvm}
 \end{figure}
 
-Weitere eingesetzte Entwurfsmuster sind das Kommandomuster, welches alle ausgeführten Events auf der Benutzeroberfläche auffängt und im ViewModel behandelt und verarbeitet, das Repository\footnote{engl. Haufen}-Muster, welches die Daten Verwaltung übernimmt und flexible auf Änderungen im Kommunikationsmodul reagiert und das "Umkehrung der Kontrolle"-Muster, für dessen Zweck ein Abhängigkeits-Container zu beginn des Systemstarts erstellt und gefüllt wird und anschließend den Zugriff auf die im Container befindlichen Objekte von jedem Punkt der Anwendung her ermöglicht.\\
+Weitere eingesetzte Entwurfsmuster sind das Kommandomuster, welches alle ausgeführten Events auf der Benutzeroberfläche auffängt und im ViewModel behandelt und verarbeitet, das Repository\footnote{engl. Haufen}-Muster, welches die Daten Verwaltung und Kommunikation zu Subsystemen übernimmt und flexible auf Änderungen im Kommunikationsmodul reagiert und das "Umkehrung der Kontrolle"-Muster, für dessen Zweck ein Abhängigkeits-Container zu beginn des Systemstarts erstellt und mit allen bekannten Abhängigkeiten gefüllt wird. Anschließend ist der Zugriff auf die im Container befindlichen Objekte von jedem Punkt der Anwendung her ermöglicht.\\
 
 Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen dem Kommunikationsmodul angepasst siehe Abbildung \ref{lst:SensorData}.\\
 \begin{lstlisting}[frame=single, caption=Beschreibung der Sensordatenstruktur, label=lst:SensorData]
@@ -72,13 +73,15 @@ Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} ers
 
 
 \section{Implementierung}
-In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt. Diese Phase wurde durch den Herrn Krupinski unterstützt.
+In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt. In dieser Phase kommen die vom Herrn Krupinski erstellten Steuerelemente zum Einsatz unterstützt.\\
 
-Zu beginn der Implementierung wurde die Frage aufgeworfen, welche Technologie für die Oberfläche zum Einsatz gebracht werden sollten. Zur Auswahl stand, es mit neuesten Multi-Plattform fähigen Web-Technologien umzusetzen und auf das .NET ASP-Framework\footnote{Web Applikations Framework von Microsoft} zu setzen oder eine reine Desktop Applikation mit dem WPF-Framework umzusetzen. Aufgrund des relativ knappen Zeitplanes für das Projekt und der mehrheitlichen Erfahrungen im WPF-Framework, wurde sich für dieses entschieden.
+Zu beginn der Implementierung wurde die Frage aufgeworfen, welche Technologie für die Oberfläche zum Einsatz gebracht werden sollten. Zur Auswahl stand, es mit neuesten Multi-Plattform fähigen Web-Technologien umzusetzen und auf das ASP.NET-Framework\footnote{Microsoft Framework zur Entwicklung von Web-Applikationen} zu setzen oder eine reine Desktop Applikation mit dem WPF-Framework umzusetzen. Aufgrund des relativ knappen Zeitplanes für das Projekt und der mehrheitlichen Erfahrungen im WPF-Framework, wurde sich für dieses entschieden.\\
 
-Als Grundlage für den Start des Projektes wurde das MVVM-Light\footnote{Link zum Projekt\url{https://mvvmlight.codeplex.com/}} Toolkits verwendet. Es beinhaltet grundlegende Funktionalitäten und Templates, welche den Entwickler entlasten. Das Projekttemplate aus diesem Toolkit bringt ebenfalls die notwendige Struktur für das MVVM-Entwurfsmuster mit und ergänzt es um einen IoC-Container.
+Als Entwicklungsumgebung wurde das Visaul Studio Enterprise 2015 eingesetzt. Dieses Tool bietet dem Entwickler einen sehr kraftvollen Code-Editor, einfach zu bedienenden Debugger, umfangreiche Diagnose Tools, integriertes Test Framework und ist flexibel erweiterbar zusätzlich werden Projekt Templates bereitgestellt, welche schon grundlegende Konzepte wie Architektur Muster mitbringen.\\
 
-Der Datenzugriff wurde wie ebenfalls im Entwurf beschrieben mit dem Repository-Muster siehe Abbildung \ref{fig:repo} realisiert. Dies ermöglichte zu beginn des Projektes und für Test gegen eine Attrappe des Kommunikationsmoduls  zu entwickeln. Diese Attrappe täuschte das fehlende Modul vor und kann problemlos durch das fertig implementierte Modul ersetzt werden. Durch die vorangegangene Schnittstellen Definition mussten für die Integration des Kommunikationsmoduls keine Änderungen an der internen Systemlogik der GUI mehr vorgenommen werden.   
+Als Grundlage für den Start des Projektes wurde das MVVM-Light\footnote{Link zum Projekt\url{https://mvvmlight.codeplex.com/}} Toolkit verwendet. Es beinhaltet grundlegende Funktionalitäten und Templates, welche den Entwickler, indem es Basistechnologien wie die Architektur Struktur MVVM und DI-Techniken mitbringt, entlasten. Dieses Toolkit ist ebenfalls als Erweiterung direkt im Visual Studio verfügbar.\\
+
+Der Datenzugriff wurde durch den Einsatz vom Repository-Muster (siehe Abbildung \ref{fig:repo}) realisiert. Dies ermöglichte zu beginn des Projektes und für Test gegen eine Attrappe des Kommunikationsmoduls zu entwickeln. Diese täuschte das fehlende Modul vor und konnte problemlos durch das fertig implementierte Modul ersetzt werden. Durch die vorangegangene Schnittstellen Definition mussten für die Integration des Kommunikationsmoduls keine Änderungen an der internen Systemlogik vorgenommen werden.   
 
 \begin{figure}[h]
 	\centering
@@ -156,7 +159,7 @@ Dieser Abschnitt beinhaltet mögliche Erweiterungen und nicht vollständig umges
 
 \item[Benutzer Handbuch] Dem knappen Zeitrahmen geschuldet wurde noch kein Benutzerhandbuch erstellt. Dies wäre Sinnvoll nach der Änderung des Layouts zu erstellen, um aktuelle Bilder verwenden zu können.
 
-\item[Weitere Tests] Sinnvoll für mehr stabilität wären weitere Tests, einmal für die CustomControls (Gauge und LineChart) Unittests, für die Oberfläche allgemein Coded-UI Tests und ein automatisierter Integrationstest für das Kommunikationsmodul.
+\item[Weitere Tests] Sinnvoll für mehr Stabilität wären weitere Tests, einmal für die CustomControls (Gauge und LineChart) Unittests, für die Oberfläche allgemein Coded-UI Tests und ein automatisierter Integrationstest für das Kommunikationsmodul.
 
 \item[Import/Export] Eine Im-/Exportfunktion um Testläufe zu sichern und wiederholt zu laden.
 
