@@ -7,7 +7,7 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage[font=small, margin=0pt ,labelfont=bf]{caption}
-\usepackage[numbers,round]{natbib}
+\usepackage[numbers,square]{natbib}
 \bibliographystyle{alphadin}
 \DeclareUnicodeCharacter{FEFF}{ }
 \usepackage{tikz}
@@ -15,9 +15,12 @@
 \usepackage{placeins}
 \usepackage{pdfpages}
 \usepackage{standalone}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{dirtree}
 \usepackage[autostyle,german=quotes]{csquotes}
+
+
+
 
 \begin{document}
 
@@ -76,5 +79,5 @@ Diese Dokumentation entstand im Rahmen der Vorlesung "Datenverarbeitung in der T
 \listoftables
 \appendix
 \include{communication/comAppendix}
-\bibliography{communication/comCite}
+\bibliography{communication/comCite,hardware/bib_hardware}
 \end{document}
