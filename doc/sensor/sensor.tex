@@ -1,5 +1,5 @@
-%ToDo einrückungen bei den Absätzen konsisten halten!
-%ToDo Hurrenkind entfernen
+%todo einrückungen bei den Absätzen konsisten halten!
+%todo Hurrenkind entfernen
 
 \chapter{Arbeitspaket Sensorik}
 Die Analyse, Implementierung und Integration, sowie der Aufbau der ben\"otigten Schaltungen f\"ur die Sensorik des Experimentierplatzes, war Aufgabe von Herrn Lackner mit Unterst\"utzung von Herrn Brunner f\"ur Hardware-relevante Problemstellungen.
@@ -257,7 +257,7 @@ Alle verfügbaren Kanäle werden in einer konfigurierbaren Sequenz automatisch u
 \item \textbf{Channel Sequence Conversion} \\
 Konvertierung von 8 willkürlich gewählten Kanälen.
 \end{itemize}
-%ToDo heißt das Arbiter im folgendem Kapitel??
+%todo heißt das Arbiter im folgendem Kapitel??
 Jeder dieser Modi kann entweder einmalig auf explizite Anfrage, oder kontinuierlich eine Konvertierung durchführen. Als Quelle der Anfragen stehen ebenfalls mehrere Einheiten zur Verfügung (zwei Group-Request-Sources und eine Background-Request-Source). Da von mehreren Quellen Anfragen gleichzeitig eintreffen können, wird die Reihenfolge der Abarbeitung von einem Arbiter festgelegt. Der genaue Aufbau einer einzelnen ADC Einheit lässt sich der Abbildung \ref{img:xmc_adc} entnehmen. \\
 
 In unserem konkreten Beispiel wird eine Fixed-Channel-Konvertierung durchgeführt, da nur ein einzelner Kanal eingelesen werden muss. Das Absetzen der Anfrage wird dabei von der Background-Request-Source übernommen. Da die Konvertierung einige Mikrosekunden Zeit benötigt, wird nach Abschluss des Vorgangs ein Interrupt ausgelöst.
