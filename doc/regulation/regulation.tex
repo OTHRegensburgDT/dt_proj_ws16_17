@@ -2,14 +2,14 @@
 \chapter{Arbeitspaket Regelung}
 Für die Analyse, Entwurf, Implementierung und Integration dieses Arbeitspaketes übernahm Herr Krupinski die Verantwortung.
 \paragraph{}
-Die Regelung stellt im wesentlichen ``Glue-Code'' für die Kommunikation, Motorsteuerung und Sensorik bereit. Dabei ist der Kern eine Implementierung eines PID(proportional–integral–derivative)-Regler.
+Die Regelung stellt im Wesentlichen ``Glue-Code'' für die Kommunikation, Motorsteuerung und Sensorik bereit. Dabei ist der Kern eine Implementierung eines PID(proportional–integral–derivative) -Regler.
 \section{Analysephase}
 \subsection{Hardware}
 Für die Regelung ist es möglich die Programmierung nahezu Hardware unabhängig zu realisieren. Dafür müssen die $\mu$-Controller abhängigen Komponenten (Kommunikation, Motorsteuerung und Sensorik) über ein Interface abstrahiert werden. Die Regelung ``kennt'' und kommuniziert nur gegen diese Interfaces, was es ermöglicht die spezifischen Implementierungen jederzeit austauschen zu können, ohne die Regelung erneut ändern zu müssen.\\
 Da für den I- und D-Anteil der Regelung allerdings eine relative Zeit benötigt wird, ist es nicht komplett möglich $\mu$-Controller unabhängig zu entwickeln. Um diese relative Zeit messen zu können, müssen Timer-Komponenten der Hardware genutzt werden. Die einzige Möglichkeit dies zu vermeiden, wäre eine Annahme zu treffen, wie viel Zeit seit der letzten Iteration vergangen ist.
 \paragraph{}
 \subsection{Software}
-Der Motor soll auf verschiedene Werte hin gesteuert werden können. Zum Beispiel auf eine bestimme Drehzahl oder Drehmoment. Grundsätzlich ist dies davon abhängig, welche Werte der Controller über die Sensorik lesen und welche Werte über die Motorsteuerung direkt, oder indirekt beeinflusst werden können. Deshalb muss es möglich sein ohne großen Aufwand die Regelung auf mehrere Werte zu erweitern, beziehungsweise grundsätzlich dafür entworfen sein. Zusätzlich müssen diese Parameter zur Laufzeit, über die Kommunikations-Schnittstelle, verändert werden können. Konkret die Einflussfaktoren der P-, I- und D-Anteile, Zielwert und zu regelnden Wert.
+Der Motor soll auf verschiedene Werte hingesteuert werden können. Zum Beispiel auf eine bestimme Drehzahl oder Drehmoment. Grundsätzlich ist dies davon abhängig, welche Werte der Controller über die Sensorik lesen und welche Werte über die Motorsteuerung direkt, oder indirekt beeinflusst werden können. Deshalb muss es möglich sein ohne großen Aufwand die Regelung auf mehrere Werte zu erweitern, beziehungsweise grundsätzlich dafür entworfen sein. Zusätzlich müssen diese Parameter zur Laufzeit, über die Kommunikations-Schnittstelle, verändert werden können. Konkret die Einflussfaktoren der P-, I- und D-Anteile, Zielwert und zu regelnden Wert.
 
 \section{Entwurfsphase}
 Hauptteil des Entwurfs bestand aus der konkreten Definition der Interfaces zwischen Regelung und Kommunikation/Motorsteuerung/Sensorik.
