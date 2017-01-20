@@ -308,6 +308,9 @@ Contact GitHub API Training Shop Blog About
 *.out
 *.lot
 *.synctex.gz
+*.synctex.gz(busy)
 *.nav
 *.snm
 *.vrb
+*.bbl
+*.blg
