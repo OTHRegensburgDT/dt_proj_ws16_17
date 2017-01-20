@@ -1,6 +1,6 @@
 \chapter{Codeausschnitt aus der C\#-Bibliothek mit ComPort-Settings}
 \label{ComAPP:ComPortSettings}
-\begin{lstlisting}
+\begin{lstlisting}[frame=single, language=csh]
 private void port_Init()
 {
   try
@@ -25,7 +25,7 @@ private void port_Init()
 \end{lstlisting}
 \chapter{Codeausschnitt aus der C\#-Bibliothek zum Senden der Bytes}
 \label{ComAPP:SendWait}
-\begin{lstlisting}
+\begin{lstlisting}[frame=single, language=csh]
   buf = Frameparser.EncapsuleFrame(buf);
   try
   {
@@ -46,7 +46,7 @@ private void port_Init()
 
 \chapter{Codeausschnitt aus der C\#-Bibliothek mit dem SoF-Automaten}
 \label{ComAPP:SoFMachine}
-\begin{lstlisting}
+\begin{lstlisting}[frame=single, language=csh]
 //Start of Frame checker
 var state = 0; //state 0: no sof; state 1: 0x55 detected; state 2: 0x55 and 0xD5 detected
 do{

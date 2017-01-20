@@ -20,7 +20,7 @@ Des weiteren muss noch Analysiert werden, wie die Sensor- und Regelungsdaten fü
 \paragraph{}
 Alternativ dazu kann ein Serialisierungsformat mit dem Namen "Protocol Buffers" (kurz: Protobuf)  verwendet werden. Dieses wurde durch die Firma Google entwickelt und ist für mehrere Programmiersprachen verfügbar. Dies ist wichtig, da die Software auf dem $\mu$-Controller in C, der Teil für den PC aber in C\# geschrieben wird. Der Vorteil dieser Lösung besteht darin, dass etwaige neu hinzukommende Sensoren einfach in die Protobuf-Nachrichten aufgenommen werden können. Kann eine Gegenstelle diesen Teil einer Nachricht nicht verarbeiten, so wird dieser einfach ignoriert.
 \pagebreak
-\begin{lstlisting}[caption=Beispieldefinition einer Protocol Buffers Nachricht, label=lst:protoEx]
+\begin{lstlisting}[frame=single, caption=Beispieldefinition einer Protocol Buffers Nachricht, label=lst:protoEx]
 message Person {
   required string name = 1;
   required int32 id = 2;
@@ -42,7 +42,7 @@ Im System gibt es zwei Arten von Nachrichten. Die erste Art enthält die gesamme
 \end{figure}
 \subsubsection{Sensordaten Nachricht}
 Bei der Absprache mit den für die GUI verantwortlichen Entwicklern, kam folgende Anforderung hinzu: "Die Nachrichten sollen mit einem Zeitstempel oder einer fortlaufenden Nummer ausgestattet sein, um diese später unter Umständen nochmals sortieren zu können." Um auch für zukünftige Erweiterungen von Sensoren gerüstet zu sein, soll die Anzahl der Sensordaten in der Nachricht variabel gestaltet sein. Zudem wird jedem Sensorwert die ID des Sensors, welcher den Wert produzierte, zugeordnet. Um das alles zu erfüllen gilt für die Protobuf Nachricht folgende Beschreibung:
-\begin{lstlisting}[caption=Beschreibung der Sensordaten Nachricht, label=lst:protoData]
+\begin{lstlisting}[frame=single, caption=Beschreibung der Sensordaten Nachricht, label=lst:protoData]
 //defining an entry of the data table
 message DataEntry{
 	uint32 SensorId = 1;
@@ -58,7 +58,7 @@ message SensorMsg{
 \end{lstlisting}
 \subsubsection{Regelungsparameter Nachricht}
 Das Team, welches die Regelung umgesetzt hat, stellt eine API bereit, welche neben den Parametern der P-, I- und D-Glieder eines Reglers auch die Regelgröße (z.B. Geschwindigkeit oder Drehmoment) und den Zielwert entgegennimmt. Dazu müssen diese Werte auch in der Protobuf Nachricht wie folgt berücksichtigt werden:
-\begin{lstlisting}[caption=Beschreibung der Parameter Nachricht, label=lst:protoPara]
+\begin{lstlisting}[frame=single, caption=Beschreibung der Parameter Nachricht, label=lst:protoPara]
 //defining the parameter message
 message RegParams{
 	uint32 target = 1;
