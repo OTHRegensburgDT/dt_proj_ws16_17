@@ -1,4 +1,5 @@
 \documentclass[a4paper,11pt]{report}
+
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[left = 2cm, top = 2cm, right = 2cm]{geometry}
@@ -6,6 +7,7 @@
 \usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage[german]{babel}
 \usepackage[font=small, margin=0pt ,labelfont=bf]{caption}
 \usepackage[numbers,square]{natbib}
 \bibliographystyle{alphadin}
@@ -15,16 +17,29 @@
 \usepackage{placeins}
 \usepackage{pdfpages}
 \usepackage{standalone}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks,plainpages=false,pdfpagelabels]{hyperref}
 \usepackage{dirtree}
 \usepackage[autostyle,german=quotes]{csquotes}
 
+\ifoot*{\authormark}
+\cfoot*{\pagemark}
 
+\makeatletter
+\newcommand*{\authormark}{}
+\newcommand*{\markauthor}[1]{%
+	\renewcommand{\authormark}{#1}%
+}
+\newcommand*{\chapterauthor}[1]{%
+	\markauthor{#1}%
+}
+\makeatother
 
+\usepackage{lipsum}
 
 \begin{document}
 
 \title{Projektdokumentation - MotorXP}
+
 \author{Christian Brunner, Andreas Kölbl, \\
   Ricardo Krause, Bernd Krupinski, \\
   Andreas Lackner, Michael Schleinkofer, \\
@@ -32,11 +47,12 @@
 
 \automark{chapter}
 \headheight1.3cm
+
 \lehead{\headmark}
 \lohead{\headmark}
 \rehead{\includegraphics[height=25pt]{images/MotorXP}}
 \rohead{\includegraphics[height=25pt]{images/MotorXP}}
-\cfoot*{\pagemark}
+
 
 \renewcommand{\lstlistingname}{Code}
 \lstset{
@@ -51,6 +67,9 @@ numberfirstline=true}
 \renewcommand{\abstractname}{Zusammenfassung}
 \renewcommand{\chaptername}{Kapitel}
 
+
+
+\pagenumbering{Roman}
 \makeatletter
 \begin{titlepage}
   \centering
@@ -65,21 +84,24 @@ numberfirstline=true}
 \makeatother
 \tableofcontents
 
+
 \begin{abstract}
 Diese Dokumentation entstand im Rahmen der Vorlesung "Datenverarbeitung in der Technik" im Wintersemester 2016/17. Zu Beginn erfolgt die Projektdefinition mit Aufteilung der einzelnen Arbeitspakete. Anschließend werden die einzelnen Arbeitspakete näher in den einzelnen Projektschritten erklärt.
 \end{abstract}
-
+\pagenumbering{arabic}
 \include{projectdefinition/ProjektDefinition}
 \include{communication/communication}
 \include{sensor/sensor}
 \include{regulation/regulation}
 \include{gui/gui}
 \include{sim/sim}
-\include{tests/tests}
 \include{hardware/hardware}
+\include{tests/tests}
+\chapterauthor{ }
 \listoffigures
 \listoftables
 \appendix
 \include{communication/comAppendix}
-\bibliography{communication/comCite,hardware/bib_hardware}
+\chapterauthor{ }
+\bibliography{communication/comCite,hardware/bib_hardware,tests/bib_test}
 \end{document}

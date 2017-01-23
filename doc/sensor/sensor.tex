@@ -1,3 +1,5 @@
+\chapterauthor{Andreas Lackner}
+
 \chapter{Arbeitspaket Sensorik}
 Die Analyse, Implementierung und Integration, sowie der Aufbau der ben\"otigten Schaltungen f\"ur die Sensorik des Experimentierplatzes, war Aufgabe von Herrn Lackner mit Unterst\"utzung von Herrn Brunner f\"ur Hardware-relevante Problemstellungen.
 
@@ -25,7 +27,7 @@ DAVE ist eine von Infineon bereitgestellte Entwicklungsumgebung für das Firmene
 \subsubsection{Projekt anlegen} 
 DAVE bietet Standardm\"a{\ss}ig mehrere verschiedene Projekttypen an, die eine unterschiedliche Menge von bereits fertigem Code mit sich bringen. Bei einem \textbf{Empty Project} wird nur die HAL Bibliothek und die f\"ur den Controller ben\"otigten Startup Dateien bereitgestellt. Das \textbf{Simple Main} Projekt erstellt zus\"atzlich noch eine main.c Datei, mit einer leeren Main-Funktion. Entscheidet man sich für ein \textbf{Easy Start} Projekt, erh\"alt man Beispielcode der exemplarisch eine AD Wandlung vornimmt und einige Ausg\"ange setzt.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{sensor/dave_project.PNG}
 \caption{Projektdialog DAVE}
@@ -38,7 +40,7 @@ Nach Wahl des Projektnamens und des gewünschten Projekttyps, muss auf der zweit
 \subsubsection{Projekt erstellen und herunterladen}
 Um ein zu testendes Projekt auf den Controller herunterzuladen, muss es erst \textbf{kompiliert} werden. Gestartet wird der Buildprozess über den in Abbildung \ref{img:dave_build} markierten Button in der Menüleiste. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics{sensor/dave_build.PNG}
 \caption{Buildprozess starten}
@@ -54,7 +56,7 @@ Im Anschluss an einen erfolgreichen Erstellungsprozess wird eine \textbf{Debug- 
 \noindent
 Das exemplarische Anlegen einer Debug-Konfiguration wird in Abbildung \ref{img:dave_debugConfig} gezeigt. Dafür wird im Fenster \textit{Debug Configurations} durch Doppelklick auf den eingesetzten Debug-Chip automatisch eine fertige Konfiguration angelegt.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{sensor/dave_debugConfig.PNG}
 \caption{Debug-Konfiguration erstellen}
@@ -70,7 +72,7 @@ Nach dem eine korrekte Konfiguration erstellt ist, kann das Programm über den D
 \label{lbl:sensor_posif}
 Das POSIF Modul der XMC Controller ist eigens auf den Betrieb von Motoranwendungen zugeschnitten. Dabei übernimmt es, in Kooperation mit einigen Caputure Compare Units, den kompletten Workflow vom einlesen verschiedener Sensoren für die Bestimmung der Kommutierungszeitpunkte bis hin zur Ansteuerung des Motors, bzw. dem setzen der Ausgänge um die Spulen anzusteuern. Ein allgemeiner Aufbau befindet sich in Abbildung \ref{img:posif_overview}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{sensor/posif_overview.PNG}
 \caption{POSIF Übersicht}
@@ -139,7 +141,7 @@ Während des Regelbetriebs lassen sich die einzelnen Werte über die restliche A
 \section{Hall Sensoren}
 Ein Hall-Sensor misst magnetische Flussdichte, durch die Ausnutzung des Hall-Effekts. In unserem Versuchsaufbau sind drei dieser Sensoren, jeweils im Winkel um 120$^\circ$ versetzt, im Motor verbaut (Abbildung \ref{img:hall_sample}). Es handelt sich dabei um digitale Sensoren, was bedeutet dass der gemessene Sensor-Wert entweder logisch 1 oder 0 ist.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{sensor/hall_sample.PNG}
 \caption{Hall Sensoren und Pattern}
@@ -157,7 +159,7 @@ In der verwendeten Konfiguration benötigt der Hall-Modus zwei CCU Slices. Wird 
 \subsection{Ermittlung der Hall-Pattern}
 Der reibungslose Betrieb des Hall Moduls im Sensor Interface setzt voraus, dass das Register des POSIF Moduls immer mit dem korrekten, erwarteten Hall-Pattern befüllt wird. Dieses Muster unterscheidet sich je nach verwendetem Motor, und musste in unserem Fall extra ausgemessen werden. Dazu habe ich die Hall-Sensoren mit Spannung versorgt und an jede der drei Leitungen ein Oszilloskop gehängt. Durch händisches Drehen des Motors wird die gewünschte Abfolge sichtbar (abgebildet in Abbildung \ref{img:hall_pattern}).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{sensor/hall_pattern.jpg}
 \caption{Eingelesenes Hall-Pattern}
@@ -166,7 +168,7 @@ Der reibungslose Betrieb des Hall Moduls im Sensor Interface setzt voraus, dass 
 
 Auf Basis dieser Messung lässt sich durch festlegen eines beliebigen Startpunkts das Hall-Pattern für die gewählte Drehrichtung ableiten. Ab dem gewählten Startpunkt führt jede Änderung des Zustands zu einem neuen Pattern. Die Analyse hat für unseren Motor hat 6 verschiedene Pattern ergeben, die sich pro Umdrehung 7-Mal wiederholen. Dies ergibt eine Gesamtzahl von 42 Hall-Events pro Umdrehung. Das gleiche Verfahren wurde zu Überprüfungszwecken auch mit der zweiten Drehrichtung durchgeführt, um Fehler zu vermeiden. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{sensor/hall_pattern_lookup.PNG}
 \caption{Hall-Pattern Lookup-Tables}
@@ -185,7 +187,7 @@ Die Umdrehungsgeschwindigkeit lässt sich über die Indexleitung errechnet, die 
 angle = (edge_count / total_edges) * 360
 \end{equation}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{sensor/quadrature_overview.PNG}
 \caption{Inkrementalgeber Phasen}
@@ -213,7 +215,7 @@ Der eingesetzte Sensor für die Ermittlung der Temperatur im Motor verwendet ein
 \subsection{Einlesen des Temperaturwerts}
 Für die Ermittlung des aktuellen Temperaturwerts ist es notwendig den Widerstandswert des Sensors einzulesen und zu digitalisieren. Da sich der Widerstand nicht direkt messen lässt wird ein Spannungsteiler eingesetzt, dessen Spannung am Messpunkt sich proportional zum Widerstand verhält. Diese Messspannung kann am Controller über einen AD-Wandler eingelesen werden.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.65\textwidth]{sensor/temperature_circuit.PNG}
 \caption{Spannungsteiler zum einlesen des NTC-Widerstands}
@@ -239,7 +241,7 @@ Ist der Widerstand bekannt, lässt sich aus dem Datenblatt des Sensors die dazu 
 \subsubsection{Analog Digital Wandlung}
 Die ADC Einheit des XMC Controllers verfügt über vier unabhängige Konvertierungsgruppen mit bis zu 8 analogen Eingängen und einer maximalen Auflösung von 12 Bit. Standard Referenzspannung sind dabei 3.3 Volt.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.9\textwidth]{sensor/xmc_adc.PNG}
 \caption{ADC Einheit der XMC Controller}

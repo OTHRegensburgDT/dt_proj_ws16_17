@@ -1,3 +1,4 @@
+\chapterauthor{Ricardo Krause}
 \graphicspath{{./gui/Bilder/}}
 
 \chapter{Arbeitspaket GUI}
@@ -35,7 +36,7 @@ Mit den Ergebnissen der Analysephase, wurde ein Entwurf der Benutzeroberfläche 
 
 Als grundlegende Architektur wurde ein drei Schichtenmodell\ref{fig:arc} verwendet, welches den Anforderungen der Analysephase gerecht wird und allen Entwicklern des Projektes bekannt ist. In diesem gewählten Modell kommunizieren nur benachbarte Schichten miteinander. Und jede Schicht hat eine separate Aufgabe.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[scale=0.5]{Arc1}
 		\caption{Grober Architektur Entwurf}
@@ -46,7 +47,7 @@ Es wurden mehrere Entwurfsmuster verwendet, welche zur Softwarequalität beitrag
 \\
 Für die oberen beiden Schichten wurde das MVVM\footnote{kurzw. für Model-View-ViewModel} Entwurfsmuster\ref{fig:mvvm} gewählt. Dieses Muster trennt die Oberfläche von der zugrundeliegenden Business-Logik, dies ermöglicht es die Komponenten unabhängig und austauschbar von der Businesslogik zu entwickeln.\\ 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.6\textwidth]{MVVM}
 		\caption{MVVM-Konzept}
@@ -65,7 +66,7 @@ Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen dem Kommuni
 \end{lstlisting}
 Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout\ref{fig:gui} erstellt. Für dieses wurde das Werkzeug Pencil\footnote{Link zum Projekt \url{http://pencil.evolus.vn/}} eingesetzt. Es ist einfach zu bedienen und lieferte schnell ein Ergebnis, welches im Projektteam besprochen werden konnte.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.5\textwidth]{Mockup}
 		\caption{Erster Layout Entwurf der GUI}
@@ -84,7 +85,7 @@ Als Grundlage für den Start des Projektes wurde das MVVM-Light\footnote{Link zu
 
 Der Datenzugriff wurde durch den Einsatz vom Repository-Muster (siehe Abbildung \ref{fig:repo}) realisiert. Dies ermöglichte zu beginn des Projektes und für Test gegen eine Attrappe des Kommunikationsmoduls zu entwickeln. Diese täuschte das fehlende Modul vor und konnte problemlos durch das fertig implementierte Modul ersetzt werden. Durch die vorangegangene Schnittstellen Definition mussten für die Integration des Kommunikationsmoduls keine Änderungen an der internen Systemlogik vorgenommen werden.   
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.5\textwidth]{RepoPattern}
 		\caption{Repository Muster in der GUI}
@@ -98,7 +99,7 @@ Darauf hin erstellte der Herr Krupinski diese beiden aufwändigen Steuerelemente
 \subsubsection*{Gauge Control}
 Das entwickelte "Gauge"\footnote{engl. Tachometer} Control in Abbildung \ref{fig:gauge} besteht aus einer Skala(1) mit einem minimal und maximal Wert, einen Zeiger(2) und einem Label(3), welches den Aktuellen Wert anzeigt.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.3\textwidth]{Gauge1}
 		\caption{Tachometer Anzeige der GUI}
@@ -109,7 +110,7 @@ Das entwickelte "Gauge"\footnote{engl. Tachometer} Control in Abbildung \ref{fig
 
 In Abbildung \ref{fig:line} ist das "LineChart"\footnote{engl. Liniendiagramm} Control abgebildet. Es besteht aus einem anzeige Raster(1), einen Graphen(2) zur Visualisierung der Werte einer Anzeige für die Y-Achse(3) mit einstellbaren Werten und einer Anzeige für den ersten und letzten Wert der X-Achse(4).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.6\textwidth]{Line1}
 		\caption{Liniendiagramm Anzeige der GUI}
@@ -121,7 +122,7 @@ Diese Steuerelemente bieten dem Entwickler diverse Einstellmöglichkeiten in For
 
 Die beiden Benutzer definierten Steuerelemente wurden zu einem eigenen Control zusammengefasst und mit weiteren Steuerelementen ergänzt. In Abbildung \ref{fig:control1} ist exemplarisch ein komplettes Anzeigeelement für einen Sensorwert abgebildet.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[width=\textwidth]{GUIScreenshot3}
 		\caption{Datenanzeige Control}
@@ -130,7 +131,7 @@ Die beiden Benutzer definierten Steuerelemente wurden zu einem eigenen Control z
 
 Die Abbildung \ref{fig:guifinal} zeigt fertige die GUI zum Ende des Projektes. Sie ist aktuell in der Lage die definierten Sensorwerte anzuzeigen, die einzelnen Anzeigeelemente\ref{fig:control1} bieten die Möglichkeiten im Liniendiagramm zu Zoomen und das Wertefenster der X-Achse festzulegen und zu verschieben. Für einstellbare Größen, wie zum Beispiel die Drehgeschwindigkeit kann ein Zielwert eingegeben werden, welcher durch eine zweite rote Nadel im Tachometer angezeigt wird. Im oberen Bereich der GUI kann man die Regelparameter ebenfalls verändern und an den Controller senden.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 		\includegraphics[width=\textwidth]{GUIScreenshot2}
 		\caption{Ansicht der GUI zum Projektende}

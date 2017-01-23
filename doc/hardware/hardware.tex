@@ -1,3 +1,5 @@
+\chapterauthor{Christian Brunner}
+
 \newcommand{\quelle}{%
 	\small Quelle:
 }
@@ -43,6 +45,7 @@ Aus diesen Sensorinformationen wird im Anschluss ein Steuersignal für die Anste
 
 Eine vollständige Auflistung der enthaltenen Komponenten kann dem Referenzhandbuch \cite{InfineonTechnologies2016} oder der Produkthomepage \cite{InfineonTechnologies2017} entnommen werden .
 
+\newpage
 \paragraph{Relax Kits:}
 Infineon stellt, für die Einarbeitung und Tests, kleine Entwicklungsplattformen bereit.
 Dabei handelt es sich um Platinen, die bereits mit einem XMC Mikrocontroller und allen dafür notwendigen Bauteilen versehen ist.
@@ -74,7 +77,7 @@ Dadurch kann eine Vielzahl von Erweiterungsplatinen ohne Änderungen verwendet w
 	\label{fig:XMC4700}	
 \end{figure}
 
-\paragraph{Bidirektionale Spannungswandler TXS0108}
+\paragraph{Bidirektionale Spannungswandler TXS0108:}
 Auf dem Relax Kit sind für die Pegelwandlung von 5 Volt zu 3.3 Volt zwei Levelshifter vom Typ TXS0108 aufgebracht.
 Diese setzen einen angelegten Logischen Pegel von einer Quellspannung auf eine zweite um.
 Dies kann bidirektional geschehen.
@@ -84,7 +87,7 @@ Ein Problem, dass während der Durchführung des Projektes auftrat war ein Schwi
 Ursache hierfür waren zu lange Anschlussleitungen.
 Der Hersteller, Texas Instruments, verweist in seinem Handbuch darauf, dass die Leitungslänge kurz gehalten werden muss um Reflexionen zu vermeiden.
 Das Verhalten bei solchen Reflexionen wird nicht näher beschrieben.
-Genaueres kann dem Abschnitt ??? entnommen werden.
+Genaueres kann dem Abschnitt Hardwaretest und Analyse entnommen werden.
 Unter Normalbedingungen, damit ist die Verwendung der Levelshifter mit Arduino Shields gemeint, dürfte ein solches Problem nicht auftreten, da die Signalleitungen nur wenige Zentimeter betragen.
 
 %----------------------------------------------------------------------------------
@@ -111,7 +114,7 @@ Bei EtherCat handelt es sich um eine echtzeitfähige Ethernet Kommunikation, die
 
 %----------------------------------------------------------------------------------
 
-
+\newpage
 \section{Texas Instrument DRV8302 Evaluation Kit}	
 \label{sec:TI DRV8302 EvalKit}
 Mit diesem Kit stellt Texas Instrument eine fertig Plattform für die Entwicklung von Motorsteuerungen und das Experimentieren mit BLDC-Motoren\footnote{BLDC ist die Kurzform für Brushless DC und bezeichnet den Grundlegenden Aufbau eines Motors.} zur Verfügung.
@@ -133,7 +136,7 @@ Dieser steuert die darunter liegenden Feldeffekttransistor, welche den Arbeitsst
 Der DRV8302 kann mit einer Spannung von 8 V bis 60 V Gleichspannung versorgt werden.
 Die Leistungstransistoren können eine Spitzenstrom von 60 A pro Phase schalten.
 Am unteren Ende der Platine befindet sich das Anschlussterminal für den Motor.
-Rechts daneben das für die Versorgungsspannung.
+Rechts daneben das für die Versorgungsspannung.\\
 
 \begin{figure}[htbp]
 	\centering
@@ -143,16 +146,74 @@ Rechts daneben das für die Versorgungsspannung.
 	\label{fig:DRV8302Board}
 \end{figure}
 
+Zur Ansteuerung der Leistungstransistoren werden mehrere Steuersignale benötigt.
+Diese erzeugt der Treiberchip, welcher seine Signale von einem externen Controller erhält.
+Der DRV8302 kann dazu in zwei unterschiedlichen Betriebsmodi betrieben werden.
+Entweder alle sechs Steuersignale für die Leistungstransistoren stellt der externe Controller bereit oder es werden nur drei Signale bereitgestellt.
+Der erste Fall (6 Steuersignale) gibt dem Nutzer bzw. dem externen Controller die Möglichkeit beide MOSFETs auf LOW zu schalten.
+Dadurch wird erreicht dass nur zwei Motorleitungen (z.B. U und W) einen geschlossenen Stromkreis bilden und nur über diese beiden Spulen Strom fliest.
+Im Gegensatz dazu ist es im zweiten Fall (3 Steuerleitungen) nur möglich eine Motoranschlussleitung auf HIGH oder LOW zu legen. 
+Es müssen also alle drei Leitungen für die Generierung des Motorsignals herangezogen werden.
+%todo weiterschreiben. Auch noch ein Beispiel bringen
 %----------------------------------------------------------------------------------
 
+\newpage
 \section{PMD-BLDC-1500/65}
-Als Motor für den Experimentierplatz wird ein Bürstenloser Gleischstrommotor eingesetzt (kurz BLDC), genauer gesagt ein LRK Motor. 
+Als Motor für den Experimentierplatz wird ein Bürstenloser Gleichstrommotor eingesetzt (kurz BLDC), genauer gesagt ein LRK Motor. 
 Benannt ist dieser nach den drei Person, die an seiner Entwicklung beteiligt waren.
 Christian \textbf{L}ukas hatte Ende 2000 die Idee von diesen Motoren, die Ludwig \textbf{R}etzbach in der Elektro-Modell veröffentlichte, und Herr \textbf{K}ühfuß die ersten Drehteile herstellte.
 %quelle http://www.torquemax.de/Motoren/default.html
+Es handelt sich dabei um einen sog. Außenläufer.
+Bei diesem bildet die Motorabdeckung, in der sich 14 Magnete befinden, den Rotor.
+Die Motorwicklung im Inneren ist starr und mit Kupferdraht umwickelt.\\
+
+
 Der allgemeine Vorteil von Bürstenlosen Motoren liegt darin, dass es keine Verschleißteile gibt.
 Hingegen müssen bei klassischen Gleichstrommotoren mit Bürsten diese ersetzt werden sobald sie verbraucht oder zerstört sind.
-Für die Regelung des Motors sind drei digitale Hall-Sensoren verbaut.
+Zur Regelung des BLDC-Motors sind drei digitale Hall-Sensoren verbaut.
+Diese Sensoren reagieren auf Magnetfelder und ändern bei einem bestimmten Schwellwert ihren Ausgangspegel.
+Genaueres ist dem Abschnitt Sensor zu entnehmen.\\
+
+
 Zur Temperaturüberwachung ist ein NTC-Sensor innerhalb des Motors angebracht. 
 NTC ist hierbei die Kurzform für Negative Temperature Coefficient Thermistor und beschreibt einen Temperaturabhängigen Widerstand.
-Dieser verringert seinen Widerstand bei steigender Temperatur.
+Dieser verringert seinen Widerstand bei steigender Temperatur.\\
+
+In Abbildung \ref{fig:BLDC} sieht man den Motor mit den drei Motoranschlussleitungen.
+Der daneben liegende Stecker mit sieben weiteren Kabeln ist das Anschlussterminal für die Hall-Sensoren und den Temperatursensor.
+Auf der Vorderseite ist die Welle und darum die Befestigungslöcher zu sehen.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=6cm]{hardware/graphics/BLDC_Motor}
+	\caption{PMD-BLDC-1500/65 Motor}
+	\quelle Herstellerdatenblatt
+	\label{fig:BLDC}
+\end{figure}
+
+\newpage
+\section{BLDC Motorprüfstand}
+Bei dem Prüfstand handelt es sich um eine Grundplatte aus Holz mit den ungefähren Abmessungen von 60 cm mal 40 cm.
+Auf dieser sind Aluminiumprofile montiert, die das Grundgerüst für verschiedene Halter bilden.
+Über die Profile ist es recht einfach möglich, den gesamten Aufbau zu verschieben.\\
+
+
+Die verschiedenen Hardwarekomponenten bilden zusammen den Motorprüfstand.
+In Abbildung \ref{fig:Schemata_Hardware_Gesamt} ist dies schematisch dargestellt.
+Der BLDC-Motor wird über die H-Brücke bzw. dem Texas Instrument DRV8302 Evaluation Kit gesteuert.
+Dieses erhält seine Steuersignale wiederum von einem Mikrocontroller. 
+In der Abschlusskonfiguration war dies das XMC 4800 Relax EtherCat Kit.
+Um Fehler detektieren zu können werden Sensorsignale von der H-Brücke und BLDC-Motor an den Mikrocontroller gesendet.
+Der Controller selbst bildet in Verbindung mit den Sensorsignalen einen Regler.
+Dessen Parameter erhält er von einer PC Applikation an die auch die Sensorwerte weitergeleitet werden.
+Dort werden diese grafisch aufbereitet und in verschiedenen Diagrammen dargestellt.
+
+%todo noch etwas über den Motorprüfstand schreiben
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth-4cm]{hardware/graphics/Schema_Uebersicht.pdf}
+	\caption{Schematische Übersicht der einzelnen Hardwarekomponenten}
+	\quelle Selbst erstellte Grafik
+	\label{fig:Schemata_Hardware_Gesamt}
+\end{figure}
