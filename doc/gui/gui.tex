@@ -30,7 +30,6 @@ Die wichtigsten drei Anforderungen jeder Gruppe, basierend auf der Analyse: \\
 \newline
 \newline
 Als weiteres Ergebnis der Analyse ergab sich eine zwingende Abhängigkeit zu dem Arbeitspaket Kommunikation, wo die erforderlichen Schnittstellen und Datenstrukturen in enger Zusammenarbeit erstellt wurden. Diese sind ebenfalls in die Spezifikation mit aufgenommen worden.
-
 \section{Entwurfsphase}
 Mit den Ergebnissen der Analysephase, wurde ein Entwurf der Benutzeroberfläche erstellt. Dieser wurde auf der einen Seite für die Code Struktur und Architektur durchgeführt, auf der anderen Seite wurden mögliche Designentwürfe des Layouts erstellt.\\
 
@@ -74,6 +73,7 @@ Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout \ref{fig:gui} er
 \end{figure}
 
 \section{Implementierung}
+
 In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt. In dieser Phase kommen die vom Herrn Krupinski erstellten Steuerelemente zum Einsatz unterstützt.\\
 
 Zu Beginn der Implementierung wurde die Frage aufgeworfen, welche Technologie für die Oberfläche zum Einsatz gebracht werden sollten. Zur Auswahl stand, es mit neuesten Multi-Plattform fähigen Web-Technologien umzusetzen und auf das ASP.NET-Framework\footnote{Microsoft Framework zur Entwicklung von Web-Applikationen} zu setzen oder eine reine Desktop Applikation mit dem WPF-Framework umzusetzen. Aufgrund des relativ knappen Zeitplanes für das Projekt und der mehrheitlichen Erfahrungen im WPF-Framework, wurde sich für dieses entschieden.\\
@@ -95,6 +95,8 @@ Ein weiteres Problem, welches es zu lösen gab, waren die Steuerelemente für di
 
 Daraufhin erstellte der Herr Krupinski diese beiden aufwändigen Steuerelemente als Benutzerdefinierte WPF-Steuerelemente selbst, welche uns die geforderten Funktionalitäten und die notwendige Veränderbarkeit mitbrachten. 
 
+
+
 \subsubsection*{Gauge Control}
 Das entwickelte "Gauge"\footnote{engl. Tachometer} Control in Abbildung \ref{fig:gauge} besteht aus einer Skala(1) mit einem minimal und maximal Wert, einen Zeiger(2) und einem Label(3), welches den Aktuellen Wert anzeigt.
 
@@ -104,6 +106,8 @@ Das entwickelte "Gauge"\footnote{engl. Tachometer} Control in Abbildung \ref{fig
 		\caption{Tachometer Anzeige der GUI}
 		\label{fig:gauge}
 \end{figure}
+\newpage
+\input{gui/gauge}
 
 \subsubsection*{LineChart Control}
 
@@ -116,6 +120,9 @@ In Abbildung \ref{fig:line} ist das "LineChart"\footnote{engl. Liniendiagramm} C
 		\label{fig:line}
 \end{figure}
 
+\input{gui/diagram}
+\newpage
+\chapterauthor{Ricardo Krause}
 Diese Steuerelemente bieten dem Entwickler diverse Einstellmöglichkeiten in Form und Farbgebung und sind beliebig erweiterbar für kommende Anforderungen.\\
 
 Die beiden Benutzer definierten Steuerelemente wurden zu einem eigenen Control zusammengefasst und mit weiteren Steuerelementen ergänzt. In Abbildung \ref{fig:control1} ist exemplarisch ein komplettes Anzeigeelement für einen Sensorwert abgebildet.

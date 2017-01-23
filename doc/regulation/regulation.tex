@@ -13,8 +13,61 @@ Da für den I- und D-Anteil der Regelung allerdings eine relative Zeit benötigt
 Der Motor soll auf verschiedene Werte hingesteuert werden können. Zum Beispiel auf eine bestimme Drehzahl oder Drehmoment. Grundsätzlich ist dies davon abhängig, welche Werte der Controller über die Sensorik lesen und welche Werte über die Motorsteuerung direkt, oder indirekt beeinflusst werden können. Deshalb muss es möglich sein ohne großen Aufwand die Regelung auf mehrere Werte zu erweitern, beziehungsweise grundsätzlich dafür entworfen sein. Zusätzlich müssen diese Parameter zur Laufzeit, über die Kommunikations-Schnittstelle, verändert werden können. Konkret die Einflussfaktoren der P-, I- und D-Anteile, Zielwert und zu regelnden Wert.
 
 \section{Entwurfsphase}
-Hauptteil des Entwurfs bestand aus der konkreten Definition der Interfaces zwischen Regelung und Kommunikation/Motorsteuerung/Sensorik.
-\section{Implementierung}
-\section{Integration}
-\section{Ausblick}
+Hauptteil des Entwurfs bestand aus der konkreten Definition der Interfaces zwischen Regelung und Kommunikation/Motorsteuerung/Sensorik. Gleichzeitig benutzt die Regelung noch eine weitere Abstraktion intern.\\
+Diese erfolgt über Makros. Beispiel an der Sensorik, welches Interface wie folgt definiert ist:
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+/* <summary>
+* Initializes the sensor interface.
+* </summary> */
+void Sensor_Init();
 
+/* <summary>
+* Starts the measurement of all sensor parameters.
+* </summary>*/
+void Sensor_StartAll(void);
+[...]
+\end{lstlisting}
+
+Wird wiederum in der Regelung abstrahiert durch:
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+#define SENSORHANDLER_INITIALIZE() Sensor_Init(); Sensor_StartAll()
+\end{lstlisting}
+Dies ermöglicht ein schnelles modifizieren der Interface Definition und eine konsistente Nomenklatur. Beispielsweise erfolgt die Initialisierung der drei Komponenten durch:
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+COMHANDLER_INITIALIZE();
+MOTORHANDLER_INITIALIZE();
+SENSORHANDLER_INITIALIZE();
+\end{lstlisting}
+
+\section{Implementierung}
+Das Herz der Regelung ist ein PID-Regler. Dieser besteht aus den drei Komponenten P (Proportional), I (Integral) und D (Differential).\cite{regl} Diese sind letzten Endes drei Funktionen die wiederum in Makros implementiert worden sind.\\
+
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+#define REGULATION_P_REGULATE(crntValue, targetValue, Kp) Kp * (targetValue - crntValue)
+#define REGULATION_I_REGULATE(crntValue, targetValue, regSumPtr, passedTime, Ki) \
+Ki * (*regSumPtr = passedTime * (targetValue - crntValue))
+#define REGULATION_D_REGULATE(crntValue, targetValue, lastDifferencePtr, lastDifferenceValue, passedTime, Kd)\
+(Kd * (((*lastDifferencePtr = targetValue-crntValue) - lastDifferenceValue) / passedTime))
+\end{lstlisting}
+
+Diese Regler benötigen allerdings Variablen. Um möglich flexibel zu sein werden diese in einer einzigen Struktur gespeichert. Das ermöglicht es, jederzeit weitere Größen zu regeln und dabei sogar verschiedene Parameter zu benutzen.
+
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+struct Regulation_PidValues
+{
+float targetValue; // the desired target value
+float Kp; // degree in how much the p regulator affects the output.
+float Ki; // degree in how much the i regulator affects the output.
+float Kd; // degree in how much the d regulator affects the output.
+
+float regSum; // for I regulator.
+float lastDifferenceValue; // for d regulator.
+};
+\end{lstlisting}
+Die K Anteile geben hierbei den Grad an, wie stark ein Regler agiert. D.h. falls Kp beispielsweise gleich null ist, würde essentiell ein ID-Regler benutzt werden.\\
+Gleichzeitig wurden weitere Makros geschrieben um eine einfache Benutzung zu ermöglichen. Dadurch sieht zum Beispiel der Aufruf zum regeln der Geschwindigkeit wie folgt aus:\\
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables), passedMs/1000, velocity);
+\end{lstlisting}
+\section{Ausblick}
+Zurzeit benutzt die Regelung einen fixen Wert an Zeit, der angenommen wird der seit der letzten Iteration vergangen sei. Sinnvoller wäre es hingegen dazu, einen Timer von dem Mikrocontroller zu verwenden um genau bestimmen zu können wie viel Zeit vergangen ist. Das erhöht den Grad der Genauigkeit der einzelnen Regler sowie die Effizienz.
