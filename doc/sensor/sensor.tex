@@ -1,5 +1,8 @@
 \chapterauthor{Andreas Lackner}
 
+%todo einrückungen bei den Absätzen konsisten halten!
+%todo Hurrenkind entfernen
+
 \chapter{Arbeitspaket Sensorik}
 Die Analyse, Implementierung und Integration, sowie der Aufbau der ben\"otigten Schaltungen f\"ur die Sensorik des Experimentierplatzes, war Aufgabe von Herrn Lackner mit Unterst\"utzung von Herrn Brunner f\"ur Hardware-relevante Problemstellungen.
 
@@ -70,7 +73,7 @@ Nach dem eine korrekte Konfiguration erstellt ist, kann das Programm über den D
 
 \subsection{POSIF}
 \label{lbl:sensor_posif}
-Das POSIF Modul der XMC Controller ist eigens auf den Betrieb von Motoranwendungen zugeschnitten. Dabei übernimmt es, in Kooperation mit einigen Caputure Compare Units, den kompletten Workflow vom einlesen verschiedener Sensoren für die Bestimmung der Kommutierungszeitpunkte bis hin zur Ansteuerung des Motors, bzw. dem setzen der Ausgänge um die Spulen anzusteuern. Ein allgemeiner Aufbau befindet sich in Abbildung \ref{img:posif_overview}.
+Das POSIF Modul der XMC Controller ist eigens auf den Betrieb von Motoranwendungen zugeschnitten. Dabei übernimmt es, in Kooperation mit einigen Capture Compare Units, den kompletten Workflow vom einlesen verschiedener Sensoren für die Bestimmung der Kommutierungszeitpunkte bis hin zur Ansteuerung des Motors, bzw. dem setzen der Ausgänge um die Spulen anzusteuern. Ein allgemeiner Aufbau befindet sich in Abbildung \ref{img:posif_overview}.
 
 \begin{figure}[ht]
 \centering
@@ -79,7 +82,7 @@ Das POSIF Modul der XMC Controller ist eigens auf den Betrieb von Motoranwendung
 \label{img:posif_overview}
 \end{figure}
 
-Im wesentlichen verfügt das POSIF Modul über zwei verschiedene Betriebsmodi zum einlesen des Zustands, die Optional mit dem Modul für die Motoransteuerung kombiniert werden können.
+Im Wesentlichen verfügt das POSIF Modul über zwei verschiedene Betriebsmodi zum einlesen des Zustands, die Optional mit dem Modul für die Motoransteuerung kombiniert werden können.
 
 \begin{itemize}
 \item \textbf{Hall Modus} \\
@@ -121,7 +124,7 @@ Das angebotene Interface über die Sensor.h Datei, fungiert nur als Schnittstell
 .2 Sensor\_Temperature.h.
 }
 \noindent \\
-Alle Submodule bringen zum jetzigen Zeitpunkt ihre Abhängigkeiten\footnote{Mit Abhängigkeiten sind in erster Linie Konfigurationen der Hardwareelemente wie CCU, ADC oder POSIF gemeint.} schon mit, um den Integrationsaufwand in das fertige Projekt so gering wie möglich zu halten. Dies kann sich zu einem späteren Zeitpunkt noch ändern, wenn die POSIF Konfiguration für das einlesen der Hall-Sensoren mit der Motorsteuerung zusammengezogen wird, da beide Module auf die selbe Hardwarekomponente zugreifen.
+Alle Submodule bringen zum jetzigen Zeitpunkt ihre Abhängigkeiten\footnote{Mit Abhängigkeiten sind in erster Linie Konfigurationen der Hardwareelemente wie CCU, ADC oder POSIF gemeint.} schon mit, um den Integrationsaufwand in das fertige Projekt so gering wie möglich zu halten. Dies kann sich zu einem späteren Zeitpunkt noch ändern, wenn die POSIF Konfiguration für das einlesen der Hall-Sensoren mit der Motorsteuerung zusammengezogen wird, da beide Module auf dieselbe Hardwarekomponente zugreifen.
 
 \subsection{Anwendung}
 Um Sensorwerte über das Softwaremodul einzulesen muss beim Startvorgang der Steuerung einmal die \textit{Sensor\_Init()} Funktion aufgerufen werden um alle eingesetzten Hardwarekomponenten zu initialisieren. Zu diesem Zeitpunkt sollte auch ein Callback für die Hall-Events registriert werden, um über eintretende Änderungen der Motorwelle informiert zu werden. Registrieren lässt sich eine Callback-Funktion über \textit{Sensor\_RegisterHallCallback(<func\_ptr>)}. \\
@@ -132,14 +135,14 @@ Der Einlesevorgang für die Sensorwerte muss im Anschluss über die Funktion \te
 Während des Regelbetriebs lassen sich die einzelnen Werte über die restliche API auslesen.
 
 \begin{itemize}
-\item \textbf{Sensor\_GetCurrentHallPattern(HallPattern\_t*)} Gibt das Muster zurück, dass sich auch den aktuelle Zustand der digitalen Hall-Sensoren ergibt. HallPatter\_t* beschreibt dabei einen Pointer auf die Hall-Pattern Struktur die durch den Funktionsaufruf mit Werten gefüllt wird.
+\item \textbf{Sensor\_GetCurrentHallPattern(HallPattern\_t*)} Gibt das Muster zurück, dass sich durch den aktuellen Zustand der digitalen Hall-Sensoren ergibt. HallPatter\_t* beschreibt dabei einen Pointer auf die Hall-Pattern Struktur die durch den Funktionsaufruf mit Werten gefüllt wird.
 \item \textbf{Sensor\_GetVelocity(double*)} Gibt die aktuelle Umdrehungsgeschwindigkeit der Motorwelle in Umdrehungen pro Sekunde zurück.
 \item \textbf{Sensor\_GetAngle(double*)} Gibt den aktuellen Drehwinkel in Grad, relativ zu einem festgelegten Nullpunkt zurück.
 \item \textbf{Sensor\_GetTemperature(int*)} Gibt die aktuelle Temperatur in Grad Celsius im Motor zurück.
 \end{itemize}
 
 \section{Hall Sensoren}
-Ein Hall-Sensor misst magnetische Flussdichte, durch die Ausnutzung des Hall-Effekts. In unserem Versuchsaufbau sind drei dieser Sensoren, jeweils im Winkel um 120$^\circ$ versetzt, im Motor verbaut (Abbildung \ref{img:hall_sample}). Es handelt sich dabei um digitale Sensoren, was bedeutet dass der gemessene Sensor-Wert entweder logisch 1 oder 0 ist.
+Ein Hall-Sensor misst magnetische Flussdichte, durch die Ausnutzung des Hall-Effekts. In unserem Versuchsaufbau sind drei dieser Sensoren, jeweils im Winkel um 120$^\circ$ versetzt, im Motor verbaut (Abbildung \ref{img:hall_sample}). Es handelt sich dabei um digitale Sensoren, was bedeutet, dass der gemessene Sensor-Wert entweder logisch 1 oder 0 ist.
 
 \begin{figure}[ht]
 \centering
@@ -148,13 +151,13 @@ Ein Hall-Sensor misst magnetische Flussdichte, durch die Ausnutzung des Hall-Eff
 \label{img:hall_sample}
 \end{figure}
 
-Der Wert ändert sich dabei in Abhängigkeit davon, ob sich grade ein magnetischer Nord- bzw. Südpol über den Sensor befindet. Alle drei Sensorzustände zusammen genommen ergeben ein \textbf{Hall-Pattern}, was im rechten Teil von Abbildung \ref{img:hall_sample} noch einmal verdeutlicht wird. Das Hall-Pattern ist relevant für zwei Dinge. Zum einen kann Anhand des gemessenen und des erwarteten Pattern festgestellt werden, ob beim Drehvorgang Fehler aufgetreten sind (z.B. ob der Motor sich in die falsche Richtung dreht) und zum anderen lässt sich aus dem Zeitpunkt des Auftretens einer Änderung des Musters, eine passende Gelegenheit für die Kommutierung ableiten. Bei gewissen Regelstrategien lässt sich außerdem aus dem Hall-Pattern ein Motor-Pattern ableiten, welches an die Spulen angelegt wird um eine Drehung des Motors zu erzeugen.
+Der Wert ändert sich dabei in Abhängigkeit davon, ob sich grade ein magnetischer Nord- bzw. Südpol über den Sensor befindet. Alle drei Sensorzustände zusammen genommen ergeben ein \textbf{Hall-Pattern}, was im rechten Teil von Abbildung \ref{img:hall_sample} noch einmal verdeutlicht wird. Das Hall-Pattern ist relevant für zwei Dinge. Zum einen kann Anhand des gemessenen und des erwarteten Patterns festgestellt werden, ob beim Drehvorgang Fehler aufgetreten sind (z.B. ob der Motor sich in die falsche Richtung dreht) und zum anderen lässt sich aus dem Zeitpunkt des Auftretens einer Änderung des Musters, eine passende Gelegenheit für die Kommutierung ableiten. Bei gewissen Regelstrategien lässt sich außerdem aus dem Hall-Pattern ein Motor-Pattern ableiten, welches an die Spulen angelegt wird um eine Drehung des Motors zu erzeugen.
 
 \subsection{Einlesen der Hall-Sensoren}
 Die für uns effizienteste Möglichkeit das Hall-Pattern einzulesen und seine Korrektheit zu prüfen ist die Verwendung des in Kapitel \ref{lbl:sensor_posif} beschriebenen POSIF Moduls (POSition InterFace), dass die Verwendeten XMC Mikrocontroller mitbringen.\\
 
 \noindent
-In der verwendeten Konfiguration benötigt der Hall-Modus zwei CCU Slices. Wird vom POSIF Modul die Änderung der Eingänge detektiert, startet es das erste CCU Slice als Debounce Timer, um auszuschließen dass die Statusänderung ihren Ursprung in einem Fehlerhaften Signal hat. Anschließend erfolgt der Vergleich, mit dem im Register abgelegten erwarteten Pattern, was entweder die Generierung eines Correct-Hall-Events oder Wrong-Hall-Events zur Folge hat. Im Fall eines CHE, löst die Software das registrierte Hall-Callback aus, um die Motorsteuerung über das eingetretene Ereignis zu benachrichtigen. Ebenfalls wird im Anschluss daran, das Register für das nächste erwartete Hall-Pattern aktualisiert. Das zweite CCU Slice kann verwendet werden, um auf Basis der auftretenden Hall-Events die aktuelle Umdrehungsgeschwindigkeit bzw. den Winkel der Motorwelle zu berechnen.
+In der verwendeten Konfiguration benötigt der Hall-Modus zwei CCU Slices. Wird vom POSIF Modul die Änderung der Eingänge detektiert, startet es das erste CCU Slice als Debounce Timer, um auszuschließen, dass die Statusänderung ihren Ursprung in einem Fehlerhaften Signal hat. Anschließend erfolgt der Vergleich, mit dem im Register abgelegten erwarteten Pattern, was entweder die Generierung eines Correct-Hall-Events oder Wrong-Hall-Events zur Folge hat. Im Fall eines CHE, löst die Software das registrierte Hall-Callback aus, um die Motorsteuerung über das eingetretene Ereignis zu benachrichtigen. Ebenfalls wird im Anschluss daran, das Register für das nächste erwartete Hall-Pattern aktualisiert. Das zweite CCU Slice kann verwendet werden, um auf Basis der auftretenden Hall-Events die aktuelle Umdrehungsgeschwindigkeit bzw. den Winkel der Motorwelle zu berechnen.
 
 \subsection{Ermittlung der Hall-Pattern}
 Der reibungslose Betrieb des Hall Moduls im Sensor Interface setzt voraus, dass das Register des POSIF Moduls immer mit dem korrekten, erwarteten Hall-Pattern befüllt wird. Dieses Muster unterscheidet sich je nach verwendetem Motor, und musste in unserem Fall extra ausgemessen werden. Dazu habe ich die Hall-Sensoren mit Spannung versorgt und an jede der drei Leitungen ein Oszilloskop gehängt. Durch händisches Drehen des Motors wird die gewünschte Abfolge sichtbar (abgebildet in Abbildung \ref{img:hall_pattern}).
@@ -208,7 +211,6 @@ Für das Einlesen und die Verarbeitung der Leitungssignale des Inkrementalgebers
  
 In Kombination mit passend konfigurierten CCU Slices lassen sich Anhand der internen Ausgänge des POSIF Moduls die angestrebten Kenngrößen ermitteln.
 
-
 \section{Temperatursensor}
 Der eingesetzte Sensor für die Ermittlung der Temperatur im Motor verwendet einen NTC-Widerstand (Negative Temperature Coefficient) für die Temperaturermittlung. Bei dieser Bauform, sinkt der Widerstand des Sensors bei steigender Temperatur. Die bei uns verbaute Variante deckt einen Temperaturbereich von -40$^\circ$ bis 110$^\circ$ Celsius ab und verfügt über einen Basiswiederstand von 10kOhm bei einer Temperatur von 25$^\circ$ Celsius.
 
@@ -222,7 +224,7 @@ Für die Ermittlung des aktuellen Temperaturwerts ist es notwendig den Widerstan
 \label{img:temperature_circuit}
 \end{figure}
 
-Der genaue Schaltungsaufbau lässt sich aus Abbildung \ref{img:temperature_circuit} entnehmen. Als fixer Widerstand werden 10kOhm verwendet. Dieser Wert spielt später bei der Errechnung des Widerstands des Temperatursensors T1 eine Rolle. Nach anlegen einer Versorgungsspannung lässt sich die variable Spannung am Messpunkt abgreifen. \\
+Der genaue Schaltungsaufbau lässt sich aus Abbildung \ref{img:temperature_circuit} entnehmen. Als fixer Widerstand werden 10kOhm verwendet. Dieser Wert spielt später bei der Errechnung des Widerstands des Temperatursensors T1 eine Rolle. Nach Anlegen einer Versorgungsspannung lässt sich die variable Spannung am Messpunkt abgreifen. \\
 \label{lbl:temp_equation}
 Um aus der gemessenen Spannung den Widerstand zu errechnen, muss zunächst von der Formel für $U_{2}$ des Spannungsteiler ausgegangen werden.
 
@@ -253,14 +255,14 @@ Für die Wandlung stehen drei verschiedene Modi zur Verfügung:
 \item \textbf{Fixed Channel Conversion} \\
 Ein einzelner festgelegter Kanal wird konvertiert.
 \item \textbf{Auto Scan Conversion} \\
-Alle verfügbare Kanäle werden in einer konfigurierbaren Sequenz automatisch und linear gewandelt.
+Alle verfügbaren Kanäle werden in einer konfigurierbaren Sequenz automatisch und linear gewandelt.
 \item \textbf{Channel Sequence Conversion} \\
 Konvertierung von 8 willkürlich gewählten Kanälen.
 \end{itemize}
-
+%todo heißt das Arbiter im folgendem Kapitel??
 Jeder dieser Modi kann entweder einmalig auf explizite Anfrage, oder kontinuierlich eine Konvertierung durchführen. Als Quelle der Anfragen stehen ebenfalls mehrere Einheiten zur Verfügung (zwei Group-Request-Sources und eine Background-Request-Source). Da von mehreren Quellen Anfragen gleichzeitig eintreffen können, wird die Reihenfolge der Abarbeitung von einem Arbiter festgelegt. Der genaue Aufbau einer einzelnen ADC Einheit lässt sich der Abbildung \ref{img:xmc_adc} entnehmen. \\
 
-In unserem konkreten Beispiel wird eine Fixed-Channel-Konvertierung durchgeführt, da nur ein einzelner Kanal eingelesen werden muss. Das absetzen der Anfrage wird dabei von der Background-Request-Source übernommen. Da die Konvertierung einige Mikrosekunden Zeit benötigt, wird nach Abschluss des Vorgangs ein Interrupt ausgelöst.
+In unserem konkreten Beispiel wird eine Fixed-Channel-Konvertierung durchgeführt, da nur ein einzelner Kanal eingelesen werden muss. Das Absetzen der Anfrage wird dabei von der Background-Request-Source übernommen. Da die Konvertierung einige Mikrosekunden Zeit benötigt, wird nach Abschluss des Vorgangs ein Interrupt ausgelöst.
 
 \subsubsection{Implementierung}
 Die Ermittlung des aktuellen Temperaturwerts wird nur auf Anfrage durch die Sensor API ausgeführt. Die im Codesnippet \ref{lst:temp_calculation} aufgeführte Funktion, startet die Konvertierung und wartet durch Busy-Waiting auf deren Abschluss. Zu dem gemessenen Spannungswert wird wie bei \ref{lbl:temp_equation} aufgeführt, der zugehörige Widerstandswert berechnet. Der passenden Temperaturwert wird durch die Suche in einer sortierten Tabelle ermittelt.

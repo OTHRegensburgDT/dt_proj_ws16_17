@@ -5,6 +5,8 @@
 %\usetikzlibrary{circuits.ee.IEC}
 %\usepackage{placeins}
 
+%todo kannst du leerzeilen bei abschnitts wechseln einfügen?
+
 \chapter{Arbeitspaket Simulation}
 Für Analyse, Entwurf und Implementierung dieses Arbeitspakets übernahm Herr Welker die Verantwortung.
 
@@ -34,7 +36,7 @@ ausgewählt, mit dessen Hilfe es möglich ist, virtuelle COM-Ports zu erzeugen u
 Da die Simulation alle real verfügbaren Sensoren sowie das Verhalten des Motors möglichst gut abbilden soll, wurde weiterhin recherchiert, wie sich der reale Aufbau des Motor-Experimentierplatzes am besten in Simulink umsetzen ließ. Im Verlauf dieser Recherchen wurde festgestellt, dass es in Simulink bereits mehrere Modelle für einen solchen Aufbau (BLDC Motor mit Sensorik) gibt, die anhand ihrer Anpassbarkeit hinsichtlich der Motorparameter evaluiert wurden. 
 
 Dabei stellte sich heraus, dass das Modell \textit{power\_pmmotor}
-%https://www.facebook.com/l.php?u=https%3A%2F%2Fde.mathworks.com%2Fhelp%2Fphysmod%2Fsps%2Fexamples%2Fpermanent-magnet-synchronous-machine.html&h=2AQHLRXS auch als referenz verwendbar, wobei das Bild in matlab gemacht wurde
+%https://www.facebook.com/l.php?u=https%3A%2F%2Fde.mathworks.com%2Fhelp%2Fphysmod%2Fsps%2Fexamples%2Fpermanent-magnet-synchronous-machine.html&h=2AQHLRXS auch als Referenz verwendbar, wobei das Bild in MATLAB gemacht wurde
 am besten hinsichtlich der Motorparameter eingestellt werden kann. 
 
 Dieses Modell ist in Abbildung \ref{FigPowerPmmotor}
@@ -49,7 +51,7 @@ zu sehen. Hier ist zu erkennen, dass in diesem Modell sowohl der Motor als auch 
 
 Das Modell bietet Einstellmöglichkeiten für folgende (in der Motorspezifikation angegebenen) Parameter des echten Motors sowie der Regelung:
 \begin{itemize}
-	\item Anzahl Polpaare
+	\item Anzahl Pol paare
 	\item Anzahl der Spulen
 	\item Spulen Ansteuerungsform (sinusförmig)
 	\item Rotor Typ (rund)
@@ -60,25 +62,22 @@ Das Modell bietet Einstellmöglichkeiten für folgende (in der Motorspezifikatio
 	\item P- und I-Anteil des Drehzahl-Reglers
 \end{itemize}
 
-Das Modell berechnet zusätzlich zur Drehzahl-Regelung das Motor-Drehmoment, die Werte der Hallsensoren sowie die Ströme in den Spulen. Des weiteren führt das Modell auch die Kommutierung durch, welche benötigt wird um das Drehmoment auf einem konstanten Level zu halten.
+Das Modell berechnet zusätzlich zur Drehzahl-Regelung das Motor-Drehmoment, die Werte der Hallsensoren sowie die Ströme in den Spulen. Des Weiteren führt das Modell auch die Kommutierung durch, welche benötigt wird um das Drehmoment auf einem konstanten Level zu halten.
 
 Im ersten Simulations-Modell wird also Simulink mit dem Modell \textit{power\_pmmotor} verwendet und per \textit{Virtual Serial Port Driver} an eine GUI angebunden (Implementierung des Kommunikations-Protokolls im Simulations-Kontext fehlt noch, der externe Kommunikationspartner wurde im Rahmen weiterer Teilgebiete dieses Projekts erstellt).
-
 
 \section{Entwurfsphase und Implementierung I - Anpass-Arbeiten}
 Es wurde damit begonnen, das Modell an den echten/geplanten Versuchsaufbau anzupassen:  
 \begin{itemize}
 	\item Um sich möglichst viele Freiheiten bei der Drehzahlregelung offen halten zu können, wurde geplant, einen PID-Regler zu verwenden. 
 	\item Weiterhin wurden die zusätzlich benötigten Simulink-Blöcke für die serielle Kommunikation implementiert und passend parametrisiert. Da das Modell mit einem \textit{Solver} mit variabler Schrittgröße berechnet wird (hierbei berechnet der Lösungsalgorithmus von Simulink selbst, zu welchen Zeitpunkten die nächste Berechnung durchgeführt werden muss), konnte die Kommunikation nicht direkt umgesetzt werden, da die Kommunikationsblöcke nur mit \textit{Solvern} funktionieren die eine feste Schrittgröße (festes Abtastraster) verwenden. 
-	Um dieses Problem zu lösen wurde hierfür ein \textit{Sample and Hold} Block eingesetzt. Dieser Block behält den Wert am Eingang so lange gültig, bis ein neuer Wert em Eingang anliegt, gibt am Ausgang jedoch zu definierten Zeiten einen Wert aus. Hiermit war es möglich zyklisch Daten aus dem Simulink Modell heraus zu senden und zu empfangen.
+	Um dieses Problem zu lösen wurde hierfür ein \textit{Sample and Hold} Block eingesetzt. Dieser Block behält den Wert am Eingang so lange gültig, bis ein neuer Wert am Eingang anliegt, gibt am Ausgang jedoch zu definierten Zeiten einen Wert aus. Hiermit war es möglich zyklisch Daten aus dem Simulink Modell heraus zu senden und zu empfangen.
 	\item Anschließend wurde äquivalent zum realen Versuchs-Aufbau begonnen Protobuff %todo: namen checken
 	zu implementieren, da die GUI-Schnittstelle mit diesem Protokoll kommuniziert. Diese Arbeiten wurde dann zugunsten eines alternativen Motormodells (s.u.) allerdings auf Eis gelegt.
 \end{itemize}
 
-
 \section{Analysephase II - Alternativ-Modell}
-Da ohne den echten Aufbau nicht weiter getestet werden konnte, ob das in der ersten Entwurfsphase ausgewählte Matlab Modell den Aufbau bereits ausreichend genau beschreiben kann und zum anderen die Komplexität dieses Modells sehr hoch ist, wurde beschlossen, ein neues, eigenes und nach Möglichkeit einfacheres Alternativ-Modell zu erstellen.
-
+Da ohne den echten Aufbau nicht weiter getestet werden konnte, ob das in der ersten Entwurfsphase ausgewählte MATLAB Modell den Aufbau bereits ausreichend genau beschreiben kann und zum anderen die Komplexität dieses Modells sehr hoch ist, wurde beschlossen, ein neues, eigenes und nach Möglichkeit einfacheres Alternativ-Modell zu erstellen.
 
 \section{Entwurfsphase II - eigene Motor-Modellierung}
 Das Alternativ-Modell für den Motor sollte folgende Form haben - siehe Abbildung \ref{FigMotorBlock}:
@@ -113,7 +112,7 @@ Der Motor ist wie in Abbildung \ref{FigMotorAufbau} zu sehen ist aufgebaut:
 
 Hierbei sind die 14 Permanentmagneten im außen laufenden Rotor zu erkennen. Diese sind so angeordnet, dass sich ihre Polung kontinuierlich abwechselt. 
 
-Im Inneren des Motors sind die einzelnen Spulen des Stators zu erkennen. Mithilfe der farbigen Zuordnung ist es möglich zu identifizieren welche Spulen zu einer großen Spule (U,V oder W) zusammengeschlossen sind. 
+Im Inneren des Motors sind die einzelnen Spulen des Stators zu erkennen. Mithilfe der farbigen Zuordnung ist es möglich zu identifizieren welche Spulen zu einer großen Spule (U, V oder W) zusammengeschlossen sind. 
 
 Es ist zu erkennen, dass die großen Spulen sternförmig (über die Teil-Spulen 4, 5 und 12) zusammengeschaltet sind (der Sternpunkt des Motors ist von außen nicht zugänglich).
 Die U/V/W-Anschlüsse sind mithilfe der Pfeile markiert (vgl. Spule 1, 8 und 9). 
@@ -174,11 +173,11 @@ Die Einträge des so entstanden resultierenden Arrays werden quadriert (und durc
 Um am Ende die Energie zu errechnen, welche zu diesem Zeitpunkt im resultierenden Magnetfeld steckt, wird über die einzelnen Array-Einträge integriert. 
 Somit ergibt sich ein Energiewert für diesen Zustand bzw. Zeitpunkt. 
 
-Um das resultierende Drehmoment zu erhalten wird dieselbe Rechnung erneut durchgeführt, allerdings für den Fall, dass der Rotor $1/84$ weiter gedreht wird. 
+Um das resultierende Drehmoment zu erhalten wird dieselbe Rechnung erneut durchgeführt, allerdings für den Fall, dass der Rotor $1/84$ weitergedreht wird. 
 
 Aus der Differenz dieser beiden Energiewerte kann das Drehmoment bestimmt werden unter der Annahme, dass die ganze Energie-Änderung in die Beschleunigung des Rotors eingeht.
 
-Zusätzlich werden die resultierenden Magnetfelder über den Spulen (U,V und W) ebenfalls aufintegriert, um mit Hilfe dieser Werte im weiteren Modellaufbau die Induktionsspannung berechnen zu können.
+Zusätzlich werden die resultierenden Magnetfelder über den Spulen (U, V und W) ebenfalls auf integriert, um mit Hilfe dieser Werte im weiteren Modellaufbau die Induktionsspannung berechnen zu können.
 
 \section{Bewertung des neuen Modells}
 Bei der Untersuchung des neuen Modells muss festgehalten werden, dass die Induktivität der Spulen nicht mithilfe dieses Modells berechnet werden kann. 
@@ -196,16 +195,16 @@ Dies lässt sich dadurch begründen, dass bei der Betrachtung einer Spule (z.B. 
 
 Wobei sich ein Eintrag $V_{res_i}$ aus der Addition des Spuleneintrags $V_i$ und des Eintrags des darüber liegenden $R_i$ also dem Wert des Rotormagnetfeldes an dieser Stelle ergibt. So lässt sich $\sum \limits_1^{28} V_{res_i}$ zu $\sum \limits_1^{28} (V_i+R_i)$ umstellen. Diese Summe lässt sich nun allerdings nun in zwei Summen zerlegen, zum einen in $\sum \limits_1^{28} V_i$ und zum anderen $\sum \limits_1^{28} R_i$. 
 
-Hierbei ist die erste Summe  $\sum \limits_1^{28} V_i$ immer 0, da die vier Spulen einer großen Spule (im Beispiel Phase V) in der Wicklungsrichtung abwechseln. 
+Hierbei ist die erste Summe $\sum \limits_1^{28} V_i$ immer 0, da die vier Spulen einer großen Spule (im Beispiel Phase V) in der Wicklungsrichtung abwechseln. 
 
 Somit bleibt nur noch $\sum \limits_1^{28} R_i$ übrig um den Verlauf zu erklären: Wie in Abbildung \ref{FigAbgerolltesModell} zu erkennen ist, ist ein Element des Rotors kleiner als eines des Stators. So kürzen sich zwar auch viele Elemente des Rotors heraus, jedoch nicht alle. Dies führt zum erkennbaren Magnetfeld-Verlauf. 
 
 Das hat jedoch nicht wirklich etwas mit dem Verlauf zu tun, der modelliert werden soll. Aus diesem Grund ist das Modell hierfür nicht passend und sollte nicht ohne weitere Änderungen verwendet werden (insbesondere bedeutet eine ausschließlich statische Betrachtung der Magnetfeldverläufe eine unzulässige Vereinfachung).
 
-Hingegen scheint der Verlauf für das Drehmoment durchaus Sinn zu ergeben, wie in Abbildung \ref{FigDrehmoment} zu erkennen ist: Da in diesem Modell in die Berechnung der resultierenden  Energie ein Quadrat eingeht, ist hier das zuvor beschriebene Verhalten des Wegkürzens nicht mehr vorhanden. 
+Hingegen scheint der Verlauf für das Drehmoment durchaus Sinn zu ergeben, wie in Abbildung \ref{FigDrehmoment} zu erkennen ist: Da in diesem Modell in die Berechnung der resultierenden Energie ein Quadrat eingeht, ist hier das zuvor beschriebene Verhalten des Wegkürzens nicht mehr vorhanden. 
 
 Es ist jedoch noch darauf hinzuweisen, dass eine Vergrößerung der Anzahl an Array-Elementen (entspricht einer Erhöhung der Auflösung) nicht dazu führt, dass dieser Verlauf glatter werden würde, sondern es werden immer dieselben zwölf Stufen, welche den Spulen-Polpaaren entsprechen, im Verlauf zu erkennen sein.
-Dies ist eine Folge der zu Beginn getroffenen Vereinfachungen, wonach Luftspalt, Polform und nicht-senkrechte Magnetfeldlinien vernachlässigt wurden.
+Dies ist eine Folge der zu Beginn getroffenen Vereinfachungen, wonach Luftspalt, Pol Form und nicht-senkrechte Magnetfeldlinien vernachlässigt wurden.
 
 \begin{figure}[htbp]
 	\centering
@@ -225,17 +224,13 @@ Für das neue, zweite Modell gibt es noch viel Verbesserungs-Potenzial, z.B.:
 \begin{itemize}
 	\item So wäre es möglich, bzw. wurde schon damit begonnen, die Kommutierung umzusetzen. Diese soll anhand des Winkels die Spulen unterschiedlich an Masse und Spannung anschließen mit dem Ziel ein konstantes Drehmoment zu erhalten.
 	
-	\item Mit dieser Erweiterung könnte dann ein (Strom-/Drehmoment-)Regler implementiert werden welcher z.B. auf ein konstantes Drehmoment regelt.
+	\item Mit dieser Erweiterung könnte dann ein (Strom-/Drehmoment-) Regler implementiert werden welcher z.B. auf ein konstantes Drehmoment regelt.
 	
 	\item Das reale Drehmoment ist eine Funktion zahlreicher mechanischer und elektromagnetischer Details der Motorgestaltung. Einfluss der Induktivität, Luftspaltgestaltung usw. könnten Gegenstand weiterer Modell-Verfeinerungen sein. 
 	
 	\item Um das neue Modell in die Simulationsumgebung anstelle des ersten Modells einbetten zu können, sind dieselben Erweiterungen durchzuführen, mit denen bereits am ursprünglichen Modell begonnen wurde (z.B. damit auch dieses Modell in der Lage wäre mit der GUI zu kommunizieren, um simulierte Größen auszutauschen bzw. von dort Regelgrößen zu bekommen).
 \end{itemize}
 
-Zuvor sollte das erste Modell (Matlab-Bausteine) weiter mit dem Verhalten des realen Motor-Experimentierplatzes verglichen werden (Messwerte). 
+Zuvor sollte das erste Modell (MATLAB-Bausteine) weiter mit dem Verhalten des realen Motor-Experimentierplatzes verglichen werden (Messwerte). 
 
 Da der reale Aufbau noch nicht fertiggestellt war, konnte hierfür noch keine eindeutige Modell-Bewertung gegeben werden.
-
-
-
-

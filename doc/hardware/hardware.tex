@@ -32,7 +32,7 @@ Auf die Besonderheiten nach dem folgenden Abschnitt eingegangen.
 Bei dem XMC Relax Kit handelt es sich um eine Entwicklungsplattform für den XMC Mikrocontroller.
 Innerhalb des Controllers arbeitet ein ARM\registered Cortex\registered-M4 mit einer Taktfrequenz von 144 MHz.
 Dieser bildet die CPU, welche um zahlreiche Schnittstellen erweitert wird.
-Als Kommunikationsschnittstellen stehen unter anderem Ethernet, USB,  CAN und USART zur Verfügung.
+Als Kommunikationsschnittstellen stehen unter anderem Ethernet, USB, CAN und USART zur Verfügung.
 Für die Erfassung Analogen Signalen stehen mehrere \enquote{Versatile Analog-Digital Converters} (VADC) mit je 8 Kanälen und einer Auflösung von 12-Bit zur Verfügung.
 Weiterhin sind Digital-Analog-Konverter(DAC) mit einer Auflösung von 12-Bit integriert.
 
@@ -43,7 +43,7 @@ Aus diesen Sensorinformationen wird im Anschluss ein Steuersignal für die Anste
 %Hierbei handelt es sich um ein Modul für die Steuerung von verschiedensten Motoren unter Verwendung von Hall-Sensoren, Drehgebern oder externen Steuersignalen. \cite[Kap. 25]{InfineonTechnologies2016}
 %ref Reference Manual Chap 25.2.7.1
 
-Eine vollständige Auflistung der enthaltenen Komponenten kann dem Referenzhandbuch \cite{InfineonTechnologies2016} oder der Produkthomepage \cite{InfineonTechnologies2017} entnommen werden .
+Eine vollständige Auflistung der enthaltenen Komponenten kann dem Referenzhandbuch \cite{InfineonTechnologies2016} oder der Produkthomepage \cite{InfineonTechnologies2017} entnommen werden.
 
 \newpage
 \paragraph{Relax Kits:}
@@ -57,7 +57,7 @@ In Abbildung \ref{fig:XMC4700} ist Beispielhaft eines der Relax Kits dargestellt
 In der Mitte befindet sich der Mikrocontroller. 
 Über- und Unterhalb von diesem sind Buchsenleisten für die Aufnahme von Arduino Shields bereits aufgelötet.
 Die noch nicht bestückten Lötaugen sind mit dem Controller verbunden und können mit Stift- oder Buchsenleisten versehen werden.
-In der linken unteren Ecke ist die JTAG Schnittstelle angebracht, die mittels eines Micor-USB Anschlusses mit einem PC verbunden werden kann. 
+In der linken unteren Ecke ist die JTAG Schnittstelle angebracht, die mittels eines Micro-USB Anschlusses mit einem PC verbunden werden kann. 
 
 \subsection{XMC 4700 Relax Kit 5V}
 \label{sec:XMC4700}
@@ -100,7 +100,7 @@ Auf diesem Kit befinden sich keine Levelshifter.
 Dies sind durch 0-Ohm Widerstände ersetzt.
 In Abbildung \ref{fig:XMC4800} sind diese entsprechend markiert.
 Dadurch ist die Verwendung von 5 Volt Arduino Shields nicht möglich.
-Des weiteren ist bereits eine Anschlussbuchse für Ethernet und ein EtherCat Adapterboard vorhanden.
+Des Weiteren ist bereits eine Anschlussbuchse für Ethernet und ein EtherCat Adapterboard vorhanden.
 Bei EtherCat handelt es sich um eine echtzeitfähige Ethernet Kommunikation, die vorwiegend in der Automatisierungstechnik eingesetzt wird. 
 
 \begin{figure}[hptb]
@@ -132,9 +132,9 @@ Damit ist es ohne großen Aufwand möglich BLDC-Motoren anzusteuern.
 
 In Abbildung \ref{fig:DRV8302Board} ist das Evaluation Board dargestellt.
 Kernstück des Evaluation Boards ist ein Drei-Phasen-Treiberchip (DRV8302).
-Dieser steuert die darunter liegenden Feldeffekttransistor, welche den Arbeitsstrom auf die verschiedenen Wicklungen des Motors schalten.
+Dieser steuert die darunterliegenden Feldeffekttransistor, welche den Arbeitsstrom auf die verschiedenen Wicklungen des Motors schalten.
 Der DRV8302 kann mit einer Spannung von 8 V bis 60 V Gleichspannung versorgt werden.
-Die Leistungstransistoren können eine Spitzenstrom von 60 A pro Phase schalten.
+Die Leistungstransistoren können einen Spitzenstrom von 60 A pro Phase schalten.
 Am unteren Ende der Platine befindet sich das Anschlussterminal für den Motor.
 Rechts daneben das für die Versorgungsspannung.\\
 
