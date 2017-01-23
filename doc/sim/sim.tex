@@ -13,32 +13,33 @@ Für Analyse, Entwurf und Implementierung dieses Arbeitspakets übernahm Herr We
 \section{Analysephase I - Verwendung existierender Bausteine}
 Gemäß Projektspezifikation wurde gewünscht, dass die zu entwickelnde Simulation in Echtzeit laufen soll (1 Sekunde Simulation soll einer Sekunde in der Realität entsprechen), so dass die Simulationsergebnisse später ggf. mit dem realen Versuchsaufbau verglichen oder gar verbunden werden können. 
 
-Zunächst wurde hierzu der Einsatz eines \textit{Rapid Prototyping System} von dSPACE erwogen. %https://de.mathworks.com/products/connections/product_detail/product_35337.html
+\paragraph{}
+Zunächst wurde hierzu der Einsatz eines \textit{Rapid Prototyping System} von dSPACE\footnote{\url{https://de.mathworks.com/products/connections/product_detail/product_35337.html}} erwogen.
 Das Problem hierbei ist jedoch die Beschaffung (Hardware) und der nach bereits früher erhaltenen Aussagen extrem hohe Preis. 
-
-Eine weitere Alternative wäre \textit{Simulink Desktop Real-Time}. %https://de.mathworks.com/products/simulink-desktop-real-time.html
-Hier wird zwar keine kostspielige externe Hardware benötigt, aber auch die Anschaffungskosten von 2000 Euro %https://de.mathworks.com/pricing-licensing.html?prodcode=WT
+Eine weitere Alternative wäre \textit{Simulink Desktop Real-Time}\footnote{\url{https://de.mathworks.com/products/simulink-desktop-real-time.html}}.
+Hier wird zwar keine kostspielige externe Hardware benötigt, aber auch die Anschaffungskosten von 2000 Euro\footnote{\url{https://de.mathworks.com/pricing-licensing.html?prodcode=WT}}
 wären für den Simulationsteil des Projekts wesentlich zu hoch. 
 
+\paragraph{}
 Aufgrund dieser Randbedingungen wurde von einer Simulation in Echtzeit zunächst wieder Abstand genommen.
 
+\paragraph{}
 Ein zusätzliches Ziel der Simulation sollte eine Kommunikations-Verbindung mit der GUI sein. Hierbei wäre es wünschenswert, wenn die Kommunikation äquivalent zur echten Hardware funktionieren würde, so dass mit ein- und derselben GUI sowohl Simulation als realer Versuchsaufbau angesprochen werden können. 
 
+\paragraph{}
 Da im realen Aufbau die Kommunikation zwischen $\mu$-Controller und PC mithilfe der seriellen Schnittstelle umgesetzt werden würde, sollte auch in der Simulation die Kommunikations-Verbindung mittels serieller Schnittstelle realisiert werden. 
-
 Simulink stellt hierfür eigene Blöcke bereit, mit deren Hilfe es möglich ist, Modelle mit externen Geräten kommunizieren zu lassen.
 
+\paragraph{}
 Da in der Konzept-Phase nicht eindeutig ausgeschlossen werden konnte, dass Simulation und GUI ggf. auf demselben PC laufen würden, wurde eine Möglichkeit gesucht, dies mithilfe von virtuellen COM-Ports zu realisieren. 
-
-Hierzu wurde das Programm \textit{Virtual Serial Port Driver} %http://www.eltima.com/de/products/vspdxp/ 
+Hierzu wurde das Programm \textit{Virtual Serial Port Driver}\footnote{\url{http://www.eltima.com/de/products/vspdxp/ }}
 ausgewählt, mit dessen Hilfe es möglich ist, virtuelle COM-Ports zu erzeugen und diese virtuell zu verbinden. Damit wird es möglich, Simulation und GUI auf demselben PC laufen zu lassen und dieselben Schnittstellen zu verwenden wie bei Kommunikation mit externer realer Hardware.
 
+\paragraph{}
 Da die Simulation alle real verfügbaren Sensoren sowie das Verhalten des Motors möglichst gut abbilden soll, wurde weiterhin recherchiert, wie sich der reale Aufbau des Motor-Experimentierplatzes am besten in Simulink umsetzen ließ. Im Verlauf dieser Recherchen wurde festgestellt, dass es in Simulink bereits mehrere Modelle für einen solchen Aufbau (BLDC Motor mit Sensorik) gibt, die anhand ihrer Anpassbarkeit hinsichtlich der Motorparameter evaluiert wurden. 
 
-Dabei stellte sich heraus, dass das Modell \textit{power\_pmmotor}
-%https://www.facebook.com/l.php?u=https%3A%2F%2Fde.mathworks.com%2Fhelp%2Fphysmod%2Fsps%2Fexamples%2Fpermanent-magnet-synchronous-machine.html&h=2AQHLRXS auch als Referenz verwendbar, wobei das Bild in MATLAB gemacht wurde
-am besten hinsichtlich der Motorparameter eingestellt werden kann. 
-
+\paragraph{}
+Dabei stellte sich heraus, dass das Modell \textit{power\_pmmotor} am besten hinsichtlich der Motorparameter eingestellt werden kann. 
 Dieses Modell ist in Abbildung \ref{FigPowerPmmotor}
 \begin{figure}[htbp]
 	\centering
@@ -49,6 +50,7 @@ Dieses Modell ist in Abbildung \ref{FigPowerPmmotor}
 
 zu sehen. Hier ist zu erkennen, dass in diesem Modell sowohl der Motor als auch die Sensorik (Hall-Sensoren) bereits umgesetzt sind. 
 
+\paragraph{}
 Das Modell bietet Einstellmöglichkeiten für folgende (in der Motorspezifikation angegebenen) Parameter des echten Motors sowie der Regelung:
 \begin{itemize}
 	\item Anzahl Pol paare
@@ -62,8 +64,10 @@ Das Modell bietet Einstellmöglichkeiten für folgende (in der Motorspezifikatio
 	\item P- und I-Anteil des Drehzahl-Reglers
 \end{itemize}
 
+\paragraph{}
 Das Modell berechnet zusätzlich zur Drehzahl-Regelung das Motor-Drehmoment, die Werte der Hallsensoren sowie die Ströme in den Spulen. Des Weiteren führt das Modell auch die Kommutierung durch, welche benötigt wird um das Drehmoment auf einem konstanten Level zu halten.
 
+\paragraph{}
 Im ersten Simulations-Modell wird also Simulink mit dem Modell \textit{power\_pmmotor} verwendet und per \textit{Virtual Serial Port Driver} an eine GUI angebunden (Implementierung des Kommunikations-Protokolls im Simulations-Kontext fehlt noch, der externe Kommunikationspartner wurde im Rahmen weiterer Teilgebiete dieses Projekts erstellt).
 
 \section{Entwurfsphase und Implementierung I - Anpass-Arbeiten}
@@ -72,8 +76,7 @@ Es wurde damit begonnen, das Modell an den echten/geplanten Versuchsaufbau anzup
 	\item Um sich möglichst viele Freiheiten bei der Drehzahlregelung offen halten zu können, wurde geplant, einen PID-Regler zu verwenden. 
 	\item Weiterhin wurden die zusätzlich benötigten Simulink-Blöcke für die serielle Kommunikation implementiert und passend parametrisiert. Da das Modell mit einem \textit{Solver} mit variabler Schrittgröße berechnet wird (hierbei berechnet der Lösungsalgorithmus von Simulink selbst, zu welchen Zeitpunkten die nächste Berechnung durchgeführt werden muss), konnte die Kommunikation nicht direkt umgesetzt werden, da die Kommunikationsblöcke nur mit \textit{Solvern} funktionieren die eine feste Schrittgröße (festes Abtastraster) verwenden. 
 	Um dieses Problem zu lösen wurde hierfür ein \textit{Sample and Hold} Block eingesetzt. Dieser Block behält den Wert am Eingang so lange gültig, bis ein neuer Wert am Eingang anliegt, gibt am Ausgang jedoch zu definierten Zeiten einen Wert aus. Hiermit war es möglich zyklisch Daten aus dem Simulink Modell heraus zu senden und zu empfangen.
-	\item Anschließend wurde äquivalent zum realen Versuchs-Aufbau begonnen Protobuff %todo: namen checken
-	zu implementieren, da die GUI-Schnittstelle mit diesem Protokoll kommuniziert. Diese Arbeiten wurde dann zugunsten eines alternativen Motormodells (s.u.) allerdings auf Eis gelegt.
+	\item Anschließend wurde äquivalent zum realen Versuchs-Aufbau begonnen Protobuf zu implementieren, da die GUI-Schnittstelle mit diesem Protokoll kommuniziert. Diese Arbeiten wurde dann zugunsten eines alternativen Motormodells (s.u.) allerdings auf Eis gelegt.
 \end{itemize}
 
 \section{Analysephase II - Alternativ-Modell}
@@ -111,18 +114,19 @@ Der Motor ist wie in Abbildung \ref{FigMotorAufbau} zu sehen ist aufgebaut:
 
 
 Hierbei sind die 14 Permanentmagneten im außen laufenden Rotor zu erkennen. Diese sind so angeordnet, dass sich ihre Polung kontinuierlich abwechselt. 
-
 Im Inneren des Motors sind die einzelnen Spulen des Stators zu erkennen. Mithilfe der farbigen Zuordnung ist es möglich zu identifizieren welche Spulen zu einer großen Spule (U, V oder W) zusammengeschlossen sind. 
 
+\paragraph{}
 Es ist zu erkennen, dass die großen Spulen sternförmig (über die Teil-Spulen 4, 5 und 12) zusammengeschaltet sind (der Sternpunkt des Motors ist von außen nicht zugänglich).
 Die U/V/W-Anschlüsse sind mithilfe der Pfeile markiert (vgl. Spule 1, 8 und 9). 
 Es sollte noch erwähnt werden, dass die Spulen unterschiedlich gewickelt sind. So sind die Spulen 1, 3, 6, 8, 9 und 11 im Uhrzeigersinn gewickelt und die Spulen 2, 4, 5, 7, 10 und 12 entgegen diesem.
 
+\paragraph{}
 In der symbolischen Abbildung ist zu erkennen, dass sowohl zwischen den Permanentmagneten im Rotor, als auch zwischen den Spulen im Stator jeweils Abstände existieren. 
 Im realen Motor ist außerdem ein Luftspalt zwischen dem Rotor und dem Stator vorhanden. 
 Die Formgebung der Polschuhe wird nicht dargestellt.
 
-
+\paragraph{}
 Vereinfachungs-Annahmen: 
 Da ein einfaches Modell erstellt werden sollte, wurden folgende Annahmen getroffen, vgl. auch Abbildung \ref{FigVereinfachtesModell}:
 \begin{itemize}
@@ -159,24 +163,25 @@ Um dieses Modell mithilfe von Arrays in Simulink umsetzen zu können, wurde geda
 \section{Implementierung II - neues Motormodell}
 Für die genaue Modellierung wurde folgender Ansatz verwendet: Sowohl für den Stator als auch den Rotor wird ein Array angelegt. Beim Rotor (Permanentmagnete) werden die Einträge mithilfe einer Konstanten für die magnetische Flussdichte gefüllt, dabei bekommt jeder Nordpol willkürlich gewählt ein positives und jeder Südpol ein negatives Vorzeichen. 
 
+\paragraph{}
 Da (wie im Bild zu erkennen ist) der Rotor 14 und der Stator zwölf Einheiten besitzen, wird die Anzahl der Arrayeinträge auf (mindestens) das kleinste gemeinsame Vielfache (84) festgelegt. Somit ist es mithilfe des Modells möglich den Motor simuliert in 84 Stufen zu drehen was einer Schrittgröße von ca. 4,3$^{\circ}$ entspricht. 
 
+\paragraph{}
 Für das Array des Stators wird berücksichtigt, welche Spulen aktuell bestromt sind und wie groß die angelegte Spannung ist. Mit Hilfe der Spannung und dem Spulen-Widerstand kann eine statische Stromstärke berechnet werden (die Induktivität der Spulen wird zunächst vernachlässigt), daraus lässt sich die magnetische Flussdichte in den Spulen bestimmen. 
 
+\paragraph{}
 Abhängig vom Winkel und der angelegten Spannung (d.h. welche Spulen bestromt sind) wird das Array für den Stator entsprechend befüllt. 
-
 Anschließend wird abhängig vom Winkel das Rotor Array rotiert. 
 
+\paragraph{}
 Das resultierende Magnetfeld wird bestimmt, indem diejenigen Array-Einträge addiert werden, die sich einander gegenüber befinden. 
 Die Einträge des so entstanden resultierenden Arrays werden quadriert (und durch die Konstante $2*\mu_0$ geteilt). 
-
 Um am Ende die Energie zu errechnen, welche zu diesem Zeitpunkt im resultierenden Magnetfeld steckt, wird über die einzelnen Array-Einträge integriert. 
 Somit ergibt sich ein Energiewert für diesen Zustand bzw. Zeitpunkt. 
-
 Um das resultierende Drehmoment zu erhalten wird dieselbe Rechnung erneut durchgeführt, allerdings für den Fall, dass der Rotor $1/84$ weitergedreht wird. 
 
+\paragraph{}
 Aus der Differenz dieser beiden Energiewerte kann das Drehmoment bestimmt werden unter der Annahme, dass die ganze Energie-Änderung in die Beschleunigung des Rotors eingeht.
-
 Zusätzlich werden die resultierenden Magnetfelder über den Spulen (U, V und W) ebenfalls auf integriert, um mit Hilfe dieser Werte im weiteren Modellaufbau die Induktionsspannung berechnen zu können.
 
 \section{Bewertung des neuen Modells}
@@ -191,18 +196,23 @@ dargestellte Form.
 	\label{FigResultierendesFeld}
 \end{figure}
 
+\paragraph{}
 Dies lässt sich dadurch begründen, dass bei der Betrachtung einer Spule (z.B. der V-Spule) für das Feld im Stator 4*7= 28 Array-Elemente des resultierenden Arrays beteiligt sind. Über diese wird integriert, um die Größe für das Feld zu bekommen, was einer Aufsummierung der beteiligten Array-Elemente entspricht $\sum \limits_1^{28} V_{res_i}$. 
 
+\paragraph{}
 Wobei sich ein Eintrag $V_{res_i}$ aus der Addition des Spuleneintrags $V_i$ und des Eintrags des darüber liegenden $R_i$ also dem Wert des Rotormagnetfeldes an dieser Stelle ergibt. So lässt sich $\sum \limits_1^{28} V_{res_i}$ zu $\sum \limits_1^{28} (V_i+R_i)$ umstellen. Diese Summe lässt sich nun allerdings nun in zwei Summen zerlegen, zum einen in $\sum \limits_1^{28} V_i$ und zum anderen $\sum \limits_1^{28} R_i$. 
 
+\paragraph{}
 Hierbei ist die erste Summe $\sum \limits_1^{28} V_i$ immer 0, da die vier Spulen einer großen Spule (im Beispiel Phase V) in der Wicklungsrichtung abwechseln. 
-
 Somit bleibt nur noch $\sum \limits_1^{28} R_i$ übrig um den Verlauf zu erklären: Wie in Abbildung \ref{FigAbgerolltesModell} zu erkennen ist, ist ein Element des Rotors kleiner als eines des Stators. So kürzen sich zwar auch viele Elemente des Rotors heraus, jedoch nicht alle. Dies führt zum erkennbaren Magnetfeld-Verlauf. 
 
+\paragraph{}
 Das hat jedoch nicht wirklich etwas mit dem Verlauf zu tun, der modelliert werden soll. Aus diesem Grund ist das Modell hierfür nicht passend und sollte nicht ohne weitere Änderungen verwendet werden (insbesondere bedeutet eine ausschließlich statische Betrachtung der Magnetfeldverläufe eine unzulässige Vereinfachung).
 
+\paragraph{}
 Hingegen scheint der Verlauf für das Drehmoment durchaus Sinn zu ergeben, wie in Abbildung \ref{FigDrehmoment} zu erkennen ist: Da in diesem Modell in die Berechnung der resultierenden Energie ein Quadrat eingeht, ist hier das zuvor beschriebene Verhalten des Wegkürzens nicht mehr vorhanden. 
 
+\paragraph{}
 Es ist jedoch noch darauf hinzuweisen, dass eine Vergrößerung der Anzahl an Array-Elementen (entspricht einer Erhöhung der Auflösung) nicht dazu führt, dass dieser Verlauf glatter werden würde, sondern es werden immer dieselben zwölf Stufen, welche den Spulen-Polpaaren entsprechen, im Verlauf zu erkennen sein.
 Dies ist eine Folge der zu Beginn getroffenen Vereinfachungen, wonach Luftspalt, Pol Form und nicht-senkrechte Magnetfeldlinien vernachlässigt wurden.
 
