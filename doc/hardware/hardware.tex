@@ -62,7 +62,7 @@ In der linken unteren Ecke ist die JTAG Schnittstelle angebracht, die mittels ei
 \subsection{XMC 4700 Relax Kit 5V}
 \label{sec:XMC4700}
 Dieses Kit ist für die Verwendung der Arduino Shields vorgesehen.
-Da es sich bei der Arduino Plattform um 5 Volt Mikrocontroller handelt sind die Shield vorwiegend auf diese Spannung ausgelegt.
+Da es sich bei der Arduino Plattform um 5 Volt Mikrocontroller handelt sind die Shields vorwiegend auf diese Spannung ausgelegt.
 Der XMC arbeitet hingegen mit einem Logikpegel von 3.3 Volt.
 Aus diesem Grund hat Infineon für die Digitalen Pins Bidirektionalen Levelshifter verbaut.
 Mit diesen werden die 5 Volt Signal auf 3.3 Volt bzw. anderes herum gewandelt.
@@ -117,7 +117,7 @@ Bei EtherCat handelt es sich um eine echtzeitfähige Ethernet Kommunikation, die
 \newpage
 \section{Texas Instrument DRV8302 Evaluation Kit}	
 \label{sec:TI DRV8302 EvalKit}
-Mit diesem Kit stellt Texas Instrument eine fertig Plattform für die Entwicklung von Motorsteuerungen und das Experimentieren mit BLDC-Motoren\footnote{BLDC ist die Kurzform für Brushless DC und bezeichnet den Grundlegenden Aufbau eines Motors.} zur Verfügung.
+Mit diesem Kit stellt Texas Instrument eine fertige Plattform für die Entwicklung von Motorsteuerungen und das Experimentieren mit BLDC-Motoren\footnote{BLDC ist die Kurzform für Brushless DC und bezeichnet den Grundlegenden Aufbau eines Motors.} zur Verfügung.
 Es besteht aus dem Evaluation Board, Controller Karte, Anschlusskabeln und einer Steuerungssoftware für die Controller Karte (siehe Abbildung \ref{fig:DRV8302EvalKit}).
 Damit ist es ohne großen Aufwand möglich BLDC-Motoren anzusteuern.
 Über verschiedene, auf der Platine vorhandenen, Schutzmechanismen wie Überstrombegrenzung soll ein Zerstören des Angeschlossenen Motors verhindert werden.
@@ -151,7 +151,7 @@ Diese erzeugt der Treiberchip, welcher seine Signale von einem externen Controll
 Der DRV8302 kann dazu in zwei unterschiedlichen Betriebsmodi betrieben werden.
 Entweder alle sechs Steuersignale für die Leistungstransistoren stellt der externe Controller bereit oder es werden nur drei Signale bereitgestellt.
 Der erste Fall (6 Steuersignale) gibt dem Nutzer bzw. dem externen Controller die Möglichkeit beide MOSFETs auf LOW zu schalten.
-Dadurch wird erreicht dass nur zwei Motorleitungen (z.B. U und W) einen geschlossenen Stromkreis bilden und nur über diese beiden Spulen Strom fliest.
+Dadurch wird erreicht, dass nur zwei Motorleitungen (z.B. U und W) einen geschlossenen Stromkreis bilden und nur über diese beiden Spulen Strom fließt.
 Im Gegensatz dazu ist es im zweiten Fall (3 Steuerleitungen) nur möglich eine Motoranschlussleitung auf HIGH oder LOW zu legen. 
 Es müssen also alle drei Leitungen für die Generierung des Motorsignals herangezogen werden.
 %todo weiterschreiben. Auch noch ein Beispiel bringen
@@ -180,7 +180,7 @@ NTC ist hierbei die Kurzform für Negative Temperature Coefficient Thermistor un
 Dieser verringert seinen Widerstand bei steigender Temperatur.\\
 
 In Abbildung \ref{fig:BLDC} sieht man den Motor mit den drei Motoranschlussleitungen.
-Der daneben liegende Stecker mit sieben weiteren Kabeln ist das Anschlussterminal für die Hall-Sensoren und den Temperatursensor.
+Der danebenliegende Stecker mit sieben weiteren Kabeln ist das Anschlussterminal für die Hall-Sensoren und den Temperatursensor.
 Auf der Vorderseite ist die Welle und darum die Befestigungslöcher zu sehen.
 
 \begin{figure}[htbp]
