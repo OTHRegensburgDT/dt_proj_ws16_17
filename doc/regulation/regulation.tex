@@ -15,7 +15,7 @@ Der Motor soll auf verschiedene Werte hingesteuert werden können. Zum Beispiel 
 \section{Entwurfsphase}
 Hauptteil des Entwurfs bestand aus der konkreten Definition der Interfaces zwischen Regelung und Kommunikation/Motorsteuerung/Sensorik. Gleichzeitig benutzt die Regelung noch eine weitere Abstraktion intern.\\
 Diese erfolgt über Makros. Beispiel an der Sensorik, welches Interface wie folgt definiert ist:
-\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface]
 /* <summary>
 * Initializes the sensor interface.
 * </summary> */
@@ -29,11 +29,11 @@ void Sensor_StartAll(void);
 \end{lstlisting}
 
 Wird wiederum in der Regelung abstrahiert durch:
-\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface]
 #define SENSORHANDLER_INITIALIZE() Sensor_Init(); Sensor_StartAll()
 \end{lstlisting}
 Dies ermöglicht ein schnelles modifizieren der Interface Definition und eine konsistente Nomenklatur. Beispielsweise erfolgt die Initialisierung der drei Komponenten durch:
-\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface]
 COMHANDLER_INITIALIZE();
 MOTORHANDLER_INITIALIZE();
 SENSORHANDLER_INITIALIZE();
@@ -42,7 +42,7 @@ SENSORHANDLER_INITIALIZE();
 \section{Implementierung}
 Das Herz der Regelung ist ein PID-Regler. Dieser besteht aus den drei Komponenten P (Proportional), I (Integral) und D (Differential).\cite{regl} Diese sind letzten Endes drei Funktionen die wiederum in Makros implementiert worden sind.\\
 
-\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface]
 #define REGULATION_P_REGULATE(crntValue, targetValue, Kp) Kp * (targetValue - crntValue)
 #define REGULATION_I_REGULATE(crntValue, targetValue, regSumPtr, passedTime, Ki) \
 Ki * (*regSumPtr = passedTime * (targetValue - crntValue))
@@ -52,7 +52,7 @@ Ki * (*regSumPtr = passedTime * (targetValue - crntValue))
 
 Diese Regler benötigen allerdings Variablen. Um möglich flexibel zu sein werden diese in einer einzigen Struktur gespeichert. Das ermöglicht es, jederzeit weitere Größen zu regeln und dabei sogar verschiedene Parameter zu benutzen.
 
-\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface]
 struct Regulation_PidValues
 {
 float targetValue; // the desired target value
@@ -66,8 +66,8 @@ float lastDifferenceValue; // for d regulator.
 \end{lstlisting}
 Die K Anteile geben hierbei den Grad an, wie stark ein Regler agiert. D.h. falls Kp beispielsweise gleich null ist, würde essentiell ein ID-Regler benutzt werden.\\
 Gleichzeitig wurden weitere Makros geschrieben um eine einfache Benutzung zu ermöglichen. Dadurch sieht zum Beispiel der Aufruf zum regeln der Geschwindigkeit wie folgt aus:\\
-\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface, label=lst:protoEx]
+\begin{lstlisting}[frame=single, caption=Interne Abstrahierung des Sensorik Interface]
 power = REGULATION_REGULATE_SINGLE((&Regulation_VelocityVariables), passedMs/1000, velocity);
 \end{lstlisting}
 \section{Ausblick}
-Zurzeit benutzt die Regelung einen fixen Wert an Zeit, der angenommen wird der seit der letzten Iteration vergangen sei. Sinnvoller wäre es hingegen dazu, einen Timer von dem Mikrocontroller zu verwenden um genau bestimmen zu können wie viel Zeit vergangen ist. Das erhöht den Grad der Genauigkeit der einzelnen Regler sowie die Effizienz.
+Zurzeit benutzt die Regelung einen fixen Wert an Zeit, der angenommen wird der seit der letzten Iteration vergangen sei. Sinnvoller wäre es hingegen dazu, einen Timer von dem $\mu$-controller zu verwenden um genau bestimmen zu können wie viel Zeit vergangen ist. Das erhöht den Grad der Genauigkeit der einzelnen Regler sowie die Effizienz.
