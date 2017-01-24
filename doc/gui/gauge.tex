@@ -1,5 +1,5 @@
 \chapterauthor{Bernd Krupinski}
-\subsection{Gauge Control Implementierung}
+\subsubsection{Gauge Control Implementierung}
 
 Die Implementierung der Gauge Control erfolgte in der Windows Presentation Foundation (WPF) über eine Custom Control. Zur Darstellung der Skala(1) und dem Zeiger(2) wurden jeweils ein Canvas verwendet. Ein Canvas stellt in WPF eine Zeichenoberfläche dar.\\
 
@@ -8,9 +8,9 @@ Die Implementierung der Gauge Control erfolgte in der Windows Presentation Found
 Das Control stellt eine Reihe an Variablen zur Verfügung. Diese ermöglichen es dem Entwickler das Control mit Hilfe von wenigen Zeilen Code stark anzupassen. 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\textwidth]{GaugeDetails}
+	\includegraphics[width=0.4\textwidth]{GaugeDetails}
 	\caption{Gauge Control Details}
-	\label{fig:gauge}
+	\label{fig:gauge1}
 \end{figure}
 Umfassen dabei sind visuelle Parameter wie Kreishintergrundfarbe(G1), Strichlänge, Strichfarbe, Strichanzahl(G2), innerer Radius(G3), Nadellänge, Nadelfarbe(G6) oder Nadelfüllfarbe(G5). Zusätzlich dazu funktionelle Parameter wie Maximalwert, Minimalwert, aktueller Wert etc.\\\\
 
@@ -31,9 +31,9 @@ Während die Striche mit einer Menge an Strich-Formen entlang des inneren Radius
 Zwar gibt es eine Ellipsen Form für WPF's Canvas Control, allerdings besteht die Anforderung aus keiner rein einfarbigen Ellipse, sondern stattdessen aus einer zwei geteilte Form wie unten abgebildet.
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\textwidth]{GaugeForm}
+	\includegraphics[width=.4\textwidth]{GaugeForm}
 	\caption{Gauge Control Details}
-	\label{fig:gauge}
+	\label{fig:gauge2}
 \end{figure}
 Stattdessen wird ein Polygon benutzt. Ein Polygon ist eine mit einer Linie verbundene, Menge an Punkten. Optional kann die daraus entstehende Fläche mit einer Farbe gefüllt werden.\\
 Um die gewünschte Form zu erzielen, werden 2 Polygone gezeichnet. Das eine (blau) umschließt das andere (rot) und bilden zusammen einen vollen Kreis.\\

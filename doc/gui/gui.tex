@@ -97,8 +97,8 @@ Daraufhin erstellte der Herr Krupinski diese beiden aufwändigen Steuerelemente 
 
 
 
-\subsubsection*{Gauge Control}
-Das entwickelte "Gauge"\footnote{engl. Tachometer} Control in Abbildung \ref{fig:gauge} besteht aus einer Skala(1) mit einem minimal und maximal Wert, einen Zeiger(2) und einem Label(3), welches den Aktuellen Wert anzeigt.
+\subsection*{Gauge Control}
+Das entwickelte "Gauge"\footnote{Englisch für Tachometer.} Control in Abbildung \ref{fig:gauge} besteht aus einer Skala(1) mit einem minimal und maximal Wert, einen Zeiger(2) und einem Label(3), welches den Aktuellen Wert anzeigt.
 
 \begin{figure}[ht]
 	\centering
@@ -106,26 +106,28 @@ Das entwickelte "Gauge"\footnote{engl. Tachometer} Control in Abbildung \ref{fig
 		\caption{Tachometer Anzeige der GUI}
 		\label{fig:gauge}
 \end{figure}
-\newpage
-\input{gui/gauge}
 
-\subsubsection*{LineChart Control}
+\subsection*{LineChart Control}
 
-In Abbildung \ref{fig:line} ist das "LineChart"\footnote{engl. Liniendiagramm} Control abgebildet. Es besteht aus einem anzeige Raster (1), einen Graphen (2) zur Visualisierung der Werte einer Anzeige für die Y-Achse (3) mit einstellbaren Werten und einer Anzeige für den ersten und letzten Wert der X-Achse (4).
+In Abbildung \ref{fig:line} ist das "LineChart"\footnote{Englisch für Liniendiagramm.} Control abgebildet. Es besteht aus einem anzeige Raster (1), einen Graphen (2) zur Visualisierung der Werte einer Anzeige für die Y-Achse (3) mit einstellbaren Werten und einer Anzeige für den ersten und letzten Wert der X-Achse (4).
 
 \begin{figure}[ht]
 	\centering
-		\includegraphics[width=0.6\textwidth]{Line1}
-		\caption{Liniendiagramm Anzeige der GUI}
-		\label{fig:line}
+	\includegraphics[width=0.6\textwidth]{Line1}
+	\caption{Liniendiagramm Anzeige der GUI}
+	\label{fig:line}
 \end{figure}
+
+\newpage
+
+\subsection{Implementierung Gauge und Line Control}
+\input{gui/gauge}
 
 \input{gui/diagram}
 \newpage
 \chapterauthor{Ricardo Krause}
-Diese Steuerelemente bieten dem Entwickler diverse Einstellmöglichkeiten in Form und Farbgebung und sind beliebig erweiterbar für kommende Anforderungen.\\
-
-Die beiden Benutzer definierten Steuerelemente wurden zu einem eigenen Control zusammengefasst und mit weiteren Steuerelementen ergänzt. In Abbildung \ref{fig:control1} ist exemplarisch ein komplettes Anzeigeelement für einen Sensorwert abgebildet.
+\subsection{Integration Controls}
+Diese Steuerelemente bieten dem Entwickler diverse Einstellmöglichkeiten in Form und Farbgebung und sind beliebig erweiterbar für kommende Anforderungen. Die beiden Benutzer definierten Steuerelemente wurden zu einem eigenen Control zusammengefasst und mit weiteren Steuerelementen ergänzt. In Abbildung \ref{fig:control1} ist exemplarisch ein komplettes Anzeigeelement für einen Sensorwert abgebildet.
 
 \begin{figure}[ht]
 	\centering
@@ -136,9 +138,9 @@ Die beiden Benutzer definierten Steuerelemente wurden zu einem eigenen Control z
 
 Die Abbildung \ref{fig:guifinal} zeigt fertige die GUI zum Ende des Projektes. Sie ist aktuell in der Lage die definierten Sensorwerte anzuzeigen, die einzelnen Anzeigeelemente \ref{fig:control1} bieten die Möglichkeiten im Liniendiagramm zu Zoomen und das Wertefenster der X-Achse festzulegen und zu verschieben. Für einstellbare Größen, wie zum Beispiel die Drehgeschwindigkeit kann ein Zielwert eingegeben werden, welcher durch eine zweite rote Nadel im Tachometer angezeigt wird. Im oberen Bereich der GUI kann man die Regelparameter ebenfalls verändern und an den Controller senden.
 
-\begin{figure}[ht]
+\begin{figure}[h]
 	\centering
-		\includegraphics[width=\textwidth]{GUIScreenshot2}
+		\includegraphics[width=.8\textwidth]{GUIScreenshot2}
 		\caption{Ansicht der GUI zum Projektende}
 		\label{fig:guifinal}
 \end{figure}
