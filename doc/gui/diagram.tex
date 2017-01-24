@@ -11,12 +11,12 @@ Dies geschieht wieder über ein Polygon. Allerdings muss darauf geachtet werden,
 \end{itemize}
 Diese werden im Code unterschieden.\\
 \newpage
-Für den Fall mehr Pixel als Sample, wird durch jedes Sample iteriert und berechnet wie viele Pixel das momentane Sample entspricht. In der Abbildung entspricht jedes Sample mit Abstand von drei, zwei Pixel.\\
+Für den Fall mehr Pixel als Sample, wird durch jedes Sample iteriert und berechnet wie viele Pixel das momentane Sample entspricht. In der Abbildung (\ref{fig:diagram2}) entspricht jedes Sample mit Abstand von drei, zwei Pixel.\\
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=.5\textwidth]{TooFewSamples02}
 	\caption{Beispiel: Mehr Pixel als Sample}
-	\label{fig:gauge3}
+	\label{fig:diagram2}
 \end{figure}
 
 Für den Fall mehr Sample als Pixel, wird wiederum durch jeden Pixel iteriert und berechnet welche Sample für das momentane Pixel relevant sind. Dabei werden stets 2 Pixel gleichzeitig betrachtet, da für die Darstellung das lokale Minimum und Maximum gezeichnet wird.\\
@@ -25,7 +25,7 @@ Für den Fall mehr Sample als Pixel, wird wiederum durch jeden Pixel iteriert un
 	\centering
 	\includegraphics[width=0.4\textwidth]{TooManySamples030001}
 	\caption{Beispiel: Mehr Pixel als Sample 01}
-	\label{fig:gauge4}
+	\label{fig:diagram3}
 \end{figure}
-In diese Abbildung zum Beispiel sind für die rechten zwei Pixel Spalten sechs Sample relevant. Drei rote Sample mit mittel hohen Wert, ein grünes Sample mit einem sehr hohen Wert und zwei blaue Sample mit niedrigen Werten.\\
+In dieser Abbildung (\ref{fig:diagram3}) zum Beispiel sind für die rechten zwei Pixel Spalten sechs Sample relevant. Drei rote Sample mit mittel hohen Wert, ein grünes Sample mit einem sehr hohen Wert und zwei blaue Sample mit niedrigen Werten.\\
 Das Minimum und Maximum wird bestimmt. Das grüne Sample entspricht dem Maximum, während eins der blauen Sample das Mimimum entspricht. Da das Maximum (grün) rechts vom Minimum (blau) ist, wird entsprechend die linke Spalte das Maximum und die rechte Spalte das Minimum anzeigen.\\

@@ -12,7 +12,7 @@ Das Control stellt eine Reihe an Variablen zur Verfügung. Diese ermöglichen es
 	\caption{Gauge Control Details}
 	\label{fig:gauge1}
 \end{figure}
-Umfassen dabei sind visuelle Parameter wie Kreishintergrundfarbe(G1), Strichlänge, Strichfarbe, Strichanzahl(G2), innerer Radius(G3), Nadellänge, Nadelfarbe(G6) oder Nadelfüllfarbe(G5). Zusätzlich dazu funktionelle Parameter wie Maximalwert, Minimalwert, aktueller Wert etc.\\\\
+Umfassen dabei sind visuelle Parameter wie (Abbildung \ref{fig:gauge1}) Kreishintergrundfarbe(G1) , Strichlänge, Strichfarbe, Strichanzahl(G2), innerer Radius(G3), Nadellänge, Nadelfarbe(G6) oder Nadelfüllfarbe(G5). Zusätzlich dazu funktionelle Parameter wie Maximalwert, Minimalwert, aktueller Wert etc.\\\\
 
 Das Canvas Control benutzt den Render Zyklus von WPF. Das heißt dass von unserer Seite das Canvas nur geändert werden muss, sollte einer der genannten Variablen sich verändern, also ein neu zeichnen des Tachometers notwendig ist.\\
 Dies geschieht in 2 Schritten. \\
@@ -28,7 +28,7 @@ Der Hintergrund besteht wiederum aus 2 Teilen. \\
 	\item Halbkreis aus Strichen.
 \end{itemize}
 Während die Striche mit einer Menge an Strich-Formen entlang des inneren Radius mit der Länge Äußerer Radius(G4) - Innerer Radius, einfach gelöst wird, stellt der Hintergrund eine etwas interessante Problematik.\\
-Zwar gibt es eine Ellipsen Form für WPF's Canvas Control, allerdings besteht die Anforderung aus keiner rein einfarbigen Ellipse, sondern stattdessen aus einer zwei geteilte Form wie unten abgebildet.
+Zwar gibt es eine Ellipsen Form für WPF's Canvas Control, allerdings besteht die Anforderung aus keiner rein einfarbigen Ellipse, sondern stattdessen aus einer zwei geteilte Form wie unten abgebildet (Abbildung \ref{fig:gauge2}).
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=.4\textwidth]{GaugeForm}
