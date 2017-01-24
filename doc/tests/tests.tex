@@ -27,10 +27,11 @@ Die Messreihe umfasste dabei vier Messungen mit wechselnden Widerständen und ge
 	\centering
 	\includegraphics[width=8cm]{tests/graphics/Messchaltung_Fremderregung}
 	\caption[Aufbau Spannungsmessung BLDC Motor]{Messaufbau zur Messung der \\generierten Spannung am BLDC Motor}
+	\quelle Selbst erstellte Grafik.
 	\label{fig:BLDC_Fremderregung}
 \end{figure}
 
-
+\newpage
 Durch das erzeugen einer Drehbewegung, mittels einer an die Motorwelle angebrachten Bohrmaschine, wurde in den Spulen eine Spannung erzeugt.
 In Abbildung \ref{fig:Spannungsmessung_BLDC_Motor} ist eine dieser Messungen dargestellt.
 Im oberen Bereich ist der Anlauf gut zu erkennen.
@@ -43,13 +44,14 @@ Es gibt dabei ein Muster von sechs Zuständen, welche die Hall-Sensoren bilden k
 Aus der Überlegung drei Signale, die jeweils zwei unterschiedliche Zustände annehmen könnte es den Anschein haben, dass es acht ($2^3$) Zustände sein sollten.
 Dem ist jedoch nicht so. 
 Es gibt keinen Zustand, bei dem alle Signalleitungen HIGH bzw. LOW sind. Dadurch fallen diese weg.
-Im Detail ist zu erkennen, dass es 42 Flankenwechsel für eine Umdrehung notwendig sind.
+Im Detail ist zu erkennen, dass 42 Flankenwechsel für eine Umdrehung notwendig sind.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\textwidth-2cm]{tests/graphics/Spannungssignal_Messung}
+	\includegraphics[width=\textwidth-4cm]{tests/graphics/Spannungssignal_Messung}
 	\caption{Spannungsmessung BLDC-Motor}
 	\label{fig:Spannungsmessung_BLDC_Motor}
+	\quelle Eigene Messung
 \end{figure}
 
 
@@ -75,6 +77,7 @@ Dabei wurden Störungen, die durch den Gleichstrommotor in der Bohrmaschine ents
 	\includegraphics[width=\textwidth-2cm]{tests/graphics/Fehlerhaftes_Spannungssignal}
 	\caption{Fehlerbehaftete Spannungsmessung BLDC-Motor}
 	\label{fig:Fehlerbehaftete_Spannungsmessung_BLDC_Motor}
+	\quelle Eigene Messung
 \end{figure}
 
 
@@ -88,12 +91,14 @@ Dort sind die verschiedenen Flankenwechsel gut zu erkennen.
 Das Signal nimmt definierte Werte an und schwingt nicht.
 
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth-4cm]{tests/graphics/hall_ok}
 	\caption[Sensorsignal Hall-Sensor]{Sensorsignal eines Hall-Sensors}
+	\quelle Eigene Messung
 	\label{fig:Hall_Sensor_OK}
 \end{figure}
+
 
 Dieses Signal veränderte sich jedoch als die Hall-Sensoren mit dem XMC 4700 Relax Kit 5V verbunden wurden.
 Bild \ref{fig:Hall_Sensor_Fehlerhaft} zeigt das gemessenen Signal.
@@ -106,23 +111,68 @@ Dieses Board besitzt keine Pegelwandler.
 Nach dem Austausch verschwand das Schwingen auf den Signalleitungen.
 
 Der Hersteller der Pegelwandler, Texas Instruments, verweist mehrfach im Datenblatt des Pegelwandlers darauf die Signalleitungen so kurz wie möglich zu halten.
-Auch auf den verschiedenen Supportseiten des Herstellers ist dieses Phänomen häufiger beschrieben.
-Testweise wurden die Anschlussleitungen zwischen Hall-Sensoren und XMC 4700 Relax Kit 5V stark verkürzt.
-Dadurch konnte das Schwingen eliminiert werden.
+Auf den verschiedenen Supportseiten des Herstellers ist dieses Phänomen häufiger beschrieben \cite{Instruments2016}.
+Testweise wurden die Anschlussleitungen zwischen Hall-Sensoren und XMC 4700 Relax Kit 5V stark verkürzt. Dadurch konnte das Schwingen eliminiert werden.
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth-4cm]{tests/graphics/hall_jitter_4700}
 	\caption[Fehlerhaftes Sensorsignal eines Hall-Sensors]{Sensorsignal eines Hall-Sensors mit Störungen}
+	\quelle Eigene Messung
 	\label{fig:Hall_Sensor_Fehlerhaft}
 \end{figure}
 
 
 \section{Steuersignale Relax Kit / H-Brücke}
-Zur 
+Damit einen BLDC Motor in Drehung zu versetzen muss auf den verschiedenen Spulen ein drehendes Magnetfeld erzeugt werden.
+Die Intensität und der Wechsel des Magnetfeldes von einer Spule zu einer anderen\footnote{Der Wechsel der genutzten Spulen wird als Kommutierung bezeichnet.} wird über Signale gesteuert.
+Es handelt sich dabei um ein PWM Signal, hier generiert durch das XMC Relax Kit, welches immer zwei Spulen anspricht.
+Zur besseren Erklärung soll Abbildung \ref{fig:Steuersignal_H-Bruecke} dienen.
+Es gibt sechs verschiedene Stellungen die der Rotor einnehmen kann.
+Diese sind als \enquote{State} gekennzeichnet und repräsentieren die Kombination der drei Hall-Sensoren.
+Die Signale \enquote{PWM3 $\rightarrow$ HS\_U}, \enquote{PWM1 $\rightarrow$LS\_U} stellen die Steuersignal der Feldeffekttransistoren dar, die mit der Motorleitung U verbunden sind.
+\enquote{HS} steht dabei für HighSide und \enquote{LS} für LowSide und gibt an ob die Motorspannung (HS) oder Masse (LS) durchgeschaltet wird.
+Sind beide Steuersignal auf LOW besitzt die Spule einen hohen Widerstand und ist nicht leitend.
 
+Im Zustand 1 wird V mittels PWM mit der Motorspannung versorgt.
+Der Stromfluss wird über die Spule W geschlossen.
+Im Zustand 2 wird die Spule V auf \enquote{Tristate} gesetzt und U übernimmt die Versorgung.
+Im Zustand 3 bleibt Spule V und Spule W wird auf \enquote{Tristate} gesetzt und die Spule V besitzt nun das Massepotential.
+Dies geht so weiter bis wieder Zustand 1 erreicht ist.
+
+Diese Art der Ansteuerung wurde in den XMC implementiert und getestet.
+Hier wurde aber noch kein Rundlauf erreicht. 
+Aus diesem Grund wurde das Steuersignal, welches Texas Instruments mittels einer eigens für das Evaluation Kit vorgesehene Controllerkarte und dazugehöriger Software erzeugt wird, erfasst.
+Dieses ist im nächsten Abschnitt beschrieben.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth-6cm]{tests/graphics/Ansteuerung_H-Bruecke}
+	\caption{Theoretisches Steuersignal H-Brücke}
+	\label{fig:Steuersignal_H-Bruecke}
+	\quelle \cite{Nisarga2011}
+\end{figure}
 
 
 \section{Ansteuerungssignale Texas Instrument Evaluation Kit}
+\paragraph{Hinweis:}
+Die Steuerkarte des Herstellers TI verwendet für die Regelung des BLDC Motors nicht die Hall-Sensoren sondern Stromsensoren.
 
-\section{Steuerungssignale }
+In Bild \ref{fig:Steuersignal_TI} ist ein Ausschnitt des, durch Texas Instruments, generierten Steuersignals der Feldeffekttransistoren dargestellt.
+Es entspricht auf den ersten Blick nicht dem Signal, welches in Abbildung \ref{fig:Steuersignal_H-Bruecke} zu sehen ist.
+Texas Instruments verwendet nicht nur auf der HIGH Seite einer Spule ein PWM Signal sondern auch auf der LOW Seite.
+Zusätzlich wird ein Stromfluss in beide Richtungen der Spule erzeugt. 
+Die Vermutung dahinter ist, dass der Motor zuerst beschleunigt und danach gebremst wird.
+Wahrscheinlich ergibt sich dadurch ein ruhigerer Lauf des Motors erzeugt.
+Dies bedarf einer genaueren Analyse und Hintergrundwissen im Bereich der Steuerung von BLDC-Motoren.
+
+Weiterhin ist gut zu erkennen, dass ein Wechsel der Spulen, also die Komutierung, von W $\rightarrow$ U, V $\rightarrow$ W, usw. durchgeführt wird wie es in Abbildung \ref{fig:Steuersignal_H-Bruecke} zu sehen ist.
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth-4cm]{tests/graphics/Ansteuerung_TexasInstruments}
+	\caption[Steuersignal Texas Instruments]{Durch Texas Instruments erzeugtes Steuersignal}
+	\label{fig:Steuersignal_TI}
+	\quelle Eigene Messung
+\end{figure}

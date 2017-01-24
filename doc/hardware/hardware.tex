@@ -65,7 +65,7 @@ Da es sich bei der Arduino Plattform um 5 Volt Mikrocontroller handelt sind die 
 Der XMC arbeitet hingegen mit einem Logikpegel von 3.3 Volt.
 Aus diesem Grund hat Infineon für die Digitalen Pins Bidirektionalen Levelshifter verbaut.
 Mit diesen werden die 5 Volt Signal auf 3.3 Volt bzw. anderes herum gewandelt.
-Dadurch kann eine Vielzahl von Erweiterungsplatinen ohne Änderungen verwendet werden.
+Dadurch ist es möglich eine Vielzahl von Erweiterungsplatinen aus dem Zubehörprogramm des Arduinos ohne Änderungen zu werden.
 
 \begin{figure}[h]
 	\centering
@@ -152,9 +152,7 @@ Entweder alle sechs Steuersignale für die Leistungstransistoren stellt der exte
 Der erste Fall (6 Steuersignale) gibt dem Nutzer bzw. dem externen Controller die Möglichkeit beide MOSFETs auf LOW zu schalten.
 Dadurch wird erreicht, dass nur zwei Motorleitungen (z.B. U und W) einen geschlossenen Stromkreis bilden und nur über diese beiden Spulen Strom fließt.
 Im Gegensatz dazu ist es im zweiten Fall (3 Steuerleitungen) nur möglich eine Motoranschlussleitung auf HIGH oder LOW zu legen. 
-Es müssen also alle drei Leitungen für die Generierung des Motorsignals herangezogen werden.
-%todo weiterschreiben. Auch noch ein Beispiel bringen
-%----------------------------------------------------------------------------------
+
 
 \newpage
 \section{PMD-BLDC-1500/65}
@@ -178,8 +176,8 @@ Zur Temperaturüberwachung ist ein NTC-Sensor innerhalb des Motors angebracht.
 NTC ist hierbei die Kurzform für Negative Temperature Coefficient Thermistor und beschreibt einen Temperaturabhängigen Widerstand.
 Dieser verringert seinen Widerstand bei steigender Temperatur.\\
 
-In Abbildung \ref{fig:BLDC} sieht man den Motor mit den drei Motoranschlussleitungen.
-Der danebenliegende Stecker mit sieben weiteren Kabeln ist das Anschlussterminal für die Hall-Sensoren und den Temperatursensor.
+In Abbildung \ref{fig:BLDC} ist der Motor mit den drei Motoranschlussleitungen zu sehen.
+Der angebrachte Stecker mit sieben Leitungen dient für die Versorgung der Sensoren mit Strom und führt die Rücksignale der Hall- und Temperatursensor nach außen.
 Auf der Vorderseite ist die Welle und darum die Befestigungslöcher zu sehen.
 
 \begin{figure}[htbp]
@@ -190,7 +188,7 @@ Auf der Vorderseite ist die Welle und darum die Befestigungslöcher zu sehen.
 	\label{fig:BLDC}
 \end{figure}
 
-\newpage
+
 \section{BLDC Motorprüfstand}
 Bei dem Prüfstand handelt es sich um eine Grundplatte aus Holz mit den ungefähren Abmessungen von 60 cm mal 40 cm.
 Auf dieser sind Aluminiumprofile montiert, die das Grundgerüst für verschiedene Halter bilden.
@@ -207,7 +205,6 @@ Der Controller selbst bildet in Verbindung mit den Sensorsignalen einen Regler.
 Dessen Parameter erhält er von einer PC Applikation an die auch die Sensorwerte weitergeleitet werden.
 Dort werden diese grafisch aufbereitet und in verschiedenen Diagrammen dargestellt.
 
-%todo noch etwas über den Motorprüfstand schreiben
 
 \begin{figure}[htbp]
 	\centering
@@ -216,3 +213,13 @@ Dort werden diese grafisch aufbereitet und in verschiedenen Diagrammen dargestel
 	\quelle Selbst erstellte Grafik
 	\label{fig:Schemata_Hardware_Gesamt}
 \end{figure}
+
+\subsection{Adapterplatine}
+Im Laufe des Projektes mussten immer wieder Messgeräte und Controllerplatinen mit dem Evaluation Kit verbunden werden.
+Dabei war es notwendig das Handbuch und den Schaltplan des Evaluation Kits zu verwenden um die notwendigen Pins zu identifizieren.
+Zur einfacheren Handhabung wurde eine Adapterplatine in Form einer Lochrasterplatine mit Stift- und Buchsenleisten angefertig.
+Diese sollte mittels eines Flachbandkabels mit der Texas Instrument Platine verbunden werden und die verschiedenen Signalleitungen logisch zu gruppieren.
+Der erste Entwurf ist aktuell in Verwendung und erleichtert den Anschluss der Mess- und Steuerleitungen.
+Dennoch wurden eine zweite Version konstruiert jedoch noch nicht umgesetzt.
+Bei dieser sind zusätzliche Klemmbuchsen für Anschlusskabel vorhanden.
+Zusätzlich wurde diese so entworfen das sie auf vorhandene Verschraubungen des Evaluation Kits passt und als \enquote{Huckepackplatine} auf dieser Montiert werden kann.
