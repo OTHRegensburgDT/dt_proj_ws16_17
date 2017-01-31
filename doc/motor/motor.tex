@@ -1,0 +1,25 @@
+\chapterauthor{Andreas Kölbl}
+
+\chapter{Arbeitspaket Motor}
+Die Analyse, Implementierung, Test und Integration, sowie die Verkabelung der H-Brücke mit Unterst\"utzung von Herrn Brunner f\"ur Hardware-relevante Problemstellungen war Aufgabe von Herrn Kölbl. Die Drehzahl des Motors soll anschließend gesteuert werden können.
+
+\section{Analysephase}
+Aus der Projektspezifikation ergibt sich, dass sich der Motor in zwei Richtungen drehen soll. Auch soll die Drehzahl des Motors einstellbar sein.
+
+\subsection{H-Br\"ucke} ~2Seiten
+- Bild relevanter Ausschnitt aus Schaltplan H-Brücke
+- Bild von Widerständen wurden ausgelassen für Sternschaltung
+- Marker auf relevante Pins
+- Erklärung der Kabel mit Bild
+\subsection{TI InstaSPIN} ~1 Seite
+- GUI mit Oberfläche
+- Erklärung, was im Hintergrund läuft
+\subsection{POSIF} ~4 Seiten
+- Bild von Präsi
+- Komplette erklärung des Multi-Channel-Modes
+- Quellensuche und fund des XMC4500er Projekts
+
+\section{Ausblick}
+Der Code zur Steuerung und Regelung des Motors befindet sich momentan noch in den Anfängen. Bei der aktuellen Bearbeitungslage ist eine vollständige Fertigstellung nicht absehbar. \\
+Basierend auf der Ideensammlung aus der Analysephase wäre eine mögliche Erweiterung dieses Arbeitspaketes die Portierung des Codes auf eine Hardwareplattform ohne POSIF-Interface Das hätte eine Neuimplementierung zur Folge. \\
+Das Beispiel von dem Chip "XMC44xx"\footnote{\url{https://TODO.html}} zeigt eine dritte Möglichkeit ohne HALL und Quad. Was für Vor/Nachteile wenn
