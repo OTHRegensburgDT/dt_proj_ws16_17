@@ -53,7 +53,7 @@ Für die oberen beiden Schichten wurde das MVVM\footnote{kurzw. für Model-View-
 		\label{fig:mvvm}
 \end{figure}
 
-Weitere eingesetzte Entwurfsmuster sind das Kommandomuster, welches alle ausgeführten Events auf der Benutzeroberfläche auffängt und im ViewModel behandelt und verarbeitet, das Repository\footnote{engl. Haufen}-Muster, welches die Daten Verwaltung und Kommunikation zu Subsystemen übernimmt und flexible auf Änderungen im Kommunikationsmodul reagiert und das "Umkehrung der Kontrolle"-Muster, für dessen Zweck ein Abhängigkeits-Container zu Beginn des Systemstarts erstellt und mit allen bekannten Abhängigkeiten gefüllt wird. Anschließend ist der Zugriff auf die im Container befindlichen Objekte von jedem Punkt der Anwendung her ermöglicht.\\
+Weitere eingesetzte Entwurfsmuster sind das Kommandomuster, welches alle ausgeführten Events auf der Benutzeroberfläche auffängt und im ViewModel behandelt und verarbeitet, das Repository\footnote{engl. Haufen}-Muster, welches die Datenverwaltung und Kommunikation zu Subsystemen übernimmt und flexible auf Änderungen im Kommunikationsmodul reagiert. Das "Umkehrung der Kontrolle"-Muster, für dessen Zweck ein Abhängigkeits-Container zu Beginn des Systemstarts erstellt und mit allen bekannten Abhängigkeiten gefüllt wird. Anschließend ist der Zugriff auf die im Container befindlichen Objekte von jedem Punkt der Anwendung her ermöglicht.\\
 
 Wie bereits in der Analysephase erwähnt, wurden die Datenstrukturen dem Kommunikationsmodul angepasst siehe Abbildung \ref{lst:SensorData}.\\
 \begin{lstlisting}[frame=single, caption=Beschreibung der Sensordatenstruktur, label=lst:SensorData]
@@ -74,7 +74,7 @@ Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout \ref{fig:gui} er
 
 \section{Implementierung}
 
-In diesem Abschnitt werden wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt. In dieser Phase kommen die vom Herrn Krupinski erstellten Steuerelemente zum Einsatz unterstützt.\\
+In diesem Abschnitt wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt. In dieser Phase kommen die vom Herrn Krupinski erstellten Steuerelemente zum Einsatz unterstützt.\\
 
 Zu Beginn der Implementierung wurde die Frage aufgeworfen, welche Technologie für die Oberfläche zum Einsatz gebracht werden sollten. Zur Auswahl stand, es mit neuesten Multi-Plattform fähigen Web-Technologien umzusetzen und auf das ASP.NET-Framework\footnote{Microsoft Framework zur Entwicklung von Web-Applikationen} zu setzen oder eine reine Desktop Applikation mit dem WPF-Framework umzusetzen. Aufgrund des relativ knappen Zeitplanes für das Projekt und der mehrheitlichen Erfahrungen im WPF-Framework, wurde sich für dieses entschieden.\\
 
