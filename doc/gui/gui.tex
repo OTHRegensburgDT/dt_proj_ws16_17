@@ -98,7 +98,7 @@ Daraufhin erstellte der Herr Krupinski diese beiden aufwändigen Steuerelemente 
 
 
 \subsection*{Gauge Control}
-Das entwickelte "Gauge"\footnote{Englisch für Tachometer.} Control in Abbildung \ref{fig:gauge} besteht aus einer Skala(1) mit einem minimal und maximal Wert, einen Zeiger(2) und einem Label(3), welches den Aktuellen Wert anzeigt.
+Das entwickelte "Gauge"\footnote{Englisch für Tachometer.} Control in Abbildung \ref{fig:gauge} besteht aus einer Skala(1) mit einem minimal und maximal Wert, einen Zeiger(2) und einem Label(3), welches den aktuellen Wert anzeigt.
 
 \begin{figure}[ht]
 	\centering
@@ -153,13 +153,13 @@ Dieser Abschnitt beinhaltet mögliche Erweiterungen und nicht vollständig umges
 \begin{description}
 \item[Multi-Plattformfähigkeit] Durch die Separierung der einzelnen Codeteile in eigenständige Projekte und die strikte Umsetzung eines Domain Driven Designs kann man die WPF GUI austauschbar machen und durch zum Beispiel eine Web-API ersetzen, welche anschließend mit einem Web-Frontend z.B. ASP.NET oder Angular2 kommuniziert. Auch eine Smartphone Applikation mit zum Beispiel Xamarin wäre möglich.
 \item[MouseHover in LineChart] Diese Funktionalität konnte leider nicht Fertiggestellt werden, es wird noch nicht der aktuelle Wert unter der Maus angezeigt.
-\item[Änderung des Layoutes] Durch eine Änderung des Layoutes wäre es möglich alle Sensorwerte auf einen Bildschirm Darzustellen, ohne die Notwendigkeit von Scrolbars zu haben. Empfehlung dafür wäre ein Wrappanel mit Horizontaler Ausrichtung.
-\item[Hall Pattern Anzeige] Die Aktuelle Anzeige des Hall Pattern ist in einem extra Control unter dem ItemsTemplate für die Anzeigeelemente, dies verhindert Aktuell die einfache Umsetzung der vorher beschriebenen Änderung des Layouts. Hier müsste das Hall Pattern mit in das ItemsTemplate implementiert werden.
+\item[Änderung des Layoutes] Durch eine Änderung des Layoutes wäre es möglich alle Sensorwerte auf einen Bildschirm darzustellen, ohne die Notwendigkeit von Scrollbars zu haben. Empfehlung dafür wäre ein Wrappanel mit horizontaler Ausrichtung.
+\item[Hall Pattern Anzeige] Die aktuelle Anzeige des Hall Pattern ist in einem extra Control unter dem ItemsTemplate für die Anzeigeelemente, dies verhindert aktuell die einfache Umsetzung der vorher beschriebenen Änderungen des Layouts. Hier müsste das Hall Pattern mit in das ItemsTemplate implementiert werden.
 \item[ComPort Auswahl] Eine wichtige Erweiterung wäre eine Einstellmöglichkeit für den ComPort, da dieser aktuell Hardcoded ist und ggf. im Quelltext angepasst werden muss. Eine Notlösung wäre eine Auslagerung der Einstellung in eine Konfigurations-Datei. Aber die bessere Lösung wäre eine ComboBox in der GUI zur Auswahl aus verfügbaren Ports. 
-\item[Mehrere Inputs] Die GUI könnte noch für mehrere Inputs erweitert werden um es zu ermöglichen mehrere Messstationen oder die Simulation nebeneinander Vergleichend laufen zu lassen.
-\item[Benutzer Handbuch] Dem knappen Zeitrahmen geschuldet wurde noch kein Benutzerhandbuch erstellt. Dies wäre Sinnvoll nach der Änderung des Layouts zu erstellen, um aktuelle Bilder verwenden zu können.
+\item[Mehrere Inputs] Die GUI könnte noch für mehrere Inputs erweitert werden, um es zu ermöglichen verschiedene Messstationen oder die Simulation nebeneinander Vergleichend laufen zu lassen.
+\item[Benutzer Handbuch] Dem knappen Zeitrahmen geschuldet wurde noch kein Benutzerhandbuch erstellt. Dies wäre sinnvoller Weise nach der Änderung des Layouts zu erstellen, um aktuelle Bilder verwenden zu können.
 \item[Weitere Tests] Sinnvoll für mehr Stabilität wären weitere Tests, einmal für die CustomControls (Gauge und LineChart) Unittests, für die Oberfläche allgemein Coded-UI Tests und ein automatisierter Integrationstest für das Kommunikationsmodul.
 \item[Import/Export] Eine Im-/Exportfunktion um Testläufe zu sichern und wiederholt zu laden.
-\item[RingSpeicher] Implementierung eines Ringspeichers, welcher eine Maximale Anzahl an Elementen fasst und überschüssige Daten auf der Festplatte oder ähnlich Speichert, um ein Überlaufen des Arbeitsspeichers zu verhindern.
+\item[RingSpeicher] Implementierung eines Ringspeichers, welcher eine Maximale Anzahl an Elementen fasst und überschüssige Daten auf der Festplatte oder ähnlich Speichert, um ein überlaufen des Arbeitsspeichers zu verhindern.
 \end{description}
 
