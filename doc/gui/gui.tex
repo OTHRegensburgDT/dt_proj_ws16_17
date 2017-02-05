@@ -74,7 +74,7 @@ Im zweiten Teil des Entwurfes wurde ein erstes einfaches Layout \ref{fig:gui} er
 
 \section{Implementierung}
 
-In diesem Abschnitt wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt. In dieser Phase kommen die vom Herrn Krupinski erstellten Steuerelemente zum Einsatz unterstützt.\\
+In diesem Abschnitt wurden die Ergebnisse der Entwurfsphase umgesetzt und die Benutzeroberfläche erstellt. Das Programm wurde mit dem Visual Studio 2015 in der Programmiersprache C\# und den .NET Framework WPF erstellt. In dieser Phase kommen die vom Herrn Krupinski erstellten Steuerelemente zum Einsatz.\\
 
 Zu Beginn der Implementierung wurde die Frage aufgeworfen, welche Technologie für die Oberfläche zum Einsatz gebracht werden sollten. Zur Auswahl stand, es mit neuesten Multi-Plattform fähigen Web-Technologien umzusetzen und auf das ASP.NET-Framework\footnote{Microsoft Framework zur Entwicklung von Web-Applikationen} zu setzen oder eine reine Desktop Applikation mit dem WPF-Framework umzusetzen. Aufgrund des relativ knappen Zeitplanes für das Projekt und der mehrheitlichen Erfahrungen im WPF-Framework, wurde sich für dieses entschieden.\\
 
@@ -82,7 +82,7 @@ Als Entwicklungsumgebung wurde das Visual Studio Enterprise 2015 eingesetzt. Die
 
 Als Grundlage für den Start des Projektes wurde das MVVM-Light\footnote{Link zum Projekt\url{https://mvvmlight.codeplex.com/}} Toolkit verwendet. Es beinhaltet grundlegende Funktionalitäten und Templates, welche den Entwickler, indem es Basistechnologien wie die Architektur Struktur MVVM und DI-Techniken mitbringt, entlasten. Dieses Toolkit ist ebenfalls als Erweiterung direkt im Visual Studio verfügbar.\\
 
-Der Datenzugriff wurde durch den Einsatz vom Repository-Muster (siehe Abbildung \ref{fig:repo}) realisiert. Dies ermöglichte zu Beginn des Projektes und für Test gegen eine Attrappe des Kommunikationsmoduls zu entwickeln. Diese täuschte das fehlende Modul vor und konnte problemlos durch das fertig implementierte Modul ersetzt werden. Durch die vorangegangene Schnittstellen Definition mussten für die Integration des Kommunikationsmoduls keine Änderungen an der internen Systemlogik vorgenommen werden.   
+Der Datenzugriff wurde durch den Einsatz vom Repository-Muster (siehe Abbildung \ref{fig:repo}) realisiert. Dies ermöglichte zu Beginn des Projektes und für Test gegen eine Attrappe des Kommunikationsmoduls zu entwickeln. Diese täuschte das fehlende Modul vor und konnte problemlos durch das fertig implementierte Modul ersetzt werden. Durch die vorangegangene Schnittstellendefinition mussten für Integration des Kommunikationsmoduls keine Änderungen an der internen Systemlogik vorgenommen werden.   
 
 \begin{figure}[ht]
 	\centering
@@ -91,9 +91,9 @@ Der Datenzugriff wurde durch den Einsatz vom Repository-Muster (siehe Abbildung 
 		\label{fig:repo}
 \end{figure}
 
-Ein weiteres Problem, welches es zu lösen gab, waren die Steuerelemente für die Anzeige. Es folgte eine kurze Evaluation und Testphase für die möglichen Tachometer und Linienchart Anzeigen, leider mit dem Ergebnis, dass die fertigen Produkte entweder Kostenpflicht waren oder schlecht dokumentiert und nicht genügend Anpassbar für unseren Zweck waren.\\
+Ein weiteres Problem, welches es zu lösen gab, waren die Steuerelemente für die Anzeige der Sensorwerte. Es folgte eine kurze Evaluation und Testphase für die möglichen Tachometer- und Linienchart-Anzeigen, leider mit dem Ergebnis, dass die fertigen Produkte entweder Kostenpflicht waren oder schlecht dokumentiert und nicht genügend Anpassbar für unseren Zweck waren.\\
 
-Daraufhin erstellte der Herr Krupinski diese beiden aufwändigen Steuerelemente als Benutzerdefinierte WPF-Steuerelemente selbst, welche uns die geforderten Funktionalitäten und die notwendige Veränderbarkeit mitbrachten. 
+Daraufhin erstellte der Herr Krupinski diese beiden aufwändigen Steuerelemente als benutzerdefinierte WPF-Steuerelemente selbst, welche uns die geforderten Funktionalitäten und die notwendige Veränderbarkeit mitbrachten. 
 
 
 
