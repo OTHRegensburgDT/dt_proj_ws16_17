@@ -34,19 +34,19 @@
     <downwardMapList xsi:type="ResourceModel:App" href="../../GLOBAL_DMA/v4_0_8/GLOBAL_DMA_0.app#/"/>
   </requiredApps>
   <hwResources name="Channel" URI="http://resources/4.1.8/app/UART/0/hwres_usic_ch" resourceGroupUri="peripheral/usic/*/channel/*" mResGrpUri="peripheral/usic/*/channel/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/usic0/usic0_0.dd#//@provided.0"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/usic0/usic0_0.dd#/1/@provided.0"/>
   </hwResources>
   <hwResources name="Receive Pin" URI="http://resources/4.1.8/app/UART/0/hwres_port_pad_uart_rx" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port1/port1_1.dd#//@provided.10"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port1/port1_1.dd#/1/@provided.10"/>
   </hwResources>
   <hwResources name="Transmit Pin" URI="http://resources/4.1.8/app/UART/0/hwres_port_pad_uart_tx" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port1/port1_1.dd#//@provided.15"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/port1/port1_1.dd#/1/@provided.15"/>
   </hwResources>
   <hwResources name="NVIC Node Tx" URI="http://resources/4.1.8/app/UART/0/hwres_nvic_node_tx" resourceGroupUri="" required="false" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*"/>
   <hwResources name="NVIC Node Rx" URI="http://resources/4.1.8/app/UART/0/hwres_nvic_node_rx" resourceGroupUri="" required="false" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*"/>
   <hwResources name="NVIC Node Error" URI="http://resources/4.1.8/app/UART/0/hwres_nvic_node_error" resourceGroupUri="" required="false" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*"/>
   <hwResources name="DMA channel Tx" URI="http://resources/4.1.8/app/UART/0/hwres_dma_ch_tx" resourceGroupUri="peripheral/sv0/0/ch/*" solverVariable="true" mResGrpUri="peripheral/sv0/0/ch/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/gpdma0/gpdma0_0.dd#//@provided.4"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/gpdma0/gpdma0_0.dd#/1/@provided.4"/>
     <solverVarMap index="1">
       <value variableName="sv0" solverValue="dma8"/>
     </solverVarMap>
@@ -57,8 +57,8 @@
       <value variableName="sv0" solverValue="dma8"/>
     </solverVarMap>
   </hwResources>
-  <hwResources name="DMA channel Rx" URI="http://resources/4.1.8/app/UART/0/hwres_dma_ch_rx" resourceGroupUri="resources/48.0.0/peripheral/dma8/0/ch/5" solverVariable="true" mResGrpUri="peripheral/sv0/0/ch/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/gpdma0/gpdma0_0.dd#//@provided.0"/>
+  <hwResources name="DMA channel Rx" URI="http://resources/4.1.8/app/UART/0/hwres_dma_ch_rx" resourceGroupUri="peripheral/sv0/0/ch/*" solverVariable="true" mResGrpUri="peripheral/sv0/0/ch/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/gpdma0/gpdma0_0.dd#/1/@provided.0"/>
     <solverVarMap index="1">
       <value variableName="sv0" solverValue="dma8"/>
     </solverVarMap>
@@ -70,16 +70,16 @@
     </solverVarMap>
   </hwResources>
   <hwResources name="DLR channel Tx" URI="http://resources/4.1.8/app/UART/0/hwres_dlr_ch_tx" resourceGroupUri="peripheral/dlr/0/ch/*" mResGrpUri="peripheral/dlr/0/ch/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/dlr/dlr_0.dd#//@provided.6"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/dlr/dlr_0.dd#/1/@provided.5"/>
   </hwResources>
-  <hwResources name="DLR channel Rx" URI="http://resources/4.1.8/app/UART/0/hwres_dlr_ch_rx" resourceGroupUri="resources/48.0.0/peripheral/dlr/0/ch/2" mResGrpUri="peripheral/dlr/0/ch/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/dlr/dlr_0.dd#//@provided.3"/>
+  <hwResources name="DLR channel Rx" URI="http://resources/4.1.8/app/UART/0/hwres_dlr_ch_rx" resourceGroupUri="peripheral/dlr/0/ch/*" mResGrpUri="peripheral/dlr/0/ch/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/dlr/dlr_0.dd#/1/@provided.8"/>
   </hwResources>
   <hwResources name="Receive Pin" URI="http://resources/4.1.8/app/UART/0/__pin_hwres_port_pad_uart_rx" resourceGroupUri="devicepackage/0/108" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.6"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/1/@provided.4"/>
   </hwResources>
   <hwResources name="Transmit Pin" URI="http://resources/4.1.8/app/UART/0/__pin_hwres_port_pad_uart_tx" resourceGroupUri="devicepackage/0/107" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.7"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/1/@provided.5"/>
   </hwResources>
   <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_uart_rxpad/http://resources/4.1.8/app/UART/0/vs_uart_dx0ins" systemDefined="true" sourceSignal="rxd_pin" targetSignal="dx0_input_stage" srcVirtualSignal="//@virtualSignals.3" targetVirtualSignal="//@virtualSignals.0"/>
   <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_uart_dout0/http://resources/4.1.8/app/UART/0/vs_uart_txpad" systemDefined="true" sourceSignal="dout0_output" targetSignal="txd_pin" srcVirtualSignal="//@virtualSignals.2" targetVirtualSignal="//@virtualSignals.4"/>
@@ -95,11 +95,11 @@
   <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_uart_std_tx_int/http://resources/4.1.8/app/UART/0/vs_dst_trigger_dlr_tx_in" systemDefined="true" sourceSignal="event_transmit_buffer" targetSignal="destination_trigger" srcVirtualSignal="//@virtualSignals.5" targetVirtualSignal="//@virtualSignals.16"/>
   <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_uart_std_rx_int/http://resources/4.1.8/app/UART/0/vs_src_trigger_dlr_rx_in" systemDefined="true" sourceSignal="event_std_receive" targetSignal="source_trigger" srcVirtualSignal="//@virtualSignals.6" targetVirtualSignal="//@virtualSignals.15"/>
   <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_uart_alt_rx_int/http://resources/4.1.8/app/UART/0/vs_src_trigger_dlr_rx_in" systemDefined="true" sourceSignal="event_alt_receive" targetSignal="source_trigger" srcVirtualSignal="//@virtualSignals.7" targetVirtualSignal="//@virtualSignals.15"/>
-  <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_dma_interrupt_tx/http://resources/4.1.8/app/UART/0/vsra_gpdma_interrupt" systemDefined="true" sourceSignal="DMA Transfer complete event" targetSignal="Interrupt signal" srcVirtualSignal="//@virtualSignals.19" containingProxySignal="true">
+  <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_dma_interrupt_tx/http://resources/4.1.8/app/UART/0/vsra_gpdma_interrupt" systemDefined="true" sourceSignal="DMA Transfer complete event" targetSignal="Interrupt signal" srcVirtualSignal="//@virtualSignals.19" proxyTargetVirtualSignalUri="http://resources/4.0.8/app/GLOBAL_DMA/0/interrupt_dma" containingProxySignal="true">
     <downwardMapList xsi:type="ResourceModel:VirtualSignal" href="../../GLOBAL_DMA/v4_0_8/GLOBAL_DMA_0.app#//@virtualSignals.0"/>
     <targetVirtualSignal href="../../GLOBAL_DMA/v4_0_8/GLOBAL_DMA_0.app#//@virtualSignals.0"/>
   </connections>
-  <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_dma_interrupt_rx/http://resources/4.1.8/app/UART/0/vsra_gpdma_interrupt" systemDefined="true" sourceSignal="DMA Transfer complete event" targetSignal="Interrupt signal" srcVirtualSignal="//@virtualSignals.20" proxyTargetVirtualSignalUri="http://resources/4.0.8/app/GLOBAL_DMA/0/interrupt_dma" containingProxySignal="true">
+  <connections URI="http://resources/4.1.8/app/UART/0/http://resources/4.1.8/app/UART/0/vs_dma_interrupt_rx/http://resources/4.1.8/app/UART/0/vsra_gpdma_interrupt" systemDefined="true" sourceSignal="DMA Transfer complete event" targetSignal="Interrupt signal" srcVirtualSignal="//@virtualSignals.20" containingProxySignal="true">
     <downwardMapList xsi:type="ResourceModel:VirtualSignal" href="../../GLOBAL_DMA/v4_0_8/GLOBAL_DMA_0.app#//@virtualSignals.0"/>
     <targetVirtualSignal href="../../GLOBAL_DMA/v4_0_8/GLOBAL_DMA_0.app#//@virtualSignals.0"/>
   </connections>

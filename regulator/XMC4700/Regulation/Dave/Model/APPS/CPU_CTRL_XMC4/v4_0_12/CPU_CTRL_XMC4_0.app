@@ -38,23 +38,23 @@
   <virtualSignals name="swd etm tracedata2_signal" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/__pin_vs_cpu_etm_tracedata2" hwSignal="pin" hwResource="//@hwResources.25"/>
   <virtualSignals name="swd etm tracedata3_signal" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/__pin_vs_cpu_etm_tracedata3" hwSignal="pin" hwResource="//@hwResources.26"/>
   <hwResources name="nmi_exception" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_exception_nmi" resourceGroupUri="peripheral/cpu/0/exception/nmi" mResGrpUri="peripheral/cpu/0/exception/nmi">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#//@provided.9"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#/1/@provided.9"/>
   </hwResources>
   <hwResources name="hardfault_exception" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_exception_hardfault" resourceGroupUri="peripheral/cpu/0/exception/hardfault" mResGrpUri="peripheral/cpu/0/exception/hardfault">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#//@provided.0"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#/1/@provided.0"/>
   </hwResources>
   <hwResources name="memmanagefault_exception" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_exception_memmanage" resourceGroupUri="peripheral/cpu/0/exception/memmanage" mResGrpUri="peripheral/cpu/0/exception/memmanage">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#//@provided.1"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#/1/@provided.1"/>
   </hwResources>
   <hwResources name="busfault_exception" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_exception_busfault" resourceGroupUri="peripheral/cpu/0/exception/busfault" mResGrpUri="peripheral/cpu/0/exception/busfault">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#//@provided.10"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#/1/@provided.10"/>
   </hwResources>
   <hwResources name="usagefault_exception" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_exception_usagefault" resourceGroupUri="peripheral/cpu/0/exception/usagefault" mResGrpUri="peripheral/cpu/0/exception/usagefault">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#//@provided.8"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#/1/@provided.8"/>
   </hwResources>
   <hwResources name="jtag" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_jtag" resourceGroupUri="" required="false" mResGrpUri="peripheral/cpu/0/debug"/>
   <hwResources name="swd" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_swdclk" resourceGroupUri="peripheral/cpu/0/debug" mResGrpUri="peripheral/cpu/0/debug">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#//@provided.5"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#/1/@provided.5"/>
   </hwResources>
   <hwResources name="jtag tms" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_port_pad_tms" resourceGroupUri="" required="false" mResGrpUri="port/debug_port/*/pad/*"/>
   <hwResources name="jtag tck" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/hwres_port_pad_tck" resourceGroupUri="" required="false" mResGrpUri="port/debug_port/*/pad/*"/>

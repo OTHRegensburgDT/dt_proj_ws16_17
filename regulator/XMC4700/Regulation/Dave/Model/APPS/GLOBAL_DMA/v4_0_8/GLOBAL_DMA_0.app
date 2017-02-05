@@ -3,14 +3,14 @@
   <upwardMapList xsi:type="ResourceModel:RequiredApp" href="../../UART/v4_1_8/UART_0.app#//@requiredApps.2"/>
   <properties sharable="true"/>
   <virtualSignals name="Interrupt signal" URI="http://resources/4.0.8/app/GLOBAL_DMA/0/interrupt_dma" hwSignal="signal_in" hwResource="//@hwResources.0">
-    <upwardMapList xsi:type="ResourceModel:Connections" href="../../UART/v4_1_8/UART_0.app#//@connections.15"/>
     <upwardMapList xsi:type="ResourceModel:Connections" href="../../UART/v4_1_8/UART_0.app#//@connections.14"/>
+    <upwardMapList xsi:type="ResourceModel:Connections" href="../../UART/v4_1_8/UART_0.app#//@connections.15"/>
   </virtualSignals>
   <requiredApps URI="http://resources/4.0.8/app/GLOBAL_DMA/0/ra_cpu" requiredAppName="CPU_CTRL_XMC4" requiringMode="SHARABLE">
     <downwardMapList xsi:type="ResourceModel:App" href="../../CPU_CTRL_XMC4/v4_0_12/CPU_CTRL_XMC4_0.app#/"/>
   </requiredApps>
   <hwResources name="NVIC DMA Node" URI="http://resources/4.0.8/app/GLOBAL_DMA/0/rg_nvicnodedma" resourceGroupUri="peripheral/cpu/0/nvic/interrupt/sv0" solverVariable="true" mResGrpUri="peripheral/cpu/0/nvic/interrupt/sv0">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#//@provided.14"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/cpu/cpu_0.dd#/1/@provided.16"/>
     <solverVarMap index="5">
       <value variableName="sv0" solverValue="105"/>
     </solverVarMap>

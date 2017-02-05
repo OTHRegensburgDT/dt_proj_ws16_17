@@ -11,8 +11,8 @@
 #include "protobuf/ParamMsg.pb.h"
 #include <malloc.h>
 
-#define PROTO_REGPARAMS Regulation_RegParams
-#define PROTO_REGPARAMS_FIELDS Regulation_RegParams_fields
+#define PROTO_REGPARAMS Com_Module_RegParams
+#define PROTO_REGPARAMS_FIELDS Com_Module_RegParams_fields
 
 /*----------- global functions ----------*/
 bool ProtoToParams(uint8_t* protoMsg,int size){

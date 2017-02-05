@@ -15,39 +15,39 @@ extern "C" {
 #endif
 
 /* Struct definitions */
-typedef struct _Regulation_DataEntry {
+typedef struct _Com_Module_DataEntry {
     uint32_t SensorId;
     double Data;
-/* @@protoc_insertion_point(struct:Regulation_DataEntry) */
-} Regulation_DataEntry;
+/* @@protoc_insertion_point(struct:Com_Module_DataEntry) */
+} Com_Module_DataEntry;
 
-typedef struct _Regulation_SensorMsg {
+typedef struct _Com_Module_SensorMsg {
     uint64_t SequenceNr;
     pb_callback_t DataTable;
-/* @@protoc_insertion_point(struct:Regulation_SensorMsg) */
-} Regulation_SensorMsg;
+/* @@protoc_insertion_point(struct:Com_Module_SensorMsg) */
+} Com_Module_SensorMsg;
 
 /* Default values for struct fields */
 
 /* Initializer values for message structs */
-#define Regulation_DataEntry_init_default        {0, 0}
-#define Regulation_SensorMsg_init_default        {0, {{NULL}, NULL}}
-#define Regulation_DataEntry_init_zero           {0, 0}
-#define Regulation_SensorMsg_init_zero           {0, {{NULL}, NULL}}
+#define Com_Module_DataEntry_init_default        {0, 0}
+#define Com_Module_SensorMsg_init_default        {0, {{NULL}, NULL}}
+#define Com_Module_DataEntry_init_zero           {0, 0}
+#define Com_Module_SensorMsg_init_zero           {0, {{NULL}, NULL}}
 
 /* Field tags (for use in manual encoding/decoding) */
-#define Regulation_DataEntry_SensorId_tag        1
-#define Regulation_DataEntry_Data_tag            2
-#define Regulation_SensorMsg_SequenceNr_tag      1
-#define Regulation_SensorMsg_DataTable_tag       2
+#define Com_Module_DataEntry_SensorId_tag        1
+#define Com_Module_DataEntry_Data_tag            2
+#define Com_Module_SensorMsg_SequenceNr_tag      1
+#define Com_Module_SensorMsg_DataTable_tag       2
 
 /* Struct field encoding specification for nanopb */
-extern const pb_field_t Regulation_DataEntry_fields[3];
-extern const pb_field_t Regulation_SensorMsg_fields[3];
+extern const pb_field_t Com_Module_DataEntry_fields[3];
+extern const pb_field_t Com_Module_SensorMsg_fields[3];
 
 /* Maximum encoded size of messages (where known) */
-#define Regulation_DataEntry_size                15
-/* Regulation_SensorMsg_size depends on runtime parameters */
+#define Com_Module_DataEntry_size                15
+/* Com_Module_SensorMsg_size depends on runtime parameters */
 
 /* Message IDs (where set with "msgid" option) */
 #ifdef PB_MSGID

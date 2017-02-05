@@ -10,12 +10,12 @@
 
 
 
-const pb_field_t Regulation_RegParams_fields[6] = {
-    PB_FIELD(  1, UINT32  , REQUIRED, STATIC  , FIRST, Regulation_RegParams, target, target, 0),
-    PB_FIELD(  2, FLOAT   , REQUIRED, STATIC  , OTHER, Regulation_RegParams, paraP, target, 0),
-    PB_FIELD(  3, FLOAT   , REQUIRED, STATIC  , OTHER, Regulation_RegParams, paraI, paraP, 0),
-    PB_FIELD(  4, FLOAT   , REQUIRED, STATIC  , OTHER, Regulation_RegParams, paraD, paraI, 0),
-    PB_FIELD(  5, FLOAT   , REQUIRED, STATIC  , OTHER, Regulation_RegParams, tgtVal, paraD, 0),
+const pb_field_t Com_Module_RegParams_fields[6] = {
+    PB_FIELD(  1, UINT32  , REQUIRED, STATIC  , FIRST, Com_Module_RegParams, target, target, 0),
+    PB_FIELD(  2, FLOAT   , REQUIRED, STATIC  , OTHER, Com_Module_RegParams, paraP, target, 0),
+    PB_FIELD(  3, FLOAT   , REQUIRED, STATIC  , OTHER, Com_Module_RegParams, paraI, paraP, 0),
+    PB_FIELD(  4, FLOAT   , REQUIRED, STATIC  , OTHER, Com_Module_RegParams, paraD, paraI, 0),
+    PB_FIELD(  5, FLOAT   , REQUIRED, STATIC  , OTHER, Com_Module_RegParams, tgtVal, paraD, 0),
     PB_LAST_FIELD
 };
 

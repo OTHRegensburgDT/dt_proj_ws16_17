@@ -1,0 +1,23 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: Projektdoku.aux
+The style file: alphadin.bst
+A level-1 auxiliary file: projectdefinition/ProjektDefinition.aux
+A level-1 auxiliary file: communication/communication.aux
+A level-1 auxiliary file: sensor/sensor.aux
+A level-1 auxiliary file: regulation/regulation.aux
+A level-1 auxiliary file: gui/gui.aux
+A level-1 auxiliary file: sim/sim.aux
+A level-1 auxiliary file: tests/tests.aux
+A level-1 auxiliary file: hardware/hardware.aux
+A level-1 auxiliary file: communication/comAppendix.aux
+A level-1 auxiliary file: communication/comHours.aux
+Database file #1: communication/comCite.bib
+Database file #2: hardware/bib_hardware.bib
+Warning--to sort, need author or key in hdlcCrc
+Warning--to sort, need author or key in crc
+Warning--to sort, need author, organization, or key in boardMan
+Warning--to sort, need author or key in InfineonTechnologies2017
+Warning--empty edition in boardMan
+Warning--empty address in boardMan
+Warning--empty edition in Instruments2014
+Warning--empty address in Instruments2014
+(There were 8 warnings)

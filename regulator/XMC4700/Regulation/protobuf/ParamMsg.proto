@@ -1,7 +1,7 @@
 //Message description sensorData
 
 syntax = "proto2";
-package Regulation;
+package Com_Module;
 
 //defining the parameter message
 message RegParams{

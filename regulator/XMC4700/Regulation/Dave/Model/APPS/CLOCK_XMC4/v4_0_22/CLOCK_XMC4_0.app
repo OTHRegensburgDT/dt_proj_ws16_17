@@ -13,51 +13,51 @@
   <virtualSignals name="external_clock_pin_signal" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/__pin_vs_extclkpin" hwSignal="pin" hwResource="//@hwResources.17"/>
   <requiredApps URI="http://resources/4.0.22/app/CLOCK_XMC4/0/appres_cpu" requiredAppName="CPU_CTRL_XMC4" required="false" requiringMode="SHARABLE"/>
   <hwResources name="PLL" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_pll" resourceGroupUri="peripheral/scu/0/clkctrl/0/pll" mResGrpUri="peripheral/scu/0/clkctrl/0/pll">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.2"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.2"/>
   </hwResources>
   <hwResources name="SYSTEM" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_sys" resourceGroupUri="peripheral/scu/0/clkctrl/0/sys" mResGrpUri="peripheral/scu/0/clkctrl/0/sys">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.12"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.12"/>
   </hwResources>
   <hwResources name="CPU" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_cpu" resourceGroupUri="peripheral/scu/0/clkctrl/0/cpu" mResGrpUri="peripheral/scu/0/clkctrl/0/cpu">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.1"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.1"/>
   </hwResources>
   <hwResources name="PERIBRIDGE" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_perbridge" resourceGroupUri="peripheral/scu/0/clkctrl/0/perbridge" mResGrpUri="peripheral/scu/0/clkctrl/0/perbridge">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.13"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.13"/>
   </hwResources>
   <hwResources name="EBU" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_ebu" resourceGroupUri="peripheral/scu/0/clkctrl/0/ebu" mResGrpUri="peripheral/scu/0/clkctrl/0/ebu">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.5"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.5"/>
   </hwResources>
   <hwResources name="CCU" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_ccu" resourceGroupUri="peripheral/scu/0/clkctrl/0/ccu" mResGrpUri="peripheral/scu/0/clkctrl/0/ccu">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.14"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.14"/>
   </hwResources>
   <hwResources name="WDT" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_wdt" resourceGroupUri="peripheral/scu/0/clkctrl/0/wdt" mResGrpUri="peripheral/scu/0/clkctrl/0/wdt">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.10"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.10"/>
   </hwResources>
   <hwResources name="USB" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_usb" resourceGroupUri="peripheral/scu/0/clkctrl/0/usb" mResGrpUri="peripheral/scu/0/clkctrl/0/usb">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.11"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.11"/>
   </hwResources>
   <hwResources name="SDMMC" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_mmc" resourceGroupUri="peripheral/scu/0/clkctrl/0/sdmmc" mResGrpUri="peripheral/scu/0/clkctrl/0/sdmmc">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.9"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.9"/>
   </hwResources>
   <hwResources name="EXTCLK" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_extclk" resourceGroupUri="" required="false" mResGrpUri="peripheral/scu/0/clkctrl/0/extclk"/>
   <hwResources name="HIBERNATE" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_hibernate" resourceGroupUri="peripheral/scu/0/pwrctrl/0/hibernate" mResGrpUri="peripheral/scu/0/pwrctrl/0/hibernate">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.0"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.0"/>
   </hwResources>
   <hwResources name="RTC" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_rtcclksel" resourceGroupUri="peripheral/scu/0/rtcclksel" mResGrpUri="peripheral/scu/0/rtcclksel">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.4"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.4"/>
   </hwResources>
   <hwResources name="External Clock Output Pin" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_extclkpin" resourceGroupUri="" required="false" mResGrpUri="port/p/*/pad/*"/>
   <hwResources name="SYSTEM" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_sysoscwd_trap" resourceGroupUri="peripheral/scu/0/trap/0/sysoscwd" mResGrpUri="peripheral/scu/0/trap/0/sysoscwd">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.6"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.6"/>
   </hwResources>
   <hwResources name="SYSTEM" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_sysvcolock_trap" resourceGroupUri="peripheral/scu/0/trap/0/sysvcolock" mResGrpUri="peripheral/scu/0/trap/0/sysvcolock">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.3"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.3"/>
   </hwResources>
   <hwResources name="SYSTEM" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_usbvcolock_trap" resourceGroupUri="peripheral/scu/0/trap/0/usbvcolock" mResGrpUri="peripheral/scu/0/trap/0/usbvcolock">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.8"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.8"/>
   </hwResources>
   <hwResources name="SYSTEM" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/hwres_ulpwdg_trap" resourceGroupUri="peripheral/scu/0/trap/0/ulpwdg" mResGrpUri="peripheral/scu/0/trap/0/ulpwdg">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#//@provided.7"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/SCU/SCU_0.dd#/1/@provided.7"/>
   </hwResources>
   <hwResources name="external_clock_pin" URI="http://resources/4.0.22/app/CLOCK_XMC4/0/__pin_hwres_extclkpin" resourceGroupUri="" required="false" mResGrpUri="devicepackage/0/*"/>
   <connections URI="http://resources/4.0.22/app/CLOCK_XMC4/0/http://resources/4.0.22/app/CLOCK_XMC4/0/vs_extclk/http://resources/4.0.22/app/CLOCK_XMC4/0/vs_extclkpin" systemDefined="true" sourceSignal="clk_external_output" targetSignal="external_clock_pin" srcVirtualSignal="//@virtualSignals.2" targetVirtualSignal="//@virtualSignals.3"/>

@@ -208,7 +208,7 @@
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="event_fifo_transmit"/>
       <properties key="uri" value="http://resources/4.1.8/app/UART/0/vs_uart_fifo_tx_int"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="130" y="70"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="130" y="70"/>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="event_fifo_std_receive"/>
@@ -289,7 +289,7 @@
     </children>
     <children>
       <properties key="uri" value="http://resources/4.1.8/app/UART/0/vs_uart_fifo_tx_int"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="115" height="20" x="30" y="65" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="event_fifo_transmit"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="115" height="20" x="30" y="65" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="event_fifo_transmit"/>
     </children>
     <children active="true">
       <properties key="SignalName" value="event_fifo_std_receive"/>

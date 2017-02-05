@@ -10,15 +10,15 @@
 
 
 
-const pb_field_t Regulation_DataEntry_fields[3] = {
-    PB_FIELD(  1, UINT32  , REQUIRED, STATIC  , FIRST, Regulation_DataEntry, SensorId, SensorId, 0),
-    PB_FIELD(  2, DOUBLE  , REQUIRED, STATIC  , OTHER, Regulation_DataEntry, Data, SensorId, 0),
+const pb_field_t Com_Module_DataEntry_fields[3] = {
+    PB_FIELD(  1, UINT32  , REQUIRED, STATIC  , FIRST, Com_Module_DataEntry, SensorId, SensorId, 0),
+    PB_FIELD(  2, DOUBLE  , REQUIRED, STATIC  , OTHER, Com_Module_DataEntry, Data, SensorId, 0),
     PB_LAST_FIELD
 };
 
-const pb_field_t Regulation_SensorMsg_fields[3] = {
-    PB_FIELD(  1, UINT64  , REQUIRED, STATIC  , FIRST, Regulation_SensorMsg, SequenceNr, SequenceNr, 0),
-    PB_FIELD(  2, MESSAGE , REPEATED, CALLBACK, OTHER, Regulation_SensorMsg, DataTable, SequenceNr, &Regulation_DataEntry_fields),
+const pb_field_t Com_Module_SensorMsg_fields[3] = {
+    PB_FIELD(  1, UINT64  , REQUIRED, STATIC  , FIRST, Com_Module_SensorMsg, SequenceNr, SequenceNr, 0),
+    PB_FIELD(  2, MESSAGE , REPEATED, CALLBACK, OTHER, Com_Module_SensorMsg, DataTable, SequenceNr, &Com_Module_DataEntry_fields),
     PB_LAST_FIELD
 };
 
@@ -32,7 +32,7 @@ const pb_field_t Regulation_SensorMsg_fields[3] = {
  * numbers or field sizes that are larger than what can fit in 8 or 16 bit
  * field descriptors.
  */
-PB_STATIC_ASSERT((pb_membersize(Regulation_SensorMsg, DataTable) < 65536), YOU_MUST_DEFINE_PB_FIELD_32BIT_FOR_MESSAGES_Regulation_DataEntry_Regulation_SensorMsg)
+PB_STATIC_ASSERT((pb_membersize(Com_Module_SensorMsg, DataTable) < 65536), YOU_MUST_DEFINE_PB_FIELD_32BIT_FOR_MESSAGES_Com_Module_DataEntry_Com_Module_SensorMsg)
 #endif
 
 #if !defined(PB_FIELD_16BIT) && !defined(PB_FIELD_32BIT)
@@ -43,7 +43,7 @@ PB_STATIC_ASSERT((pb_membersize(Regulation_SensorMsg, DataTable) < 65536), YOU_M
  * numbers or field sizes that are larger than what can fit in the default
  * 8 bit descriptors.
  */
-PB_STATIC_ASSERT((pb_membersize(Regulation_SensorMsg, DataTable) < 256), YOU_MUST_DEFINE_PB_FIELD_16BIT_FOR_MESSAGES_Regulation_DataEntry_Regulation_SensorMsg)
+PB_STATIC_ASSERT((pb_membersize(Com_Module_SensorMsg, DataTable) < 256), YOU_MUST_DEFINE_PB_FIELD_16BIT_FOR_MESSAGES_Com_Module_DataEntry_Com_Module_SensorMsg)
 #endif
 
 

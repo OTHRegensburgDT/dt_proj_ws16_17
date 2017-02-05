@@ -12,10 +12,10 @@
 #include "protobuf/SensorMsg.pb.h"
 #include "SensorIDs.h"
 
-#define PROTO_SENSORDATA Regulation_SensorMsg
-#define PROTO_SENSORDATA_FIELDS Regulation_SensorMsg_fields
-#define PROTO_DATAENTRY Regulation_DataEntry
-#define PROTO_DATAENTRY_FIELDS Regulation_DataEntry_fields
+#define PROTO_SENSORDATA Com_Module_SensorMsg
+#define PROTO_SENSORDATA_FIELDS Com_Module_SensorMsg_fields
+#define PROTO_DATAENTRY Com_Module_DataEntry
+#define PROTO_DATAENTRY_FIELDS Com_Module_DataEntry_fields
 
 /*----------- local functions -----------*/
 
@@ -28,7 +28,7 @@ bool encodeData_cb(pb_ostream_t *stream, const pb_field_t *field, void * const *
 	int i;
 	bool retval = true;
 	Sensordata* data = (Sensordata*)*arg;
-	Regulation_DataEntry entries[SENSORDATA_COUNT];
+	Com_Module_DataEntry entries[SENSORDATA_COUNT];
 
 	/*velocity*/
 	entries[0].SensorId = VELOCITYID;
@@ -60,7 +60,7 @@ bool decodeData_cb(pb_istream_t *stream, const pb_field_t *field, void **arg)
 
 	bool retval = false;
 	Sensordata** data = (Sensordata**)arg;
-	Regulation_DataEntry entry = {};
+	Com_Module_DataEntry entry = {};
 
 	retval = pb_decode(stream, PROTO_DATAENTRY_FIELDS, &entry);
 

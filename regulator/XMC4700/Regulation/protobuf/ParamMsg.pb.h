@@ -15,33 +15,33 @@ extern "C" {
 #endif
 
 /* Struct definitions */
-typedef struct _Regulation_RegParams {
+typedef struct _Com_Module_RegParams {
     uint32_t target;
     float paraP;
     float paraI;
     float paraD;
     float tgtVal;
-/* @@protoc_insertion_point(struct:Regulation_RegParams) */
-} Regulation_RegParams;
+/* @@protoc_insertion_point(struct:Com_Module_RegParams) */
+} Com_Module_RegParams;
 
 /* Default values for struct fields */
 
 /* Initializer values for message structs */
-#define Regulation_RegParams_init_default        {0, 0, 0, 0, 0}
-#define Regulation_RegParams_init_zero           {0, 0, 0, 0, 0}
+#define Com_Module_RegParams_init_default        {0, 0, 0, 0, 0}
+#define Com_Module_RegParams_init_zero           {0, 0, 0, 0, 0}
 
 /* Field tags (for use in manual encoding/decoding) */
-#define Regulation_RegParams_target_tag          1
-#define Regulation_RegParams_paraP_tag           2
-#define Regulation_RegParams_paraI_tag           3
-#define Regulation_RegParams_paraD_tag           4
-#define Regulation_RegParams_tgtVal_tag          5
+#define Com_Module_RegParams_target_tag          1
+#define Com_Module_RegParams_paraP_tag           2
+#define Com_Module_RegParams_paraI_tag           3
+#define Com_Module_RegParams_paraD_tag           4
+#define Com_Module_RegParams_tgtVal_tag          5
 
 /* Struct field encoding specification for nanopb */
-extern const pb_field_t Regulation_RegParams_fields[6];
+extern const pb_field_t Com_Module_RegParams_fields[6];
 
 /* Maximum encoded size of messages (where known) */
-#define Regulation_RegParams_size                26
+#define Com_Module_RegParams_size                26
 
 /* Message IDs (where set with "msgid" option) */
 #ifdef PB_MSGID
