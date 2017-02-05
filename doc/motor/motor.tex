@@ -33,7 +33,7 @@ Durch den deutlich höheren Preis sollten diese bürstenlosen DC Motoren nur in 
 Die Auswahlkriterien für die bürstenlosen Gleichstromservomotoren sind meist "extrem präzise stufenlose Geschwindigkeit" bei sich stetig ändernder Last im geschlossenen Regelkreis mit Prozessorsteuerung.
 
 \subsection{TI InstaSPIN}
-Die von Texas Instruments gelieferte H-Brücke bietet zusätzlich zum manuellen Ansteuern eines Motors noch die Möglichkeit, diesen über das Programm InstaSPIN anzusteuern. Hierfür ist eine lizensierte Steuerkarte enthalten, die mit einer Testlizenz von 30 Tagen geliefert wurde. Eine Ansteuerung über eine virtualisiertes Windows-Betriebssystem war nicht möglich, da Linux als Betriebssystem nicht unterstützt wird. Dieses Programm führt eine Ansteuerung des Motors ohne Hall-Sensoren durch. Hierbei wird lediglich der Spannungsabfall am Stromausgang durch einen ADC-Converter gemessen und den Messwerten entsprechend kommutiert. Über den Drehregler in Abbildung \ref{fig:InstaSPIN} lässt sich die Drehzahl des Motors beeinflussen.
+Die von Texas Instruments gelieferte H-Brücke bietet zusätzlich zum manuellen Ansteuern eines Motors noch die Möglichkeit, diesen über das Programm InstaSPIN anzusteuern. Hierfür ist eine lizensierte Steuerkarte enthalten, die mit einer Testlizenz von 30 Tagen geliefert wurde. Eine Ansteuerung über ein virtualisiertes Windows-Betriebssystem war nicht möglich, da Linux als Betriebssystem nicht unterstützt wird. Dieses Programm führt eine Ansteuerung des Motors ohne Hall-Sensoren durch. Hierbei wird lediglich der Spannungsabfall am Stromausgang durch einen ADC-Converter gemessen und den Messwerten entsprechend kommutiert. Über den Drehregler in Abbildung \ref{fig:InstaSPIN} lässt sich die Drehzahl des Motors beeinflussen.
 \begin{figure}
     \includegraphics[width=\textwidth]{motor/InstaSPIN}
     \caption{Texas Instruments InstaSPIN}
@@ -58,5 +58,5 @@ In Abbildung \ref{fig:interconnects} wird die interne Verschaltung des POSIF-Int
 Der Code zur Steuerung und Regelung des Motors befindet sich momentan noch in den Anfängen. Bei der aktuellen Bearbeitungslage ist eine vollständige Fertigstellung nicht absehbar. \\
 Basierend auf der Ideensammlung aus der Analysephase wäre eine mögliche Erweiterung dieses Arbeitspaketes die Portierung des Codes auf eine andere Hardwareplattform ohne POSIF-Interface. Das hätte eine Neuimplementierung der Steuerung zur Folge. \\
 Der Beispielcode des POSIF-Interfaces, welches alle Features des POSIF-Interfaces nutzt wäre ein sinnvoller Ansatz, um eine Portierung vom XMC44xx-Chip zum XMC4800 vorzunehmen. Somit können alle Vorteile des POSIF-Interfaces ausgenutzt werden. \\
-Die Verkabelung muss noch gesichert werden. Die H-Brücke soll außerdem während des Betriebs durch eingriffe in die Elektronik geschützt werden, da an den auf der H-Brücke verbauten Kondensatoren sehr hohe Ströme auftreten können. 
+Die Verkabelung muss noch gesichert werden. Die H-Brücke soll außerdem während des Betriebs durch Eingriffe in die Elektronik geschützt werden, da an den auf der H-Brücke verbauten Kondensatoren sehr hohe Ströme auftreten können. 
 
