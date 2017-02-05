@@ -1,0 +1,119 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "main.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.main,"ax",%progbits
+  20              	 .align 2
+  21              	 .global main
+  22              	 .thumb
+  23              	 .thumb_func
+  25              	main:
+  26              	.LFB138:
+  27              	 .file 1 "../main.c"
+   1:../main.c     **** /*
+   2:../main.c     ****  * main.c
+   3:../main.c     ****  *
+   4:../main.c     ****  *  Created on: 2016 Dec 20 09:50:50
+   5:../main.c     ****  *  Author: MotorXP
+   6:../main.c     ****  */
+   7:../main.c     **** /**
+   8:../main.c     **** 
+   9:../main.c     ****  * @brief main() - Application entry point
+  10:../main.c     ****  *
+  11:../main.c     ****  * <b>Details of function</b><br>
+  12:../main.c     ****  * This routine is the application entry point. It is invoked by the device startup code. 
+  13:../main.c     ****  */
+  14:../main.c     **** #include "Std_Types.h"
+  15:../main.c     **** #include "Motor.h"
+  16:../main.c     **** #include "Sensor.h"
+  17:../main.c     **** 
+  18:../main.c     **** 
+  19:../main.c     **** int main(void)
+  20:../main.c     **** {
+  28              	 .loc 1 20 0
+  29              	 .cfi_startproc
+  30              	 
+  31              	 
+  32 0000 80B5     	 push {r7,lr}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 8
+  35              	 .cfi_offset 7,-8
+  36              	 .cfi_offset 14,-4
+  37 0002 82B0     	 sub sp,sp,#8
+  38              	.LCFI1:
+  39              	 .cfi_def_cfa_offset 16
+  40 0004 00AF     	 add r7,sp,#0
+  41              	.LCFI2:
+  42              	 .cfi_def_cfa_register 7
+  21:../main.c     ****   MotorDirection_t direction = ClockWise;
+  43              	 .loc 1 21 0
+  44 0006 0023     	 movs r3,#0
+  45 0008 FB71     	 strb r3,[r7,#7]
+  22:../main.c     ****   Sensor_SetDirection(direction);
+  46              	 .loc 1 22 0
+  47 000a FB79     	 ldrb r3,[r7,#7]
+  48 000c 1846     	 mov r0,r3
+  49 000e FFF7FEFF 	 bl Sensor_SetDirection
+  23:../main.c     ****   int temp;
+  24:../main.c     **** 
+  25:../main.c     ****   Sensor_Init();
+  50              	 .loc 1 25 0
+  51 0012 FFF7FEFF 	 bl Sensor_Init
+  26:../main.c     ****   Motor_Init();
+  52              	 .loc 1 26 0
+  53 0016 FFF7FEFF 	 bl Motor_Init
+  27:../main.c     **** 
+  28:../main.c     ****   Sensor_StartAll();
+  54              	 .loc 1 28 0
+  55 001a FFF7FEFF 	 bl Sensor_StartAll
+  29:../main.c     ****   /* Start the motor */
+  30:../main.c     ****   Motor_Main();
+  56              	 .loc 1 30 0
+  57 001e FFF7FEFF 	 bl Motor_Main
+  58              	.L2:
+  31:../main.c     **** 
+  32:../main.c     ****   while(1U)
+  33:../main.c     ****   {
+  34:../main.c     **** 	  Sensor_GetTemperature(&temp);
+  59              	 .loc 1 34 0 discriminator 1
+  60 0022 3B46     	 mov r3,r7
+  61 0024 1846     	 mov r0,r3
+  62 0026 FFF7FEFF 	 bl Sensor_GetTemperature
+  35:../main.c     ****   }
+  63              	 .loc 1 35 0 discriminator 1
+  64 002a FAE7     	 b .L2
+  65              	 .cfi_endproc
+  66              	.LFE138:
+  68              	 .text
+  69              	.Letext0:
+  70              	 .file 2 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+  71              	 .file 3 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+  72              	 .file 4 "E:/DT/workspace/MotorXP/common/Std_Types.h"
+  73              	 .file 5 "E:/DT/workspace/MotorXP/Libraries/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+    {standard input}:20     .text.main:00000000 $t
+    {standard input}:25     .text.main:00000000 main
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+Sensor_SetDirection
+Sensor_Init
+Motor_Init
+Sensor_StartAll
+Motor_Main
+Sensor_GetTemperature

@@ -1,0 +1,473 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "Sensor.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .comm SensorHallCallback,4,4
+  20              	 .comm ActiveHallPattern,3,4
+  21              	 .section .text.Sensor_Init,"ax",%progbits
+  22              	 .align 2
+  23              	 .global Sensor_Init
+  24              	 .thumb
+  25              	 .thumb_func
+  27              	Sensor_Init:
+  28              	.LFB0:
+  29              	 .file 1 "../sensor/Sensor.c"
+   1:../sensor/Sensor.c **** /*
+   2:../sensor/Sensor.c ****  * Sensor.c
+   3:../sensor/Sensor.c ****  *
+   4:../sensor/Sensor.c ****  *  Created on: Nov 8, 2016
+   5:../sensor/Sensor.c ****  *      Author: Andreas Lackner
+   6:../sensor/Sensor.c ****  */
+   7:../sensor/Sensor.c **** 
+   8:../sensor/Sensor.c **** /*********************************************************************************
+   9:../sensor/Sensor.c ****  * Includes
+  10:../sensor/Sensor.c ****  *********************************************************************************/
+  11:../sensor/Sensor.c **** 
+  12:../sensor/Sensor.c **** #include "Sensor.h"
+  13:../sensor/Sensor.c **** #include "Sensor_Hall.h"
+  14:../sensor/Sensor.c **** #include "Sensor_QuadratureDecoder.h"
+  15:../sensor/Sensor.c **** #include "Sensor_Temperature.h"
+  16:../sensor/Sensor.c **** 
+  17:../sensor/Sensor.c **** /*********************************************************************************
+  18:../sensor/Sensor.c ****  * Global function definitions
+  19:../sensor/Sensor.c ****  *********************************************************************************/
+  20:../sensor/Sensor.c **** 
+  21:../sensor/Sensor.c **** void Sensor_Init()
+  22:../sensor/Sensor.c **** {
+  30              	 .loc 1 22 0
+  31              	 .cfi_startproc
+  32              	 
+  33              	 
+  34 0000 80B5     	 push {r7,lr}
+  35              	.LCFI0:
+  36              	 .cfi_def_cfa_offset 8
+  37              	 .cfi_offset 7,-8
+  38              	 .cfi_offset 14,-4
+  39 0002 00AF     	 add r7,sp,#0
+  40              	.LCFI1:
+  41              	 .cfi_def_cfa_register 7
+  23:../sensor/Sensor.c **** 	Sensor_Hall_Init();
+  42              	 .loc 1 23 0
+  43 0004 FFF7FEFF 	 bl Sensor_Hall_Init
+  24:../sensor/Sensor.c **** 	//Sensor_QD_Init();
+  25:../sensor/Sensor.c **** 	Sensor_Temperature_Init();
+  44              	 .loc 1 25 0
+  45 0008 FFF7FEFF 	 bl Sensor_Temperature_Init
+  26:../sensor/Sensor.c **** }
+  46              	 .loc 1 26 0
+  47 000c 80BD     	 pop {r7,pc}
+  48              	 .cfi_endproc
+  49              	.LFE0:
+  51 000e 00BF     	 .section .text.Sensor_StartAll,"ax",%progbits
+  52              	 .align 2
+  53              	 .global Sensor_StartAll
+  54              	 .thumb
+  55              	 .thumb_func
+  57              	Sensor_StartAll:
+  58              	.LFB1:
+  27:../sensor/Sensor.c **** 
+  28:../sensor/Sensor.c **** void Sensor_StartAll()
+  29:../sensor/Sensor.c **** {
+  59              	 .loc 1 29 0
+  60              	 .cfi_startproc
+  61              	 
+  62              	 
+  63 0000 80B5     	 push {r7,lr}
+  64              	.LCFI2:
+  65              	 .cfi_def_cfa_offset 8
+  66              	 .cfi_offset 7,-8
+  67              	 .cfi_offset 14,-4
+  68 0002 00AF     	 add r7,sp,#0
+  69              	.LCFI3:
+  70              	 .cfi_def_cfa_register 7
+  30:../sensor/Sensor.c **** 	Sensor_Hall_Start();
+  71              	 .loc 1 30 0
+  72 0004 FFF7FEFF 	 bl Sensor_Hall_Start
+  31:../sensor/Sensor.c **** 	//Sensor_QD_Start();
+  32:../sensor/Sensor.c **** }
+  73              	 .loc 1 32 0
+  74 0008 80BD     	 pop {r7,pc}
+  75              	 .cfi_endproc
+  76              	.LFE1:
+  78 000a 00BF     	 .section .text.Sensor_StopAll,"ax",%progbits
+  79              	 .align 2
+  80              	 .global Sensor_StopAll
+  81              	 .thumb
+  82              	 .thumb_func
+  84              	Sensor_StopAll:
+  85              	.LFB2:
+  33:../sensor/Sensor.c **** 
+  34:../sensor/Sensor.c **** void Sensor_StopAll()
+  35:../sensor/Sensor.c **** {
+  86              	 .loc 1 35 0
+  87              	 .cfi_startproc
+  88              	 
+  89              	 
+  90 0000 80B5     	 push {r7,lr}
+  91              	.LCFI4:
+  92              	 .cfi_def_cfa_offset 8
+  93              	 .cfi_offset 7,-8
+  94              	 .cfi_offset 14,-4
+  95 0002 00AF     	 add r7,sp,#0
+  96              	.LCFI5:
+  97              	 .cfi_def_cfa_register 7
+  36:../sensor/Sensor.c **** 	Sensor_Hall_Stop();
+  98              	 .loc 1 36 0
+  99 0004 FFF7FEFF 	 bl Sensor_Hall_Stop
+  37:../sensor/Sensor.c **** }
+ 100              	 .loc 1 37 0
+ 101 0008 80BD     	 pop {r7,pc}
+ 102              	 .cfi_endproc
+ 103              	.LFE2:
+ 105 000a 00BF     	 .section .text.Sensor_SetDirection,"ax",%progbits
+ 106              	 .align 2
+ 107              	 .global Sensor_SetDirection
+ 108              	 .thumb
+ 109              	 .thumb_func
+ 111              	Sensor_SetDirection:
+ 112              	.LFB3:
+  38:../sensor/Sensor.c **** 
+  39:../sensor/Sensor.c **** void Sensor_SetDirection(MotorDirection_t direction)
+  40:../sensor/Sensor.c **** {
+ 113              	 .loc 1 40 0
+ 114              	 .cfi_startproc
+ 115              	 
+ 116              	 
+ 117 0000 80B5     	 push {r7,lr}
+ 118              	.LCFI6:
+ 119              	 .cfi_def_cfa_offset 8
+ 120              	 .cfi_offset 7,-8
+ 121              	 .cfi_offset 14,-4
+ 122 0002 82B0     	 sub sp,sp,#8
+ 123              	.LCFI7:
+ 124              	 .cfi_def_cfa_offset 16
+ 125 0004 00AF     	 add r7,sp,#0
+ 126              	.LCFI8:
+ 127              	 .cfi_def_cfa_register 7
+ 128 0006 0346     	 mov r3,r0
+ 129 0008 FB71     	 strb r3,[r7,#7]
+  41:../sensor/Sensor.c **** 	Sensor_Hall_SetDirection(direction);
+ 130              	 .loc 1 41 0
+ 131 000a FB79     	 ldrb r3,[r7,#7]
+ 132 000c 1846     	 mov r0,r3
+ 133 000e FFF7FEFF 	 bl Sensor_Hall_SetDirection
+  42:../sensor/Sensor.c **** }
+ 134              	 .loc 1 42 0
+ 135 0012 0837     	 adds r7,r7,#8
+ 136              	.LCFI9:
+ 137              	 .cfi_def_cfa_offset 8
+ 138 0014 BD46     	 mov sp,r7
+ 139              	.LCFI10:
+ 140              	 .cfi_def_cfa_register 13
+ 141              	 
+ 142 0016 80BD     	 pop {r7,pc}
+ 143              	 .cfi_endproc
+ 144              	.LFE3:
+ 146              	 .section .text.Sensor_RegisterHallCallback,"ax",%progbits
+ 147              	 .align 2
+ 148              	 .global Sensor_RegisterHallCallback
+ 149              	 .thumb
+ 150              	 .thumb_func
+ 152              	Sensor_RegisterHallCallback:
+ 153              	.LFB4:
+  43:../sensor/Sensor.c **** 
+  44:../sensor/Sensor.c **** Std_ReturnType Sensor_RegisterHallCallback(Sensor_HallCallbackType callback)
+  45:../sensor/Sensor.c **** {
+ 154              	 .loc 1 45 0
+ 155              	 .cfi_startproc
+ 156              	 
+ 157              	 
+ 158              	 
+ 159 0000 80B4     	 push {r7}
+ 160              	.LCFI11:
+ 161              	 .cfi_def_cfa_offset 4
+ 162              	 .cfi_offset 7,-4
+ 163 0002 83B0     	 sub sp,sp,#12
+ 164              	.LCFI12:
+ 165              	 .cfi_def_cfa_offset 16
+ 166 0004 00AF     	 add r7,sp,#0
+ 167              	.LCFI13:
+ 168              	 .cfi_def_cfa_register 7
+ 169 0006 7860     	 str r0,[r7,#4]
+  46:../sensor/Sensor.c **** 	SensorHallCallback = callback;
+ 170              	 .loc 1 46 0
+ 171 0008 044A     	 ldr r2,.L7
+ 172 000a 7B68     	 ldr r3,[r7,#4]
+ 173 000c 1360     	 str r3,[r2]
+  47:../sensor/Sensor.c **** 	return E_OK;
+ 174              	 .loc 1 47 0
+ 175 000e 0123     	 movs r3,#1
+  48:../sensor/Sensor.c **** }
+ 176              	 .loc 1 48 0
+ 177 0010 1846     	 mov r0,r3
+ 178 0012 0C37     	 adds r7,r7,#12
+ 179              	.LCFI14:
+ 180              	 .cfi_def_cfa_offset 4
+ 181 0014 BD46     	 mov sp,r7
+ 182              	.LCFI15:
+ 183              	 .cfi_def_cfa_register 13
+ 184              	 
+ 185 0016 5DF8047B 	 ldr r7,[sp],#4
+ 186              	.LCFI16:
+ 187              	 .cfi_restore 7
+ 188              	 .cfi_def_cfa_offset 0
+ 189 001a 7047     	 bx lr
+ 190              	.L8:
+ 191              	 .align 2
+ 192              	.L7:
+ 193 001c 00000000 	 .word SensorHallCallback
+ 194              	 .cfi_endproc
+ 195              	.LFE4:
+ 197              	 .section .text.Sensor_GetCurrentHallPattern,"ax",%progbits
+ 198              	 .align 2
+ 199              	 .global Sensor_GetCurrentHallPattern
+ 200              	 .thumb
+ 201              	 .thumb_func
+ 203              	Sensor_GetCurrentHallPattern:
+ 204              	.LFB5:
+  49:../sensor/Sensor.c **** 
+  50:../sensor/Sensor.c **** Std_ReturnType Sensor_GetCurrentHallPattern(Sensor_HallPattern_t* pattern)
+  51:../sensor/Sensor.c **** {
+ 205              	 .loc 1 51 0
+ 206              	 .cfi_startproc
+ 207              	 
+ 208              	 
+ 209              	 
+ 210 0000 80B4     	 push {r7}
+ 211              	.LCFI17:
+ 212              	 .cfi_def_cfa_offset 4
+ 213              	 .cfi_offset 7,-4
+ 214 0002 83B0     	 sub sp,sp,#12
+ 215              	.LCFI18:
+ 216              	 .cfi_def_cfa_offset 16
+ 217 0004 00AF     	 add r7,sp,#0
+ 218              	.LCFI19:
+ 219              	 .cfi_def_cfa_register 7
+ 220 0006 7860     	 str r0,[r7,#4]
+  52:../sensor/Sensor.c **** 	*pattern = ActiveHallPattern;
+ 221              	 .loc 1 52 0
+ 222 0008 7B68     	 ldr r3,[r7,#4]
+ 223 000a 064A     	 ldr r2,.L11
+ 224 000c 1188     	 ldrh r1,[r2]
+ 225 000e 9278     	 ldrb r2,[r2,#2]
+ 226 0010 1980     	 strh r1,[r3]
+ 227 0012 9A70     	 strb r2,[r3,#2]
+  53:../sensor/Sensor.c **** 	return E_OK;
+ 228              	 .loc 1 53 0
+ 229 0014 0123     	 movs r3,#1
+  54:../sensor/Sensor.c **** }
+ 230              	 .loc 1 54 0
+ 231 0016 1846     	 mov r0,r3
+ 232 0018 0C37     	 adds r7,r7,#12
+ 233              	.LCFI20:
+ 234              	 .cfi_def_cfa_offset 4
+ 235 001a BD46     	 mov sp,r7
+ 236              	.LCFI21:
+ 237              	 .cfi_def_cfa_register 13
+ 238              	 
+ 239 001c 5DF8047B 	 ldr r7,[sp],#4
+ 240              	.LCFI22:
+ 241              	 .cfi_restore 7
+ 242              	 .cfi_def_cfa_offset 0
+ 243 0020 7047     	 bx lr
+ 244              	.L12:
+ 245 0022 00BF     	 .align 2
+ 246              	.L11:
+ 247 0024 00000000 	 .word ActiveHallPattern
+ 248              	 .cfi_endproc
+ 249              	.LFE5:
+ 251              	 .section .text.Sensor_GetVelocity,"ax",%progbits
+ 252              	 .align 2
+ 253              	 .global Sensor_GetVelocity
+ 254              	 .thumb
+ 255              	 .thumb_func
+ 257              	Sensor_GetVelocity:
+ 258              	.LFB6:
+  55:../sensor/Sensor.c **** 
+  56:../sensor/Sensor.c **** Std_ReturnType Sensor_GetVelocity(double* velocity)
+  57:../sensor/Sensor.c **** {
+ 259              	 .loc 1 57 0
+ 260              	 .cfi_startproc
+ 261              	 
+ 262              	 
+ 263              	 
+ 264 0000 80B4     	 push {r7}
+ 265              	.LCFI23:
+ 266              	 .cfi_def_cfa_offset 4
+ 267              	 .cfi_offset 7,-4
+ 268 0002 83B0     	 sub sp,sp,#12
+ 269              	.LCFI24:
+ 270              	 .cfi_def_cfa_offset 16
+ 271 0004 00AF     	 add r7,sp,#0
+ 272              	.LCFI25:
+ 273              	 .cfi_def_cfa_register 7
+ 274 0006 7860     	 str r0,[r7,#4]
+  58:../sensor/Sensor.c **** 	return E_OK;
+ 275              	 .loc 1 58 0
+ 276 0008 0123     	 movs r3,#1
+  59:../sensor/Sensor.c **** }
+ 277              	 .loc 1 59 0
+ 278 000a 1846     	 mov r0,r3
+ 279 000c 0C37     	 adds r7,r7,#12
+ 280              	.LCFI26:
+ 281              	 .cfi_def_cfa_offset 4
+ 282 000e BD46     	 mov sp,r7
+ 283              	.LCFI27:
+ 284              	 .cfi_def_cfa_register 13
+ 285              	 
+ 286 0010 5DF8047B 	 ldr r7,[sp],#4
+ 287              	.LCFI28:
+ 288              	 .cfi_restore 7
+ 289              	 .cfi_def_cfa_offset 0
+ 290 0014 7047     	 bx lr
+ 291              	 .cfi_endproc
+ 292              	.LFE6:
+ 294 0016 00BF     	 .section .text.Sensor_GetAngle,"ax",%progbits
+ 295              	 .align 2
+ 296              	 .global Sensor_GetAngle
+ 297              	 .thumb
+ 298              	 .thumb_func
+ 300              	Sensor_GetAngle:
+ 301              	.LFB7:
+  60:../sensor/Sensor.c **** 
+  61:../sensor/Sensor.c **** Std_ReturnType Sensor_GetAngle(double* angle)
+  62:../sensor/Sensor.c **** {
+ 302              	 .loc 1 62 0
+ 303              	 .cfi_startproc
+ 304              	 
+ 305              	 
+ 306              	 
+ 307 0000 80B4     	 push {r7}
+ 308              	.LCFI29:
+ 309              	 .cfi_def_cfa_offset 4
+ 310              	 .cfi_offset 7,-4
+ 311 0002 83B0     	 sub sp,sp,#12
+ 312              	.LCFI30:
+ 313              	 .cfi_def_cfa_offset 16
+ 314 0004 00AF     	 add r7,sp,#0
+ 315              	.LCFI31:
+ 316              	 .cfi_def_cfa_register 7
+ 317 0006 7860     	 str r0,[r7,#4]
+  63:../sensor/Sensor.c **** 	return E_OK;
+ 318              	 .loc 1 63 0
+ 319 0008 0123     	 movs r3,#1
+  64:../sensor/Sensor.c **** }
+ 320              	 .loc 1 64 0
+ 321 000a 1846     	 mov r0,r3
+ 322 000c 0C37     	 adds r7,r7,#12
+ 323              	.LCFI32:
+ 324              	 .cfi_def_cfa_offset 4
+ 325 000e BD46     	 mov sp,r7
+ 326              	.LCFI33:
+ 327              	 .cfi_def_cfa_register 13
+ 328              	 
+ 329 0010 5DF8047B 	 ldr r7,[sp],#4
+ 330              	.LCFI34:
+ 331              	 .cfi_restore 7
+ 332              	 .cfi_def_cfa_offset 0
+ 333 0014 7047     	 bx lr
+ 334              	 .cfi_endproc
+ 335              	.LFE7:
+ 337 0016 00BF     	 .section .text.Sensor_GetTemperature,"ax",%progbits
+ 338              	 .align 2
+ 339              	 .global Sensor_GetTemperature
+ 340              	 .thumb
+ 341              	 .thumb_func
+ 343              	Sensor_GetTemperature:
+ 344              	.LFB8:
+  65:../sensor/Sensor.c **** 
+  66:../sensor/Sensor.c **** Std_ReturnType Sensor_GetTemperature(int* temperature)
+  67:../sensor/Sensor.c **** {
+ 345              	 .loc 1 67 0
+ 346              	 .cfi_startproc
+ 347              	 
+ 348              	 
+ 349 0000 80B5     	 push {r7,lr}
+ 350              	.LCFI35:
+ 351              	 .cfi_def_cfa_offset 8
+ 352              	 .cfi_offset 7,-8
+ 353              	 .cfi_offset 14,-4
+ 354 0002 82B0     	 sub sp,sp,#8
+ 355              	.LCFI36:
+ 356              	 .cfi_def_cfa_offset 16
+ 357 0004 00AF     	 add r7,sp,#0
+ 358              	.LCFI37:
+ 359              	 .cfi_def_cfa_register 7
+ 360 0006 7860     	 str r0,[r7,#4]
+  68:../sensor/Sensor.c **** 	*temperature = Sensor_Temperature_Calculate(TEMPERATURE_SENSOR_A);
+ 361              	 .loc 1 68 0
+ 362 0008 0020     	 movs r0,#0
+ 363 000a FFF7FEFF 	 bl Sensor_Temperature_Calculate
+ 364 000e 0246     	 mov r2,r0
+ 365 0010 7B68     	 ldr r3,[r7,#4]
+ 366 0012 1A60     	 str r2,[r3]
+  69:../sensor/Sensor.c **** 	return E_OK;
+ 367              	 .loc 1 69 0
+ 368 0014 0123     	 movs r3,#1
+  70:../sensor/Sensor.c **** }
+ 369              	 .loc 1 70 0
+ 370 0016 1846     	 mov r0,r3
+ 371 0018 0837     	 adds r7,r7,#8
+ 372              	.LCFI38:
+ 373              	 .cfi_def_cfa_offset 8
+ 374 001a BD46     	 mov sp,r7
+ 375              	.LCFI39:
+ 376              	 .cfi_def_cfa_register 13
+ 377              	 
+ 378 001c 80BD     	 pop {r7,pc}
+ 379              	 .cfi_endproc
+ 380              	.LFE8:
+ 382 001e 00BF     	 .text
+ 383              	.Letext0:
+ 384              	 .file 2 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 385              	 .file 3 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 386              	 .file 4 "E:/DT/workspace/MotorXP/common/Std_Types.h"
+ 387              	 .file 5 "../sensor/Sensor_Types.h"
+ 388              	 .file 6 "../sensor/Sensor_Hall.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Sensor.c
+                            *COM*:00000004 SensorHallCallback
+                            *COM*:00000003 ActiveHallPattern
+    {standard input}:22     .text.Sensor_Init:00000000 $t
+    {standard input}:27     .text.Sensor_Init:00000000 Sensor_Init
+    {standard input}:52     .text.Sensor_StartAll:00000000 $t
+    {standard input}:57     .text.Sensor_StartAll:00000000 Sensor_StartAll
+    {standard input}:79     .text.Sensor_StopAll:00000000 $t
+    {standard input}:84     .text.Sensor_StopAll:00000000 Sensor_StopAll
+    {standard input}:106    .text.Sensor_SetDirection:00000000 $t
+    {standard input}:111    .text.Sensor_SetDirection:00000000 Sensor_SetDirection
+    {standard input}:147    .text.Sensor_RegisterHallCallback:00000000 $t
+    {standard input}:152    .text.Sensor_RegisterHallCallback:00000000 Sensor_RegisterHallCallback
+    {standard input}:193    .text.Sensor_RegisterHallCallback:0000001c $d
+    {standard input}:198    .text.Sensor_GetCurrentHallPattern:00000000 $t
+    {standard input}:203    .text.Sensor_GetCurrentHallPattern:00000000 Sensor_GetCurrentHallPattern
+    {standard input}:247    .text.Sensor_GetCurrentHallPattern:00000024 $d
+    {standard input}:252    .text.Sensor_GetVelocity:00000000 $t
+    {standard input}:257    .text.Sensor_GetVelocity:00000000 Sensor_GetVelocity
+    {standard input}:295    .text.Sensor_GetAngle:00000000 $t
+    {standard input}:300    .text.Sensor_GetAngle:00000000 Sensor_GetAngle
+    {standard input}:338    .text.Sensor_GetTemperature:00000000 $t
+    {standard input}:343    .text.Sensor_GetTemperature:00000000 Sensor_GetTemperature
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+Sensor_Hall_Init
+Sensor_Temperature_Init
+Sensor_Hall_Start
+Sensor_Hall_Stop
+Sensor_Hall_SetDirection
+Sensor_Temperature_Calculate

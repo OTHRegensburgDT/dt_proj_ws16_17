@@ -1,0 +1,715 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "Motor.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_GPIO_SetOutputLow,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	XMC_GPIO_SetOutputLow:
+  25              	.LFB131:
+  26              	 .file 1 "E:/DT/workspace/MotorXP/Libraries/XMCLib/inc/xmc_gpio.h"
+   1:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+   2:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @file xmc_gpio.h
+   3:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @date 2015-06-20
+   4:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   5:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @cond
+   6:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   *************************************************************************************************
+   7:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMClib v2.1.8 - XMC Peripheral Driver Library 
+   8:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   9:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  10:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * All rights reserved.                        
+  11:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                             
+  12:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * following conditions are met:   
+  14:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  15:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer.                        
+  17:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  18:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  21:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * products derived from this software without specific prior written permission.                  
+  23:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  24:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  32:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  35:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  36:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Change History
+  37:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * --------------
+  38:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  39:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-02-20:
+  40:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Initial draft<br>
+  41:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Documentation improved <br>
+  42:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *      
+  43:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-06-20:
+  44:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Removed version macros and declaration of GetDriverVersion API
+  45:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  46:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @endcond
+  47:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  48:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  49:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  50:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #ifndef XMC_GPIO_H
+  51:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_H
+  52:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  53:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  54:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * HEADER FILES
+  55:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  56:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  57:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc_common.h"
+  58:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  59:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  60:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup XMClib XMC Peripheral Library
+  61:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @{
+  62:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  63:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  64:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  65:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup GPIO
+  66:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @brief General Purpose Input Output (GPIO) driver for the XMC microcontroller family.
+  67:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  68:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * GPIO driver provide a generic and very flexible software interface for all standard digital I/O 
+  69:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Each port slice has individual interfaces for the operation as General Purpose I/O and it furthe
+  70:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * connectivity to the on-chip periphery and the control for the pad characteristics. 
+  71:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  72:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * The driver is divided into Input and Output mode.
+  73:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  74:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Input mode features:
+  75:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Configuration structure XMC_GPIO_CONFIG_t and initialization function XMC_GPIO_Init()
+  76:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of weak pull-up or pull-down device. Configuration structure XMC_GPIO_MO
+  77:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+  78:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of input hysteresis. XMC_GPIO_SetInputHysteresis()
+  79:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  80:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  81:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  82:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Output mode features:
+  83:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of push pull/open drain and Alternate output. Configuration structure XM
+  84:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+  85:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of pad driver strength. Configuration structure XMC_GPIO_OUTPUT_STRENGTH
+  86:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  87:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  88:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of initial output level. Configuration structure XMC_GPIO_OUTPUT_LEVEL_t
+  89:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  90:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *@{
+  91:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  92:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  
+  93:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  94:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * MACROS
+  95:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  96:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  97:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Pos PORT0_IOCR0_PC0_Pos
+  98:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Msk PORT0_IOCR0_PC0_Msk
+  99:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 100:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Size 				(8U)
+ 101:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 											
+ 102:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 103:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_OUTPUT_LEVEL(level) ((level == XMC_GPIO_OUTPUT_LEVEL_LOW) || \
+ 104:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****                                             (level == XMC_GPIO_OUTPUT_LEVEL_HIGH))
+ 105:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 106:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_HWCTRL(hwctrl) ((hwctrl == XMC_GPIO_HWCTRL_DISABLED) || \
+ 107:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL1) || \
+ 108:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL2))                    
+ 109:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 110:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 111:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * ENUMS
+ 112:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 113:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 114:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 115:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 116:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines output level of a pin. Use type \a XMC_GPIO_OUTPUT_LEVEL_t for this enum.
+ 117:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 118:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_OUTPUT_LEVEL
+ 119:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 120:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_LOW  = 0x10000U, /**<  Reset bit */
+ 121:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_HIGH = 0x1U, 	/**< Set bit  */
+ 122:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_OUTPUT_LEVEL_t;
+ 123:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 124:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 125:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines direct hardware control characteristics of the pin . Use type \a XMC_GPIO_HWCTRL_t for t
+ 126:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 127:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_HWCTRL
+ 128:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 129:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_DISABLED     = 0x0U, /**<  Software control only */
+ 130:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL1  = 0x1U, /**<  HWI0/HWO0 control path can override the software confi
+ 131:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL2  = 0x2U  /**<  HWI1/HWO1 control path can override the software confi
+ 132:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_HWCTRL_t;
+ 133:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 134:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 135:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * DEVICE FAMILY EXTENSIONS
+ 136:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 137:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 138:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  #if UC_FAMILY == XMC1
+ 139:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc1_gpio.h"
+ 140:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #elif UC_FAMILY == XMC4
+ 141:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc4_gpio.h"
+ 142:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #else
+ 143:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #error "xmc_gpio.h: family device not supported"
+ 144:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 145:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 146:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 147:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * API PROTOTYPES
+ 148:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 149:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 150:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #ifdef __cplusplus
+ 151:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** extern "C" {
+ 152:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 153:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 154:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 155:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 156:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	  Constant pointer pointing to GPIO port, to access port registers like Pn_OUT,Pn_O
+ 157:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	  Port pin number.
+ 158:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  config GPIO configuration data structure. Refer data structure @ref XMC_GPIO_CONFIG_t fo
+ 159:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 160:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 161:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 162:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 163:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+ 164:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,hysteresis, push pull
+ 165:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for a selected \a po
+ 166:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \a config provides selected I/O settings. It configures hardware registers Pn_IOCR,Pn_OUT, Pn_OM
+ 167:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 168:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+ 169:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,push pull /open drain
+ 170:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for selected \a port
+ 171:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
+ 172:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 173:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 174:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 175:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 176:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 177:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 178:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * This API is called in definition of DAVE_init by code generation and therefore should not be exp
+ 179:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * for the normal operation. Use other APIs only after DAVE_init is called successfully (returns DA
+ 180:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 181:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 182:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 183:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 184:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 185:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_CONFIG_t *const c
+ 186:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 187:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 188:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 189:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	Constant pointer pointing to GPIO port, to access hardware register Pn_IOCR.
+ 190:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 191:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  mode input / output functionality selection. Refer @ref XMC_GPIO_MODE_t for valid values
+ 192:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 193:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 194:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 195:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 196:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets digital input and output driver functionality and characteristics of a GPIO port pin. It co
+ 197:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * registers Pn_IOCR. \a mode is initially configured during initialization in XMC_GPIO_Init(). Cal
+ 198:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * the port direction functionality as needed later in the program.
+ 199:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 200:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 201:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 202:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 203:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 204:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 205:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_SetMode(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_MODE_t mode);
+ 206:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 207:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 208:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 209:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 210:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	 Constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 211:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	 Port pin number.
+ 212:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  level output level selection. Refer @ref XMC_GPIO_OUTPUT_LEVEL_t for valid values.
+ 213:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 214:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 215:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 216:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 217:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Set port pin output level to high or low.It configures hardware registers Pn_OMR.\a level is ini
+ 218:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * configured during initialization in XMC_GPIO_Init(). Call this API to alter output level as need
+ 219:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 220:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 221:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputHigh(), XMC_GPIO_SetOutputLow().
+ 222:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 223:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 224:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 225:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 226:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 227:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 228:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 229:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLevel(XMC_GPIO_PORT_t *const port, const uint8_t pin, const 
+ 230:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 231:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 232:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid output level", XMC_GPIO_CHECK_OUTPUT_LEVEL(level));
+ 233:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   
+ 234:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)level << pin;
+ 235:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 236:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 237:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 238:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 239:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 240:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 241:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 242:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 243:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 244:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 245:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *  Sets port pin output to high. It configures hardware registers Pn_OMR.
+ 246:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 247:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *  \par<b>Related APIs:</b><BR>
+ 248:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputLow()
+ 249:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 250:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 251:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().\n
+ 252:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 253:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 254:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 255:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 256:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputHigh(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 257:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 258:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputHigh: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 259:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 260:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)0x1U << pin;
+ 261:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 262:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 263:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 264:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 265:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 266:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	port pin number.
+ 267:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 268:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return  None
+ 269:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 270:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Description:</b><br>
+ 271:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets port pin output to low. It configures hardware registers Pn_OMR.\n
+ 272:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 273:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>>
+ 274:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMC_GPIO_SetOutputHigh()
+ 275:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 276:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Note:</b><br>
+ 277:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 278:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 279:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 280:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 281:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 282:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLow(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 283:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** {
+  27              	 .loc 1 283 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32 0000 80B4     	 push {r7}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 4
+  35              	 .cfi_offset 7,-4
+  36 0002 83B0     	 sub sp,sp,#12
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+  43 0008 0B46     	 mov r3,r1
+  44 000a FB70     	 strb r3,[r7,#3]
+ 284:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLow: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 285:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 286:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = 0x10000U << pin;
+  45              	 .loc 1 286 0
+  46 000c FB78     	 ldrb r3,[r7,#3]
+  47 000e 4FF48032 	 mov r2,#65536
+  48 0012 9A40     	 lsls r2,r2,r3
+  49 0014 7B68     	 ldr r3,[r7,#4]
+  50 0016 5A60     	 str r2,[r3,#4]
+ 287:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_gpio.h **** }
+  51              	 .loc 1 287 0
+  52 0018 0C37     	 adds r7,r7,#12
+  53              	.LCFI3:
+  54              	 .cfi_def_cfa_offset 4
+  55 001a BD46     	 mov sp,r7
+  56              	.LCFI4:
+  57              	 .cfi_def_cfa_register 13
+  58              	 
+  59 001c 5DF8047B 	 ldr r7,[sp],#4
+  60              	.LCFI5:
+  61              	 .cfi_restore 7
+  62              	 .cfi_def_cfa_offset 0
+  63 0020 7047     	 bx lr
+  64              	 .cfi_endproc
+  65              	.LFE131:
+  67              	 .comm SensorHallCallback,4,4
+  68              	 .comm ActiveHallPattern,3,4
+  69              	 .global currentPattern
+  70 0022 00BF     	 .section .bss.currentPattern,"aw",%nobits
+  71              	 .align 2
+  74              	currentPattern:
+  75 0000 00000000 	 .space 4
+  76              	 .global MOTOR_POSIF_0_PadConfig
+  77              	 .section .data.MOTOR_POSIF_0_PadConfig,"aw",%progbits
+  78              	 .align 2
+  81              	MOTOR_POSIF_0_PadConfig:
+  82 0000 80       	 .byte -128
+  83 0001 000000   	 .space 3
+  84 0004 00000100 	 .word 65536
+  85 0008 00000000 	 .space 4
+  86              	 .section .text.Motor_ClearOutputs,"ax",%progbits
+  87              	 .align 2
+  88              	 .global Motor_ClearOutputs
+  89              	 .thumb
+  90              	 .thumb_func
+  92              	Motor_ClearOutputs:
+  93              	.LFB200:
+  94              	 .file 2 "../motor/Motor.c"
+   1:../motor/Motor.c **** /*
+   2:../motor/Motor.c ****  * Motor_Init.c
+   3:../motor/Motor.c ****  *
+   4:../motor/Motor.c ****  *  Created on: Dec 19, 2016
+   5:../motor/Motor.c ****  *      Author: Andreas Kölbl
+   6:../motor/Motor.c ****  */
+   7:../motor/Motor.c **** 
+   8:../motor/Motor.c **** #include "Sensor.h"
+   9:../motor/Motor.c **** #include "Motor.h"
+  10:../motor/Motor.c **** #include "Sensor_Hall.h" //direction
+  11:../motor/Motor.c **** #include "Motor_PWMSchemes.h"
+  12:../motor/Motor.c **** #include <xmc_gpio.h>
+  13:../motor/Motor.c **** #include <xmc_posif.h>
+  14:../motor/Motor.c **** 
+  15:../motor/Motor.c **** #define HALL_CCU		CCU80
+  16:../motor/Motor.c **** #define HALL_CCU_NUM	(0U)
+  17:../motor/Motor.c **** 
+  18:../motor/Motor.c **** #define MOTOR_A_PWM            CCU80_CC80
+  19:../motor/Motor.c **** #define MOTOR_B_PWM            CCU80_CC80
+  20:../motor/Motor.c **** #define MOTOR_C_PWM            CCU80_CC80
+  21:../motor/Motor.c **** #define DELAY_SLICE_NUMBER 		(0U)
+  22:../motor/Motor.c **** #define CAPTURE_SLICE_PTR 		CCU80_CC81
+  23:../motor/Motor.c **** #define CAPTURE_SLICE_NUMBER	(1U)
+  24:../motor/Motor.c **** 
+  25:../motor/Motor.c **** extern MotorDirection_t motorDirection;
+  26:../motor/Motor.c **** uint8_t* currentPattern = NULL;
+  27:../motor/Motor.c **** 
+  28:../motor/Motor.c **** XMC_GPIO_CONFIG_t MOTOR_POSIF_0_PadConfig =
+  29:../motor/Motor.c **** {
+  30:../motor/Motor.c **** 	.mode = (XMC_GPIO_MODE_t)XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
+  31:../motor/Motor.c **** 	.output_level = (XMC_GPIO_OUTPUT_LEVEL_t)XMC_GPIO_OUTPUT_LEVEL_LOW,
+  32:../motor/Motor.c **** };
+  33:../motor/Motor.c **** 
+  34:../motor/Motor.c **** void Motor_ClearOutputs()
+  35:../motor/Motor.c **** {
+  95              	 .loc 2 35 0
+  96              	 .cfi_startproc
+  97              	 
+  98              	 
+  99 0000 80B5     	 push {r7,lr}
+ 100              	.LCFI6:
+ 101              	 .cfi_def_cfa_offset 8
+ 102              	 .cfi_offset 7,-8
+ 103              	 .cfi_offset 14,-4
+ 104 0002 00AF     	 add r7,sp,#0
+ 105              	.LCFI7:
+ 106              	 .cfi_def_cfa_register 7
+  36:../motor/Motor.c ****     XMC_GPIO_SetOutputLow(MOTOR_AH);
+ 107              	 .loc 2 36 0
+ 108 0004 0C48     	 ldr r0,.L3
+ 109 0006 0521     	 movs r1,#5
+ 110 0008 FFF7FEFF 	 bl XMC_GPIO_SetOutputLow
+  37:../motor/Motor.c ****     XMC_GPIO_SetOutputLow(MOTOR_AL);
+ 111              	 .loc 2 37 0
+ 112 000c 0A48     	 ldr r0,.L3
+ 113 000e 0221     	 movs r1,#2
+ 114 0010 FFF7FEFF 	 bl XMC_GPIO_SetOutputLow
+  38:../motor/Motor.c ****     XMC_GPIO_SetOutputLow(MOTOR_BH);
+ 115              	 .loc 2 38 0
+ 116 0014 0848     	 ldr r0,.L3
+ 117 0016 0421     	 movs r1,#4
+ 118 0018 FFF7FEFF 	 bl XMC_GPIO_SetOutputLow
+  39:../motor/Motor.c ****     XMC_GPIO_SetOutputLow(MOTOR_BL);
+ 119              	 .loc 2 39 0
+ 120 001c 0648     	 ldr r0,.L3
+ 121 001e 0121     	 movs r1,#1
+ 122 0020 FFF7FEFF 	 bl XMC_GPIO_SetOutputLow
+  40:../motor/Motor.c ****     XMC_GPIO_SetOutputLow(MOTOR_CH);
+ 123              	 .loc 2 40 0
+ 124 0024 0448     	 ldr r0,.L3
+ 125 0026 0321     	 movs r1,#3
+ 126 0028 FFF7FEFF 	 bl XMC_GPIO_SetOutputLow
+  41:../motor/Motor.c ****     XMC_GPIO_SetOutputLow(MOTOR_CL);
+ 127              	 .loc 2 41 0
+ 128 002c 0248     	 ldr r0,.L3
+ 129 002e 0021     	 movs r1,#0
+ 130 0030 FFF7FEFF 	 bl XMC_GPIO_SetOutputLow
+  42:../motor/Motor.c **** }
+ 131              	 .loc 2 42 0
+ 132 0034 80BD     	 pop {r7,pc}
+ 133              	.L4:
+ 134 0036 00BF     	 .align 2
+ 135              	.L3:
+ 136 0038 00800248 	 .word 1208123392
+ 137              	 .cfi_endproc
+ 138              	.LFE200:
+ 140              	 .section .rodata
+ 141              	 .align 2
+ 142              	.LC0:
+ 143 0000 01       	 .byte 1
+ 144 0001 03       	 .byte 3
+ 145 0002 02       	 .byte 2
+ 146 0003 06       	 .byte 6
+ 147 0004 04       	 .byte 4
+ 148 0005 05       	 .byte 5
+ 149 0006 FF       	 .byte -1
+ 150 0007 00       	 .align 2
+ 151              	.LC1:
+ 152 0008 05       	 .byte 5
+ 153 0009 04       	 .byte 4
+ 154 000a 06       	 .byte 6
+ 155 000b 02       	 .byte 2
+ 156 000c 03       	 .byte 3
+ 157 000d 01       	 .byte 1
+ 158 000e FF       	 .byte -1
+ 159 000f 00       	 .section .text.Motor_Main,"ax",%progbits
+ 160              	 .align 2
+ 161              	 .global Motor_Main
+ 162              	 .thumb
+ 163              	 .thumb_func
+ 165              	Motor_Main:
+ 166              	.LFB201:
+  43:../motor/Motor.c **** 
+  44:../motor/Motor.c **** void Motor_Main()
+  45:../motor/Motor.c **** {//451326
+ 167              	 .loc 2 45 0
+ 168              	 .cfi_startproc
+ 169              	 
+ 170              	 
+ 171 0000 80B5     	 push {r7,lr}
+ 172              	.LCFI8:
+ 173              	 .cfi_def_cfa_offset 8
+ 174              	 .cfi_offset 7,-8
+ 175              	 .cfi_offset 14,-4
+ 176 0002 86B0     	 sub sp,sp,#24
+ 177              	.LCFI9:
+ 178              	 .cfi_def_cfa_offset 32
+ 179 0004 00AF     	 add r7,sp,#0
+ 180              	.LCFI10:
+ 181              	 .cfi_def_cfa_register 7
+  46:../motor/Motor.c ****     Sensor_HallPattern_t pattern;
+  47:../motor/Motor.c ****     uint8_t position;
+  48:../motor/Motor.c ****     /* TODO: optimize to function pointers at the specified positions */
+  49:../motor/Motor.c ****     uint8_t counterClockWisePattern[] = {1, 3, 2, 6, 4, 5, -1};
+ 182              	 .loc 2 49 0
+ 183 0006 1C4A     	 ldr r2,.L8
+ 184 0008 07F10803 	 add r3,r7,#8
+ 185 000c 1068     	 ldr r0,[r2]
+ 186 000e 1860     	 str r0,[r3]
+ 187 0010 9188     	 ldrh r1,[r2,#4]
+ 188 0012 9279     	 ldrb r2,[r2,#6]
+ 189 0014 9980     	 strh r1,[r3,#4]
+ 190 0016 9A71     	 strb r2,[r3,#6]
+  50:../motor/Motor.c ****     uint8_t clockWisePattern[] = {5, 4, 6, 2, 3, 1, -1};
+ 191              	 .loc 2 50 0
+ 192 0018 184A     	 ldr r2,.L8+4
+ 193 001a 3B46     	 mov r3,r7
+ 194 001c 1068     	 ldr r0,[r2]
+ 195 001e 1860     	 str r0,[r3]
+ 196 0020 9188     	 ldrh r1,[r2,#4]
+ 197 0022 9279     	 ldrb r2,[r2,#6]
+ 198 0024 9980     	 strh r1,[r3,#4]
+ 199 0026 9A71     	 strb r2,[r3,#6]
+  51:../motor/Motor.c ****     uint8_t* currentPattern = clockWisePattern;
+ 200              	 .loc 2 51 0
+ 201 0028 3B46     	 mov r3,r7
+ 202 002a 7B61     	 str r3,[r7,#20]
+  52:../motor/Motor.c ****     if (Sensor_GetDirection() == CounterClockWise)
+ 203              	 .loc 2 52 0
+ 204 002c FFF7FEFF 	 bl Sensor_GetDirection
+ 205 0030 0346     	 mov r3,r0
+ 206 0032 012B     	 cmp r3,#1
+ 207 0034 02D1     	 bne .L6
+  53:../motor/Motor.c ****     {
+  54:../motor/Motor.c ****     	currentPattern = counterClockWisePattern;
+ 208              	 .loc 2 54 0
+ 209 0036 07F10803 	 add r3,r7,#8
+ 210 003a 7B61     	 str r3,[r7,#20]
+ 211              	.L6:
+  55:../motor/Motor.c ****     }
+  56:../motor/Motor.c ****     if (Sensor_GetCurrentHallPattern(&pattern) == E_OK)
+ 212              	 .loc 2 56 0
+ 213 003c 07F11003 	 add r3,r7,#16
+ 214 0040 1846     	 mov r0,r3
+ 215 0042 FFF7FEFF 	 bl Sensor_GetCurrentHallPattern
+ 216 0046 0346     	 mov r3,r0
+ 217 0048 012B     	 cmp r3,#1
+ 218 004a 11D1     	 bne .L5
+  57:../motor/Motor.c ****     {
+  58:../motor/Motor.c ****     	/* http://multicopter.org/wiki/PWM_Schemes */
+  59:../motor/Motor.c ****     	position = pattern.h1 | pattern.h2 << 1 | pattern.h3 << 2;
+ 219              	 .loc 2 59 0
+ 220 004c 3B7C     	 ldrb r3,[r7,#16]
+ 221 004e DAB2     	 uxtb r2,r3
+ 222 0050 7B7C     	 ldrb r3,[r7,#17]
+ 223 0052 5B00     	 lsls r3,r3,#1
+ 224 0054 DBB2     	 uxtb r3,r3
+ 225 0056 1343     	 orrs r3,r3,r2
+ 226 0058 DAB2     	 uxtb r2,r3
+ 227 005a BB7C     	 ldrb r3,[r7,#18]
+ 228 005c 9B00     	 lsls r3,r3,#2
+ 229 005e DBB2     	 uxtb r3,r3
+ 230 0060 1343     	 orrs r3,r3,r2
+ 231 0062 DBB2     	 uxtb r3,r3
+ 232 0064 FB74     	 strb r3,[r7,#19]
+  60:../motor/Motor.c ****     	Motor_Scheme_Default(currentPattern, position);
+ 233              	 .loc 2 60 0
+ 234 0066 FB7C     	 ldrb r3,[r7,#19]
+ 235 0068 7869     	 ldr r0,[r7,#20]
+ 236 006a 1946     	 mov r1,r3
+ 237 006c FFF7FEFF 	 bl Motor_Scheme_Default
+ 238              	.L5:
+  61:../motor/Motor.c ****     }
+  62:../motor/Motor.c **** }
+ 239              	 .loc 2 62 0
+ 240 0070 1837     	 adds r7,r7,#24
+ 241              	.LCFI11:
+ 242              	 .cfi_def_cfa_offset 8
+ 243 0072 BD46     	 mov sp,r7
+ 244              	.LCFI12:
+ 245              	 .cfi_def_cfa_register 13
+ 246              	 
+ 247 0074 80BD     	 pop {r7,pc}
+ 248              	.L9:
+ 249 0076 00BF     	 .align 2
+ 250              	.L8:
+ 251 0078 00000000 	 .word .LC0
+ 252 007c 08000000 	 .word .LC1
+ 253              	 .cfi_endproc
+ 254              	.LFE201:
+ 256              	 .section .text.Motor_Init,"ax",%progbits
+ 257              	 .align 2
+ 258              	 .global Motor_Init
+ 259              	 .thumb
+ 260              	 .thumb_func
+ 262              	Motor_Init:
+ 263              	.LFB202:
+  63:../motor/Motor.c **** 
+  64:../motor/Motor.c **** void Motor_Init()
+  65:../motor/Motor.c **** {
+ 264              	 .loc 2 65 0
+ 265              	 .cfi_startproc
+ 266              	 
+ 267              	 
+ 268 0000 80B5     	 push {r7,lr}
+ 269              	.LCFI13:
+ 270              	 .cfi_def_cfa_offset 8
+ 271              	 .cfi_offset 7,-8
+ 272              	 .cfi_offset 14,-4
+ 273 0002 00AF     	 add r7,sp,#0
+ 274              	.LCFI14:
+ 275              	 .cfi_def_cfa_register 7
+  66:../motor/Motor.c **** 	XMC_GPIO_Init(MOTOR_AH, &MOTOR_POSIF_0_PadConfig);
+ 276              	 .loc 2 66 0
+ 277 0004 1448     	 ldr r0,.L11
+ 278 0006 0521     	 movs r1,#5
+ 279 0008 144A     	 ldr r2,.L11+4
+ 280 000a FFF7FEFF 	 bl XMC_GPIO_Init
+  67:../motor/Motor.c **** 	XMC_GPIO_Init(MOTOR_AL, &MOTOR_POSIF_0_PadConfig);
+ 281              	 .loc 2 67 0
+ 282 000e 1248     	 ldr r0,.L11
+ 283 0010 0221     	 movs r1,#2
+ 284 0012 124A     	 ldr r2,.L11+4
+ 285 0014 FFF7FEFF 	 bl XMC_GPIO_Init
+  68:../motor/Motor.c **** 	XMC_GPIO_Init(MOTOR_BH, &MOTOR_POSIF_0_PadConfig);
+ 286              	 .loc 2 68 0
+ 287 0018 0F48     	 ldr r0,.L11
+ 288 001a 0421     	 movs r1,#4
+ 289 001c 0F4A     	 ldr r2,.L11+4
+ 290 001e FFF7FEFF 	 bl XMC_GPIO_Init
+  69:../motor/Motor.c **** 	XMC_GPIO_Init(MOTOR_BL, &MOTOR_POSIF_0_PadConfig);
+ 291              	 .loc 2 69 0
+ 292 0022 0D48     	 ldr r0,.L11
+ 293 0024 0121     	 movs r1,#1
+ 294 0026 0D4A     	 ldr r2,.L11+4
+ 295 0028 FFF7FEFF 	 bl XMC_GPIO_Init
+  70:../motor/Motor.c **** 	XMC_GPIO_Init(MOTOR_CH, &MOTOR_POSIF_0_PadConfig);
+ 296              	 .loc 2 70 0
+ 297 002c 0A48     	 ldr r0,.L11
+ 298 002e 0321     	 movs r1,#3
+ 299 0030 0A4A     	 ldr r2,.L11+4
+ 300 0032 FFF7FEFF 	 bl XMC_GPIO_Init
+  71:../motor/Motor.c **** 	XMC_GPIO_Init(MOTOR_CL, &MOTOR_POSIF_0_PadConfig);
+ 301              	 .loc 2 71 0
+ 302 0036 0848     	 ldr r0,.L11
+ 303 0038 0021     	 movs r1,#0
+ 304 003a 084A     	 ldr r2,.L11+4
+ 305 003c FFF7FEFF 	 bl XMC_GPIO_Init
+  72:../motor/Motor.c **** 	XMC_GPIO_Init(P1_9, &MOTOR_POSIF_0_PadConfig);
+ 306              	 .loc 2 72 0
+ 307 0040 0748     	 ldr r0,.L11+8
+ 308 0042 0921     	 movs r1,#9
+ 309 0044 054A     	 ldr r2,.L11+4
+ 310 0046 FFF7FEFF 	 bl XMC_GPIO_Init
+  73:../motor/Motor.c **** 	Motor_ClearOutputs();
+ 311              	 .loc 2 73 0
+ 312 004a FFF7FEFF 	 bl Motor_ClearOutputs
+  74:../motor/Motor.c ****     Sensor_RegisterHallCallback(&Motor_Main);
+ 313              	 .loc 2 74 0
+ 314 004e 0548     	 ldr r0,.L11+12
+ 315 0050 FFF7FEFF 	 bl Sensor_RegisterHallCallback
+  75:../motor/Motor.c **** }
+ 316              	 .loc 2 75 0
+ 317 0054 80BD     	 pop {r7,pc}
+ 318              	.L12:
+ 319 0056 00BF     	 .align 2
+ 320              	.L11:
+ 321 0058 00800248 	 .word 1208123392
+ 322 005c 00000000 	 .word MOTOR_POSIF_0_PadConfig
+ 323 0060 00810248 	 .word 1208123648
+ 324 0064 00000000 	 .word Motor_Main
+ 325              	 .cfi_endproc
+ 326              	.LFE202:
+ 328              	 .text
+ 329              	.Letext0:
+ 330              	 .file 3 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 331              	 .file 4 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 332              	 .file 5 "E:/DT/workspace/MotorXP/sensor/Sensor_Types.h"
+ 333              	 .file 6 "E:/DT/workspace/MotorXP/common/Std_Types.h"
+ 334              	 .file 7 "E:/DT/workspace/MotorXP/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 335              	 .file 8 "E:/DT/workspace/MotorXP/Libraries/CMSIS/Include/core_cm4.h"
+ 336              	 .file 9 "E:/DT/workspace/MotorXP/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
+ 337              	 .file 10 "E:/DT/workspace/MotorXP/sensor/Sensor_Hall.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Motor.c
+    {standard input}:20     .text.XMC_GPIO_SetOutputLow:00000000 $t
+    {standard input}:24     .text.XMC_GPIO_SetOutputLow:00000000 XMC_GPIO_SetOutputLow
+                            *COM*:00000004 SensorHallCallback
+                            *COM*:00000003 ActiveHallPattern
+    {standard input}:74     .bss.currentPattern:00000000 currentPattern
+    {standard input}:71     .bss.currentPattern:00000000 $d
+    {standard input}:81     .data.MOTOR_POSIF_0_PadConfig:00000000 MOTOR_POSIF_0_PadConfig
+    {standard input}:78     .data.MOTOR_POSIF_0_PadConfig:00000000 $d
+    {standard input}:87     .text.Motor_ClearOutputs:00000000 $t
+    {standard input}:92     .text.Motor_ClearOutputs:00000000 Motor_ClearOutputs
+    {standard input}:136    .text.Motor_ClearOutputs:00000038 $d
+    {standard input}:141    .rodata:00000000 $d
+    {standard input}:160    .text.Motor_Main:00000000 $t
+    {standard input}:165    .text.Motor_Main:00000000 Motor_Main
+    {standard input}:251    .text.Motor_Main:00000078 $d
+    {standard input}:257    .text.Motor_Init:00000000 $t
+    {standard input}:262    .text.Motor_Init:00000000 Motor_Init
+    {standard input}:321    .text.Motor_Init:00000058 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+Sensor_GetDirection
+Sensor_GetCurrentHallPattern
+Motor_Scheme_Default
+XMC_GPIO_Init
+Sensor_RegisterHallCallback

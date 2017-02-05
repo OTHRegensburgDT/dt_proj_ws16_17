@@ -1,0 +1,1018 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "Posif_Control.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_POSIF_HSC_GetExpectedPattern,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	XMC_POSIF_HSC_GetExpectedPattern:
+  25              	.LFB171:
+  26              	 .file 1 "E:/DT/workspace/MotorXP/Libraries/XMCLib/inc/xmc_posif.h"
+   1:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+   2:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @file xmc_posif.h
+   3:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @date 2016-03-09
+   4:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+   5:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @cond
+   6:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  **********************************************************************************
+   7:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMClib v2.1.8 - XMC Peripheral Driver Library 
+   8:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+   9:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  10:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * All rights reserved.                        
+  11:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *                                             
+  12:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Redistribution and use in source and binary forms, with or without           
+  13:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * modification,are permitted provided that the following conditions are met:   
+  14:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *                                                                              
+  15:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *   Redistributions of source code must retain the above copyright notice,      
+  16:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *   this list of conditions and the following disclaimer.                        
+  17:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 
+  18:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *   Redistributions in binary form must reproduce the above copyright notice,   
+  19:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *   this list of conditions and the following disclaimer in the documentation    
+  20:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *   and/or other materials provided with the distribution.                       
+  21:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 
+  22:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *   Neither the name of the copyright holders nor the names of its contributors 
+  23:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *   may be used to endorse or promote products derived from this software without
+  24:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *   specific prior written permission.                                           
+  25:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *                                                                              
+  26:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  
+  27:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    
+  28:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   
+  29:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   
+  30:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         
+  31:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         
+  32:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    
+  33:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      
+  34:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       
+  35:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   
+  36:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * POSSIBILITY OF SUCH DAMAGE.                                                  
+  37:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *                                                                              
+  38:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * To improve the quality of the software, users are encouraged to share        
+  39:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * modifications, enhancements or bug fixes with Infineon Technologies AG       
+  40:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * dave@infineon.com).                                                          
+  41:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  **********************************************************************************
+  42:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  43:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Change History
+  44:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * --------------
+  45:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  46:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 2015-02-18:
+  47:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *     - Initial version
+  48:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *      
+  49:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 2015-02-20:
+  50:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *     - Driver description added <BR>
+  51:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  52:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 2015-06-19:
+  53:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *     - Removed version macros and declaration of GetDriverVersion API <BR> 
+  54:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  55:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 2015-07-02:
+  56:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *     - Updated XMC_POSIF_QD_GetDirection API
+  57:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  58:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 2016-03-09:
+  59:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *     - Optimization of write only registers
+  60:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  61:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @endcond 
+  62:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  63:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+  64:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+  65:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+  66:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #ifndef XMC_POSIF_H
+  67:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #define XMC_POSIF_H
+  68:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+  69:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**************************************************************************************************
+  70:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * HEADER FILES
+  71:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  **************************************************************************************************
+  72:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #include <xmc_common.h>
+  73:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+  74:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #if defined(POSIF0)
+  75:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #include <xmc_scu.h>
+  76:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+  77:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+  78:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @addtogroup XMClib
+  79:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @{
+  80:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+  81:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+  82:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+  83:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @addtogroup POSIF
+  84:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @{
+  85:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @brief Position Interface Unit (POSIF) driver for the XMC microcontroller family <br>
+  86:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  87:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * The POSIF unit is a flexible and powerful component for motor control systems that use
+  88:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * rotary encoders or hall sensors as feedback loop. It provides interface for motor position and v
+  89:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * POSIF unit works with CCU4 and CCU8 to enable position and velocity measurement and to control P
+  90:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  91:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Driver is divided in three POSIF functional blocks - Hall Sensor Control (POSIF_HSC), Quadrature
+  92:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * MultiChannel Mode (POSIF_MCM). <br>
+  93:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+  94:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * POSIF driver features:
+  95:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * -#  Configuration structure XMC_POSIF_CONFIG_t and initialization function XMC_POSIF_Init() to c
+  96:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * -# Allows to change the operating mode using XMC_POSIF_SetMode()
+  97:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * -# Allows the selection of one of the four inputs (A, B, C or D) using XMC_POSIF_SelectInputSour
+  98:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * hall0, hall1 and hall2 signals. For quadrature decoder mode, inputs are phase A, phase B and ind
+  99:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * -#  Hall Sensor Control (APIs prefixed with XMC_POSIF_HSC_) <br>
+ 100:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 	-  Configuration structure XMC_POSIF_HSC_CONFIG_t and initialization function XMC_POSIF_HSC_Ini
+ 101:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 	-  Update current and expected hall pattern in shadow register using XMC_POSIF_HSC_SetHallPatte
+ 102:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 	- Allows immediate shadow transfer using XMC_POSIF_HSC_UpdateHallPattern()
+ 103:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * -#  Quadrature Decoder (APIs prefixed with XMC_POSIF_QD_) <br>
+ 104:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 	-  Configuration structure XMC_POSIF_QD_CONFIG_t and initialization function XMC_POSIF_QD_Init(
+ 105:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * 	-  Get direction of rotation using XMC_POSIF_QD_GetDirection()
+ 106:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * -#  MultiChannel Mode (APIs prefixed with XMC_POSIF_MCM_) <br>
+ 107:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *	-  Configuration structure XMC_POSIF_MCM_CONFIG_t and initialization function XMC_POSIF_MCM_Init
+ 108:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *	-  Update multichannel pattern in shadow register using XMC_POSIF_MCM_SetMultiChannelPattern()
+ 109:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *	-  Allows immediate shadow transfer using XMC_POSIF_MCM_UpdateMultiChannelPattern()
+ 110:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * -# User need to call respective init functions to configure POSIF operating mode. e.g to configu
+ 111:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * call both XMC_POSIF_HSC_Init() and XMC_POSIF_MCM_Init().
+ 112:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * -# Allows to enable and disable interrupt sources and assign to service request node using XMC_P
+ 113:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 114:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 115:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /* POSIF is not available on XMC11 and XMC12 devices */
+ 116:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 117:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**************************************************************************************************
+ 118:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * MACROS
+ 119:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  **************************************************************************************************
+ 120:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #define XMC_POSIF_PCONF_INSEL_Msk        (0x3fUL << POSIF_PCONF_INSEL0_Pos) /*< Mask for input pins
+ 121:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #define XMC_POSIF_INSEL_MAX              (4U) /*< Maximum possible input selector */
+ 122:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #define XMC_POSIF_HALPS_HALLPAT_Msk      (0x3FUL)
+ 123:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 124:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #if ((UC_SERIES == XMC45) || (UC_SERIES == XMC44) || (UC_SERIES == XMC47) || (UC_SERIES == XMC48) |
+ 125:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #define XMC_POSIF_CHECK_MODULE_PTR(PTR)  ( ((PTR)== POSIF0) || ((PTR)== POSIF1) ) /*< Check for val
+ 126:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #else
+ 127:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #define XMC_POSIF_CHECK_MODULE_PTR(PTR)  ( ((PTR)== POSIF0))  /*< Check for valid module pointer */
+ 128:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #endif
+ 129:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 130:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**************************************************************************************************
+ 131:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * ENUMS
+ 132:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  **************************************************************************************************
+ 133:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 134:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  Defines the return status, to verify the POSIF related API calls. Use type @ref XMC_POSIF_STATU
+ 135:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 136:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_STATUS
+ 137:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 138:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_STATUS_OK = 0U,     /**< API fulfills request */
+ 139:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_STATUS_ERROR        /**< API cannot fulfill request */
+ 140:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_STATUS_t;
+ 141:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 142:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 143:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines POSIF configurable modes.Use type @ref XMC_POSIF_MODE_t for this enum.
+ 144:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * The members defines the function selector(FSEL) bitfields of \a PCONF register.
+ 145:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 146:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_MODE
+ 147:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 148:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_MODE_HALL_SENSOR = 0U, /**< Hall sensor mode */
+ 149:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_MODE_QD              , /**< Quadrature Decoder mode */
+ 150:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_MODE_MCM             , /**< Standalone Multichannel mode */
+ 151:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_MODE_MCM_QD           /**< Quadrature Decoder + Standalone Multichannel mode */
+ 152:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_MODE_t;
+ 153:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 154:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 155:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines POSIF configurable input ports.Use type @ref XMC_POSIF_INPUT_PORT_t for this enum.
+ 156:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * The member defines the respective input selector(INSELX) bitfields of \a PCONF register.
+ 157:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It selects, which input is used for the phase or Hall input function (depending on the module is
+ 158:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Quadrature Decoder or Hall Sensor Mode). Same enum can be used to configure pattern update signa
+ 159:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \a PCONF register's \a MSETS bit field.
+ 160:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 161:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_INPUT_PORT
+ 162:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 163:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_A = 0U, /**< INPUT-A */
+ 164:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_B     , /**< INPUT-B */
+ 165:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_C     , /**< INPUT-C */
+ 166:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_D     , /**< INPUT-D */
+ 167:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_E     , /**< INPUT-E */
+ 168:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_F     , /**< INPUT-F */
+ 169:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_G     , /**< INPUT-G */
+ 170:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_H       /**< INPUT-H */
+ 171:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_INPUT_PORT_t;
+ 172:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 173:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 174:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  Defines active level of an input signal.Use type @ref XMC_POSIF_INPUT_ACTIVE_LEVEL_t for this e
+ 175:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 176:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_INPUT_ACTIVE_LEVEL
+ 177:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 178:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_ACTIVE_LEVEL_HIGH  = 0U, /**< Input - Active High */
+ 179:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_INPUT_ACTIVE_LEVEL_LOW         /**< Input - Active Low */
+ 180:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_INPUT_ACTIVE_LEVEL_t;
+ 181:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 182:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 183:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines POSIF input debounce filter configuration.POSIF inputs are connected to low pass filter 
+ 184:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * this enum is used to configure low pass filters cut off frequency.
+ 185:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Use type @ref XMC_POSIF_FILTER_t for this enum.
+ 186:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * The member defines the low pass filter configuration(LPC) bitfield of \a PCONF register.
+ 187:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 188:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_FILTER
+ 189:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 190:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_FILTER_DISABLED     = 0U, /**< No filtering */
+ 191:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_FILTER_1_CLOCK_CYCLE    , /**< Filter of 1 Clock Cycle */
+ 192:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_FILTER_2_CLOCK_CYCLE    , /**< Filter of 2 Clock Cycles */
+ 193:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_FILTER_4_CLOCK_CYCLE    , /**< Filter of 4 Clock Cycles */
+ 194:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_FILTER_8_CLOCK_CYCLE    , /**< Filter of 8 Clock Cycles */
+ 195:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_FILTER_16_CLOCK_CYCLE   , /**< Filter of 16 Clock Cycles */
+ 196:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_FILTER_32_CLOCK_CYCLE   , /**< Filter of 32 Clock Cycles */
+ 197:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_FILTER_64_CLOCK_CYCLE     /**< Filter of 64 Clock Cycles */
+ 198:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_FILTER_t;
+ 199:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 200:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 201:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines POSIF events.Use type @ref XMC_POSIF_IRQ_EVENT_t for this enum.
+ 202:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * The member defines available event sources.It is used to configure which event to be used for
+ 203:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * interrupt generation using \a PFLGE register. [ PFLG,SPFLG,RPFLG]
+ 204:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 205:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_IRQ_EVENT
+ 206:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 207:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_CHE                  = 0U, /**< Hall Mode : Correct Hall Event */
+ 208:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_WHE                  = 1U, /**< Hall Mode : Wrong Hall Event */
+ 209:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_HALL_INPUT           = 2U, /**< Hall Mode : Hall Input update */
+ 210:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_MCP_SHADOW_TRANSFER  = 4U, /**< Hall Mode + MCM Mode : MC Pattern shadow tran
+ 211:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_INDX                 = 8U, /**< Quadrature Mode : Index event detection */
+ 212:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_ERR                  = 9U, /**< Quadrature Mode : Quadrature Phase Error */
+ 213:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_CNT                  = 10U, /**< Quadrature Mode : Quadrature Clock event */
+ 214:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_DIR                  = 11U, /**< Quadrature Mode : Quadrature Direction chang
+ 215:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_PCLK                 = 12U  /**< Quadrature Mode : Quadrature period clock ge
+ 216:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_IRQ_EVENT_t;
+ 217:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 218:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 219:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines POSIF service request lines.Use type @ref XMC_POSIF_SR_ID_t for this enum.
+ 220:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It used to connect POSIF event to required service request line.
+ 221:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * in \a PFLGE register for interrupt generation.
+ 222:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 223:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_SR_ID
+ 224:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 225:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_SR_ID_0 = 0U, /**< SR-0 */
+ 226:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_SR_ID_1      /**< SR-1 */
+ 227:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_SR_ID_t;
+ 228:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 229:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 230:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines position decoder mode selection.Use type @ref XMC_POSIF_QD_MODE_t for this enum.
+ 231:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * The member defines configuration for the operation of the quadrature decoder mode.
+ 232:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It used to configure \a QDC register.
+ 233:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 234:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_QD_MODE
+ 235:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 236:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_QD_MODE_QUADRATURE       = 0U, /**< Standard Quadrature Mode */
+ 237:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_QD_MODE_DIRECTION_COUNT       /**< Direction Count Mode */
+ 238:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_QD_MODE_t;
+ 239:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 240:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 241:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines motor rotation direction.Use type @ref XMC_POSIF_QD_DIR_t for this enum.
+ 242:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * The member defines the direction in quadrature mode.
+ 243:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 244:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_QD_DIR
+ 245:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 246:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_QD_DIR_COUNTERCLOCKWISE  = 0U, /**< Counter Clockwise */
+ 247:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_QD_DIR_CLOCKWISE              /**< Clockwise */
+ 248:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_QD_DIR_t;
+ 249:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 250:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 251:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines frequency of index signal generation.Use type @ref XMC_POSIF_QD_INDEX_GENERATION_t for t
+ 252:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Member represents available configuration for index marker generation using \a ICM  bit field in
+ 253:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 254:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_QD_INDEX_GENERATION
+ 255:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 256:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_NEVER  = 0U, /**< Never generate the index marker signal */
+ 257:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_ONCE      , /**< Generate only once after the first revolution */
+ 258:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_ALWAYS      /**< Index marker generated upon every revolution */
+ 259:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_QD_INDEX_GENERATION_t;
+ 260:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 261:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 262:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  Defines trigger edge in hall sensor mode.Use type @ref XMC_POSIF_HSC_TRIGGER_EDGE_t for this en
+ 263:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  It can be used to configure \a PCONF register's \a SPES and \a MSES bit fields.
+ 264:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 265:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef enum XMC_POSIF_HSC_TRIGGER_EDGE
+ 266:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 267:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_HSC_TRIGGER_EDGE_RISING  = 0U, /**< Rising edge */
+ 268:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_HSC_TRIGGER_EDGE_FALLING      /**< Falling edge */
+ 269:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_HSC_TRIGGER_EDGE_t;
+ 270:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 271:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**************************************************************************************************
+ 272:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * DATA STRUCTURES
+ 273:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  **************************************************************************************************
+ 274:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 275:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /*Anonymous structure/union guard start*/
+ 276:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #if defined(__CC_ARM)
+ 277:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   #pragma push
+ 278:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   #pragma anon_unions
+ 279:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #elif defined(__TASKING__)
+ 280:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   #pragma warning 586
+ 281:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #endif
+ 282:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 283:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 284:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 285:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines POSIF peripheral register structure.Use type @ref XMC_POSIF_t for this data structure.
+ 286:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 287:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef POSIF_GLOBAL_TypeDef XMC_POSIF_t;
+ 288:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 289:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 290:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  Defines POSIF quadrature decoder initialization data structure.
+ 291:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  Use type @ref XMC_POSIF_QD_CONFIG_t for this data structure.
+ 292:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  It used to configure Quadrature mode using \a QDC register.
+ 293:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 294:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef struct XMC_POSIF_QD_CONFIG
+ 295:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 296:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   XMC_POSIF_QD_MODE_t mode;      /**< Operational Mode of the quadrature encoder and decoder */
+ 297:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   union
+ 298:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   {
+ 299:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     struct
+ 300:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     {
+ 301:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t phase_a: 1;       /**< Phase-A active level configuration */
+ 302:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t phase_b: 1;       /**< Phase-B active level configuration */
+ 303:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t phase_leader: 1;  /**< Which of the two phase signals[Phase A or Phase B] leads the 
+ 304:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t : 1;
+ 305:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t index: 2;        /**< Index signal generation control. Use @ref XMC_POSIF_QD_INDEX_G
+ 306:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t : 26;
+ 307:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     };
+ 308:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     uint32_t qdc;
+ 309:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   };
+ 310:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_QD_CONFIG_t;
+ 311:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 312:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 313:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines POSIF hall sensor control initialization data structure.
+ 314:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Use type @ref XMC_POSIF_HSC_CONFIG_t for this data structure.
+ 315:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It used to initialize hall sensor mode configuration using \a PCONF register.
+ 316:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 317:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef struct XMC_POSIF_HSC_CONFIG
+ 318:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 319:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   union
+ 320:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   {
+ 321:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     struct
+ 322:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     {
+ 323:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t : 4;
+ 324:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t disable_idle_signal: 1;   /**< Should idle signal be disabled upon wrong hall event?
+ 325:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t : 11;
+ 326:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t sampling_trigger: 1;      /**< Of HSDA and HSDB, which one is to be used to trigger 
+ 327:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t sampling_trigger_edge: 1; /**< Which edge of the sampling trigger signal is to be co
+ 328:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 	  uint32_t : 6;
+ 329:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t external_error_port: 2;    /**< Of the 4 external error ports, which one is to be co
+ 330:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t external_error_enable: 1;  /**< Should external errors lead to Wrong Hall event? */
+ 331:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t external_error_level: 1;   /**< What should be the active level of external error si
+ 332:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t: 4;
+ 333:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     };
+ 334:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     uint32_t hall_config;
+ 335:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   };
+ 336:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_HSC_CONFIG_t;
+ 337:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 338:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 339:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Defines POSIF multi-channel mode initialization data structure.
+ 340:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Use type @ref XMC_POSIF_MCM_CONFIG_t for this data structure.
+ 341:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It used to initialize multi channel mode configuration using \a PCONF register.
+ 342:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 343:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef struct XMC_POSIF_MCM_CONFIG
+ 344:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 345:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   union
+ 346:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   {
+ 347:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     struct
+ 348:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     {
+ 349:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t : 5;
+ 350:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t pattern_sw_update: 1; /**< should multi channel pattern updated by SW ? */
+ 351:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t : 12;
+ 352:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 	  uint32_t pattern_update_trigger: 3; /**< Of the 8 update triggers, which one is to be considered
+ 353:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t pattern_trigger_edge: 1;  /**< Which edge of the pattern update trigger is to be con
+ 354:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t pwm_sync: 2;         /**< Of the 4 pwm sync inputs, which one is to be considered? *
+ 355:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t : 8;
+ 356:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     };
+ 357:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     uint32_t mcm_config;
+ 358:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   };
+ 359:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }XMC_POSIF_MCM_CONFIG_t;
+ 360:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 361:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 362:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  Defines POSIF module initialization data structure.
+ 363:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  Use type @ref XMC_POSIF_CONFIG_t for this data structure.
+ 364:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *  It is used to initialize POSIF module using \a PCONF register.
+ 365:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 366:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** typedef struct XMC_POSIF_CONFIG
+ 367:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 368:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   union
+ 369:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   {
+ 370:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     struct
+ 371:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     {
+ 372:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t mode: 2;    /**< POSIF Operational mode. Use @ref XMC_POSIF_MODE_t to configure */
+ 373:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t :6;
+ 374:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t input0: 2; /**< Choice of input for Input-1 */
+ 375:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t input1: 2; /**< Choice of input for Input-2 */
+ 376:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t input2: 2; /**< Choice of input for Input-3 */
+ 377:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t :14;
+ 378:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t filter: 3; /**< Input filter configuration */
+ 379:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****       uint32_t: 1;
+ 380:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     };
+ 381:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     uint32_t pconf;
+ 382:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   };
+ 383:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** } XMC_POSIF_CONFIG_t;
+ 384:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 385:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /*Anonymous structure/union guard end*/
+ 386:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #if defined(__CC_ARM)
+ 387:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   #pragma pop
+ 388:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #elif defined(__TASKING__)
+ 389:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   #pragma warning restore
+ 390:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #endif
+ 391:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 392:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**************************************************************************************************
+ 393:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * API Prototypes
+ 394:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  **************************************************************************************************
+ 395:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #ifdef __cplusplus
+ 396:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** extern "C" {
+ 397:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** #endif
+ 398:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 399:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 400:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 401:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 402:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 403:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 404:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * De-asserts the POSIF module from reset and enables the clock.\n
+ 405:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PRCLR0 register's \a POSIF0RS or \a POSIF1RS bit field depends upon \a peripheral.
+ 406:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * If running on other than XMC45 device then it will ungate the peripheral clock.
+ 407:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 408:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 409:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * This is the first API which application must invoke to configure POSIF.
+ 410:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It is internally called by XMC_POSIF_Init().
+ 411:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 412:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 413:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Disable(),XMC_POSIF_Init() \n\n\n
+ 414:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 415:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** void XMC_POSIF_Enable(XMC_POSIF_t *const peripheral);
+ 416:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 417:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 418:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 419:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 420:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 421:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 422:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Asserts the POSIF module into reset and disables the clock.\n
+ 423:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * If running on other than XMC45 device then in addition it will gate the peripheral clock.
+ 424:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PRCLR0 register's \a POSIF0RS or \a POSIF1RS bitfield depends upon \a peripheral.
+ 425:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 426:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 427:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Enable()\n\n\n
+ 428:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 429:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** void XMC_POSIF_Disable(XMC_POSIF_t *const peripheral);
+ 430:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 431:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 432:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 433:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param config Pointer to POSIF configuration data(operation mode,input selection and filter conf
+ 434:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 435:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 436:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 437:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Initialize POSIF module with \a config.\n
+ 438:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures POSIF global registers.This is the first API which application must invoke to configu
+ 439:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It sets up parameters common to all the POSIF modes - hall sensor,quadrature decoder and multi-c
+ 440:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PCONF register with mode of operation,input selection and filter configuration.
+ 441:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 442:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 443:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_HSC_Init(),XMC_POSIF_QD_Init(),XMC_POSIF_MCM_Init() \n\n\n
+ 444:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** */
+ 445:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** void XMC_POSIF_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_CONFIG_t * const config);
+ 446:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 447:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 448:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 449:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param config Pointer to hall sensor control initialization data of type @ref XMC_POSIF_HSC_CONF
+ 450:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t  Returns @ref XMC_POSIF_STATUS_OK if configured in Hall Sensor Mode
+ 451:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *                             else return @ref XMC_POSIF_STATUS_ERROR.
+ 452:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 453:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 454:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Initializes hall sensor control mode.\n
+ 455:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PCONF register with which POSIF input trigger to be used for
+ 456:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * sampling hall pattern.Configures \a PCONF register for idle signal generation for wrong hall eve
+ 457:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 458:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 459:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It is necessary to have called XMC_POSIF_Init first with Hall sensor mode before invocation of t
+ 460:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 461:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 462:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 463:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 464:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_HSC_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_HSC_CONFIG_t *
+ 465:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 466:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 467:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 468:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param config Pointer to quadrature decoder initialization data
+ 469:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t Returns quadrature mode initialization status of type @ref XMC_POSIF_
+ 470:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 471:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 472:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Initializes quadrature decoder control mode.\n
+ 473:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PCONF register with quadrature mode using @ref XMC_POSIF_QD_MODE_t data structure.
+ 474:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Initializes \a QDC register with quadrature mode configuration using @ref XMC_POSIF_QD_CONFIG_t 
+ 475:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 476:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 477:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It is necessary to have called XMC_POSIF_Init first with Quadrature decoder mode before invocati
+ 478:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 479:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 480:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 481:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 482:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_QD_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_QD_CONFIG_t * c
+ 483:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 484:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 485:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 486:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param config Pointer to quadrature decoder initialization data
+ 487:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t Returns multi channel pattern initialization status of type @ref XMC_
+ 488:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 489:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 490:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Initializes multi channel mode in Hall mode, standalone multi-channel mode and quadrature with m
+ 491:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PCONF register with multi channel mode using @ref XMC_POSIF_MCM_CONFIG_t data stru
+ 492:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 493:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 494:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * It is necessary to call XMC_POSIF_Init first before invocation of this API.
+ 495:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * For XMC_POSIF_MODE_HALL_SENSOR, it is necessary to have called XMC_POSIF_HSC_Init before invocat
+ 496:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * For XMC_POSIF_MODE_MCM_QD, it is necessary to have called XMC_POSIF_QD_Init before invocation of
+ 497:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 498:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 499:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Init(),XMC_POSIF_HSC_Init(),XMC_POSIF_QD_Init() \n\n\n
+ 500:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 501:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_MCM_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_MCM_CONFIG_t *
+ 502:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 503:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 504:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 505:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param mode POSIF operating mode of type @ref XMC_POSIF_MODE_t
+ 506:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 507:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 508:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 509:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures POSIF module for \a mode.\n
+ 510:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PCONF register's a\ FSEL bitfield with \a mode.
+ 511:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Refer @ref XMC_POSIF_MODE_t for available options.
+ 512:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 513:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 514:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * POSIF module should be in stopped state while changing the operating mode.
+ 515:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 516:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 517:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Stop() \n\n\n
+ 518:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 519:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_SetMode(XMC_POSIF_t *const peripheral, const XMC_POSIF_MODE_t mode)
+ 520:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 521:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   peripheral->PCONF = ((peripheral->PCONF & ~(uint32_t)(POSIF_PCONF_FSEL_Msk)) |
+ 522:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****                      (((uint32_t)mode << POSIF_PCONF_FSEL_Pos) & (uint32_t)POSIF_PCONF_FSEL_Msk));
+ 523:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+ 524:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 525:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 526:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 527:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param input0 Choice of input for input 0 [0-3]
+ 528:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param input1 Choice of input for input 1 [0-3]
+ 529:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param input2 Choice of input for input 2 [0-3]
+ 530:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 531:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 532:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 533:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures which input to be connected to POSIF module. \n
+ 534:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PCONF register's INSEL0,INSEL1,INSEL2 bit fields with source for the input connect
+ 535:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \a input1, \a input2 respectively.
+ 536:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 537:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 538:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures which input is used for the Phase X or Hall input X function depending upon the modul
+ 539:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * set for Quadrature Decoder or Hall Sensor Mode.
+ 540:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 541:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 542:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 543:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 544:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** void XMC_POSIF_SelectInputSource(XMC_POSIF_t *const peripheral, const XMC_POSIF_INPUT_PORT_t input0
+ 545:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****     const XMC_POSIF_INPUT_PORT_t input1, const XMC_POSIF_INPUT_PORT_t input2);
+ 546:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 547:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 548:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 549:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 550:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 551:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 552:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 553:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Starts POSIF \a peripheral functional state machine.\n
+ 554:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Starts POSIF state machine for \a peripheral.Configures \a PRUNS register's \a SRB bit field wit
+ 555:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 556:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 557:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Global properties of POSIF along with mode specific properties should have been initialized befo
+ 558:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * FSM.
+ 559:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 560:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 561:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Stop(),XMC_POSIF_IsRunning() \n\n\n
+ 562:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 563:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_Start(XMC_POSIF_t *const peripheral)
+ 564:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 565:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   peripheral->PRUNS = (uint32_t)POSIF_PRUNS_SRB_Msk;
+ 566:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+ 567:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 568:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 569:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 570:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 571:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 572:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 573:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Stops POSIF \a peripheral functional state machine.\n
+ 574:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Stop POSIF functional state machine and clears current internal status of the \a peripheral.
+ 575:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a PRUNC register's \a CRB bit field with 1.
+ 576:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 577:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 578:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Start(),XMC_POSIF_IsRunning() \n\n\n
+ 579:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 580:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_Stop(XMC_POSIF_t *const peripheral)
+ 581:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 582:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   peripheral->PRUNC = (uint32_t)(POSIF_PRUNC_CRB_Msk | POSIF_PRUNC_CSM_Msk);
+ 583:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+ 584:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 585:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 586:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 587:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval bool Returns false: IDLE, true:RUNNING
+ 588:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 589:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 590:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Returns the status of POSIF module - Running or IDLE.\n
+ 591:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Retrieves the status from \a PRUN register's \a SRB bit.
+ 592:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 593:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 594:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_Start(),XMC_POSIF_Stop() \n\n\n
+ 595:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 596:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE bool XMC_POSIF_IsRunning(XMC_POSIF_t *const peripheral)
+ 597:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 598:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   return ((bool)peripheral->PRUN);
+ 599:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+ 600:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 601:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 602:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 603:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval uint8_t Returns last sampled hall sensor pattern. Range : [0-7]
+ 604:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 605:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 606:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Returns last sampled hall sensor pattern of \a peripheral.\n
+ 607:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Retrieves the last sampled hall sensor pattern from \a PDBG register's \a HSP bit field of \a pe
+ 608:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Applications can at any point in time retrieve the last sampled hall sensor pattern by invoking 
+ 609:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 610:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 611:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * This is applicable only to the hall sensor mode of operation.
+ 612:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 613:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 614:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_HSC_GetCurrentPattern(),XMC_POSIF_HSC_GetExpectedPattern() \n\n\n
+ 615:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 616:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE uint8_t XMC_POSIF_HSC_GetLastSampledPattern(XMC_POSIF_t *const peripheral)
+ 617:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 618:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   return ((uint8_t)((peripheral->PDBG) & POSIF_PDBG_HSP_Msk) >> POSIF_PDBG_HSP_Pos);
+ 619:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+ 620:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 621:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 622:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 623:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval uint8_t Returns current hall sensor pattern. Range : [0-7]
+ 624:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 625:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 626:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Returns current sampled hall sensor pattern of \a peripheral.\n
+ 627:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Retrieves the current hall sensor pattern from \a HALP register's \a HCP bit field of \a periphe
+ 628:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Applications can at any point in time retrieve the current hall sensor pattern by invoking this 
+ 629:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 630:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 631:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * This is applicable only to the hall sensor mode of operation.
+ 632:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 633:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 634:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_HSC_GetLastSampledPattern(),XMC_POSIF_HSC_GetExpectedPattern() \n\n\n
+ 635:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 636:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE uint8_t XMC_POSIF_HSC_GetCurrentPattern(XMC_POSIF_t *const peripheral)
+ 637:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 638:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   return ((uint8_t)((peripheral->HALP & POSIF_HALP_HCP_Msk) >> POSIF_HALP_HCP_Pos));
+ 639:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+ 640:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 641:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 642:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 643:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval uint8_t Returns expected hall sensor pattern. Range : [0-7]
+ 644:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 645:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 646:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Returns expected hall sensor pattern of \a peripheral.\n
+ 647:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Retrieves the expected hall sensor pattern from \a HALP register's \a HEP bit field of \a periph
+ 648:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Applications can at any point in time retrieve the expected hall sensor pattern by invoking this
+ 649:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 650:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 651:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * This is applicable only to the hall sensor mode of operation.
+ 652:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 653:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 654:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_HSC_GetLastSampledPattern(),XMC_POSIF_HSC_GetCurrentPattern() \n\n\n
+ 655:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 656:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE uint8_t XMC_POSIF_HSC_GetExpectedPattern(XMC_POSIF_t *const peripheral)
+ 657:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+  27              	 .loc 1 657 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32 0000 80B4     	 push {r7}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 4
+  35              	 .cfi_offset 7,-4
+  36 0002 83B0     	 sub sp,sp,#12
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+ 658:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   return ((uint8_t)((peripheral->HALP & POSIF_HALP_HEP_Msk) >> POSIF_HALP_HEP_Pos));
+  43              	 .loc 1 658 0
+  44 0008 7B68     	 ldr r3,[r7,#4]
+  45 000a 1B6B     	 ldr r3,[r3,#48]
+  46 000c 03F03803 	 and r3,r3,#56
+  47 0010 DB08     	 lsrs r3,r3,#3
+  48 0012 DBB2     	 uxtb r3,r3
+ 659:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+  49              	 .loc 1 659 0
+  50 0014 1846     	 mov r0,r3
+  51 0016 0C37     	 adds r7,r7,#12
+  52              	.LCFI3:
+  53              	 .cfi_def_cfa_offset 4
+  54 0018 BD46     	 mov sp,r7
+  55              	.LCFI4:
+  56              	 .cfi_def_cfa_register 13
+  57              	 
+  58 001a 5DF8047B 	 ldr r7,[sp],#4
+  59              	.LCFI5:
+  60              	 .cfi_restore 7
+  61              	 .cfi_def_cfa_offset 0
+  62 001e 7047     	 bx lr
+  63              	 .cfi_endproc
+  64              	.LFE171:
+  66              	 .section .text.XMC_POSIF_HSC_SetHallPatterns,"ax",%progbits
+  67              	 .align 2
+  68              	 .thumb
+  69              	 .thumb_func
+  71              	XMC_POSIF_HSC_SetHallPatterns:
+  72              	.LFB174:
+ 660:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 661:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 662:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 663:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param pattern The hall sensor pattern to be programmed into current pattern [0-7]
+ 664:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 665:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 666:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 667:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures current Hall sensor \a pattern of \a peripheral.\n
+ 668:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures the Current hall sensor pattern on \a HALPS shadow register's \a HCPS bit field of \a
+ 669:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Applications can set at any point in time program the current hall sensor pattern by invoking th
+ 670:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 671:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 672:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * This is applicable only to the hall sensor mode of operation. It may be noted that the pattern i
+ 673:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * written to the shadow register. Transfer from the shadow register is based on a hardware transfe
+ 674:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * or software trigger through API @ref XMC_POSIF_HSC_UpdateHallPattern().
+ 675:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 676:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 677:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_HSC_GetCurrentPattern(),XMC_POSIF_HSC_SetExpectedPattern() \n\n\n
+ 678:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 679:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_HSC_SetCurrentPattern(XMC_POSIF_t *const peripheral, const uint8_t p
+ 680:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 681:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   peripheral->HALPS = ((peripheral->HALPS & ~(uint32_t)(POSIF_HALPS_HCPS_Msk)) |
+ 682:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****                  (((uint32_t)pattern << POSIF_HALPS_HCPS_Pos) & (uint32_t)POSIF_HALPS_HCPS_Msk));
+ 683:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+ 684:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 685:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 686:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 687:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param pattern The hall sensor pattern to be programmed into expected pattern [0-7]
+ 688:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 689:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 690:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 691:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures the expected hall sensor \a pattern of \a peripheral.\n
+ 692:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Applications can set at any point in time program the hall sensor expected patterns by invoking 
+ 693:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures the expected hall sensor pattern on \a HALPS shadow register's \a HEPS bit field of \
+ 694:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 695:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 696:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * This is applicable only to the hall sensor mode of operation.It may be noted that the pattern is
+ 697:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * written to the shadow register. Transfer from the shadow register is based on a hardware transfe
+ 698:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * or software trigger through API @ref XMC_POSIF_HSC_UpdateHallPattern().
+ 699:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 700:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 701:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_HSC_GetExpectedPattern() \n\n\n
+ 702:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 703:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_HSC_SetExpectedPattern(XMC_POSIF_t *const peripheral, const uint8_t 
+ 704:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+ 705:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   peripheral->HALPS = ((peripheral->HALPS & ~(uint32_t)(POSIF_HALPS_HEPS_Msk)) |
+ 706:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****                  (((uint32_t)pattern << POSIF_HALPS_HEPS_Pos) & (uint32_t)POSIF_HALPS_HEPS_Msk));
+ 707:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+ 708:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** 
+ 709:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** /**
+ 710:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 711:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @param pattern_mask The hall sensor pattern mask [0-63] Format of mask: (expected_pattern << 3) 
+ 712:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * @retval None
+ 713:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 714:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 715:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures current and expected hall pattern of \a peripheral. \n
+ 716:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Configures \a HALPS register with the Current and Expected hall sensor patterns in one operation
+ 717:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * Applications can at any point in time program the current and expected hall sensor pattern by in
+ 718:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 719:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 720:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * This is applicable only to the hall sensor mode of operation.  It may be noted that the pattern 
+ 721:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * written to the shadow register. Transfer from the shadow register is based on a hardware transfe
+ 722:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * or software trigger through API @ref XMC_POSIF_HSC_UpdateHallPattern().
+ 723:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  *
+ 724:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 725:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  * XMC_POSIF_HSC_SetExpectedPattern(),XMC_POSIF_HSC_SetCurrentPattern() \n\n\n
+ 726:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****  */
+ 727:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_HSC_SetHallPatterns(XMC_POSIF_t *const peripheral, const uint8_t pat
+ 728:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** {
+  73              	 .loc 1 728 0
+  74              	 .cfi_startproc
+  75              	 
+  76              	 
+  77              	 
+  78 0000 80B4     	 push {r7}
+  79              	.LCFI6:
+  80              	 .cfi_def_cfa_offset 4
+  81              	 .cfi_offset 7,-4
+  82 0002 83B0     	 sub sp,sp,#12
+  83              	.LCFI7:
+  84              	 .cfi_def_cfa_offset 16
+  85 0004 00AF     	 add r7,sp,#0
+  86              	.LCFI8:
+  87              	 .cfi_def_cfa_register 7
+  88 0006 7860     	 str r0,[r7,#4]
+  89 0008 0B46     	 mov r3,r1
+  90 000a FB70     	 strb r3,[r7,#3]
+ 729:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h ****   peripheral->HALPS = (uint32_t)(pattern_mask & (POSIF_HALPS_HCPS_Msk | POSIF_HALPS_HEPS_Msk));
+  91              	 .loc 1 729 0
+  92 000c FB78     	 ldrb r3,[r7,#3]
+  93 000e 03F03F02 	 and r2,r3,#63
+  94 0012 7B68     	 ldr r3,[r7,#4]
+  95 0014 5A63     	 str r2,[r3,#52]
+ 730:E:/DT/workspace/MotorXP/Libraries/XMCLib/inc\xmc_posif.h **** }
+  96              	 .loc 1 730 0
+  97 0016 0C37     	 adds r7,r7,#12
+  98              	.LCFI9:
+  99              	 .cfi_def_cfa_offset 4
+ 100 0018 BD46     	 mov sp,r7
+ 101              	.LCFI10:
+ 102              	 .cfi_def_cfa_register 13
+ 103              	 
+ 104 001a 5DF8047B 	 ldr r7,[sp],#4
+ 105              	.LCFI11:
+ 106              	 .cfi_restore 7
+ 107              	 .cfi_def_cfa_offset 0
+ 108 001e 7047     	 bx lr
+ 109              	 .cfi_endproc
+ 110              	.LFE174:
+ 112              	 .comm SensorHallCallback,4,4
+ 113              	 .comm ActiveHallPattern,3,4
+ 114              	 .global POSIF_HALL_config
+ 115              	 .section .bss.POSIF_HALL_config,"aw",%nobits
+ 116              	 .align 2
+ 119              	POSIF_HALL_config:
+ 120 0000 00000000 	 .space 4
+ 121              	 .global POSIF_HSC_config
+ 122              	 .section .data.POSIF_HSC_config,"aw",%progbits
+ 123              	 .align 2
+ 126              	POSIF_HSC_config:
+ 127 0000 10       	 .byte 16
+ 128 0001 00       	 .space 1
+ 129 0002 00       	 .byte 0
+ 130 0003 00       	 .space 1
+ 131              	 .section .text.POSIF0_0_IRQHandler,"ax",%progbits
+ 132              	 .align 2
+ 133              	 .global POSIF0_0_IRQHandler
+ 134              	 .thumb
+ 135              	 .thumb_func
+ 137              	POSIF0_0_IRQHandler:
+ 138              	.LFB190:
+ 139              	 .file 2 "../posif/Posif_Control.c"
+   1:../posif/Posif_Control.c **** /*
+   2:../posif/Posif_Control.c ****  * Posif_Control.c
+   3:../posif/Posif_Control.c ****  *
+   4:../posif/Posif_Control.c ****  *  Created on: Nov 29, 2016
+   5:../posif/Posif_Control.c ****  *      Author: MotorXP
+   6:../posif/Posif_Control.c ****  */
+   7:../posif/Posif_Control.c **** 
+   8:../posif/Posif_Control.c **** #include <xmc_posif.h>
+   9:../posif/Posif_Control.c **** 
+  10:../posif/Posif_Control.c **** #include "Sensor_Hall.h"
+  11:../posif/Posif_Control.c **** #include "Posif_Control.h"
+  12:../posif/Posif_Control.c **** 
+  13:../posif/Posif_Control.c **** XMC_POSIF_CONFIG_t POSIF_HALL_config =
+  14:../posif/Posif_Control.c **** {
+  15:../posif/Posif_Control.c **** 	.mode = XMC_POSIF_MODE_HALL_SENSOR, /**< POSIF Operational mode */
+  16:../posif/Posif_Control.c **** 	.input0 = XMC_POSIF_INPUT_PORT_A, /**< Choice of input for Input-1 */
+  17:../posif/Posif_Control.c **** 	.input1 = XMC_POSIF_INPUT_PORT_A, /**< Choice of input for Input-2 */
+  18:../posif/Posif_Control.c **** 	.input2 = XMC_POSIF_INPUT_PORT_A, /**< Choice of input for Input-3 */
+  19:../posif/Posif_Control.c **** 	.filter = XMC_POSIF_FILTER_DISABLED /**< Input filter configuration */
+  20:../posif/Posif_Control.c **** };
+  21:../posif/Posif_Control.c **** 
+  22:../posif/Posif_Control.c **** XMC_POSIF_HSC_CONFIG_t POSIF_HSC_config =
+  23:../posif/Posif_Control.c **** {
+  24:../posif/Posif_Control.c **** 	.disable_idle_signal = 1,
+  25:../posif/Posif_Control.c **** 	.sampling_trigger = 0, //HSDA
+  26:../posif/Posif_Control.c **** 	.sampling_trigger_edge = 0 //Rising edge
+  27:../posif/Posif_Control.c **** };
+  28:../posif/Posif_Control.c **** 
+  29:../posif/Posif_Control.c **** void POSIF0_0_IRQHandler(void)
+  30:../posif/Posif_Control.c **** {
+ 140              	 .loc 2 30 0
+ 141              	 .cfi_startproc
+ 142              	 
+ 143              	 
+ 144 0000 80B5     	 push {r7,lr}
+ 145              	.LCFI12:
+ 146              	 .cfi_def_cfa_offset 8
+ 147              	 .cfi_offset 7,-8
+ 148              	 .cfi_offset 14,-4
+ 149 0002 82B0     	 sub sp,sp,#8
+ 150              	.LCFI13:
+ 151              	 .cfi_def_cfa_offset 16
+ 152 0004 00AF     	 add r7,sp,#0
+ 153              	.LCFI14:
+ 154              	 .cfi_def_cfa_register 7
+  31:../posif/Posif_Control.c **** 	uint8_t hallposition;
+  32:../posif/Posif_Control.c **** 
+  33:../posif/Posif_Control.c **** 	/* Set the new Hall pattern */
+  34:../posif/Posif_Control.c **** 	hallposition = XMC_POSIF_HSC_GetExpectedPattern(POSIF_PTR);
+ 155              	 .loc 2 34 0
+ 156 0006 0A48     	 ldr r0,.L5
+ 157 0008 FFF7FEFF 	 bl XMC_POSIF_HSC_GetExpectedPattern
+ 158 000c 0346     	 mov r3,r0
+ 159 000e FB71     	 strb r3,[r7,#7]
+  35:../posif/Posif_Control.c **** 	XMC_POSIF_HSC_SetHallPatterns(POSIF_PTR, Sensor_Hall_GetPattern(hallposition));
+ 160              	 .loc 2 35 0
+ 161 0010 FB79     	 ldrb r3,[r7,#7]
+ 162 0012 1846     	 mov r0,r3
+ 163 0014 FFF7FEFF 	 bl Sensor_Hall_GetPattern
+ 164 0018 0346     	 mov r3,r0
+ 165 001a DBB2     	 uxtb r3,r3
+ 166 001c 0448     	 ldr r0,.L5
+ 167 001e 1946     	 mov r1,r3
+ 168 0020 FFF7FEFF 	 bl XMC_POSIF_HSC_SetHallPatterns
+  36:../posif/Posif_Control.c **** 
+  37:../posif/Posif_Control.c **** 	SensorHallCallback();
+ 169              	 .loc 2 37 0
+ 170 0024 034B     	 ldr r3,.L5+4
+ 171 0026 1B68     	 ldr r3,[r3]
+ 172 0028 9847     	 blx r3
+  38:../posif/Posif_Control.c **** }
+ 173              	 .loc 2 38 0
+ 174 002a 0837     	 adds r7,r7,#8
+ 175              	.LCFI15:
+ 176              	 .cfi_def_cfa_offset 8
+ 177 002c BD46     	 mov sp,r7
+ 178              	.LCFI16:
+ 179              	 .cfi_def_cfa_register 13
+ 180              	 
+ 181 002e 80BD     	 pop {r7,pc}
+ 182              	.L6:
+ 183              	 .align 2
+ 184              	.L5:
+ 185 0030 00800240 	 .word 1073905664
+ 186 0034 00000000 	 .word SensorHallCallback
+ 187              	 .cfi_endproc
+ 188              	.LFE190:
+ 190              	 .section .text.POSIF_Init,"ax",%progbits
+ 191              	 .align 2
+ 192              	 .global POSIF_Init
+ 193              	 .thumb
+ 194              	 .thumb_func
+ 196              	POSIF_Init:
+ 197              	.LFB191:
+  39:../posif/Posif_Control.c **** 
+  40:../posif/Posif_Control.c **** void POSIF_Init(void)
+  41:../posif/Posif_Control.c **** {
+ 198              	 .loc 2 41 0
+ 199              	 .cfi_startproc
+ 200              	 
+ 201              	 
+ 202 0000 80B5     	 push {r7,lr}
+ 203              	.LCFI17:
+ 204              	 .cfi_def_cfa_offset 8
+ 205              	 .cfi_offset 7,-8
+ 206              	 .cfi_offset 14,-4
+ 207 0002 00AF     	 add r7,sp,#0
+ 208              	.LCFI18:
+ 209              	 .cfi_def_cfa_register 7
+  42:../posif/Posif_Control.c **** 
+  43:../posif/Posif_Control.c **** 	/* POSIF Configuration */
+  44:../posif/Posif_Control.c **** 	XMC_POSIF_Init(POSIF_PTR, &POSIF_HALL_config);
+ 210              	 .loc 2 44 0
+ 211 0004 0248     	 ldr r0,.L8
+ 212 0006 0349     	 ldr r1,.L8+4
+ 213 0008 FFF7FEFF 	 bl XMC_POSIF_Init
+  45:../posif/Posif_Control.c **** }
+ 214              	 .loc 2 45 0
+ 215 000c 80BD     	 pop {r7,pc}
+ 216              	.L9:
+ 217 000e 00BF     	 .align 2
+ 218              	.L8:
+ 219 0010 00800240 	 .word 1073905664
+ 220 0014 00000000 	 .word POSIF_HALL_config
+ 221              	 .cfi_endproc
+ 222              	.LFE191:
+ 224              	 .text
+ 225              	.Letext0:
+ 226              	 .file 3 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 227              	 .file 4 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 228              	 .file 5 "E:/DT/workspace/MotorXP/Libraries/CMSIS/Infineon/XMC4800_series/Include/XMC4800.h"
+ 229              	 .file 6 "E:/DT/workspace/MotorXP/sensor/Sensor_Types.h"
+ 230              	 .file 7 "E:/DT/workspace/MotorXP/Libraries/CMSIS/Include/core_cm4.h"
+ 231              	 .file 8 "E:/DT/workspace/MotorXP/Libraries/CMSIS/Infineon/XMC4800_series/Include/system_XMC4800.h"
+ 232              	 .file 9 "E:/DT/workspace/MotorXP/sensor/Sensor_Hall.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Posif_Control.c
+    {standard input}:20     .text.XMC_POSIF_HSC_GetExpectedPattern:00000000 $t
+    {standard input}:24     .text.XMC_POSIF_HSC_GetExpectedPattern:00000000 XMC_POSIF_HSC_GetExpectedPattern
+    {standard input}:67     .text.XMC_POSIF_HSC_SetHallPatterns:00000000 $t
+    {standard input}:71     .text.XMC_POSIF_HSC_SetHallPatterns:00000000 XMC_POSIF_HSC_SetHallPatterns
+                            *COM*:00000004 SensorHallCallback
+                            *COM*:00000003 ActiveHallPattern
+    {standard input}:119    .bss.POSIF_HALL_config:00000000 POSIF_HALL_config
+    {standard input}:116    .bss.POSIF_HALL_config:00000000 $d
+    {standard input}:126    .data.POSIF_HSC_config:00000000 POSIF_HSC_config
+    {standard input}:123    .data.POSIF_HSC_config:00000000 $d
+    {standard input}:132    .text.POSIF0_0_IRQHandler:00000000 $t
+    {standard input}:137    .text.POSIF0_0_IRQHandler:00000000 POSIF0_0_IRQHandler
+    {standard input}:185    .text.POSIF0_0_IRQHandler:00000030 $d
+    {standard input}:191    .text.POSIF_Init:00000000 $t
+    {standard input}:196    .text.POSIF_Init:00000000 POSIF_Init
+    {standard input}:219    .text.POSIF_Init:00000010 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+Sensor_Hall_GetPattern
+XMC_POSIF_Init
